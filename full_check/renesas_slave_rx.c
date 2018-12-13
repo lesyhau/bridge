@@ -81,7 +81,6 @@ uint32_t renesas_slave_rx(void)
 
         /* Wait for SDR */
         while (! I2C0->SDR);
-        /* Get the first data byte, send ACK after received the next data byte */
         receivedData[i-1] = I2C_slaveReceiveMultipleByteNext(I2C0);
         I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDR);
     }

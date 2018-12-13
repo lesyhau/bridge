@@ -28,11 +28,14 @@ extern uint32_t slave_rx(void);
 extern uint32_t slave_rx_fna(void);
 extern uint32_t slave_tx(void);
 extern uint32_t slave_tx_delay(void);
-extern uint32_t renesas_slave_rx(void);
-extern uint32_t renesas_slave_rx_fna(void);
 extern uint32_t renesas_slave_rx_sdbs(void);
 extern uint32_t renesas_slave_rx_fna_sdbs(void);
+extern uint32_t renesas_slave_rx(void);
+extern uint32_t renesas_slave_rx_delay(void);
+extern uint32_t renesas_slave_rx_fna(void);
+extern uint32_t renesas_slave_rx_fna_delay(void);
 extern uint32_t renesas_slave_tx(void);
+extern uint32_t renesas_slave_tx_delay(void);
 
 // /* Salve auto transfer using DMAC */
 // extern uint32_t slave_rx_dma(void);
@@ -84,11 +87,14 @@ const uint32_t (*pattern[])(void) =
 	&slave_rx_fna,
 	&slave_tx,
 	&slave_tx_delay,
-	&renesas_slave_rx,
-	&renesas_slave_rx_fna,
 	&renesas_slave_rx_sdbs,
 	&renesas_slave_rx_fna_sdbs,
+	&renesas_slave_rx,
+	&renesas_slave_rx_delay,
+	&renesas_slave_rx_fna,
+	&renesas_slave_rx_fna_delay,
 	&renesas_slave_tx,
+	&renesas_slave_tx_delay,
 
 	// /* Auto transfer using DMAC */
 	// &renesas_slave_rx_dma,

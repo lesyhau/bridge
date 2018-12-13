@@ -40,7 +40,7 @@ static uint32_t receivedData[DATA_PACKAGE_LENGTH];
 
 uint32_t renesas_slave_rx_fna_sdbs(void)
 {
-    uint8_t i = 0;
+    uint32_t i = 0;
 
     /* Configure I2C1 in master TX mode */
     I2C_masterInit(I2C1, &masterConfig);
