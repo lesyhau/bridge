@@ -1,0 +1,46 @@
+#!/bin/csh -f
+
+# --------------------------------------------------------------------------------
+# File:         gen_tm.csh
+# Athor:        haule2
+# Date created: 12/10/2018
+# --------------------------------------------------------------------------------
+
+# --------------------------------------------------------------------------------
+# Rev             Date            Changes                        By                  
+# 1.0             12/10/2018      New creation                   haule2              
+# --------------------------------------------------------------------------------
+
+set dir = `pwd`
+set org = "$dir/full_test"
+
+foreach file (`ls $org | grep "\.c\b" | grep -v main`)
+
+    set tm = `basename $file .c`
+    echo $tm
+
+    if (-d $tm) then
+        #goto next_tm
+        rm -rf $tm
+    endif
+
+    mkdir $tm
+
+    cd $tm
+
+    ln -sf $org/$file .
+    cp -rf $org/main_template main.c
+    cp -rf $org/test.ssc.l .
+    cp -rf $org/build.cfg .
+    cp -rf $org/result.god.l .
+    cp -rf $org/usr_sim.tcl .
+
+    sed -i "s/pattern_name/$tm/g" main.c
+
+    xterm -title $tm -e /home/u/haule2/tools/armcpl/v2.2a/armcpl.plx > & /dev/null &
+
+    cd ../
+
+next_tm:
+
+end
