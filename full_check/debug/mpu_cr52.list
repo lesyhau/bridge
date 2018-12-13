@@ -1,0 +1,520 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000         ;*******************************************************
+                       ***********************
+    3 00000000         ; ARM MPU intialization.
+    4 00000000         ; 2082 - Hau Sy Le - hau.le.eb@renesas.com
+    5 00000000         ;*******************************************************
+                       ***********************
+    6 00000000         
+    7 00000000         ; HPRBAR.SH
+    8 00000000 00000003 
+                       SH_POS  equ              3
+    9 00000000 00000000 
+                       NON_SHAREABLE
+                               equ              (0 << SH_POS)
+   10 00000000 00000010 
+                       OUT_SHAREABLE
+                               equ              (2 << SH_POS)
+   11 00000000 00000018 
+                       IN_SHAREABLE
+                               equ              (3 << SH_POS)
+   12 00000000         
+   13 00000000         ; HPRBAR.AP
+   14 00000000 00000001 
+                       AP_POS  equ              1
+   15 00000000 00000000 
+                       RW_EL2  equ              (0 << AP_POS)
+   16 00000000 00000002 
+                       RW      equ              (1 << AP_POS)
+   17 00000000 00000004 
+                       RO_EL2  equ              (2 << AP_POS)
+   18 00000000 00000006 
+                       RO      equ              (3 << AP_POS)
+   19 00000000         
+   20 00000000         ; HPRBAR.XN
+   21 00000000 00000000 
+                       XN_POS  equ              0
+   22 00000000 00000001 
+                       EXECUTE_NEVER
+                               equ              (1 << XN_POS)
+   23 00000000 00000000 
+                       EXECUTABLE
+                               equ              (0 << XN_POS)
+   24 00000000         
+   25 00000000         ; HPRLAR.AttrIndx
+   26 00000000 00000001 
+                       AttrIndx_POS
+                               equ              1
+   27 00000000 00000000 
+                       ATTR0   equ              (0 << AttrIndx_POS)
+   28 00000000 00000002 
+                       ATTR1   equ              (1 << AttrIndx_POS)
+   29 00000000 00000004 
+                       ATTR2   equ              (2 << AttrIndx_POS)
+   30 00000000 00000006 
+                       ATTR3   equ              (3 << AttrIndx_POS)
+   31 00000000 00000008 
+                       ATTR4   equ              (4 << AttrIndx_POS)
+   32 00000000 0000000A 
+                       ATTR5   equ              (5 << AttrIndx_POS)
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   33 00000000 0000000C 
+                       ATTR6   equ              (6 << AttrIndx_POS)
+   34 00000000 0000000E 
+                       ATTR7   equ              (7 << AttrIndx_POS)
+   35 00000000 00000010 
+                       ATTR8   equ              (8 << AttrIndx_POS)
+   36 00000000 00000012 
+                       ATTR9   equ              (9 << AttrIndx_POS)
+   37 00000000 00000014 
+                       ATTR30  equ              (10 << AttrIndx_POS)
+   38 00000000 00000016 
+                       ATTR31  equ              (11 << AttrIndx_POS)
+   39 00000000 00000018 
+                       ATTR32  equ              (12 << AttrIndx_POS)
+   40 00000000 0000001A 
+                       ATTR33  equ              (13 << AttrIndx_POS)
+   41 00000000 0000001C 
+                       ATTR34  equ              (14 << AttrIndx_POS)
+   42 00000000 0000001E 
+                       ATTR35  equ              (15 << AttrIndx_POS)
+   43 00000000         
+   44 00000000         ; HPRLAR.EN
+   45 00000000 00000000 
+                       EN_POS  equ              0
+   46 00000000 00000001 
+                       REGION_ENABLE
+                               equ              (1 << EN_POS)
+   47 00000000         
+   48 00000000                 area             MPU_INIT, code, readonly
+   49 00000000         
+   50 00000000                 export           __mpu_init
+   51 00000000                 export           __mpu_init_el1
+   52 00000000         
+   53 00000000                 entry
+   54 00000000         
+   55 00000000         __mpu_init
+   56 00000000         
+   57 00000000         ; Define memory regions attribute
+   58 00000000         ; Attribute 0: 0xff Normal, Outer write-back non-transie
+                       nt, RW allocate, Inner write-back non-transient
+   59 00000000         ; Attribute 1: 0x04 Device, nGnRE
+   60 00000000         ; Attribute 2: 0x44 Normal, Outer non-cacheable, Inner n
+                       on-cacheable
+   61 00000000         ; Attribute 3: 0x00 Device, nGnRnE
+   62 00000000 E30004FF        mov              r0, #0x04ff
+   63 00000004 E3400044        movt             r0, #0x0044
+   64 00000008 EE8A0F12        mcr              p15, 4, r0, c10, c2, 0
+   65 0000000C E3A00CBB        mov              r0, #0xbb00
+   66 00000010 E34D0DEE        movt             r0, #0xddee
+   67 00000014 EE8A0F32        mcr              p15, 4, r0, c10, c2, 1
+   68 00000018         
+   69 00000018         ; BSC
+   70 00000018 E3A00000        mov              r0, #0
+   71 0000001C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+   72 00000020 E3A00002        mov              r0, #(((0x00000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+   73 00000024 E3400000        movt             r0, #(((0x00000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+   74 00000028 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+   75 0000002C E30F0FC1        mov              r0, #(((0x07ffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+   76 00000030 E34007FF        movt             r0, #(((0x07ffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+   77 00000034 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+   78 00000038         
+   79 00000038         ; RPC
+   80 00000038 E3A00001        mov              r0, #1
+   81 0000003C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+   82 00000040 E3A00002        mov              r0, #(((0x08000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+   83 00000044 E3400800        movt             r0, #(((0x08000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+   84 00000048 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+   85 0000004C E30F0FC1        mov              r0, #(((0x0fffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+   86 00000050 E3400FFF        movt             r0, #(((0x0fffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+   87 00000054 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+   88 00000058         
+   89 00000058         ; BSC
+   90 00000058 E3A00002        mov              r0, #2
+   91 0000005C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+   92 00000060 E3A00002        mov              r0, #(((0x10000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+   93 00000064 E3410000        movt             r0, #(((0x10000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+   94 00000068 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+   95 0000006C E30F0FC1        mov              r0, #(((0x1fffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+   96 00000070 E3410FFF        movt             r0, #(((0x1fffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+   97 00000074 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+   98 00000078         
+   99 00000078         ; RPC
+  100 00000078 E3A00003        mov              r0, #3
+  101 0000007C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  102 00000080 E3A00002        mov              r0, #(((0x20000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  103 00000084 E3420000        movt             r0, #(((0x20000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  104 00000088 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  105 0000008C E30F0FC1        mov              r0, #(((0x3fffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  106 00000090 E3430FFF        movt             r0, #(((0x3fffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+  107 00000094 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  108 00000098         
+  109 00000098         ; SDRAM
+  110 00000098 E3A00004        mov              r0, #4
+  111 0000009C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  112 000000A0 E3A00002        mov              r0, #(((0x40000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  113 000000A4 E3440000        movt             r0, #(((0x40000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+  114 000000A8 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  115 000000AC E30F0FC1        mov              r0, #(((0xbfffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  116 000000B0 E34B0FFF        movt             r0, #(((0xbfffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+  117 000000B4 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  118 000000B8         
+  119 000000B8         ; PCIE
+  120 000000B8 E3A00005        mov              r0, #5
+  121 000000BC EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  122 000000C0 E3A00002        mov              r0, #(((0xc0000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  123 000000C4 E34C0000        movt             r0, #(((0xc0000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  124 000000C8 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  125 000000CC E30F0FC1        mov              r0, #(((0xdfffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  126 000000D0 E34D0FFF        movt             r0, #(((0xdfffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+  127 000000D4 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  128 000000D8         
+  129 000000D8         ; Peripheral
+  130 000000D8 E3A00006        mov              r0, #6
+  131 000000DC EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  132 000000E0 E3A00002        mov              r0, #(((0xe0000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  133 000000E4 E34E0000        movt             r0, #(((0xe0000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  134 000000E8 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  135 000000EC E30F0FC7        mov              r0, #(((0xe62fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  136 000000F0 E34E062F        movt             r0, #(((0xe62fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) >> 16)
+  137 000000F4 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  138 000000F8         
+  139 000000F8         ; SRAM
+  140 000000F8 E3A00007        mov              r0, #7
+  141 000000FC EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  142 00000100 E3A00002        mov              r0, #(((0xe6300000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  143 00000104 E34E0630        movt             r0, #(((0xe6300000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  144 00000108 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  145 0000010C E30F0FC1        mov              r0, #(((0xe63fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  146 00000110 E34E063F        movt             r0, #(((0xe63fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+  147 00000114 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  148 00000118         
+  149 00000118         ; Peripheral
+  150 00000118 E3A00008        mov              r0, #8
+  151 0000011C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  152 00000120 E3A00002        mov              r0, #(((0xe6400000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  153 00000124 E34E0640        movt             r0, #(((0xe6400000 :and: (:not:
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  154 00000128 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  155 0000012C E30F0FC7        mov              r0, #(((0xeb0fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  156 00000130 E34E0B0F        movt             r0, #(((0xeb0fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) >> 16)
+  157 00000134 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  158 00000138         
+  159 00000138         ; SecROM
+  160 00000138 E3A00009        mov              r0, #9
+  161 0000013C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  162 00000140 E3A00002        mov              r0, #(((0xeb100000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  163 00000144 E34E0B10        movt             r0, #(((0xeb100000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  164 00000148 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  165 0000014C E30F0FC1        mov              r0, #(((0xeb3fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  166 00000150 E34E0B3F        movt             r0, #(((0xeb3fffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+  167 00000154 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  168 00000158         
+  169 00000158         ; Peripheral
+  170 00000158 E3A0000A        mov              r0, #10
+  171 0000015C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  172 00000160 E3A00002        mov              r0, #(((0xeb400000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  173 00000164 E34E0B40        movt             r0, #(((0xeb400000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  174 00000168 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  175 0000016C E30F0FC7        mov              r0, #(((0xecffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  176 00000170 E34E0CFF        movt             r0, #(((0xecffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) >> 16)
+  177 00000174 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  178 00000178         
+  179 00000178         ; IMP RAM
+  180 00000178 E3A0000B        mov              r0, #11
+  181 0000017C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  182 00000180 E3A00002        mov              r0, #(((0xed000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+  183 00000184 E34E0D00        movt             r0, #(((0xed000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  184 00000188 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  185 0000018C E30F0FC1        mov              r0, #(((0xedffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  186 00000190 E34E0DFF        movt             r0, #(((0xedffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE) >> 16)
+  187 00000194 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  188 00000198         
+  189 00000198         ; Peripheral
+  190 00000198 E3A0000C        mov              r0, #12
+  191 0000019C EE860F32        mcr              p15, 4, r0, c6, c2, 1
+  192 000001A0 E3A00002        mov              r0, #(((0xee000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) :and: 0x0000ffff)
+
+
+
+ARM Macro Assembler    Page 6 
+
+
+  193 000001A4 E34E0E00        movt             r0, #(((0xee000000 :and: (:not:
+(0x1 << 5))) :or: NON_SHAREABLE :or: RW) >> 16)
+  194 000001A8 EE860F13        mcr              p15, 4, r0, c6, c3, 0
+  195 000001AC E30F0FC7        mov              r0, #(((0xffffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) :and: 0x0000fff
+f)
+  196 000001B0 E34F0FFF        movt             r0, #(((0xffffffff :and: (:not:
+(0x3f) :and: (:not:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE) >> 16)
+  197 000001B4 EE860F33        mcr              p15, 4, r0, c6, c3, 1
+  198 000001B8         
+  199 000001B8         ; Enable EL2 MPU
+  200 000001B8 EE910F10        mrc              p15, 4, r0, c1, c0, 0
+  201 000001BC E3800001        orr              r0, r0, #0x1
+  202 000001C0 F57FF04F        dsb
+  203 000001C4 EE810F10        mcr              p15, 4, r0, c1, c0, 0
+  204 000001C8 F57FF06F        isb
+  205 000001CC         
+  206 000001CC E12FFF1E        bx               lr
+  207 000001D0         
+  208 000001D0         __mpu_init_el1
+  209 000001D0         
+  210 000001D0         ;    ; Define memory regions attribute
+  211 000001D0         ;    ; Attribute 0: 0xff Normal, Outer write-back non-tr
+                       ansient, RW allocate, Inner write-back non-transient
+  212 000001D0         ;    ; Attribute 1: 0x04 Device, nGnRE
+  213 000001D0         ;    ; Attribute 2: 0x44 Normal, Outer non-cacheable, In
+                       ner non-cacheable
+  214 000001D0         ;    ldr r0, = 0x444404ff
+  215 000001D0         ;    mcr p15, 4, r0, c10, c2, 0
+  216 000001D0         ;    ldr r0, = 0xddeebb00
+  217 000001D0         ;    mcr p15, 4, r0, c10, c2, 1
+  218 000001D0         ;
+  219 000001D0         ;    ; BSC
+  220 000001D0         ;    mov r0, #0
+  221 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  222 000001D0         ;    ldr r0, = (0x00000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  223 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  224 000001D0         ;    ldr r0, = (0x07ffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  225 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  226 000001D0         ;
+  227 000001D0         ;    ; RPC
+  228 000001D0         ;    mov r0, #1
+  229 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  230 000001D0         ;    ldr r0, = (0x08000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  231 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  232 000001D0         ;    ldr r0, = (0x0fffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  233 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  234 000001D0         ;
+  235 000001D0         ;    ; BSC
+  236 000001D0         ;    mov r0, #2
+  237 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  238 000001D0         ;    ldr r0, = (0x10000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  239 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  240 000001D0         ;    ldr r0, = (0x1fffffff :and: (:not:(0x3f) :and: (:no
+
+
+
+ARM Macro Assembler    Page 7 
+
+
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  241 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  242 000001D0         ;
+  243 000001D0         ;    ; RPC
+  244 000001D0         ;    mov r0, #3
+  245 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  246 000001D0         ;    ldr r0, = (0x20000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  247 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  248 000001D0         ;    ldr r0, = (0x3fffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  249 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  250 000001D0         ;
+  251 000001D0         ;    ; SDRAM
+  252 000001D0         ;    mov r0, #4
+  253 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  254 000001D0         ;    ldr r0, = (0x40000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  255 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  256 000001D0         ;    ldr r0, = (0xbfffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  257 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  258 000001D0         ;
+  259 000001D0         ;    ; PCIE
+  260 000001D0         ;    mov r0, #5
+  261 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  262 000001D0         ;    ldr r0, = (0xc0000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  263 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  264 000001D0         ;    ldr r0, = (0xdfffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  265 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  266 000001D0         ;
+  267 000001D0         ;    ; Peripheral
+  268 000001D0         ;    mov r0, #6
+  269 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  270 000001D0         ;    ldr r0, = (0xe0000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  271 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  272 000001D0         ;    ldr r0, = (0xe62fffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE
+  273 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  274 000001D0         ;
+  275 000001D0         ;    ; SRAM
+  276 000001D0         ;    mov r0, #7
+  277 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  278 000001D0         ;    ldr r0, = (0xe6300000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  279 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  280 000001D0         ;    ldr r0, = (0xe63fffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  281 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  282 000001D0         ;
+  283 000001D0         ;    ; Peripheral
+  284 000001D0         ;    mov r0, #8
+  285 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  286 000001D0         ;    ldr r0, = (0xe6400000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  287 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+
+
+
+ARM Macro Assembler    Page 8 
+
+
+  288 000001D0         ;    ldr r0, = (0xeb0fffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE
+  289 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  290 000001D0         ;
+  291 000001D0         ;    ; SecROM
+  292 000001D0         ;    mov r0, #9
+  293 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  294 000001D0         ;    ldr r0, = (0xeb100000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  295 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  296 000001D0         ;    ldr r0, = (0xeb3fffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  297 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  298 000001D0         ;
+  299 000001D0         ;    ; Peripheral
+  300 000001D0         ;    mov r0, #10
+  301 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  302 000001D0         ;    ldr r0, = (0xeb400000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  303 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  304 000001D0         ;    ldr r0, = (0xecffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE
+  305 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  306 000001D0         ;
+  307 000001D0         ;    ; IMP RAM
+  308 000001D0         ;    mov r0, #11
+  309 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  310 000001D0         ;    ldr r0, = (0xed000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  311 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  312 000001D0         ;    ldr r0, = (0xedffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR0 :or: REGION_ENABLE
+  313 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  314 000001D0         ;
+  315 000001D0         ;    ; Peripheral
+  316 000001D0         ;    mov r0, #12
+  317 000001D0         ;    mcr p15, 0, r0, c6, c2, 1
+  318 000001D0         ;    ldr r0, = (0xee000000 :and: (:not:(0x1 << 5))) :or:
+                        NON_SHAREABLE :or: RW
+  319 000001D0         ;    mcr p15, 0, r0, c6, c3, 0
+  320 000001D0         ;    ldr r0, = (0xffffffff :and: (:not:(0x3f) :and: (:no
+                       t:(0x3 << 4)))) :or: ATTR3 :or: REGION_ENABLE
+  321 000001D0         ;    mcr p15, 0, r0, c6, c3, 1
+  322 000001D0         ;
+  323 000001D0         ;    ; Enable EL2 MPU
+  324 000001D0         ;    mrc p15, 0, r0, c1, c0, 0
+  325 000001D0         ;    orr r0, r0, #0x1
+  326 000001D0         ;    dsb
+  327 000001D0         ;    mcr p15, 0, r0, c1, c0, 0
+  328 000001D0         ;    isb
+  329 000001D0         
+  330 000001D0 E12FFF1E        bx               lr
+  331 000001D4         
+  332 000001D4                 end
+Command Line: --cpu=Cortex-R52 -m -I/design01/rcarv3ufed_master/common_rvc/rcar
+v3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_test -I/design01/rcarv3ufed_master
+/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine="EXECUTE
+_LOCATION SETS \"DDR\"" --list=mpu_cr52.list /design01/rcarv3ufed_master/common
+_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/mpu_cr52.s

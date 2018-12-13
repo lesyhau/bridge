@@ -1,0 +1,2625 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 area             DDR_INIT, code, readonly
+    3 00000000                 export           ddr_init_start
+    4 00000000                 export           ddr_init_end
+    5 00000000                 import           __main
+    6 00000000                 entry
+    7 00000000         
+    8 00000000         ddr_init_start
+    9 00000000         
+   10 00000000                 IF               EXECUTE_LOCATION = "DDR"
+   11 00000000         
+   12 00000000         ; MSTP settings for DBQ and DBL
+   13 00000000         ;   Control register MSTPCR4 (0xE6152D10), bit 3,4
+   14 00000000         ;   Status  register MSTPSR4 (0xE6152E10), bit 3,4
+   15 00000000         ;MSTPCR4   EQU  0xE6152D10
+   16 00000000         ;MSTPSR4   EQU  0xE6152E10
+   17 00000000         ;CPG_LOCK  EQU  0xE6150000
+   18 00000000         
+   19 00000000 E59F0C1C        LDR              R0, =0xE6152E10 ; MSTPSR4
+   20 00000004 E5901000        LDR              R1, [R0]
+   21 00000008 E3C11018        AND              R1, #0xFFFFFFE7 ; bit 3,4 are 0
+                                                            
+   22 0000000C E1E02001        MVN              R2, R1
+   23 00000010 E59F0C10        LDR              R0, =0xE6150000
+   24 00000014 E5802000        STR              R2, [R0]
+   25 00000018 E59F0C0C        LDR              R0, =0xE6152D10 ; MSTPCR4
+   26 0000001C E5801000        STR              R1, [R0]
+   27 00000020         
+   28 00000020 E59F0BFC        LDR              R0, =0xE6152E10 ; MSTPSR4
+   29 00000024 E5901000        LDR              R1, [R0]
+   30 00000028         
+   31 00000028 E3A00010        LDR              R0, =0x10
+   32 0000002C         wait_mstp_setting_end
+   33 0000002C E2400001        SUB              R0, R0, #0x1
+   34 00000030 E3500000        CMP              R0, #0x0
+   35 00000034 1AFFFFFC        BNE              wait_mstp_setting_end
+   36 00000038         
+   37 00000038         
+   38 00000038         ;// Original is /design01/rcarh3fed_master/common/utilit
+                       y/SIM_TOOLS/DDR_init/ARM/DDR4/rel_dbsc4_init_lpddr4_3200
+                       _CL32WL14_160526_es2_arm.h //
+   39 00000038         ;// copy on Fri Jun  3 14:15:41 JST 2016
+   40 00000038         ;// run at  /design03/rcarh3fed_user6/work/mochizhi/1chi
+                       pSim/TP_ES2/H3ES2_arm_ddr_ca53_3200_command_combination_
+                       inttest
+   41 00000038         ;// run by  mochizhi
+   42 00000038         ;// Script is /svhome/mochizhi/mytools/filecopy 
+   43 00000038         ;// History
+   44 00000038         ;// Rev001   2017/09/25   HIENG/Y.Tamura    Copy form Ve
+                       r20161207 "rel_dbsc4_init_lpddr4_3200_CL32WL14_161207_ar
+                       m.h"
+   45 00000038         ;//                                         modefy for R
+                       -CarM3N CT-Sim and Tester-Sim.
+   46 00000038         ;//                                         New file nam
+                       e "rel_dbsc4_init_lpddr4_3200_CL32WL14_170925_arm.h"
+   47 00000038         
+   48 00000038         ;-------------------------------------------
+   49 00000038                 MACRO
+   50 00000038                 MYWRITE          $addr, $data
+
+
+
+ARM Macro Assembler    Page 2 
+
+
+   51 00000038                 ldr              r0, =$data
+   52 00000038                 ldr              r1, =$addr
+   53 00000038                 str              r0, [r1]    ; 
+   54 00000038         
+   55 00000038                 MEND
+   56 00000038         ;-------------------------------------------
+   57 00000038         ;-------------------------------------------
+   58 00000038                 MACRO
+   59 00000038                 PHYWRITE         $addr, $data
+   60 00000038                 ldr              r0, =$addr
+   61 00000038                 ldr              r1, =0xe6790624
+   62 00000038                 str              r0, [r1,#0x00] ; 
+   63 00000038                 str              r0, [r1,#0x40] ; 
+   64 00000038                 str              r0, [r1,#0x80] ; 
+   65 00000038                 str              r0, [r1,#0xc0] ; 
+   66 00000038                 ldr              r0, =$data
+   67 00000038                 ldr              r1, =0xe6790628
+   68 00000038                 str              r0, [r1,#0x00] ; 
+   69 00000038                 str              r0, [r1,#0x40] ; 
+   70 00000038                 str              r0, [r1,#0x80] ; 
+   71 00000038                 str              r0, [r1,#0xc0] ; 
+   72 00000038                 MEND
+   73 00000038         ;-------------------------------------------
+   74 00000038         
+   75 00000038 EA00000C        B                END_INIT_SUBROUTINE
+   76 0000003C E320F000        NOP
+   77 00000040         ;-------------------------------------------------------
+                       -------------------------------------
+   78 00000040         ; Write DDR_PHY Register Subroutine
+   79 00000040         ;   R0[IN]  : Register Data
+   80 00000040         ;   R1[IN]  : Register Address
+   81 00000040         ;   R2[IN]  : Access Address for Register Address
+   82 00000040         ;   R3[IN]  : Access Address for Register Data
+   83 00000040         ;   R4[--]  : Work Use
+   84 00000040         ;-------------------------------------------------------
+                       -------------------------------------
+   85 00000040         SUB_WRITE_PHY_REG
+   86 00000040 E3034FFF        LDR              R4, = 0x00003FFF ; Clear py_t_s
+                                                            tate/read access of
+                                                             Register Address
+   87 00000044 E0011004        AND              R1, R1, R4
+   88 00000048 E5821000        STR              R1, [R2]    ; Write Register Ad
+                                                            dress
+   89 0000004C E5830000        STR              R0, [R3]    ; Write Register Da
+                                                            ta
+   90 00000050         LOOP_PHY_ACCESS
+   91 00000050 E5920000        LDR              R0, [R2]    ; Read Register Add
+                                                            ress
+   92 00000054 E3A04902        LDR              R4, = 0x00008000 ; Check py_t_s
+                                                            tate of Register Ad
+                                                            dress
+   93 00000058 E0000004        AND              R0, R0, R4
+   94 0000005C E1500004        CMPS             R0, R4
+   95 00000060 1AFFFFFA        BNE              LOOP_PHY_ACCESS ; Loop Until Wr
+                                                            ite access OK
+   96 00000064 E1811004        ORR              R1, R1, R4  ; Set py_t_state_cl
+                                                            ear of Register Add
+                                                            ress
+   97 00000068 E5821000        STR              R1, [R2]    ; Write Register Ad
+
+
+
+ARM Macro Assembler    Page 3 
+
+
+                                                            dress
+   98 0000006C E12FFF1E        BX               LR          ; Return
+   99 00000070         ; END SUB_WRITE_PHY_REG
+  100 00000070         ;-------------------------------------------------------
+                       -------------------------------------
+  101 00000070         END_INIT_SUBROUTINE
+  102 00000070         
+  103 00000070         ;-------------------------------------------
+  104 00000070                 MACRO
+  105 00000070                 MACRO_WRITE_PHY_REG
+                                                $add,$dat
+  106 00000070                 ldr              r2,=0xE6790624 ;;DBPDRGA0
+  107 00000070                 ldr              r3,=0xE6790628 ;;DBPDRGD0
+  108 00000070                 ldr              r1,=$add
+  109 00000070                 ldr              r0,=$dat
+  110 00000070                 BL               SUB_WRITE_PHY_REG
+  111 00000070                 nop
+  112 00000070                 MEND
+  113 00000070         ;-------------------------------------------
+  114 00000070         
+  115 00000070         ;;======================================================
+                       =================
+  116 00000070         ;; For DBS0
+  117 00000070         ;;======================================================
+                       =================
+  118 00000070         ;; ADD H3ES2
+  119 00000070                 MYWRITE          0xE6790100,0x00001234 ;DBSYSCNT
+                                                            0 REGROCK enable
+   51 00000070 E3010234        ldr              r0, =0x00001234
+   52 00000074 E59F1BB4        ldr              r1, =0xE6790100
+   53 00000078 E5810000        str              r0, [r1]    ; 
+   54 0000007C         
+  120 0000007C                 MYWRITE          0xE6790108,0x00001234 ;DBSYSCNT
+                                                            0A REGROCKA enable
+   51 0000007C E3010234        ldr              r0, =0x00001234
+   52 00000080 E59F1BAC        ldr              r1, =0xE6790108
+   53 00000084 E5810000        str              r0, [r1]    ; 
+   54 00000088         
+  121 00000088         ;;; WAIT
+  122 00000088                 MYWRITE          0xE6790020,0x0000000a ;dbkind d
+                                                            dcg=a(lpddr4)
+   51 00000088 E3A0000A        ldr              r0, =0x0000000a
+   52 0000008C E59F1BA4        ldr              r1, =0xE6790020
+   53 00000090 E5810000        str              r0, [r1]    ; 
+   54 00000094         
+  123 00000094                 MYWRITE          0xE6790024,0x0000000a ;dbkinda 
+                                                            ddcga=a(lpddr4)
+   51 00000094 E3A0000A        ldr              r0, =0x0000000a
+   52 00000098 E59F1B9C        ldr              r1, =0xE6790024
+   53 0000009C E5810000        str              r0, [r1]    ; 
+   54 000000A0         
+  124 000000A0         ;;   MYWRITE   0xE6790030,0x0e030a02;memconf00(ch0/rank0
+                       ), 4Gbit
+  125 000000A0                 MYWRITE          0xE6790030,0x0e030a01 ;memconf0
+                                                            0(ch0/rank0), 2Gbit
+                                                            
+   51 000000A0 E59F0B98        ldr              r0, =0x0e030a01
+   52 000000A4 E59F1B98        ldr              r1, =0xE6790030
+   53 000000A8 E5810000        str              r0, [r1]    ; 
+
+
+
+ARM Macro Assembler    Page 4 
+
+
+   54 000000AC         
+  126 000000AC                 MYWRITE          0xE6790070,0x0e030a01 ;memconf0
+                                                            0a(ch0/rank0), 2Gbi
+                                                            t (clk_axim)
+   51 000000AC E59F0B8C        ldr              r0, =0x0e030a01
+   52 000000B0 E59F1B90        ldr              r1, =0xE6790070
+   53 000000B4 E5810000        str              r0, [r1]    ; 
+   54 000000B8         
+  127 000000B8                 MYWRITE          0xE6790034,0x0e030a01 ;memconf0
+                                                            1(ch0/rank1), 2Gbit
+                                                            
+   51 000000B8 E59F0B80        ldr              r0, =0x0e030a01
+   52 000000BC E59F1B88        ldr              r1, =0xE6790034
+   53 000000C0 E5810000        str              r0, [r1]    ; 
+   54 000000C4         
+  128 000000C4                 MYWRITE          0xE6790074,0x0e030a01 ;memconf0
+                                                            1a(ch0/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 000000C4 E59F0B74        ldr              r0, =0x0e030a01
+   52 000000C8 E59F1B80        ldr              r1, =0xE6790074
+   53 000000CC E5810000        str              r0, [r1]    ; 
+   54 000000D0         
+  129 000000D0                 MYWRITE          0xE6790040,0x0e030a01 ;memconf1
+                                                            0(ch1/rank0), 2Gbit
+                                                            
+   51 000000D0 E59F0B68        ldr              r0, =0x0e030a01
+   52 000000D4 E59F1B78        ldr              r1, =0xE6790040
+   53 000000D8 E5810000        str              r0, [r1]    ; 
+   54 000000DC         
+  130 000000DC                 MYWRITE          0xE6790080,0x0e030a01 ;memconf1
+                                                            0a(ch1/rank0), 2Gbi
+                                                            t (clk_axim)
+   51 000000DC E59F0B5C        ldr              r0, =0x0e030a01
+   52 000000E0 E59F1B70        ldr              r1, =0xE6790080
+   53 000000E4 E5810000        str              r0, [r1]    ; 
+   54 000000E8         
+  131 000000E8                 MYWRITE          0xE6790044,0x0e030a01 ;memconf1
+                                                            1(ch1/rank1), 2Gbit
+                                                            
+   51 000000E8 E59F0B50        ldr              r0, =0x0e030a01
+   52 000000EC E59F1B68        ldr              r1, =0xE6790044
+   53 000000F0 E5810000        str              r0, [r1]    ; 
+   54 000000F4         
+  132 000000F4                 MYWRITE          0xE6790084,0x0e030a01 ;memconf1
+                                                            1a(ch1/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 000000F4 E59F0B44        ldr              r0, =0x0e030a01
+   52 000000F8 E59F1B60        ldr              r1, =0xE6790084
+   53 000000FC E5810000        str              r0, [r1]    ; 
+   54 00000100         
+  133 00000100                 MYWRITE          0xE6790050,0x0e030a01 ;memconf0
+                                                            0(ch2/rank0), 2Gbit
+                                                            
+   51 00000100 E59F0B38        ldr              r0, =0x0e030a01
+   52 00000104 E59F1B58        ldr              r1, =0xE6790050
+   53 00000108 E5810000        str              r0, [r1]    ; 
+   54 0000010C         
+  134 0000010C                 MYWRITE          0xE6790090,0x0e030a01 ;memconf0
+                                                            0a(ch2/rank0), 2Gbi
+
+
+
+ARM Macro Assembler    Page 5 
+
+
+                                                            t (clk_axim)
+   51 0000010C E59F0B2C        ldr              r0, =0x0e030a01
+   52 00000110 E59F1B50        ldr              r1, =0xE6790090
+   53 00000114 E5810000        str              r0, [r1]    ; 
+   54 00000118         
+  135 00000118                 MYWRITE          0xE6790054,0x0e030a01 ;memconf0
+                                                            1(ch2/rank1), 2Gbit
+                                                            
+   51 00000118 E59F0B20        ldr              r0, =0x0e030a01
+   52 0000011C E59F1B48        ldr              r1, =0xE6790054
+   53 00000120 E5810000        str              r0, [r1]    ; 
+   54 00000124         
+  136 00000124                 MYWRITE          0xE6790094,0x0e030a01 ;memconf0
+                                                            1a(ch2/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 00000124 E59F0B14        ldr              r0, =0x0e030a01
+   52 00000128 E59F1B40        ldr              r1, =0xE6790094
+   53 0000012C E5810000        str              r0, [r1]    ; 
+   54 00000130         
+  137 00000130                 MYWRITE          0xE6790060,0x0e030a01 ;memconf1
+                                                            0(ch3/rank0), 2Gbit
+                                                            
+   51 00000130 E59F0B08        ldr              r0, =0x0e030a01
+   52 00000134 E59F1B38        ldr              r1, =0xE6790060
+   53 00000138 E5810000        str              r0, [r1]    ; 
+   54 0000013C         
+  138 0000013C                 MYWRITE          0xE67900a0,0x0e030a01 ;memconf1
+                                                            0a(ch3/rank0), 2Gbi
+                                                            t (clk_axim)
+   51 0000013C E59F0AFC        ldr              r0, =0x0e030a01
+   52 00000140 E59F1B30        ldr              r1, =0xE67900a0
+   53 00000144 E5810000        str              r0, [r1]    ; 
+   54 00000148         
+  139 00000148                 MYWRITE          0xE6790064,0x0e030a01 ;memconf1
+                                                            1(ch3/rank1), 2Gbit
+                                                            
+   51 00000148 E59F0AF0        ldr              r0, =0x0e030a01
+   52 0000014C E59F1B28        ldr              r1, =0xE6790064
+   53 00000150 E5810000        str              r0, [r1]    ; 
+   54 00000154         
+  140 00000154                 MYWRITE          0xE67900a4,0x0e030a01 ;memconf1
+                                                            1a(ch3/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 00000154 E59F0AE4        ldr              r0, =0x0e030a01
+   52 00000158 E59F1B20        ldr              r1, =0xE67900a4
+   53 0000015C E5810000        str              r0, [r1]    ; 
+   54 00000160         
+  141 00000160         ;;   MYWRITE   0xE6790050,0x0e030a02;memconf20(ch2/rank0
+                       ), 4Gbit
+  142 00000160         ;;   MYWRITE   0xE6790054,0x0e030a02;memconf21(ch2/rank1
+                       ), 4Gbit
+  143 00000160         ;;   MYWRITE   0xE6790060,0x0e030a02;memconf30(ch3/rank0
+                       ), 4Gbit
+  144 00000160         ;;   MYWRITE   0xE6790064,0x0e030a02;memconf31(ch3/rank1
+                       ), 4Gbit
+  145 00000160                 MYWRITE          0xE6790104,0x00000000 
+                                                            ;dbsyscnt1       
+   51 00000160 E3A00000        ldr              r0, =0x00000000
+   52 00000164 E59F1B18        ldr              r1, =0xE6790104
+
+
+
+ARM Macro Assembler    Page 6 
+
+
+   53 00000168 E5810000        str              r0, [r1]    ; 
+   54 0000016C         
+  146 0000016C                 MYWRITE          0xE6790010,0x00000001 
+                                                            ;DBPHYCONF0 01:DFI
+   51 0000016C E3A00001        ldr              r0, =0x00000001
+   52 00000170 E59F1B10        ldr              r1, =0xE6790010
+   53 00000174 E5810000        str              r0, [r1]    ; 
+   54 00000178         
+  147 00000178         ;;        .pool
+  148 00000178                 MYWRITE          0xE6790300,0x00000028 
+                                                            ;dbtr0 cl=40
+   51 00000178 E3A00028        ldr              r0, =0x00000028
+   52 0000017C E59F1B08        ldr              r1, =0xE6790300
+   53 00000180 E5810000        str              r0, [r1]    ; 
+   54 00000184         
+  149 00000184                 MYWRITE          0xE6790304,0x00000012 
+                                                            ;dbtr1 cwl=14
+   51 00000184 E3A00012        ldr              r0, =0x00000012
+   52 00000188 E59F1B00        ldr              r1, =0xE6790304
+   53 0000018C E5810000        str              r0, [r1]    ; 
+   54 00000190         
+  150 00000190         ;;   MYWRITE   0xE6790308,0x00000000;dbtr2 al=0
+  151 00000190                 MYWRITE          0xE679030C,0x00000027 
+                                                            ;dbtr3 trcd=39
+   51 00000190 E3A00027        ldr              r0, =0x00000027
+   52 00000194 E59F1AF8        ldr              r1, =0xE679030C
+   53 00000198 E5810000        str              r0, [r1]    ; 
+   54 0000019C         
+  152 0000019C                 MYWRITE          0xE6790310,0x002D0027 ;dbtr4 tr
+                                                            pa=45 trp=39
+   51 0000019C E59F0AF4        ldr              r0, =0x002D0027
+   52 000001A0 E59F1AF4        ldr              r1, =0xE6790310
+   53 000001A4 E5810000        str              r0, [r1]    ; 
+   54 000001A8         
+  153 000001A8                 MYWRITE          0xE6790314,0x00000087 
+                                                            ;dbtr5 trc=135
+   51 000001A8 E3A00087        ldr              r0, =0x00000087
+   52 000001AC E59F1AEC        ldr              r1, =0xE6790314
+   53 000001B0 E5810000        str              r0, [r1]    ; 
+   54 000001B4         
+  154 000001B4                 MYWRITE          0xE6790318,0x0000005A 
+                                                            ;dbtr6 tras=90
+   51 000001B4 E3A0005A        ldr              r0, =0x0000005A
+   52 000001B8 E59F1AE4        ldr              r1, =0xE6790318
+   53 000001BC E5810000        str              r0, [r1]    ; 
+   54 000001C0         
+  155 000001C0                 MYWRITE          0xE679031C,0x00100010 ;dbtr7  t
+                                                            rrd_s=16 trrd=16
+   51 000001C0 E59F0AE0        ldr              r0, =0x00100010
+   52 000001C4 E59F1AE0        ldr              r1, =0xE679031C
+   53 000001C8 E5810000        str              r0, [r1]    ; 
+   54 000001CC         
+  156 000001CC                 MYWRITE          0xE6790320,0x00000040 
+                                                            ;dbtr8  tfaw=64
+   51 000001CC E3A00040        ldr              r0, =0x00000040
+   52 000001D0 E59F1AD8        ldr              r1, =0xE6790320
+   53 000001D4 E5810000        str              r0, [r1]    ; 
+   54 000001D8         
+  157 000001D8                 MYWRITE          0xE6790324,0x00000010 
+
+
+
+ARM Macro Assembler    Page 7 
+
+
+                                                            ;dbtr9 trdpr=16
+   51 000001D8 E3A00010        ldr              r0, =0x00000010
+   52 000001DC E59F1AD0        ldr              r1, =0xE6790324
+   53 000001E0 E5810000        str              r0, [r1]    ; 
+   54 000001E4         
+  158 000001E4                 MYWRITE          0xE6790328,0x00000029 
+                                                            ;dbtr10 twr=41
+   51 000001E4 E3A00029        ldr              r0, =0x00000029
+   52 000001E8 E59F1AC8        ldr              r1, =0xE6790328
+   53 000001EC E5810000        str              r0, [r1]    ; 
+   54 000001F0         
+  159 000001F0                 MYWRITE          0xE679032C,0x00000029 ;dbtr11  
+                                                            trdwr>=41 ;; PHY ma
+                                                            y have restriction 
+                                                            of this value.
+   51 000001F0 E3A00029        ldr              r0, =0x00000029
+   52 000001F4 E59F1AC0        ldr              r1, =0xE679032C
+   53 000001F8 E5810000        str              r0, [r1]    ; 
+   54 000001FC         
+  160 000001FC                 MYWRITE          0xE6790330,0x00310031 ;dbtr12 t
+                                                            wrrd_s>=49 twrrd>=4
+                                                            9 ;; PHY may restri
+                                                            ction of this value
+                                                            .
+   51 000001FC E59F0ABC        ldr              r0, =0x00310031
+   52 00000200 E59F1ABC        ldr              r1, =0xE6790330
+   53 00000204 E5810000        str              r0, [r1]    ; 
+   54 00000208         
+  161 00000208                 MYWRITE          0xE6790334,0x00000116 ;dbtr13 t
+                                                            rfcpb=0(W/A) trfc=2
+                                                            78(2Gbit/ch)
+   51 00000208 E3000116        ldr              r0, =0x00000116
+   52 0000020C E59F1AB4        ldr              r1, =0xE6790334
+   53 00000210 E5810000        str              r0, [r1]    ; 
+   54 00000214         
+  162 00000214                 MYWRITE          0xE6790338,0x00130013 ;dbtr14 t
+                                                            ckehdll=19 tckeh=19
+                                                            
+   51 00000214 E59F0AB0        ldr              r0, =0x00130013
+   52 00000218 E59F1AB0        ldr              r1, =0xE6790338
+   53 0000021C E5810000        str              r0, [r1]    ; 
+   54 00000220         
+  163 00000220                 MYWRITE          0xE679033C,0x00200010 ;dbtr15 t
+                                                            ckesr=32 tckel=16
+   51 00000220 E59F0AAC        ldr              r0, =0x00200010
+   52 00000224 E59F1AAC        ldr              r1, =0xE679033C
+   53 00000228 E5810000        str              r0, [r1]    ; 
+   54 0000022C         
+  164 0000022C                 MYWRITE          0xE6790340,0x0d400a0e ;dbtr16 l
+                                                            atency?  CWL=13 CL=
+                                                            32 New dbsc ;; Plea
+                                                            se refer PHY manual
+                                                            . 0427
+   51 0000022C E59F0AA8        ldr              r0, =0x0d400a0e
+   52 00000230 E59F1AA8        ldr              r1, =0xE6790340
+   53 00000234 E5810000        str              r0, [r1]    ; 
+   54 00000238         
+  165 00000238                 MYWRITE          0xE6790344,0x081E0000 ;dbtr17 t
+                                                            modrd=8  tmod=30
+
+
+
+ARM Macro Assembler    Page 8 
+
+
+   51 00000238 E59F0AA4        ldr              r0, =0x081E0000
+   52 0000023C E59F1AA4        ldr              r1, =0xE6790344
+   53 00000240 E5810000        str              r0, [r1]    ; 
+   54 00000244         
+  166 00000244                 MYWRITE          0xE6790350,0x01290129 ;dbtr20 t
+                                                            xsdll=txs=297 txs=t
+                                                            rfcab+7.5ns+3nCK(W/
+                                                            A)=297
+   51 00000244 E59F0AA0        ldr              r0, =0x01290129
+   52 00000248 E59F1AA0        ldr              r1, =0xE6790350
+   53 0000024C E5810000        str              r0, [r1]    ; 
+   54 00000250         
+  167 00000250                 MYWRITE          0xE6790354,0x00080008 ;dbtr21 t
+                                                            ccd_s=8 tccd=8
+   51 00000250 E59F0A9C        ldr              r0, =0x00080008
+   52 00000254 E59F1A9C        ldr              r1, =0xE6790354
+   53 00000258 E5810000        str              r0, [r1]    ; 
+   54 0000025C         
+  168 0000025C                 MYWRITE          0xE6790358,0x08550040 ;dbtr22 t
+                                                            zqcal=2133 tzqlat=4
+                                                            8
+   51 0000025C E59F0A98        ldr              r0, =0x08550040
+   52 00000260 E59F1A98        ldr              r1, =0xE6790358
+   53 00000264 E5810000        str              r0, [r1]    ; 
+   54 00000268         
+  169 00000268                 MYWRITE          0xE679035C,0x00000003 ;dbtr23
+   51 00000268 E3A00003        ldr              r0, =0x00000003
+   52 0000026C E59F1A90        ldr              r1, =0xE679035C
+   53 00000270 E5810000        str              r0, [r1]    ; 
+   54 00000274         
+  170 00000274                 MYWRITE          0xE6790400,0x00000002 ;dbbl  db
+                                                            bl=2(BL16)(LPDDR4)
+   51 00000274 E3A00002        ldr              r0, =0x00000002
+   52 00000278 E59F1A88        ldr              r1, =0xE6790400
+   53 0000027C E5810000        str              r0, [r1]    ; 
+   54 00000280         
+  171 00000280                 MYWRITE          0xE6790404,0x00000002 ;dbbla db
+                                                            bla=2(BL16)(LPDDR4)
+                                                            
+   51 00000280 E3A00002        ldr              r0, =0x00000002
+   52 00000284 E59F1A80        ldr              r1, =0xE6790404
+   53 00000288 E5810000        str              r0, [r1]    ; 
+   54 0000028C         
+  172 0000028C         ;;   MYWRITE   0xE6790430,0x00000000;dbrnk0 No odt for D
+                       Q exists in LPDDR4(N.Honda).
+  173 0000028C         ;;   MYWRITE   0xE6790434,0x00000000;dbrnk1 Don't need t
+                       o set it cause we use all-rank refresh.
+  174 0000028C                 MYWRITE          0xE6790438,0x00004444 ;dbrnk2 r
+                                                            krr = 4 (Are there 
+                                                            any info ?)
+   51 0000028C E3040444        ldr              r0, =0x00004444
+   52 00000290 E59F1A78        ldr              r1, =0xE6790438
+   53 00000294 E5810000        str              r0, [r1]    ; 
+   54 00000298         
+  175 00000298                 MYWRITE          0xE679043C,0x00004444 ;dbrnk3 r
+                                                            krw = 4 (Are there 
+                                                            any info ?)
+   51 00000298 E3040444        ldr              r0, =0x00004444
+   52 0000029C E59F1A70        ldr              r1, =0xE679043C
+
+
+
+ARM Macro Assembler    Page 9 
+
+
+   53 000002A0 E5810000        str              r0, [r1]    ; 
+   54 000002A4         
+  176 000002A4                 MYWRITE          0xE6790440,0x00004444 ;dbrnk4 r
+                                                            kwr = 4 (Are there 
+                                                            any info ?)
+   51 000002A4 E3040444        ldr              r0, =0x00004444
+   52 000002A8 E59F1A68        ldr              r1, =0xE6790440
+   53 000002AC E5810000        str              r0, [r1]    ; 
+   54 000002B0         
+  177 000002B0                 MYWRITE          0xE6790444,0x00004444 ;dbrnk5 r
+                                                            kww = 4 (Are there 
+                                                            any info ?)
+   51 000002B0 E3040444        ldr              r0, =0x00004444
+   52 000002B4 E59F1A60        ldr              r1, =0xE6790444
+   53 000002B8 E5810000        str              r0, [r1]    ; 
+   54 000002BC         
+  178 000002BC         ;;   MYWRITE   0xE6790448,0x00000000;dbrnk6 use all-rank
+                       /all-bank refresh
+  179 000002BC         ;;   MYWRITE   0xE6790500,0x00000000;dbadj0 currently, n
+                       o optional setting exists.
+  180 000002BC         ;;   MYWRITE   0xE6790508,0x00000000;dbadj2 currently, n
+                       o optional setting exists.
+  181 000002BC         ;;   MYWRITE   0xE6790900,0x00000000;dbcam0cnf0 inoen=0,
+                        actually it is not used.
+  182 000002BC                 MYWRITE          0xE6790904,0x00104214 ;dbcam0cn
+                                                            f1 wbkwait=8, wbkmd
+                                                            hi=32, wbkmdlo=16
+   51 000002BC E59F0A5C        ldr              r0, =0x00104214
+   52 000002C0 E59F1A5C        ldr              r1, =0xE6790904
+   53 000002C4 E5810000        str              r0, [r1]    ; 
+   54 000002C8         
+  183 000002C8                 MYWRITE          0xE6790908,0x000001c4 ;dbcam0cn
+                                                            f2 scexp=8192
+   51 000002C8 E3A00F71        ldr              r0, =0x000001c4
+   52 000002CC E59F1A54        ldr              r1, =0xE6790908
+   53 000002D0 E5810000        str              r0, [r1]    ; 
+   54 000002D4         
+  184 000002D4                 MYWRITE          0xE679090C,0x00000003 
+                                                            ;dbcam0cnf3       
+   51 000002D4 E3A00003        ldr              r0, =0x00000003
+   52 000002D8 E59F1A4C        ldr              r1, =0xE679090C
+   53 000002DC E5810000        str              r0, [r1]    ; 
+   54 000002E0         
+  185 000002E0         
+  186 000002E0                 MYWRITE          0xE6791000,0x000f0037 
+                                                            ;dbschcnt0
+   51 000002E0 E59F0A48        ldr              r0, =0x000f0037
+   52 000002E4 E59F1A48        ldr              r1, =0xE6791000
+   53 000002E8 E5810000        str              r0, [r1]    ; 
+   54 000002EC         
+  187 000002EC                 MYWRITE          0xE6791004,0x00001010 
+                                                            ;dbschcnt1
+   51 000002EC E3010010        ldr              r0, =0x00001010
+   52 000002F0 E59F1A40        ldr              r1, =0xE6791004
+   53 000002F4 E5810000        str              r0, [r1]    ; 
+   54 000002F8         
+  188 000002F8                 MYWRITE          0xE6791010,0x00000001 ;dbschsz0
+                                                            
+   51 000002F8 E3A00001        ldr              r0, =0x00000001
+
+
+
+ARM Macro Assembler    Page 10 
+
+
+   52 000002FC E59F1A38        ldr              r1, =0xE6791010
+   53 00000300 E5810000        str              r0, [r1]    ; 
+   54 00000304         
+  189 00000304                 MYWRITE          0xE6791020,0xf7311111 ;dbschrw0
+                                                            
+   51 00000304 E59F0A34        ldr              r0, =0xf7311111
+   52 00000308 E59F1A34        ldr              r1, =0xE6791020
+   53 0000030C E5810000        str              r0, [r1]    ; 
+   54 00000310         
+  190 00000310                 MYWRITE          0xE6791024,0x00001834 ;dbschrw1
+                                                            
+   51 00000310 E3010834        ldr              r0, =0x00001834
+   52 00000314 E59F1A2C        ldr              r1, =0xE6791024
+   53 00000318 E5810000        str              r0, [r1]    ; 
+   54 0000031C         
+  191 0000031C                 MYWRITE          0xE6791030,0xffffffff ;dbschqos
+                                                            00 QoS = 00_00 does
+                                                            n't come from AXI
+   51 0000031C E3E00000        ldr              r0, =0xffffffff
+   52 00000320 E59F1A24        ldr              r1, =0xE6791030
+   53 00000324 E5810000        str              r0, [r1]    ; 
+   54 00000328         
+  192 00000328                 MYWRITE          0xE6791034,0x00000480 
+                                                            ;dbschqos01
+   51 00000328 E3A00D12        ldr              r0, =0x00000480
+   52 0000032C E59F1A1C        ldr              r1, =0xE6791034
+   53 00000330 E5810000        str              r0, [r1]    ; 
+   54 00000334         
+  193 00000334                 MYWRITE          0xE6791038,0x00000300 
+                                                            ;dbschqos02
+   51 00000334 E3A00C03        ldr              r0, =0x00000300
+   52 00000338 E59F1A14        ldr              r1, =0xE6791038
+   53 0000033C E5810000        str              r0, [r1]    ; 
+   54 00000340         
+  194 00000340                 MYWRITE          0xE679103C,0x00000180 
+                                                            ;dbschqos03
+   51 00000340 E3A00D06        ldr              r0, =0x00000180
+   52 00000344 E59F1A0C        ldr              r1, =0xE679103C
+   53 00000348 E5810000        str              r0, [r1]    ; 
+   54 0000034C         
+  195 0000034C         ;;   MYWRITE   0xE6791030,0x00000600;dbschqos00 QoS = 00
+                       _00 doesn't come from AXI
+  196 0000034C         ;;   MYWRITE   0xE6791034,0x00000480;dbschqos01
+  197 0000034C         ;;   MYWRITE   0xE6791038,0x00000300;dbschqos02
+  198 0000034C         ;;   MYWRITE   0xE679103C,0x00000180;dbschqos03
+  199 0000034C         ;;   MYWRITE   0xE6791040,0x00000600;dbschqos10 QoS = 00
+                       _01 doesn't come from AXI
+  200 0000034C         ;;   MYWRITE   0xE6791044,0x00000480;dbschqos11
+  201 0000034C         ;;   MYWRITE   0xE6791048,0x00000300;dbschqos12
+  202 0000034C         ;;   MYWRITE   0xE679104C,0x00000180;dbschqos13
+  203 0000034C         ;;   MYWRITE   0xE6791050,0x00000600;dbschqos20 QoS = 00
+                       _10 doesn't come from AXI
+  204 0000034C         ;;   MYWRITE   0xE6791054,0x00000480;dbschqos21
+  205 0000034C         ;;   MYWRITE   0xE6791058,0x00000300;dbschqos22
+  206 0000034C         ;;   MYWRITE   0xE679105C,0x00000180;dbschqos23
+  207 0000034C         ;;   MYWRITE   0xE6791060,0x00000600;dbschqos30 QoS = 00
+                       _11 doesn't come from AXI
+  208 0000034C         ;;   MYWRITE   0xE6791064,0x00000480;dbschqos31
+  209 0000034C         ;;   MYWRITE   0xE6791068,0x00000300;dbschqos32
+
+
+
+ARM Macro Assembler    Page 11 
+
+
+  210 0000034C         ;;   MYWRITE   0xE679106C,0x00000180;dbschqos33
+  211 0000034C                 MYWRITE          0xE6791070,0x00000600 
+                                                            ;dbschqos40
+   51 0000034C E3A00C06        ldr              r0, =0x00000600
+   52 00000350 E59F1A04        ldr              r1, =0xE6791070
+   53 00000354 E5810000        str              r0, [r1]    ; 
+   54 00000358         
+  212 00000358                 MYWRITE          0xE6791074,0x00000480 
+                                                            ;dbschqos41
+   51 00000358 E3A00D12        ldr              r0, =0x00000480
+   52 0000035C E59F19FC        ldr              r1, =0xE6791074
+   53 00000360 E5810000        str              r0, [r1]    ; 
+   54 00000364         
+  213 00000364                 MYWRITE          0xE6791078,0x00000300 
+                                                            ;dbschqos42
+   51 00000364 E3A00C03        ldr              r0, =0x00000300
+   52 00000368 E59F19F4        ldr              r1, =0xE6791078
+   53 0000036C E5810000        str              r0, [r1]    ; 
+   54 00000370         
+  214 00000370                 MYWRITE          0xE679107C,0x00000180 
+                                                            ;dbschqos43
+   51 00000370 E3A00D06        ldr              r0, =0x00000180
+   52 00000374 E59F19EC        ldr              r1, =0xE679107C
+   53 00000378 E5810000        str              r0, [r1]    ; 
+   54 0000037C         
+  215 0000037C         ;;   MYWRITE   0xE6791080,0x00000400;dbschqos50 QoS = 01
+                       _01 doesn't come from AXI
+  216 0000037C         ;;   MYWRITE   0xE6791084,0x00000300;dbschqos51
+  217 0000037C         ;;   MYWRITE   0xE6791088,0x00000200;dbschqos52
+  218 0000037C         ;;   MYWRITE   0xE679108C,0x00000100;dbschqos53
+  219 0000037C         ;;   MYWRITE   0xE6791090,0x00000400;dbschqos60 QoS = 01
+                       _10 doesn't come from AXI
+  220 0000037C         ;;   MYWRITE   0xE6791094,0x00000300;dbschqos61
+  221 0000037C         ;;   MYWRITE   0xE6791098,0x00000200;dbschqos62
+  222 0000037C         ;;   MYWRITE   0xE679109C,0x00000100;dbschqos63
+  223 0000037C         ;;   MYWRITE   0xE67910A0,0x00000400;dbschqos70 QoS = 01
+                       _11 doesn't come from AXI
+  224 0000037C         ;;   MYWRITE   0xE67910A4,0x00000300;dbschqos71
+  225 0000037C         ;;   MYWRITE   0xE67910A8,0x00000200;dbschqos72
+  226 0000037C         ;;   MYWRITE   0xE67910AC,0x00000100;dbschqos73
+  227 0000037C         ;;   MYWRITE   0xE67910B0,0x00000400;dbschqos80 QoS = 10
+                       _00 doesn't come from AXI
+  228 0000037C         ;;   MYWRITE   0xE67910B4,0x00000300;dbschqos81
+  229 0000037C         ;;   MYWRITE   0xE67910B8,0x00000200;dbschqos82
+  230 0000037C         ;;   MYWRITE   0xE67910BC,0x00000100;dbschqos83
+  231 0000037C                 MYWRITE          0xE67910C0,0x00000400 
+                                                            ;dbschqos90
+   51 0000037C E3A00B01        ldr              r0, =0x00000400
+   52 00000380 E59F19E4        ldr              r1, =0xE67910C0
+   53 00000384 E5810000        str              r0, [r1]    ; 
+   54 00000388         
+  232 00000388                 MYWRITE          0xE67910C4,0x00000300 
+                                                            ;dbschqos91
+   51 00000388 E3A00C03        ldr              r0, =0x00000300
+   52 0000038C E59F19DC        ldr              r1, =0xE67910C4
+   53 00000390 E5810000        str              r0, [r1]    ; 
+   54 00000394         
+  233 00000394                 MYWRITE          0xE67910C8,0x00000200 
+                                                            ;dbschqos92
+
+
+
+ARM Macro Assembler    Page 12 
+
+
+   51 00000394 E3A00C02        ldr              r0, =0x00000200
+   52 00000398 E59F19D4        ldr              r1, =0xE67910C8
+   53 0000039C E5810000        str              r0, [r1]    ; 
+   54 000003A0         
+  234 000003A0                 MYWRITE          0xE67910CC,0x00000100 
+                                                            ;dbschqos93
+   51 000003A0 E3A00C01        ldr              r0, =0x00000100
+   52 000003A4 E59F19CC        ldr              r1, =0xE67910CC
+   53 000003A8 E5810000        str              r0, [r1]    ; 
+   54 000003AC         
+  235 000003AC         ;;   MYWRITE   0xE67910D0,0x00000300;dbschqos100 QoS = 1
+                       0_10 doesn't come from AXI
+  236 000003AC         ;;   MYWRITE   0xE67910D4,0x00000240;dbschqos101
+  237 000003AC         ;;   MYWRITE   0xE67910D8,0x00000180;dbschqos102
+  238 000003AC         ;;   MYWRITE   0xE67910DC,0x000000c0;dbschqos103
+  239 000003AC         ;;   MYWRITE   0xE67910E0,0x00000300;dbschqos110 QoS = 1
+                       0_11 doesn't come from AXI
+  240 000003AC         ;;   MYWRITE   0xE67910E4,0x00000240;dbschqos111
+  241 000003AC         ;;   MYWRITE   0xE67910E8,0x00000180;dbschqos112
+  242 000003AC         ;;   MYWRITE   0xE67910EC,0x000000c0;dbschqos113
+  243 000003AC         ;;   MYWRITE   0xE67910F0,0x00000300;dbschqos120 QoS = 1
+                       1_00 doesn't come from AXI
+  244 000003AC         ;;   MYWRITE   0xE67910F4,0x00000240;dbschqos121
+  245 000003AC         ;;   MYWRITE   0xE67910F8,0x00000180;dbschqos122
+  246 000003AC         ;;   MYWRITE   0xE67910FC,0x000000c0;dbschqos123
+  247 000003AC                 MYWRITE          0xE6791100,0x00000300 
+                                                            ;dbschqos130
+   51 000003AC E3A00C03        ldr              r0, =0x00000300
+   52 000003B0 E59F19C4        ldr              r1, =0xE6791100
+   53 000003B4 E5810000        str              r0, [r1]    ; 
+   54 000003B8         
+  248 000003B8                 MYWRITE          0xE6791104,0x00000240 
+                                                            ;dbschqos131
+   51 000003B8 E3A00D09        ldr              r0, =0x00000240
+   52 000003BC E59F19BC        ldr              r1, =0xE6791104
+   53 000003C0 E5810000        str              r0, [r1]    ; 
+   54 000003C4         
+  249 000003C4                 MYWRITE          0xE6791108,0x00000180 
+                                                            ;dbschqos132
+   51 000003C4 E3A00D06        ldr              r0, =0x00000180
+   52 000003C8 E59F19B4        ldr              r1, =0xE6791108
+   53 000003CC E5810000        str              r0, [r1]    ; 
+   54 000003D0         
+  250 000003D0                 MYWRITE          0xE679110C,0x000000c0 
+                                                            ;dbschqos133
+   51 000003D0 E3A000C0        ldr              r0, =0x000000c0
+   52 000003D4 E59F19AC        ldr              r1, =0xE679110C
+   53 000003D8 E5810000        str              r0, [r1]    ; 
+   54 000003DC         
+  251 000003DC                 MYWRITE          0xE6791110,0x00000200 
+                                                            ;dbschqos140
+   51 000003DC E3A00C02        ldr              r0, =0x00000200
+   52 000003E0 E59F19A4        ldr              r1, =0xE6791110
+   53 000003E4 E5810000        str              r0, [r1]    ; 
+   54 000003E8         
+  252 000003E8                 MYWRITE          0xE6791114,0x00000180 
+                                                            ;dbschqos141
+   51 000003E8 E3A00D06        ldr              r0, =0x00000180
+   52 000003EC E59F199C        ldr              r1, =0xE6791114
+
+
+
+ARM Macro Assembler    Page 13 
+
+
+   53 000003F0 E5810000        str              r0, [r1]    ; 
+   54 000003F4         
+  253 000003F4                 MYWRITE          0xE6791118,0x00000100 
+                                                            ;dbschqos142
+   51 000003F4 E3A00C01        ldr              r0, =0x00000100
+   52 000003F8 E59F1994        ldr              r1, =0xE6791118
+   53 000003FC E5810000        str              r0, [r1]    ; 
+   54 00000400         
+  254 00000400                 MYWRITE          0xE679111C,0x00000080 
+                                                            ;dbschqos143
+   51 00000400 E3A00080        ldr              r0, =0x00000080
+   52 00000404 E59F198C        ldr              r1, =0xE679111C
+   53 00000408 E5810000        str              r0, [r1]    ; 
+   54 0000040C         
+  255 0000040C                 MYWRITE          0xE6791120,0x00000100 
+                                                            ;dbschqos150
+   51 0000040C E3A00C01        ldr              r0, =0x00000100
+   52 00000410 E59F1984        ldr              r1, =0xE6791120
+   53 00000414 E5810000        str              r0, [r1]    ; 
+   54 00000418         
+  256 00000418                 MYWRITE          0xE6791124,0x000000c0 
+                                                            ;dbschqos151
+   51 00000418 E3A000C0        ldr              r0, =0x000000c0
+   52 0000041C E59F197C        ldr              r1, =0xE6791124
+   53 00000420 E5810000        str              r0, [r1]    ; 
+   54 00000424         
+  257 00000424                 MYWRITE          0xE6791128,0x00000080 
+                                                            ;dbschqos152
+   51 00000424 E3A00080        ldr              r0, =0x00000080
+   52 00000428 E59F1974        ldr              r1, =0xE6791128
+   53 0000042C E5810000        str              r0, [r1]    ; 
+   54 00000430         
+  258 00000430                 MYWRITE          0xE679112C,0x00000040 
+                                                            ;dbschqos153
+   51 00000430 E3A00040        ldr              r0, =0x00000040
+   52 00000434 E59F196C        ldr              r1, =0xE679112C
+   53 00000438 E5810000        str              r0, [r1]    ; 
+   54 0000043C         
+  259 0000043C         
+  260 0000043C                 MYWRITE          0xE6791700,0x220E110A ;dbschfct
+                                                            st0 scactact=34, sc
+                                                            rdact=14, scwract=1
+                                                            7, scpreact=10
+   51 0000043C E59F0968        ldr              r0, =0x220E110A
+   52 00000440 E59F1968        ldr              r1, =0xE6791700
+   53 00000444 E5810000        str              r0, [r1]    ; 
+   54 00000448         
+  261 00000448                 MYWRITE          0xE6791708,0x0B0D0A0C ;dbschfct
+                                                            st1 scrdwr=11, scwr
+                                                            rd=13, scactrdwr=10
+                                                            , scasyncofs=12
+   51 00000448 E59F0964        ldr              r0, =0x0B0D0A0C
+   52 0000044C E59F1964        ldr              r1, =0xE6791708
+   53 00000450 E5810000        str              r0, [r1]    ; 
+   54 00000454         
+  262 00000454                 MYWRITE          0xE679170C,0x111f1fff ;dbschfct
+                                                            st2 wrperi3=1, wrpe
+                                                            ri2=1, wrperi1=1, w
+                                                            rperi0=15, rdperi3=
+
+
+
+ARM Macro Assembler    Page 14 
+
+
+                                                            1, rdperi2=15, rdpe
+                                                            ri1=15, rdperi0=15
+   51 00000454 E59F0960        ldr              r0, =0x111f1fff
+   52 00000458 E59F1960        ldr              r1, =0xE679170C
+   53 0000045C E5810000        str              r0, [r1]    ; 
+   54 00000460         
+  263 00000460         
+  264 00000460                 MYWRITE          0xE6790000,0x00000001 ;dbsyscon
+                                                            f0 rg_pch=2, rg_mch
+                                                            =2.
+   51 00000460 E3A00001        ldr              r0, =0x00000001
+   52 00000464 E59F1958        ldr              r1, =0xE6790000
+   53 00000468 E5810000        str              r0, [r1]    ; 
+   54 0000046C         
+  265 0000046C                 MYWRITE          0xE6790004,0x00000002 ;dbsyscon
+                                                            f1 freqratio=2.
+   51 0000046C E3A00002        ldr              r0, =0x00000002
+   52 00000470 E59F1950        ldr              r1, =0xE6790004
+   53 00000474 E5810000        str              r0, [r1]    ; 
+   54 00000478         
+  266 00000478                 MYWRITE          0xE6790008,0x00000002 ;dbsyscon
+                                                            f1a freqratioa=2.
+   51 00000478 E3A00002        ldr              r0, =0x00000002
+   52 0000047C E59F1948        ldr              r1, =0xE6790008
+   53 00000480 E5810000        str              r0, [r1]    ; 
+   54 00000484         
+  267 00000484                 MYWRITE          0xE679000c,0x00000001 ;dbsyscon
+                                                            f2 schmd=1 (2ch mod
+                                                            e).
+   51 00000484 E3A00001        ldr              r0, =0x00000001
+   52 00000488 E59F1940        ldr              r1, =0xE679000c
+   53 0000048C E5810000        str              r0, [r1]    ; 
+   54 00000490         
+  268 00000490                 MYWRITE          0xE6790014,0x00000041 ;dbsyscon
+                                                            f2a chpos=8(256Byte
+                                                             channel interleave
+                                                            ), schmda=1 (2ch mo
+                                                            de).
+   51 00000490 E3A00041        ldr              r0, =0x00000041
+   52 00000494 E59F1938        ldr              r1, =0xE6790014
+   53 00000498 E5810000        str              r0, [r1]    ; 
+   54 0000049C         
+  269 0000049C         
+  270 0000049C         ;;        .pool
+  271 0000049C         ;;   MYWRITE   0xE6790604,0x00000010;dbdficnt0
+  272 0000049C         ;;   MYWRITE   0xE6790644,0x00000010;dbdficnt1
+  273 0000049C         ;;   MYWRITE   0xE6790684,0x00000010;dbdficnt2
+  274 0000049C         ;;   MYWRITE   0xE67906C4,0x00000010;dbdficnt3
+  275 0000049C         ;; wait init_complete
+  276 0000049C         ;;   MYWRITE   0xE6790904,0x00044020;
+  277 0000049C         ;;   MYWRITE   0xE6790908,0x00000008;
+  278 0000049C         
+  279 0000049C         ;; FOR 1212B
+  280 0000049C         ;;   MYWRITE   0xE6790904,0x0004140c;
+  281 0000049C         ;;   MYWRITE   0xE6790908,0x00000008;
+  282 0000049C         ;;   MYWRITE   0xE6791010,0x00000003;
+  283 0000049C         ;;   MYWRITE   0xE6791024,0x001a0080;
+  284 0000049C         
+  285 0000049C         ;; FOR 1213A
+
+
+
+ARM Macro Assembler    Page 15 
+
+
+  286 0000049C         ;   MYWRITE   0xE6790904,0x00040C04;
+  287 0000049C         ;   MYWRITE   0xE6790908,0x00000108;
+  288 0000049C         ;   MYWRITE   0xE6791010,0x00000003;
+  289 0000049C         ;   MYWRITE   0xE6791024,0x001a0080;
+  290 0000049C         
+  291 0000049C         ;; Add 2015/07/29 M.Sano
+  292 0000049C         ;; Remove comment by mochi for H3 ;; Comment Out 2015/07
+                       /29 M.Sano
+  293 0000049C                 MYWRITE          0xE6790604,0x00000011 ;dbdficnt
+                                                            0 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 0000049C E3A00011        ldr              r0, =0x00000011
+   52 000004A0 E59F1930        ldr              r1, =0xE6790604
+   53 000004A4 E5810000        str              r0, [r1]    ; 
+   54 000004A8         
+  294 000004A8                 MYWRITE          0xE6790644,0x00000011 ;dbdficnt
+                                                            1 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 000004A8 E3A00011        ldr              r0, =0x00000011
+   52 000004AC E59F1928        ldr              r1, =0xE6790644
+   53 000004B0 E5810000        str              r0, [r1]    ; 
+   54 000004B4         
+  295 000004B4                 MYWRITE          0xE6790684,0x00000011 ;dbdficnt
+                                                            2 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 000004B4 E3A00011        ldr              r0, =0x00000011
+   52 000004B8 E59F1920        ldr              r1, =0xE6790684
+   53 000004BC E5810000        str              r0, [r1]    ; 
+   54 000004C0         
+  296 000004C0                 MYWRITE          0xE67906C4,0x00000011 ;dbdficnt
+                                                            3 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 000004C0 E3A00011        ldr              r0, =0x00000011
+   52 000004C4 E59F1918        ldr              r1, =0xE67906C4
+   53 000004C8 E5810000        str              r0, [r1]    ; 
+   54 000004CC         
+  297 000004CC         
+  298 000004CC                 MYWRITE          0xE679061C,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 000004CC E30C0F01        ldr              r0, =0x0000CF01
+   52 000004D0 E59F1910        ldr              r1, =0xE679061C
+   53 000004D4 E5810000        str              r0, [r1]    ; 
+   54 000004D8         
+  299 000004D8                 MYWRITE          0xE679065C,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 000004D8 E30C0F01        ldr              r0, =0x0000CF01
+   52 000004DC E59F1908        ldr              r1, =0xE679065C
+   53 000004E0 E5810000        str              r0, [r1]    ; 
+   54 000004E4         
+  300 000004E4                 MYWRITE          0xE679069C,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 000004E4 E30C0F01        ldr              r0, =0x0000CF01
+   52 000004E8 E59F1900        ldr              r1, =0xE679069C
+   53 000004EC E5810000        str              r0, [r1]    ; 
+   54 000004F0         
+  301 000004F0                 MYWRITE          0xE67906DC,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 000004F0 E30C0F01        ldr              r0, =0x0000CF01
+   52 000004F4 E59F18F8        ldr              r1, =0xE67906DC
+
+
+
+ARM Macro Assembler    Page 16 
+
+
+   53 000004F8 E5810000        str              r0, [r1]    ; 
+   54 000004FC         
+  302 000004FC         
+  303 000004FC         
+  304 000004FC E3A06001        ldr              r6, =0x00000001
+  305 00000500         
+  306 00000500         wait_init_complete
+  307 00000500 E59F08F0        ldr              r0, =0xE6790600
+  308 00000504 E5907000        ldr              r7, [r0,#0x0]
+  309 00000508 E0067007        and              r7, r6, r7
+  310 0000050C E1560007        cmp              r6, r7
+  311 00000510 1AFFFFFA        bne              wait_init_complete
+  312 00000514         
+  313 00000514 E59F08E0        ldr              r0, =0xE6790640
+  314 00000518 E5907000        ldr              r7, [r0,#0x0]
+  315 0000051C E0067007        and              r7, r6, r7
+  316 00000520 E1560007        cmp              r6, r7
+  317 00000524 1AFFFFF5        bne              wait_init_complete
+  318 00000528         
+  319 00000528         ;; Remove comment by mochi for H3 ;; Comment Out 2015/07
+                       /29 M.Sano
+  320 00000528 E59F08D0        ldr              r0, =0xE6790680
+  321 0000052C E5907000        ldr              r7, [r0,#0x0]
+  322 00000530 E0067007        and              r7, r6, r7
+  323 00000534 E1560007        cmp              r6, r7
+  324 00000538 1AFFFFF0        bne              wait_init_complete
+  325 0000053C         
+  326 0000053C E59F08C0        ldr              r0, =0xE67906C0
+  327 00000540 E5907000        ldr              r7, [r0,#0x0]
+  328 00000544 E0067007        and              r7, r6, r7
+  329 00000548 E1560007        cmp              r6, r7
+  330 0000054C 1AFFFFEB        bne              wait_init_complete
+  331 00000550         
+  332 00000550 E59F086C        ldr              r0, =0xE6790000
+  333 00000554         
+  334 00000554         ;;MRR,MRW
+  335 00000554                 MYWRITE          0xE6790208,0x08840000 
+                                                            ; PDE ch0 rk0
+   51 00000554 E59F08AC        ldr              r0, =0x08840000
+   52 00000558 E59F18AC        ldr              r1, =0xE6790208
+   53 0000055C E5810000        str              r0, [r1]    ; 
+   54 00000560         
+  336 00000560                 MYWRITE          0xE6790208,0x08840001 
+                                                            ; PDX ch0 rk0
+   51 00000560 E59F08A8        ldr              r0, =0x08840001
+   52 00000564 E59F18A0        ldr              r1, =0xE6790208
+   53 00000568 E5810000        str              r0, [r1]    ; 
+   54 0000056C         
+  337 0000056C                 MYWRITE          0xE6790208,0x01840001 
+                                                            ; RSX ch0 rk0
+   51 0000056C E59F08A0        ldr              r0, =0x01840001
+   52 00000570 E59F1894        ldr              r1, =0xE6790208
+   53 00000574 E5810000        str              r0, [r1]    ; 
+   54 00000578         
+  338 00000578                 MYWRITE          0xE6790208,0x0e840aff ; MRW ch0
+                                                             rk0 0a:ff ZQCinit
+   51 00000578 E59F0898        ldr              r0, =0x0e840aff
+   52 0000057C E59F1888        ldr              r1, =0xE6790208
+   53 00000580 E5810000        str              r0, [r1]    ; 
+
+
+
+ARM Macro Assembler    Page 17 
+
+
+   54 00000584         
+  339 00000584         ;; test 0427    MYWRITE   0xE6790208,0x0e8401d4; MRW ch0
+                        rk0 01:43 DeviceFeature1(010, 011(nWR=30,BL8))
+  340 00000584                 MYWRITE          0xE6790208,0x0e840154 ; MRW ch0
+                                                             rk0 01:43 DeviceFe
+                                                            ature1(010, 011(nWR
+                                                            =30,BL8))
+   51 00000584 E59F0890        ldr              r0, =0x0e840154
+   52 00000588 E59F187C        ldr              r1, =0xE6790208
+   53 0000058C E5810000        str              r0, [r1]    ; 
+   54 00000590         
+  341 00000590                 MYWRITE          0xE6790208,0x0e84022e ; MRW ch0
+                                                             rk0 02:24 DeviceFe
+                                                            ature2(0,0,1,1010(W
+                                                            LSetA,RL32,WL14))
+   51 00000590 E59F0888        ldr              r0, =0x0e84022e
+   52 00000594 E59F1870        ldr              r1, =0xE6790208
+   53 00000598 E5810000        str              r0, [r1]    ; 
+   54 0000059C         
+  342 0000059C         
+  343 0000059C                 MYWRITE          0xE6790208,0x0d84004F ;     MPC
+                                                             chA rkA 4F (ZQCAL 
+                                                            start)
+   51 0000059C E59F0880        ldr              r0, =0x0d84004F
+   52 000005A0 E59F1864        ldr              r1, =0xE6790208
+   53 000005A4 E5810000        str              r0, [r1]    ; 
+   54 000005A8         
+  344 000005A8                 MYWRITE          0xE6790208,0x0d840051 ;     MPC
+                                                             chA rkA 51 (ZQCAL 
+                                                            latch)
+   51 000005A8 E59F0878        ldr              r0, =0x0d840051
+   52 000005AC E59F1858        ldr              r1, =0xE6790208
+   53 000005B0 E5810000        str              r0, [r1]    ; 
+   54 000005B4         
+  345 000005B4         
+  346 000005B4         ;
+  347 000005B4                 MYWRITE          0xE6790804,0x70000100 
+                                                            ;dbbus0cnf1
+   51 000005B4 E59F0870        ldr              r0, =0x70000100
+   52 000005B8 E59F1870        ldr              r1, =0xE6790804
+   53 000005BC E5810000        str              r0, [r1]    ; 
+   54 000005C0         
+  348 000005C0                 MYWRITE          0xE6790800,0x18010001 
+                                                            ;dbbus0cnf
+   51 000005C0 E59F086C        ldr              r0, =0x18010001
+   52 000005C4 E59F186C        ldr              r1, =0xE6790800
+   53 000005C8 E5810000        str              r0, [r1]    ; 
+   54 000005CC         
+  349 000005CC         ;;   MYWRITE   0xE6790410,0x000000000;dbrfcnf0 refthf=0 
+                       This parameter is obsolete, no real effect.
+  350 000005CC                 MYWRITE          0xE6790414,0x00081860 ;dbrfcnf1
+                                                             refpmax=8 refint=6
+                                                            240
+   51 000005CC E59F0868        ldr              r0, =0x00081860
+   52 000005D0 E59F1868        ldr              r1, =0xE6790414
+   53 000005D4 E5810000        str              r0, [r1]    ; 
+   54 000005D8         
+  351 000005D8                 MYWRITE          0xE6790418,0x00010000 ;dbrfcnf2
+                                                             refpmin=1 refints=
+
+
+
+ARM Macro Assembler    Page 18 
+
+
+                                                            0
+   51 000005D8 E3A00801        ldr              r0, =0x00010000
+   52 000005DC E59F1860        ldr              r1, =0xE6790418
+   53 000005E0 E5810000        str              r0, [r1]    ; 
+   54 000005E4         
+  352 000005E4                 MYWRITE          0xE6790204,0x00000001 ;dbrfen
+   51 000005E4 E3A00001        ldr              r0, =0x00000001
+   52 000005E8 E59F1858        ldr              r1, =0xE6790204
+   53 000005EC E5810000        str              r0, [r1]    ; 
+   54 000005F0         
+  353 000005F0         ;; PHY reg patch 
+  354 000005F0         ;   MYWRITE   0xE6790620,0x0000A55A; Unlock 
+  355 000005F0         ;      MYWRITE   0xE6790624,0x0000042A; 
+  356 000005F0         ;      MYWRITE   0xE6790628,0x01000005;   Original = 0x0
+                       0000005; add write_path_lat_0 0 -> 1
+  357 000005F0         ;      MYWRITE   0xE6790624,0x00000408; 
+  358 000005F0         ;      MYWRITE   0xE6790628,0x31516100;   Original = 0x3
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  359 000005F0         ;      MYWRITE   0xE6790624,0x00000488; 
+  360 000005F0         ;      MYWRITE   0xE6790628,0x31516100;   Original = 0x3
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  361 000005F0         ;      MYWRITE   0xE6790624,0x00000508; 
+  362 000005F0         ;      MYWRITE   0xE6790628,0x31516100;   Original = 0x3
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  363 000005F0         ;      MYWRITE   0xE6790624,0x00000588; 
+  364 000005F0         ;      MYWRITE   0xE6790628,0x31516100;   Original = 0x3
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  365 000005F0         ;      MYWRITE   0xE6790624,0x0000040a; 
+  366 000005F0         ;      MYWRITE   0xE6790628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  367 000005F0         ;      MYWRITE   0xE6790624,0x0000048a; 
+  368 000005F0         ;      MYWRITE   0xE6790628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  369 000005F0         ;      MYWRITE   0xE6790624,0x0000050a; 
+  370 000005F0         ;      MYWRITE   0xE6790628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  371 000005F0         ;      MYWRITE   0xE6790624,0x0000058a; 
+  372 000005F0         ;      MYWRITE   0xE6790628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  373 000005F0         
+  374 000005F0                 MYWRITE          0xE6790620,0x0000A55A ; Unlock 
+                                                            
+   51 000005F0 E30A055A        ldr              r0, =0x0000A55A
+   52 000005F4 E59F1850        ldr              r1, =0xE6790620
+   53 000005F8 E5810000        str              r0, [r1]    ; 
+   54 000005FC         
+  375 000005FC                 MYWRITE          0xE6790660,0x0000A55A ; Unlock 
+                                                            
+   51 000005FC E30A055A        ldr              r0, =0x0000A55A
+   52 00000600 E59F1848        ldr              r1, =0xE6790660
+   53 00000604 E5810000        str              r0, [r1]    ; 
+
+
+
+ARM Macro Assembler    Page 19 
+
+
+   54 00000608         
+  376 00000608                 MYWRITE          0xE67906a0,0x0000A55A ; Unlock 
+                                                            
+   51 00000608 E30A055A        ldr              r0, =0x0000A55A
+   52 0000060C E59F1840        ldr              r1, =0xE67906a0
+   53 00000610 E5810000        str              r0, [r1]    ; 
+   54 00000614         
+  377 00000614                 MYWRITE          0xE67906e0,0x0000A55A ; Unlock 
+                                                            
+   51 00000614 E30A055A        ldr              r0, =0x0000A55A
+   52 00000618 E59F1838        ldr              r1, =0xE67906e0
+   53 0000061C E5810000        str              r0, [r1]    ; 
+   54 00000620         
+  378 00000620         ;;   PHYWRITE  0x0000061f , 0x00000355;   Original = #H'
+                       00030055; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  379 00000620         ;;   PHYWRITE  0x00000620 , 0x00030003;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  380 00000620         ;;   PHYWRITE  0x00000621 , 0x00030003;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  381 00000620         ;;   PHYWRITE  0x00000622 , 0x00000003;   Original = #H'
+                       00000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  382 00000620         ;;   PHYWRITE  0x0000069d , 0x00000300;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  383 00000620         ;;   PHYWRITE  0x0000069e , 0x00030003;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  384 00000620         ;;   PHYWRITE  0x0000069f , 0x00000003;   Original = #H'
+                       00000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  385 00000620         
+  386 00000620                 MYWRITE          0xE6790200,0x00000001 ;dbacen
+   51 00000620 E3A00001        ldr              r0, =0x00000001
+   52 00000624 E59F1830        ldr              r1, =0xE6790200
+   53 00000628 E5810000        str              r0, [r1]    ; 
+   54 0000062C         
+  387 0000062C         ;;        .pool
+  388 0000062C         
+  389 0000062C                 MYWRITE          0xE67F0024,0x00000001 ; ; V3U D
+                                                            N2 (test mode)
+   51 0000062C E3A00001        ldr              r0, =0x00000001
+   52 00000630 E59F1828        ldr              r1, =0xE67F0024
+   53 00000634 E5810000        str              r0, [r1]    ; 
+   54 00000638         
+  390 00000638         ;   MYWRITE   0xE67F0054,0x00010000;
+  391 00000638         ;   MYWRITE   0xE67F0018,0x00000001;
+  392 00000638                 MYWRITE          0xE67F0018,0x00000000 ; ; V3U D
+                                                            N2 (test mode)
+   51 00000638 E3A00000        ldr              r0, =0x00000000
+   52 0000063C E59F1820        ldr              r1, =0xE67F0018
+   53 00000640 E5810000        str              r0, [r1]    ; 
+   54 00000644         
+  393 00000644         
+  394 00000644         
+  395 00000644         ;;======================================================
+
+
+
+ARM Macro Assembler    Page 20 
+
+
+                       =================
+  396 00000644         ;; For DBS1
+  397 00000644         ;;======================================================
+                       =================
+  398 00000644         ;; ADD H3ES2
+  399 00000644                 MYWRITE          0xE6798100,0x00001234 ;DBSYSCNT
+                                                            0 REGROCK enable
+   51 00000644 E3010234        ldr              r0, =0x00001234
+   52 00000648 E59F1818        ldr              r1, =0xE6798100
+   53 0000064C E5810000        str              r0, [r1]    ; 
+   54 00000650         
+  400 00000650                 MYWRITE          0xE6798108,0x00001234 ;DBSYSCNT
+                                                            0A REGROCKA enable
+   51 00000650 E3010234        ldr              r0, =0x00001234
+   52 00000654 E59F1810        ldr              r1, =0xE6798108
+   53 00000658 E5810000        str              r0, [r1]    ; 
+   54 0000065C         
+  401 0000065C         ;;; WAIT
+  402 0000065C                 MYWRITE          0xE6798020,0x0000000a ;dbkind d
+                                                            dcg=a(lpddr4)
+   51 0000065C E3A0000A        ldr              r0, =0x0000000a
+   52 00000660 E59F1808        ldr              r1, =0xE6798020
+   53 00000664 E5810000        str              r0, [r1]    ; 
+   54 00000668         
+  403 00000668                 MYWRITE          0xE6798024,0x0000000a ;dbkinda 
+                                                            ddcga=a(lpddr4)
+   51 00000668 E3A0000A        ldr              r0, =0x0000000a
+   52 0000066C E59F1800        ldr              r1, =0xE6798024
+   53 00000670 E5810000        str              r0, [r1]    ; 
+   54 00000674         
+  404 00000674         ;;   MYWRITE   0xE6798030,0x0e030a02;memconf00(ch0/rank0
+                       ), 4Gbit
+  405 00000674                 MYWRITE          0xE6798030,0x0e030a01 ;memconf0
+                                                            0(ch0/rank0), 2Gbit
+                                                            
+   51 00000674 E59F05C4        ldr              r0, =0x0e030a01
+   52 00000678 E59F17F8        ldr              r1, =0xE6798030
+   53 0000067C E5810000        str              r0, [r1]    ; 
+   54 00000680         
+  406 00000680                 MYWRITE          0xE6798070,0x0e030a01 ;memconf0
+                                                            0a(ch0/rank0), 2Gbi
+                                                            t (clk_axim)
+   51 00000680 E59F05B8        ldr              r0, =0x0e030a01
+   52 00000684 E59F17F0        ldr              r1, =0xE6798070
+   53 00000688 E5810000        str              r0, [r1]    ; 
+   54 0000068C         
+  407 0000068C                 MYWRITE          0xE6798034,0x0e030a01 ;memconf0
+                                                            1(ch0/rank1), 2Gbit
+                                                            
+   51 0000068C E59F05AC        ldr              r0, =0x0e030a01
+   52 00000690 E59F17E8        ldr              r1, =0xE6798034
+   53 00000694 E5810000        str              r0, [r1]    ; 
+   54 00000698         
+  408 00000698                 MYWRITE          0xE6798074,0x0e030a01 ;memconf0
+                                                            1a(ch0/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 00000698 E59F05A0        ldr              r0, =0x0e030a01
+   52 0000069C E59F17E0        ldr              r1, =0xE6798074
+   53 000006A0 E5810000        str              r0, [r1]    ; 
+
+
+
+ARM Macro Assembler    Page 21 
+
+
+   54 000006A4         
+  409 000006A4                 MYWRITE          0xE6798040,0x0e030a01 ;memconf1
+                                                            0(ch1/rank0), 2Gbit
+                                                            
+   51 000006A4 E59F0594        ldr              r0, =0x0e030a01
+   52 000006A8 E59F17D8        ldr              r1, =0xE6798040
+   53 000006AC E5810000        str              r0, [r1]    ; 
+   54 000006B0         
+  410 000006B0                 MYWRITE          0xE6798080,0x0e030a01 ;memconf1
+                                                            0a(ch1/rank0), 2Gbi
+                                                            t (clk_axim)
+   51 000006B0 E59F0588        ldr              r0, =0x0e030a01
+   52 000006B4 E59F17D0        ldr              r1, =0xE6798080
+   53 000006B8 E5810000        str              r0, [r1]    ; 
+   54 000006BC         
+  411 000006BC                 MYWRITE          0xE6798044,0x0e030a01 ;memconf1
+                                                            1(ch1/rank1), 2Gbit
+                                                            
+   51 000006BC E59F057C        ldr              r0, =0x0e030a01
+   52 000006C0 E59F17C8        ldr              r1, =0xE6798044
+   53 000006C4 E5810000        str              r0, [r1]    ; 
+   54 000006C8         
+  412 000006C8                 MYWRITE          0xE6798084,0x0e030a01 ;memconf1
+                                                            1a(ch1/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 000006C8 E59F0570        ldr              r0, =0x0e030a01
+   52 000006CC E59F17C0        ldr              r1, =0xE6798084
+   53 000006D0 E5810000        str              r0, [r1]    ; 
+   54 000006D4         
+  413 000006D4                 MYWRITE          0xE6798050,0x0e030a01 ;memconf0
+                                                            0(ch2/rank0), 2Gbit
+                                                            
+   51 000006D4 E59F0564        ldr              r0, =0x0e030a01
+   52 000006D8 E59F17B8        ldr              r1, =0xE6798050
+   53 000006DC E5810000        str              r0, [r1]    ; 
+   54 000006E0         
+  414 000006E0                 MYWRITE          0xE6798090,0x0e030a01 ;memconf0
+                                                            0a(ch2/rank0), 2Gbi
+                                                            t (clk_axim)
+   51 000006E0 E59F0558        ldr              r0, =0x0e030a01
+   52 000006E4 E59F17B0        ldr              r1, =0xE6798090
+   53 000006E8 E5810000        str              r0, [r1]    ; 
+   54 000006EC         
+  415 000006EC                 MYWRITE          0xE6798054,0x0e030a01 ;memconf0
+                                                            1(ch2/rank1), 2Gbit
+                                                            
+   51 000006EC E59F054C        ldr              r0, =0x0e030a01
+   52 000006F0 E59F17A8        ldr              r1, =0xE6798054
+   53 000006F4 E5810000        str              r0, [r1]    ; 
+   54 000006F8         
+  416 000006F8                 MYWRITE          0xE6798094,0x0e030a01 ;memconf0
+                                                            1a(ch2/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 000006F8 E59F0540        ldr              r0, =0x0e030a01
+   52 000006FC E59F17A0        ldr              r1, =0xE6798094
+   53 00000700 E5810000        str              r0, [r1]    ; 
+   54 00000704         
+  417 00000704                 MYWRITE          0xE6798060,0x0e030a01 ;memconf1
+                                                            0(ch3/rank0), 2Gbit
+
+
+
+ARM Macro Assembler    Page 22 
+
+
+                                                            
+   51 00000704 E59F0534        ldr              r0, =0x0e030a01
+   52 00000708 E59F1798        ldr              r1, =0xE6798060
+   53 0000070C E5810000        str              r0, [r1]    ; 
+   54 00000710         
+  418 00000710                 MYWRITE          0xE67980a0,0x0e030a01 ;memconf1
+                                                            0a(ch3/rank0), 2Gbi
+                                                            t (clk_axim)
+   51 00000710 E59F0528        ldr              r0, =0x0e030a01
+   52 00000714 E59F1790        ldr              r1, =0xE67980a0
+   53 00000718 E5810000        str              r0, [r1]    ; 
+   54 0000071C         
+  419 0000071C                 MYWRITE          0xE6798064,0x0e030a01 ;memconf1
+                                                            1(ch3/rank1), 2Gbit
+                                                            
+   51 0000071C E59F051C        ldr              r0, =0x0e030a01
+   52 00000720 E59F1788        ldr              r1, =0xE6798064
+   53 00000724 E5810000        str              r0, [r1]    ; 
+   54 00000728         
+  420 00000728                 MYWRITE          0xE67980a4,0x0e030a01 ;memconf1
+                                                            1a(ch3/rank1), 2Gbi
+                                                            t (clk_axim)
+   51 00000728 E59F0510        ldr              r0, =0x0e030a01
+   52 0000072C E59F1780        ldr              r1, =0xE67980a4
+   53 00000730 E5810000        str              r0, [r1]    ; 
+   54 00000734         
+  421 00000734         ;;   MYWRITE   0xE6798050,0x0e030a02;memconf20(ch2/rank0
+                       ), 4Gbit
+  422 00000734         ;;   MYWRITE   0xE6798054,0x0e030a02;memconf21(ch2/rank1
+                       ), 4Gbit
+  423 00000734         ;;   MYWRITE   0xE6798060,0x0e030a02;memconf30(ch3/rank0
+                       ), 4Gbit
+  424 00000734         ;;   MYWRITE   0xE6798064,0x0e030a02;memconf31(ch3/rank1
+                       ), 4Gbit
+  425 00000734                 MYWRITE          0xE6798104,0x00000000 
+                                                            ;dbsyscnt1       
+   51 00000734 E3A00000        ldr              r0, =0x00000000
+   52 00000738 E59F1778        ldr              r1, =0xE6798104
+   53 0000073C E5810000        str              r0, [r1]    ; 
+   54 00000740         
+  426 00000740                 MYWRITE          0xE6798010,0x00000001 
+                                                            ;DBPHYCONF0 01:DFI
+   51 00000740 E3A00001        ldr              r0, =0x00000001
+   52 00000744 E59F1770        ldr              r1, =0xE6798010
+   53 00000748 E5810000        str              r0, [r1]    ; 
+   54 0000074C         
+  427 0000074C         ;;        .pool
+  428 0000074C                 MYWRITE          0xE6798300,0x00000028 
+                                                            ;dbtr0 cl=40
+   51 0000074C E3A00028        ldr              r0, =0x00000028
+   52 00000750 E59F1768        ldr              r1, =0xE6798300
+   53 00000754 E5810000        str              r0, [r1]    ; 
+   54 00000758         
+  429 00000758                 MYWRITE          0xE6798304,0x00000012 
+                                                            ;dbtr1 cwl=14
+   51 00000758 E3A00012        ldr              r0, =0x00000012
+   52 0000075C E59F1760        ldr              r1, =0xE6798304
+   53 00000760 E5810000        str              r0, [r1]    ; 
+   54 00000764         
+
+
+
+ARM Macro Assembler    Page 23 
+
+
+  430 00000764         ;;   MYWRITE   0xE6798308,0x00000000;dbtr2 al=0
+  431 00000764                 MYWRITE          0xE679830C,0x00000027 
+                                                            ;dbtr3 trcd=39
+   51 00000764 E3A00027        ldr              r0, =0x00000027
+   52 00000768 E59F1758        ldr              r1, =0xE679830C
+   53 0000076C E5810000        str              r0, [r1]    ; 
+   54 00000770         
+  432 00000770                 MYWRITE          0xE6798310,0x002D0027 ;dbtr4 tr
+                                                            pa=45 trp=39
+   51 00000770 E59F0520        ldr              r0, =0x002D0027
+   52 00000774 E59F1750        ldr              r1, =0xE6798310
+   53 00000778 E5810000        str              r0, [r1]    ; 
+   54 0000077C         
+  433 0000077C                 MYWRITE          0xE6798314,0x00000087 
+                                                            ;dbtr5 trc=135
+   51 0000077C E3A00087        ldr              r0, =0x00000087
+   52 00000780 E59F1748        ldr              r1, =0xE6798314
+   53 00000784 E5810000        str              r0, [r1]    ; 
+   54 00000788         
+  434 00000788                 MYWRITE          0xE6798318,0x0000005A 
+                                                            ;dbtr6 tras=90
+   51 00000788 E3A0005A        ldr              r0, =0x0000005A
+   52 0000078C E59F1740        ldr              r1, =0xE6798318
+   53 00000790 E5810000        str              r0, [r1]    ; 
+   54 00000794         
+  435 00000794                 MYWRITE          0xE679831C,0x00100010 ;dbtr7  t
+                                                            rrd_s=16 trrd=16
+   51 00000794 E59F050C        ldr              r0, =0x00100010
+   52 00000798 E59F1738        ldr              r1, =0xE679831C
+   53 0000079C E5810000        str              r0, [r1]    ; 
+   54 000007A0         
+  436 000007A0                 MYWRITE          0xE6798320,0x00000040 
+                                                            ;dbtr8  tfaw=64
+   51 000007A0 E3A00040        ldr              r0, =0x00000040
+   52 000007A4 E59F1730        ldr              r1, =0xE6798320
+   53 000007A8 E5810000        str              r0, [r1]    ; 
+   54 000007AC         
+  437 000007AC                 MYWRITE          0xE6798324,0x00000010 
+                                                            ;dbtr9 trdpr=16
+   51 000007AC E3A00010        ldr              r0, =0x00000010
+   52 000007B0 E59F1728        ldr              r1, =0xE6798324
+   53 000007B4 E5810000        str              r0, [r1]    ; 
+   54 000007B8         
+  438 000007B8                 MYWRITE          0xE6798328,0x00000029 
+                                                            ;dbtr10 twr=41
+   51 000007B8 E3A00029        ldr              r0, =0x00000029
+   52 000007BC E59F1720        ldr              r1, =0xE6798328
+   53 000007C0 E5810000        str              r0, [r1]    ; 
+   54 000007C4         
+  439 000007C4                 MYWRITE          0xE679832C,0x00000029 ;dbtr11  
+                                                            trdwr>=41 ;; PHY ma
+                                                            y have restriction 
+                                                            of this value.
+   51 000007C4 E3A00029        ldr              r0, =0x00000029
+   52 000007C8 E59F1718        ldr              r1, =0xE679832C
+   53 000007CC E5810000        str              r0, [r1]    ; 
+   54 000007D0         
+  440 000007D0                 MYWRITE          0xE6798330,0x00310031 ;dbtr12 t
+                                                            wrrd_s>=49 twrrd>=4
+
+
+
+ARM Macro Assembler    Page 24 
+
+
+                                                            9 ;; PHY may restri
+                                                            ction of this value
+                                                            .
+   51 000007D0 E59F04E8        ldr              r0, =0x00310031
+   52 000007D4 E59F1710        ldr              r1, =0xE6798330
+   53 000007D8 E5810000        str              r0, [r1]    ; 
+   54 000007DC         
+  441 000007DC                 MYWRITE          0xE6798334,0x00000116 ;dbtr13 t
+                                                            rfcpb=0(W/A) trfc=2
+                                                            78(2Gbit/ch)
+   51 000007DC E3000116        ldr              r0, =0x00000116
+   52 000007E0 E59F1708        ldr              r1, =0xE6798334
+   53 000007E4 E5810000        str              r0, [r1]    ; 
+   54 000007E8         
+  442 000007E8                 MYWRITE          0xE6798338,0x00130013 ;dbtr14 t
+                                                            ckehdll=19 tckeh=19
+                                                            
+   51 000007E8 E59F04DC        ldr              r0, =0x00130013
+   52 000007EC E59F1700        ldr              r1, =0xE6798338
+   53 000007F0 E5810000        str              r0, [r1]    ; 
+   54 000007F4         
+  443 000007F4                 MYWRITE          0xE679833C,0x00200010 ;dbtr15 t
+                                                            ckesr=32 tckel=16
+   51 000007F4 E59F04D8        ldr              r0, =0x00200010
+   52 000007F8 E59F16F8        ldr              r1, =0xE679833C
+   53 000007FC E5810000        str              r0, [r1]    ; 
+   54 00000800         
+  444 00000800                 MYWRITE          0xE6798340,0x0d400a0e ;dbtr16 l
+                                                            atency?  CWL=13 CL=
+                                                            32 New dbsc ;; Plea
+                                                            se refer PHY manual
+                                                            . 0427
+   51 00000800 E59F04D4        ldr              r0, =0x0d400a0e
+   52 00000804 E59F16F0        ldr              r1, =0xE6798340
+   53 00000808 E5810000        str              r0, [r1]    ; 
+   54 0000080C         
+  445 0000080C                 MYWRITE          0xE6798344,0x081E0000 ;dbtr17 t
+                                                            modrd=8  tmod=30
+   51 0000080C E59F04D0        ldr              r0, =0x081E0000
+   52 00000810 E59F16E8        ldr              r1, =0xE6798344
+   53 00000814 E5810000        str              r0, [r1]    ; 
+   54 00000818         
+  446 00000818                 MYWRITE          0xE6798350,0x01290129 ;dbtr20 t
+                                                            xsdll=txs=297 txs=t
+                                                            rfcab+7.5ns+3nCK(W/
+                                                            A)=297
+   51 00000818 E59F04CC        ldr              r0, =0x01290129
+   52 0000081C E59F16E0        ldr              r1, =0xE6798350
+   53 00000820 E5810000        str              r0, [r1]    ; 
+   54 00000824         
+  447 00000824                 MYWRITE          0xE6798354,0x00080008 ;dbtr21 t
+                                                            ccd_s=8 tccd=8
+   51 00000824 E59F04C8        ldr              r0, =0x00080008
+   52 00000828 E59F16D8        ldr              r1, =0xE6798354
+   53 0000082C E5810000        str              r0, [r1]    ; 
+   54 00000830         
+  448 00000830                 MYWRITE          0xE6798358,0x08550040 ;dbtr22 t
+                                                            zqcal=2133 tzqlat=4
+                                                            8
+
+
+
+ARM Macro Assembler    Page 25 
+
+
+   51 00000830 E59F04C4        ldr              r0, =0x08550040
+   52 00000834 E59F16D0        ldr              r1, =0xE6798358
+   53 00000838 E5810000        str              r0, [r1]    ; 
+   54 0000083C         
+  449 0000083C                 MYWRITE          0xE679835C,0x00000003 ;dbtr23
+   51 0000083C E3A00003        ldr              r0, =0x00000003
+   52 00000840 E59F16C8        ldr              r1, =0xE679835C
+   53 00000844 E5810000        str              r0, [r1]    ; 
+   54 00000848         
+  450 00000848                 MYWRITE          0xE6798400,0x00000002 ;dbbl  db
+                                                            bl=2(BL16)(LPDDR4)
+   51 00000848 E3A00002        ldr              r0, =0x00000002
+   52 0000084C E59F16C0        ldr              r1, =0xE6798400
+   53 00000850 E5810000        str              r0, [r1]    ; 
+   54 00000854         
+  451 00000854                 MYWRITE          0xE6798404,0x00000002 ;dbbla db
+                                                            bla=2(BL16)(LPDDR4)
+                                                            
+   51 00000854 E3A00002        ldr              r0, =0x00000002
+   52 00000858 E59F16B8        ldr              r1, =0xE6798404
+   53 0000085C E5810000        str              r0, [r1]    ; 
+   54 00000860         
+  452 00000860         ;;   MYWRITE   0xE6798430,0x00000000;dbrnk0 No odt for D
+                       Q exists in LPDDR4(N.Honda).
+  453 00000860         ;;   MYWRITE   0xE6798434,0x00000000;dbrnk1 Don't need t
+                       o set it cause we use all-rank refresh.
+  454 00000860                 MYWRITE          0xE6798438,0x00004444 ;dbrnk2 r
+                                                            krr = 4 (Are there 
+                                                            any info ?)
+   51 00000860 E3040444        ldr              r0, =0x00004444
+   52 00000864 E59F16B0        ldr              r1, =0xE6798438
+   53 00000868 E5810000        str              r0, [r1]    ; 
+   54 0000086C         
+  455 0000086C                 MYWRITE          0xE679843C,0x00004444 ;dbrnk3 r
+                                                            krw = 4 (Are there 
+                                                            any info ?)
+   51 0000086C E3040444        ldr              r0, =0x00004444
+   52 00000870 E59F16A8        ldr              r1, =0xE679843C
+   53 00000874 E5810000        str              r0, [r1]    ; 
+   54 00000878         
+  456 00000878                 MYWRITE          0xE6798440,0x00004444 ;dbrnk4 r
+                                                            kwr = 4 (Are there 
+                                                            any info ?)
+   51 00000878 E3040444        ldr              r0, =0x00004444
+   52 0000087C E59F16A0        ldr              r1, =0xE6798440
+   53 00000880 E5810000        str              r0, [r1]    ; 
+   54 00000884         
+  457 00000884                 MYWRITE          0xE6798444,0x00004444 ;dbrnk5 r
+                                                            kww = 4 (Are there 
+                                                            any info ?)
+   51 00000884 E3040444        ldr              r0, =0x00004444
+   52 00000888 E59F1698        ldr              r1, =0xE6798444
+   53 0000088C E5810000        str              r0, [r1]    ; 
+   54 00000890         
+  458 00000890         ;;   MYWRITE   0xE6798448,0x00000000;dbrnk6 use all-rank
+                       /all-bank refresh
+  459 00000890         ;;   MYWRITE   0xE6798500,0x00000000;dbadj0 currently, n
+                       o optional setting exists.
+  460 00000890         ;;   MYWRITE   0xE6798508,0x00000000;dbadj2 currently, n
+
+
+
+ARM Macro Assembler    Page 26 
+
+
+                       o optional setting exists.
+  461 00000890         ;;   MYWRITE   0xE6798900,0x00000000;dbcam0cnf0 inoen=0,
+                        actually it is not used.
+  462 00000890                 MYWRITE          0xE6798904,0x00104214 ;dbcam0cn
+                                                            f1 wbkwait=8, wbkmd
+                                                            hi=32, wbkmdlo=16
+   51 00000890 E59F0488        ldr              r0, =0x00104214
+   52 00000894 E59F1690        ldr              r1, =0xE6798904
+   53 00000898 E5810000        str              r0, [r1]    ; 
+   54 0000089C         
+  463 0000089C                 MYWRITE          0xE6798908,0x000001c4 ;dbcam0cn
+                                                            f2 scexp=8192
+   51 0000089C E3A00F71        ldr              r0, =0x000001c4
+   52 000008A0 E59F1688        ldr              r1, =0xE6798908
+   53 000008A4 E5810000        str              r0, [r1]    ; 
+   54 000008A8         
+  464 000008A8                 MYWRITE          0xE679890C,0x00000003 
+                                                            ;dbcam0cnf3       
+   51 000008A8 E3A00003        ldr              r0, =0x00000003
+   52 000008AC E59F1680        ldr              r1, =0xE679890C
+   53 000008B0 E5810000        str              r0, [r1]    ; 
+   54 000008B4         
+  465 000008B4         
+  466 000008B4                 MYWRITE          0xE6799000,0x000f0037 
+                                                            ;dbschcnt0
+   51 000008B4 E59F0474        ldr              r0, =0x000f0037
+   52 000008B8 E59F1678        ldr              r1, =0xE6799000
+   53 000008BC E5810000        str              r0, [r1]    ; 
+   54 000008C0         
+  467 000008C0                 MYWRITE          0xE6799004,0x00001010 
+                                                            ;dbschcnt1
+   51 000008C0 E3010010        ldr              r0, =0x00001010
+   52 000008C4 E59F1670        ldr              r1, =0xE6799004
+   53 000008C8 E5810000        str              r0, [r1]    ; 
+   54 000008CC         
+  468 000008CC                 MYWRITE          0xE6799010,0x00000001 ;dbschsz0
+                                                            
+   51 000008CC E3A00001        ldr              r0, =0x00000001
+   52 000008D0 E59F1668        ldr              r1, =0xE6799010
+   53 000008D4 E5810000        str              r0, [r1]    ; 
+   54 000008D8         
+  469 000008D8                 MYWRITE          0xE6799020,0xf7311111 ;dbschrw0
+                                                            
+   51 000008D8 E59F0460        ldr              r0, =0xf7311111
+   52 000008DC E59F1660        ldr              r1, =0xE6799020
+   53 000008E0 E5810000        str              r0, [r1]    ; 
+   54 000008E4         
+  470 000008E4                 MYWRITE          0xE6799024,0x00001834 ;dbschrw1
+                                                            
+   51 000008E4 E3010834        ldr              r0, =0x00001834
+   52 000008E8 E59F1658        ldr              r1, =0xE6799024
+   53 000008EC E5810000        str              r0, [r1]    ; 
+   54 000008F0         
+  471 000008F0                 MYWRITE          0xE6799030,0xffffffff ;dbschqos
+                                                            00 QoS = 00_00 does
+                                                            n't come from AXI
+   51 000008F0 E3E00000        ldr              r0, =0xffffffff
+   52 000008F4 E59F1650        ldr              r1, =0xE6799030
+   53 000008F8 E5810000        str              r0, [r1]    ; 
+
+
+
+ARM Macro Assembler    Page 27 
+
+
+   54 000008FC         
+  472 000008FC                 MYWRITE          0xE6799034,0x00000480 
+                                                            ;dbschqos01
+   51 000008FC E3A00D12        ldr              r0, =0x00000480
+   52 00000900 E59F1648        ldr              r1, =0xE6799034
+   53 00000904 E5810000        str              r0, [r1]    ; 
+   54 00000908         
+  473 00000908                 MYWRITE          0xE6799038,0x00000300 
+                                                            ;dbschqos02
+   51 00000908 E3A00C03        ldr              r0, =0x00000300
+   52 0000090C E59F1640        ldr              r1, =0xE6799038
+   53 00000910 E5810000        str              r0, [r1]    ; 
+   54 00000914         
+  474 00000914                 MYWRITE          0xE679903C,0x00000180 
+                                                            ;dbschqos03
+   51 00000914 E3A00D06        ldr              r0, =0x00000180
+   52 00000918 E59F1638        ldr              r1, =0xE679903C
+   53 0000091C E5810000        str              r0, [r1]    ; 
+   54 00000920         
+  475 00000920         ;;   MYWRITE   0xE6799030,0x00000600;dbschqos00 QoS = 00
+                       _00 doesn't come from AXI
+  476 00000920         ;;   MYWRITE   0xE6799034,0x00000480;dbschqos01
+  477 00000920         ;;   MYWRITE   0xE6799038,0x00000300;dbschqos02
+  478 00000920         ;;   MYWRITE   0xE679903C,0x00000180;dbschqos03
+  479 00000920         ;;   MYWRITE   0xE6799040,0x00000600;dbschqos10 QoS = 00
+                       _01 doesn't come from AXI
+  480 00000920         ;;   MYWRITE   0xE6799044,0x00000480;dbschqos11
+  481 00000920         ;;   MYWRITE   0xE6799048,0x00000300;dbschqos12
+  482 00000920         ;;   MYWRITE   0xE679904C,0x00000180;dbschqos13
+  483 00000920         ;;   MYWRITE   0xE6799050,0x00000600;dbschqos20 QoS = 00
+                       _10 doesn't come from AXI
+  484 00000920         ;;   MYWRITE   0xE6799054,0x00000480;dbschqos21
+  485 00000920         ;;   MYWRITE   0xE6799058,0x00000300;dbschqos22
+  486 00000920         ;;   MYWRITE   0xE679905C,0x00000180;dbschqos23
+  487 00000920         ;;   MYWRITE   0xE6799060,0x00000600;dbschqos30 QoS = 00
+                       _11 doesn't come from AXI
+  488 00000920         ;;   MYWRITE   0xE6799064,0x00000480;dbschqos31
+  489 00000920         ;;   MYWRITE   0xE6799068,0x00000300;dbschqos32
+  490 00000920         ;;   MYWRITE   0xE679906C,0x00000180;dbschqos33
+  491 00000920                 MYWRITE          0xE6799070,0x00000600 
+                                                            ;dbschqos40
+   51 00000920 E3A00C06        ldr              r0, =0x00000600
+   52 00000924 E59F1630        ldr              r1, =0xE6799070
+   53 00000928 E5810000        str              r0, [r1]    ; 
+   54 0000092C         
+  492 0000092C                 MYWRITE          0xE6799074,0x00000480 
+                                                            ;dbschqos41
+   51 0000092C E3A00D12        ldr              r0, =0x00000480
+   52 00000930 E59F1628        ldr              r1, =0xE6799074
+   53 00000934 E5810000        str              r0, [r1]    ; 
+   54 00000938         
+  493 00000938                 MYWRITE          0xE6799078,0x00000300 
+                                                            ;dbschqos42
+   51 00000938 E3A00C03        ldr              r0, =0x00000300
+   52 0000093C E59F1620        ldr              r1, =0xE6799078
+   53 00000940 E5810000        str              r0, [r1]    ; 
+   54 00000944         
+  494 00000944                 MYWRITE          0xE679907C,0x00000180 
+                                                            ;dbschqos43
+
+
+
+ARM Macro Assembler    Page 28 
+
+
+   51 00000944 E3A00D06        ldr              r0, =0x00000180
+   52 00000948 E59F1618        ldr              r1, =0xE679907C
+   53 0000094C E5810000        str              r0, [r1]    ; 
+   54 00000950         
+  495 00000950         ;;   MYWRITE   0xE6799080,0x00000400;dbschqos50 QoS = 01
+                       _01 doesn't come from AXI
+  496 00000950         ;;   MYWRITE   0xE6799084,0x00000300;dbschqos51
+  497 00000950         ;;   MYWRITE   0xE6799088,0x00000200;dbschqos52
+  498 00000950         ;;   MYWRITE   0xE679908C,0x00000100;dbschqos53
+  499 00000950         ;;   MYWRITE   0xE6799090,0x00000400;dbschqos60 QoS = 01
+                       _10 doesn't come from AXI
+  500 00000950         ;;   MYWRITE   0xE6799094,0x00000300;dbschqos61
+  501 00000950         ;;   MYWRITE   0xE6799098,0x00000200;dbschqos62
+  502 00000950         ;;   MYWRITE   0xE679909C,0x00000100;dbschqos63
+  503 00000950         ;;   MYWRITE   0xE67990A0,0x00000400;dbschqos70 QoS = 01
+                       _11 doesn't come from AXI
+  504 00000950         ;;   MYWRITE   0xE67990A4,0x00000300;dbschqos71
+  505 00000950         ;;   MYWRITE   0xE67990A8,0x00000200;dbschqos72
+  506 00000950         ;;   MYWRITE   0xE67990AC,0x00000100;dbschqos73
+  507 00000950         ;;   MYWRITE   0xE67990B0,0x00000400;dbschqos80 QoS = 10
+                       _00 doesn't come from AXI
+  508 00000950         ;;   MYWRITE   0xE67990B4,0x00000300;dbschqos81
+  509 00000950         ;;   MYWRITE   0xE67990B8,0x00000200;dbschqos82
+  510 00000950         ;;   MYWRITE   0xE67990BC,0x00000100;dbschqos83
+  511 00000950                 MYWRITE          0xE67990C0,0x00000400 
+                                                            ;dbschqos90
+   51 00000950 E3A00B01        ldr              r0, =0x00000400
+   52 00000954 E59F1610        ldr              r1, =0xE67990C0
+   53 00000958 E5810000        str              r0, [r1]    ; 
+   54 0000095C         
+  512 0000095C                 MYWRITE          0xE67990C4,0x00000300 
+                                                            ;dbschqos91
+   51 0000095C E3A00C03        ldr              r0, =0x00000300
+   52 00000960 E59F1608        ldr              r1, =0xE67990C4
+   53 00000964 E5810000        str              r0, [r1]    ; 
+   54 00000968         
+  513 00000968                 MYWRITE          0xE67990C8,0x00000200 
+                                                            ;dbschqos92
+   51 00000968 E3A00C02        ldr              r0, =0x00000200
+   52 0000096C E59F1600        ldr              r1, =0xE67990C8
+   53 00000970 E5810000        str              r0, [r1]    ; 
+   54 00000974         
+  514 00000974                 MYWRITE          0xE67990CC,0x00000100 
+                                                            ;dbschqos93
+   51 00000974 E3A00C01        ldr              r0, =0x00000100
+   52 00000978 E59F15F8        ldr              r1, =0xE67990CC
+   53 0000097C E5810000        str              r0, [r1]    ; 
+   54 00000980         
+  515 00000980         ;;   MYWRITE   0xE67990D0,0x00000300;dbschqos100 QoS = 1
+                       0_10 doesn't come from AXI
+  516 00000980         ;;   MYWRITE   0xE67990D4,0x00000240;dbschqos101
+  517 00000980         ;;   MYWRITE   0xE67990D8,0x00000180;dbschqos102
+  518 00000980         ;;   MYWRITE   0xE67990DC,0x000000c0;dbschqos103
+  519 00000980         ;;   MYWRITE   0xE67990E0,0x00000300;dbschqos110 QoS = 1
+                       0_11 doesn't come from AXI
+  520 00000980         ;;   MYWRITE   0xE67990E4,0x00000240;dbschqos111
+  521 00000980         ;;   MYWRITE   0xE67990E8,0x00000180;dbschqos112
+  522 00000980         ;;   MYWRITE   0xE67990EC,0x000000c0;dbschqos113
+  523 00000980         ;;   MYWRITE   0xE67990F0,0x00000300;dbschqos120 QoS = 1
+
+
+
+ARM Macro Assembler    Page 29 
+
+
+                       1_00 doesn't come from AXI
+  524 00000980         ;;   MYWRITE   0xE67990F4,0x00000240;dbschqos121
+  525 00000980         ;;   MYWRITE   0xE67990F8,0x00000180;dbschqos122
+  526 00000980         ;;   MYWRITE   0xE67990FC,0x000000c0;dbschqos123
+  527 00000980                 MYWRITE          0xE6799100,0x00000300 
+                                                            ;dbschqos130
+   51 00000980 E3A00C03        ldr              r0, =0x00000300
+   52 00000984 E59F15F0        ldr              r1, =0xE6799100
+   53 00000988 E5810000        str              r0, [r1]    ; 
+   54 0000098C         
+  528 0000098C                 MYWRITE          0xE6799104,0x00000240 
+                                                            ;dbschqos131
+   51 0000098C E3A00D09        ldr              r0, =0x00000240
+   52 00000990 E59F15E8        ldr              r1, =0xE6799104
+   53 00000994 E5810000        str              r0, [r1]    ; 
+   54 00000998         
+  529 00000998                 MYWRITE          0xE6799108,0x00000180 
+                                                            ;dbschqos132
+   51 00000998 E3A00D06        ldr              r0, =0x00000180
+   52 0000099C E59F15E0        ldr              r1, =0xE6799108
+   53 000009A0 E5810000        str              r0, [r1]    ; 
+   54 000009A4         
+  530 000009A4                 MYWRITE          0xE679910C,0x000000c0 
+                                                            ;dbschqos133
+   51 000009A4 E3A000C0        ldr              r0, =0x000000c0
+   52 000009A8 E59F15D8        ldr              r1, =0xE679910C
+   53 000009AC E5810000        str              r0, [r1]    ; 
+   54 000009B0         
+  531 000009B0                 MYWRITE          0xE6799110,0x00000200 
+                                                            ;dbschqos140
+   51 000009B0 E3A00C02        ldr              r0, =0x00000200
+   52 000009B4 E59F15D0        ldr              r1, =0xE6799110
+   53 000009B8 E5810000        str              r0, [r1]    ; 
+   54 000009BC         
+  532 000009BC                 MYWRITE          0xE6799114,0x00000180 
+                                                            ;dbschqos141
+   51 000009BC E3A00D06        ldr              r0, =0x00000180
+   52 000009C0 E59F15C8        ldr              r1, =0xE6799114
+   53 000009C4 E5810000        str              r0, [r1]    ; 
+   54 000009C8         
+  533 000009C8                 MYWRITE          0xE6799118,0x00000100 
+                                                            ;dbschqos142
+   51 000009C8 E3A00C01        ldr              r0, =0x00000100
+   52 000009CC E59F15C0        ldr              r1, =0xE6799118
+   53 000009D0 E5810000        str              r0, [r1]    ; 
+   54 000009D4         
+  534 000009D4                 MYWRITE          0xE679911C,0x00000080 
+                                                            ;dbschqos143
+   51 000009D4 E3A00080        ldr              r0, =0x00000080
+   52 000009D8 E59F15B8        ldr              r1, =0xE679911C
+   53 000009DC E5810000        str              r0, [r1]    ; 
+   54 000009E0         
+  535 000009E0                 MYWRITE          0xE6799120,0x00000100 
+                                                            ;dbschqos150
+   51 000009E0 E3A00C01        ldr              r0, =0x00000100
+   52 000009E4 E59F15B0        ldr              r1, =0xE6799120
+   53 000009E8 E5810000        str              r0, [r1]    ; 
+   54 000009EC         
+  536 000009EC                 MYWRITE          0xE6799124,0x000000c0 
+
+
+
+ARM Macro Assembler    Page 30 
+
+
+                                                            ;dbschqos151
+   51 000009EC E3A000C0        ldr              r0, =0x000000c0
+   52 000009F0 E59F15A8        ldr              r1, =0xE6799124
+   53 000009F4 E5810000        str              r0, [r1]    ; 
+   54 000009F8         
+  537 000009F8                 MYWRITE          0xE6799128,0x00000080 
+                                                            ;dbschqos152
+   51 000009F8 E3A00080        ldr              r0, =0x00000080
+   52 000009FC E59F15A0        ldr              r1, =0xE6799128
+   53 00000A00 E5810000        str              r0, [r1]    ; 
+   54 00000A04         
+  538 00000A04                 MYWRITE          0xE679912C,0x00000040 
+                                                            ;dbschqos153
+   51 00000A04 E3A00040        ldr              r0, =0x00000040
+   52 00000A08 E59F1598        ldr              r1, =0xE679912C
+   53 00000A0C E5810000        str              r0, [r1]    ; 
+   54 00000A10         
+  539 00000A10         
+  540 00000A10                 MYWRITE          0xE6799700,0x220E110A ;dbschfct
+                                                            st0 scactact=34, sc
+                                                            rdact=14, scwract=1
+                                                            7, scpreact=10
+   51 00000A10 E59F0394        ldr              r0, =0x220E110A
+   52 00000A14 E59F1590        ldr              r1, =0xE6799700
+   53 00000A18 E5810000        str              r0, [r1]    ; 
+   54 00000A1C         
+  541 00000A1C                 MYWRITE          0xE6799708,0x0B0D0A0C ;dbschfct
+                                                            st1 scrdwr=11, scwr
+                                                            rd=13, scactrdwr=10
+                                                            , scasyncofs=12
+   51 00000A1C E59F0390        ldr              r0, =0x0B0D0A0C
+   52 00000A20 E59F1588        ldr              r1, =0xE6799708
+   53 00000A24 E5810000        str              r0, [r1]    ; 
+   54 00000A28         
+  542 00000A28                 MYWRITE          0xE679970C,0x111f1fff ;dbschfct
+                                                            st2 wrperi3=1, wrpe
+                                                            ri2=1, wrperi1=1, w
+                                                            rperi0=15, rdperi3=
+                                                            1, rdperi2=15, rdpe
+                                                            ri1=15, rdperi0=15
+   51 00000A28 E59F038C        ldr              r0, =0x111f1fff
+   52 00000A2C E59F1580        ldr              r1, =0xE679970C
+   53 00000A30 E5810000        str              r0, [r1]    ; 
+   54 00000A34         
+  543 00000A34         
+  544 00000A34                 MYWRITE          0xE6798000,0x00000001 ;dbsyscon
+                                                            f0 rg_pch=2, rg_mch
+                                                            =2.
+   51 00000A34 E3A00001        ldr              r0, =0x00000001
+   52 00000A38 E59F1578        ldr              r1, =0xE6798000
+   53 00000A3C E5810000        str              r0, [r1]    ; 
+   54 00000A40         
+  545 00000A40                 MYWRITE          0xE6798004,0x00000002 ;dbsyscon
+                                                            f1 freqratio=2.
+   51 00000A40 E3A00002        ldr              r0, =0x00000002
+   52 00000A44 E59F1570        ldr              r1, =0xE6798004
+   53 00000A48 E5810000        str              r0, [r1]    ; 
+   54 00000A4C         
+  546 00000A4C                 MYWRITE          0xE6798008,0x00000002 ;dbsyscon
+
+
+
+ARM Macro Assembler    Page 31 
+
+
+                                                            f1a freqratioa=2.
+   51 00000A4C E3A00002        ldr              r0, =0x00000002
+   52 00000A50 E59F1568        ldr              r1, =0xE6798008
+   53 00000A54 E5810000        str              r0, [r1]    ; 
+   54 00000A58         
+  547 00000A58                 MYWRITE          0xE679800c,0x00000001 ;dbsyscon
+                                                            f2 schmd=1 (2ch mod
+                                                            e).
+   51 00000A58 E3A00001        ldr              r0, =0x00000001
+   52 00000A5C E59F1560        ldr              r1, =0xE679800c
+   53 00000A60 E5810000        str              r0, [r1]    ; 
+   54 00000A64         
+  548 00000A64                 MYWRITE          0xE6798014,0x00000041 ;dbsyscon
+                                                            f2a chpos=8(256Byte
+                                                             channel interleave
+                                                            ), schmda=1 (2ch mo
+                                                            de).
+   51 00000A64 E3A00041        ldr              r0, =0x00000041
+   52 00000A68 E59F1558        ldr              r1, =0xE6798014
+   53 00000A6C E5810000        str              r0, [r1]    ; 
+   54 00000A70         
+  549 00000A70         
+  550 00000A70         ;;        .pool
+  551 00000A70         ;;   MYWRITE   0xE6798604,0x00000010;dbdficnt0
+  552 00000A70         ;;   MYWRITE   0xE6798644,0x00000010;dbdficnt1
+  553 00000A70         ;;   MYWRITE   0xE6798684,0x00000010;dbdficnt2
+  554 00000A70         ;;   MYWRITE   0xE67986C4,0x00000010;dbdficnt3
+  555 00000A70         ;; wait init_complete
+  556 00000A70         ;;   MYWRITE   0xE6798904,0x00044020;
+  557 00000A70         ;;   MYWRITE   0xE6798908,0x00000008;
+  558 00000A70         
+  559 00000A70         ;; FOR 1212B
+  560 00000A70         ;;   MYWRITE   0xE6798904,0x0004140c;
+  561 00000A70         ;;   MYWRITE   0xE6798908,0x00000008;
+  562 00000A70         ;;   MYWRITE   0xE6799010,0x00000003;
+  563 00000A70         ;;   MYWRITE   0xE6799024,0x001a0080;
+  564 00000A70         
+  565 00000A70         ;; FOR 1213A
+  566 00000A70         ;   MYWRITE   0xE6798904,0x00040C04;
+  567 00000A70         ;   MYWRITE   0xE6798908,0x00000108;
+  568 00000A70         ;   MYWRITE   0xE6799010,0x00000003;
+  569 00000A70         ;   MYWRITE   0xE6799024,0x001a0080;
+  570 00000A70         
+  571 00000A70         ;; Add 2015/07/29 M.Sano
+  572 00000A70         ;; Remove comment by mochi for H3 ;; Comment Out 2015/07
+                       /29 M.Sano
+  573 00000A70                 MYWRITE          0xE6798604,0x00000011 ;dbdficnt
+                                                            0 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 00000A70 E3A00011        ldr              r0, =0x00000011
+   52 00000A74 E59F1550        ldr              r1, =0xE6798604
+   53 00000A78 E5810000        str              r0, [r1]    ; 
+   54 00000A7C         
+  574 00000A7C                 MYWRITE          0xE6798644,0x00000011 ;dbdficnt
+                                                            1 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 00000A7C E3A00011        ldr              r0, =0x00000011
+   52 00000A80 E59F1548        ldr              r1, =0xE6798644
+   53 00000A84 E5810000        str              r0, [r1]    ; 
+
+
+
+ARM Macro Assembler    Page 32 
+
+
+   54 00000A88         
+  575 00000A88                 MYWRITE          0xE6798684,0x00000011 ;dbdficnt
+                                                            2 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 00000A88 E3A00011        ldr              r0, =0x00000011
+   52 00000A8C E59F1540        ldr              r1, =0xE6798684
+   53 00000A90 E5810000        str              r0, [r1]    ; 
+   54 00000A94         
+  576 00000A94                 MYWRITE          0xE67986C4,0x00000011 ;dbdficnt
+                                                            3 freq_ratio = 01 (
+                                                            2:1)init_start =1 
+   51 00000A94 E3A00011        ldr              r0, =0x00000011
+   52 00000A98 E59F1538        ldr              r1, =0xE67986C4
+   53 00000A9C E5810000        str              r0, [r1]    ; 
+   54 00000AA0         
+  577 00000AA0         
+  578 00000AA0                 MYWRITE          0xE679861C,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 00000AA0 E30C0F01        ldr              r0, =0x0000CF01
+   52 00000AA4 E59F1530        ldr              r1, =0xE679861C
+   53 00000AA8 E5810000        str              r0, [r1]    ; 
+   54 00000AAC         
+  579 00000AAC                 MYWRITE          0xE679865C,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 00000AAC E30C0F01        ldr              r0, =0x0000CF01
+   52 00000AB0 E59F1528        ldr              r1, =0xE679865C
+   53 00000AB4 E5810000        str              r0, [r1]    ; 
+   54 00000AB8         
+  580 00000AB8                 MYWRITE          0xE679869C,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 00000AB8 E30C0F01        ldr              r0, =0x0000CF01
+   52 00000ABC E59F1520        ldr              r1, =0xE679869C
+   53 00000AC0 E5810000        str              r0, [r1]    ; 
+   54 00000AC4         
+  581 00000AC4                 MYWRITE          0xE67986DC,0x0000CF01 
+                                                            ;dll_rst_n0 -> 1
+   51 00000AC4 E30C0F01        ldr              r0, =0x0000CF01
+   52 00000AC8 E59F1518        ldr              r1, =0xE67986DC
+   53 00000ACC E5810000        str              r0, [r1]    ; 
+   54 00000AD0         
+  582 00000AD0         
+  583 00000AD0         
+  584 00000AD0 E3A06001        ldr              r6, =0x00000001
+  585 00000AD4         
+  586 00000AD4         wait_init_complete_DBS1
+  587 00000AD4 E59F0510        ldr              r0, =0xE6798600
+  588 00000AD8 E5907000        ldr              r7, [r0,#0x0]
+  589 00000ADC E0067007        and              r7, r6, r7
+  590 00000AE0 E1560007        cmp              r6, r7
+  591 00000AE4 1AFFFFFA        bne              wait_init_complete_DBS1
+  592 00000AE8         
+  593 00000AE8 E59F0500        ldr              r0, =0xE6798640
+  594 00000AEC E5907000        ldr              r7, [r0,#0x0]
+  595 00000AF0 E0067007        and              r7, r6, r7
+  596 00000AF4 E1560007        cmp              r6, r7
+  597 00000AF8 1AFFFFF5        bne              wait_init_complete_DBS1
+  598 00000AFC         
+  599 00000AFC         ;; Remove comment by mochi for H3 ;; Comment Out 2015/07
+                       /29 M.Sano
+
+
+
+ARM Macro Assembler    Page 33 
+
+
+  600 00000AFC E59F04F0        ldr              r0, =0xE6798680
+  601 00000B00 E5907000        ldr              r7, [r0,#0x0]
+  602 00000B04 E0067007        and              r7, r6, r7
+  603 00000B08 E1560007        cmp              r6, r7
+  604 00000B0C 1AFFFFF0        bne              wait_init_complete_DBS1
+  605 00000B10         
+  606 00000B10 E59F04E0        ldr              r0, =0xE67986C0
+  607 00000B14 E5907000        ldr              r7, [r0,#0x0]
+  608 00000B18 E0067007        and              r7, r6, r7
+  609 00000B1C E1560007        cmp              r6, r7
+  610 00000B20 1AFFFFEB        bne              wait_init_complete_DBS1
+  611 00000B24         
+  612 00000B24 E59F048C        ldr              r0, =0xE6798000
+  613 00000B28         
+  614 00000B28         ;;MRR,MRW
+  615 00000B28                 MYWRITE          0xE6798208,0x08840000 
+                                                            ; PDE ch0 rk0
+   51 00000B28 E59F02D8        ldr              r0, =0x08840000
+   52 00000B2C E59F14C8        ldr              r1, =0xE6798208
+   53 00000B30 E5810000        str              r0, [r1]    ; 
+   54 00000B34         
+  616 00000B34                 MYWRITE          0xE6798208,0x08840001 
+                                                            ; PDX ch0 rk0
+   51 00000B34 E59F02D4        ldr              r0, =0x08840001
+   52 00000B38 E59F14BC        ldr              r1, =0xE6798208
+   53 00000B3C E5810000        str              r0, [r1]    ; 
+   54 00000B40         
+  617 00000B40                 MYWRITE          0xE6798208,0x01840001 
+                                                            ; RSX ch0 rk0
+   51 00000B40 E59F02CC        ldr              r0, =0x01840001
+   52 00000B44 E59F14B0        ldr              r1, =0xE6798208
+   53 00000B48 E5810000        str              r0, [r1]    ; 
+   54 00000B4C         
+  618 00000B4C                 MYWRITE          0xE6798208,0x0e840aff ; MRW ch0
+                                                             rk0 0a:ff ZQCinit
+   51 00000B4C E59F02C4        ldr              r0, =0x0e840aff
+   52 00000B50 E59F14A4        ldr              r1, =0xE6798208
+   53 00000B54 E5810000        str              r0, [r1]    ; 
+   54 00000B58         
+  619 00000B58         ;; test 0427    MYWRITE   0xE6798208,0x0e8401d4; MRW ch0
+                        rk0 01:43 DeviceFeature1(010, 011(nWR=30,BL8))
+  620 00000B58                 MYWRITE          0xE6798208,0x0e840154 ; MRW ch0
+                                                             rk0 01:43 DeviceFe
+                                                            ature1(010, 011(nWR
+                                                            =30,BL8))
+   51 00000B58 E59F02BC        ldr              r0, =0x0e840154
+   52 00000B5C E59F1498        ldr              r1, =0xE6798208
+   53 00000B60 E5810000        str              r0, [r1]    ; 
+   54 00000B64         
+  621 00000B64                 MYWRITE          0xE6798208,0x0e84022e ; MRW ch0
+                                                             rk0 02:24 DeviceFe
+                                                            ature2(0,0,1,1010(W
+                                                            LSetA,RL32,WL14))
+   51 00000B64 E59F02B4        ldr              r0, =0x0e84022e
+   52 00000B68 E59F148C        ldr              r1, =0xE6798208
+   53 00000B6C E5810000        str              r0, [r1]    ; 
+   54 00000B70         
+  622 00000B70         
+  623 00000B70                 MYWRITE          0xE6798208,0x0d84004F ;     MPC
+
+
+
+ARM Macro Assembler    Page 34 
+
+
+                                                             chA rkA 4F (ZQCAL 
+                                                            start)
+   51 00000B70 E59F02AC        ldr              r0, =0x0d84004F
+   52 00000B74 E59F1480        ldr              r1, =0xE6798208
+   53 00000B78 E5810000        str              r0, [r1]    ; 
+   54 00000B7C         
+  624 00000B7C                 MYWRITE          0xE6798208,0x0d840051 ;     MPC
+                                                             chA rkA 51 (ZQCAL 
+                                                            latch)
+   51 00000B7C E59F02A4        ldr              r0, =0x0d840051
+   52 00000B80 E59F1474        ldr              r1, =0xE6798208
+   53 00000B84 E5810000        str              r0, [r1]    ; 
+   54 00000B88         
+  625 00000B88         
+  626 00000B88         ;
+  627 00000B88                 MYWRITE          0xE6798804,0x70000100 
+                                                            ;dbbus0cnf1
+   51 00000B88 E59F029C        ldr              r0, =0x70000100
+   52 00000B8C E59F146C        ldr              r1, =0xE6798804
+   53 00000B90 E5810000        str              r0, [r1]    ; 
+   54 00000B94         
+  628 00000B94                 MYWRITE          0xE6798800,0x18010001 
+                                                            ;dbbus0cnf
+   51 00000B94 E59F0298        ldr              r0, =0x18010001
+   52 00000B98 E59F1464        ldr              r1, =0xE6798800
+   53 00000B9C E5810000        str              r0, [r1]    ; 
+   54 00000BA0         
+  629 00000BA0         ;;   MYWRITE   0xE6798410,0x000000000;dbrfcnf0 refthf=0 
+                       This parameter is obsolete, no real effect.
+  630 00000BA0                 MYWRITE          0xE6798414,0x00081860 ;dbrfcnf1
+                                                             refpmax=8 refint=6
+                                                            240
+   51 00000BA0 E59F0294        ldr              r0, =0x00081860
+   52 00000BA4 E59F145C        ldr              r1, =0xE6798414
+   53 00000BA8 E5810000        str              r0, [r1]    ; 
+   54 00000BAC         
+  631 00000BAC                 MYWRITE          0xE6798418,0x00010000 ;dbrfcnf2
+                                                             refpmin=1 refints=
+                                                            0
+   51 00000BAC E3A00801        ldr              r0, =0x00010000
+   52 00000BB0 E59F1454        ldr              r1, =0xE6798418
+   53 00000BB4 E5810000        str              r0, [r1]    ; 
+   54 00000BB8         
+  632 00000BB8                 MYWRITE          0xE6798204,0x00000001 ;dbrfen
+   51 00000BB8 E3A00001        ldr              r0, =0x00000001
+   52 00000BBC E59F144C        ldr              r1, =0xE6798204
+   53 00000BC0 E5810000        str              r0, [r1]    ; 
+   54 00000BC4         
+  633 00000BC4         ;; PHY reg patch 
+  634 00000BC4         ;   MYWRITE   0xE6798620,0x0000A55A; Unlock 
+  635 00000BC4         ;      MYWRITE   0xE6798624,0x0000042A; 
+  636 00000BC4         ;      MYWRITE   0xE6798628,0x01000005;   Original = 0x0
+                       0000005; add write_path_lat_0 0 -> 1
+  637 00000BC4         ;      MYWRITE   0xE6798624,0x00000408; 
+  638 00000BC4         ;      MYWRITE   0xE6798628,0x31516100;   Original = 0x3
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  639 00000BC4         ;      MYWRITE   0xE6798624,0x00000488; 
+  640 00000BC4         ;      MYWRITE   0xE6798628,0x31516100;   Original = 0x3
+
+
+
+ARM Macro Assembler    Page 35 
+
+
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  641 00000BC4         ;      MYWRITE   0xE6798624,0x00000508; 
+  642 00000BC4         ;      MYWRITE   0xE6798628,0x31516100;   Original = 0x3
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  643 00000BC4         ;      MYWRITE   0xE6798624,0x00000588; 
+  644 00000BC4         ;      MYWRITE   0xE6798628,0x31516100;   Original = 0x3
+                       1514100; adjust PHY_DQ_OE TIMING start =1/2 tck , end 2t
+                       ck -> end 3tck 
+  645 00000BC4         ;      MYWRITE   0xE6798624,0x0000040a; 
+  646 00000BC4         ;      MYWRITE   0xE6798628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  647 00000BC4         ;      MYWRITE   0xE6798624,0x0000048a; 
+  648 00000BC4         ;      MYWRITE   0xE6798628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  649 00000BC4         ;      MYWRITE   0xE6798624,0x0000050a; 
+  650 00000BC4         ;      MYWRITE   0xE6798628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  651 00000BC4         ;      MYWRITE   0xE6798624,0x0000058a; 
+  652 00000BC4         ;      MYWRITE   0xE6798628,0x01315061; Original = 0x013
+                       15041; adjust PHY_DQS_OE TIMING start =1/2 tck , end 2tc
+                       k -> end 3tck 
+  653 00000BC4         
+  654 00000BC4                 MYWRITE          0xE6798620,0x0000A55A ; Unlock 
+                                                            
+   51 00000BC4 E30A055A        ldr              r0, =0x0000A55A
+   52 00000BC8 E59F1444        ldr              r1, =0xE6798620
+   53 00000BCC E5810000        str              r0, [r1]    ; 
+   54 00000BD0         
+  655 00000BD0                 MYWRITE          0xE6798660,0x0000A55A ; Unlock 
+                                                            
+   51 00000BD0 E30A055A        ldr              r0, =0x0000A55A
+   52 00000BD4 E59F143C        ldr              r1, =0xE6798660
+   53 00000BD8 E5810000        str              r0, [r1]    ; 
+   54 00000BDC         
+  656 00000BDC                 MYWRITE          0xE67986a0,0x0000A55A ; Unlock 
+                                                            
+   51 00000BDC E30A055A        ldr              r0, =0x0000A55A
+   52 00000BE0 E59F1434        ldr              r1, =0xE67986a0
+   53 00000BE4 E5810000        str              r0, [r1]    ; 
+   54 00000BE8         
+  657 00000BE8                 MYWRITE          0xE67986e0,0x0000A55A ; Unlock 
+                                                            
+   51 00000BE8 E30A055A        ldr              r0, =0x0000A55A
+   52 00000BEC E59F142C        ldr              r1, =0xE67986e0
+   53 00000BF0 E5810000        str              r0, [r1]    ; 
+   54 00000BF4         
+  658 00000BF4         ;;   PHYWRITE  0x0000061f , 0x00000355;   Original = #H'
+                       00030055; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  659 00000BF4         ;;   PHYWRITE  0x00000620 , 0x00030003;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  660 00000BF4         ;;   PHYWRITE  0x00000621 , 0x00030003;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+
+
+
+ARM Macro Assembler    Page 36 
+
+
+                       f_cycle_shift)
+  661 00000BF4         ;;   PHYWRITE  0x00000622 , 0x00000003;   Original = #H'
+                       00000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  662 00000BF4         ;;   PHYWRITE  0x0000069d , 0x00000300;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  663 00000BF4         ;;   PHYWRITE  0x0000069e , 0x00030003;   Original = #H'
+                       03000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  664 00000BF4         ;;   PHYWRITE  0x0000069f , 0x00000003;   Original = #H'
+                       00000300; Change phy_adrY_clk_wr_slave_delay 300->3 (hal
+                       f_cycle_shift)
+  665 00000BF4         
+  666 00000BF4                 MYWRITE          0xE6798200,0x00000001 ;dbacen
+   51 00000BF4 E3A00001        ldr              r0, =0x00000001
+   52 00000BF8 E59F1424        ldr              r1, =0xE6798200
+   53 00000BFC E5810000        str              r0, [r1]    ; 
+   54 00000C00         
+  667 00000C00         ;;        .pool
+  668 00000C00         
+  669 00000C00                 MYWRITE          0xE67F0024,0x00000001 ; ; V3U D
+                                                            N2 (test mode)
+   51 00000C00 E3A00001        ldr              r0, =0x00000001
+   52 00000C04 E59F1254        ldr              r1, =0xE67F0024
+   53 00000C08 E5810000        str              r0, [r1]    ; 
+   54 00000C0C         
+  670 00000C0C         ;   MYWRITE   0xE67F0054,0x00010000;
+  671 00000C0C         ;   MYWRITE   0xE67F0018,0x00000001;
+  672 00000C0C                 MYWRITE          0xE67F0018,0x00000000 ; ; V3U D
+                                                            N2 (test mode)
+   51 00000C0C E3A00000        ldr              r0, =0x00000000
+   52 00000C10 E59F124C        ldr              r1, =0xE67F0018
+   53 00000C14 E5810000        str              r0, [r1]    ; 
+   54 00000C18         
+  673 00000C18         
+  674 00000C18 E59F0408        ldr              r0, = __main
+  675 00000C1C E1A0F000        mov              pc, r0
+  676 00000C20         
+  677 00000C20         
+  678 00000C20         
+  679 00000C20 EA000101        B                SKIP_DBSCINIT
+  680 00000C24 E6152E10 
+              E6150000 
+              E6152D10 
+              E6790100 
+              E6790108 
+              E6790020 
+              E6790024 
+              0E030A01 
+              E6790030 
+              E6790070 
+              E6790034 
+              E6790074 
+              E6790040 
+              E6790080 
+              E6790044 
+              E6790084 
+              E6790050 
+
+
+
+ARM Macro Assembler    Page 37 
+
+
+              E6790090 
+              E6790054 
+              E6790094 
+              E6790060 
+              E67900A0 
+              E6790064 
+              E67900A4 
+              E6790104 
+              E6790010 
+              E6790300 
+              E6790304 
+              E679030C 
+              002D0027 
+              E6790310 
+              E6790314 
+              E6790318 
+              00100010 
+              E679031C 
+              E6790320 
+              E6790324 
+              E6790328 
+              E679032C 
+              00310031 
+              E6790330 
+              E6790334 
+              00130013 
+              E6790338 
+              00200010 
+              E679033C 
+              0D400A0E 
+              E6790340 
+              081E0000 
+              E6790344 
+              01290129 
+              E6790350 
+              00080008 
+              E6790354 
+              08550040 
+              E6790358 
+              E679035C 
+              E6790400 
+              E6790404 
+              E6790438 
+              E679043C 
+              E6790440 
+              E6790444 
+              00104214 
+              E6790904 
+              E6790908 
+              E679090C 
+              000F0037 
+              E6791000 
+              E6791004 
+              E6791010 
+              F7311111 
+              E6791020 
+              E6791024 
+              E6791030 
+              E6791034 
+
+
+
+ARM Macro Assembler    Page 38 
+
+
+              E6791038 
+              E679103C 
+              E6791070 
+              E6791074 
+              E6791078 
+              E679107C 
+              E67910C0 
+              E67910C4 
+              E67910C8 
+              E67910CC 
+              E6791100 
+              E6791104 
+              E6791108 
+              E679110C 
+              E6791110 
+              E6791114 
+              E6791118 
+              E679111C 
+              E6791120 
+              E6791124 
+              E6791128 
+              E679112C 
+              220E110A 
+              E6791700 
+              0B0D0A0C 
+              E6791708 
+              111F1FFF 
+              E679170C 
+              E6790000 
+              E6790004 
+              E6790008 
+              E679000C 
+              E6790014 
+              E6790604 
+              E6790644 
+              E6790684 
+              E67906C4 
+              E679061C 
+              E679065C 
+              E679069C 
+              E67906DC 
+              E6790600 
+              E6790640 
+              E6790680 
+              E67906C0 
+              08840000 
+              E6790208 
+              08840001 
+              01840001 
+              0E840AFF 
+              0E840154 
+              0E84022E 
+              0D84004F 
+              0D840051 
+              70000100 
+              E6790804 
+              18010001 
+              E6790800 
+              00081860 
+
+
+
+ARM Macro Assembler    Page 39 
+
+
+              E6790414 
+              E6790418 
+              E6790204 
+              E6790620 
+              E6790660 
+              E67906A0 
+              E67906E0 
+              E6790200 
+              E67F0024 
+              E67F0018 
+              E6798100 
+              E6798108 
+              E6798020 
+              E6798024 
+              E6798030 
+              E6798070 
+              E6798034 
+              E6798074 
+              E6798040 
+              E6798080 
+              E6798044 
+              E6798084 
+              E6798050 
+              E6798090 
+              E6798054 
+              E6798094 
+              E6798060 
+              E67980A0 
+              E6798064 
+              E67980A4 
+              E6798104 
+              E6798010 
+              E6798300 
+              E6798304 
+              E679830C 
+              E6798310 
+              E6798314 
+              E6798318 
+              E679831C 
+              E6798320 
+              E6798324 
+              E6798328 
+              E679832C 
+              E6798330 
+              E6798334 
+              E6798338 
+              E679833C 
+              E6798340 
+              E6798344 
+              E6798350 
+              E6798354 
+              E6798358 
+              E679835C 
+              E6798400 
+              E6798404 
+              E6798438 
+              E679843C 
+              E6798440 
+              E6798444 
+
+
+
+ARM Macro Assembler    Page 40 
+
+
+              E6798904 
+              E6798908 
+              E679890C 
+              E6799000 
+              E6799004 
+              E6799010 
+              E6799020 
+              E6799024 
+              E6799030 
+              E6799034 
+              E6799038 
+              E679903C 
+              E6799070 
+              E6799074 
+              E6799078 
+              E679907C 
+              E67990C0 
+              E67990C4 
+              E67990C8 
+              E67990CC 
+              E6799100 
+              E6799104 
+              E6799108 
+              E679910C 
+              E6799110 
+              E6799114 
+              E6799118 
+              E679911C 
+              E6799120 
+              E6799124 
+              E6799128 
+              E679912C 
+              E6799700 
+              E6799708 
+              E679970C 
+              E6798000 
+              E6798004 
+              E6798008 
+              E679800C 
+              E6798014 
+              E6798604 
+              E6798644 
+              E6798684 
+              E67986C4 
+              E679861C 
+              E679865C 
+              E679869C 
+              E67986DC 
+              E6798600 
+              E6798640 
+              E6798680 
+              E67986C0 
+              E6798208 
+              E6798804 
+              E6798800 
+              E6798414 
+              E6798418 
+              E6798204 
+              E6798620 
+
+
+
+ARM Macro Assembler    Page 41 
+
+
+              E6798660 
+              E67986A0 
+              E67986E0 
+              E6798200 
+              00000000         LTORG
+  681 0000102C         SKIP_DBSCINIT
+  682 0000102C         ;;        .pool
+  683 0000102C         
+  684 0000102C                 ENDIF
+  685 0000102C         
+  686 0000102C         ddr_init_end
+  687 0000102C         
+  688 0000102C                 END
+Command Line: --cpu=Cortex-R52 -m -I/design01/rcarv3ufed_master/common_rvc/rcar
+v3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_test -I/design01/rcarv3ufed_master
+/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine="EXECUTE
+_LOCATION SETS \"DDR\"" --list=rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.
+list /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL
+/ct/include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.s
