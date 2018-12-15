@@ -14,12 +14,12 @@
 #include <rcar_v3u/drivers/dmac.h>
 #include <rcar_v3u/drivers/kcrc.h>
 
-// /* Common items check */
-// extern uint32_t reg_check(void);
-// extern uint32_t mstp_check(void);
-// extern uint32_t srst_check(void);
-// extern uint32_t pad_check(void);
-// extern uint32_t interrupt_check(void);
+/* Common items check */
+extern uint32_t reg_check(void);
+extern uint32_t mstp_check(void);
+extern uint32_t srst_check(void);
+extern uint32_t pad_check(void);
+extern uint32_t interrupt_check(void);
 
 /* Slave operation check */
 extern uint32_t slave_nack_addr(void);
@@ -37,26 +37,26 @@ extern uint32_t renesas_slave_rx_fna_delay(void);
 extern uint32_t renesas_slave_tx(void);
 extern uint32_t renesas_slave_tx_delay(void);
 
-// /* Salve auto transfer using DMAC */
+/* Auto transfer using DMAC */
 // extern uint32_t slave_rx_dma(void);
 // extern uint32_t slave_tx_dma(void);
 
-// /* Master operation check */
-// extern uint32_t master_arbitration_lost(void);
-// extern uint32_t master_general_call(void);
+/* Master operation check */
 // extern uint32_t master_rx(void);
-// extern uint32_t master_send_start_byte(void);
-// extern uint32_t master_tx(void);
-// extern uint32_t master_tx_fsb(void);
+extern uint32_t master_tx(void);
+extern uint32_t master_tx_fsb(void);
 // extern uint32_t master_tx_rpt_master_rx(void);
+// extern uint32_t master_general_call(void);
+// extern uint32_t master_send_start_byte(void);
+// extern uint32_t master_arbitration_lost(void);
 
-// /* Master auto transfer using DMAC */
+/* Auto transfer using DMAC */
 // extern uint32_t master_rx_dma(void);
 // extern uint32_t master_tx_dma(void);
 // extern uint32_t master_rx_dma_continuous(void);
 // extern uint32_t master_tx_dma_continuous(void);
 
-// /* Clock generator operation check */
+/* Clock generator operation check */
 // extern uint32_t master_tx_50kHz(void);
 // extern uint32_t master_tx_50kHz_var_duty(void);
 // extern uint32_t master_tx_100kHz(void);
@@ -73,12 +73,12 @@ extern uint32_t renesas_slave_tx_delay(void);
 
 const uint32_t (*pattern[])(void) =
 {
-	// /* Common items check */
-	// &reg_check,
-	// &mstp_check,
-	// &srst_check,
-	// &pad_check,
-	// &interrupt_check,
+	/* Common items check */
+	&reg_check,
+	&mstp_check,
+	&srst_check,
+	&pad_check,
+	&interrupt_check,
 
 	/* Slave operation check */
 	&slave_nack_addr,
@@ -101,17 +101,19 @@ const uint32_t (*pattern[])(void) =
 	// &renesas_slave_tx_dma,
 
 	// /* Master operation check */
-	// &master_arbitration_lost,
-	// &master_general_call,
 	// &master_rx,
-	// &master_rx_dma,
-	// &master_rx_dma_continuous,
-	// &master_send_start_byte,
 	// &master_tx,
-	// &master_tx_dma,
-	// &master_tx_dma_continuous,
 	// &master_tx_fsb,
 	// &master_tx_rpt_master_rx,
+	// &master_general_call,
+	// &master_send_start_byte,
+	// &master_arbitration_lost,
+
+	// /* Auto transfer using DMAC */
+	// &master_rx_dma,
+	// &master_tx_dma,
+	// &master_rx_dma_continuous,
+	// &master_tx_dma_continuous,
 
 	// /* Clock generator operation check */
 	// &master_tx_50kHz,
