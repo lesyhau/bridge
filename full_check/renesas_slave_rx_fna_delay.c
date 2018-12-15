@@ -17,7 +17,7 @@
 static const I2C_MasterConfig_t masterConfig =
 {
     MASTER_TX,
-    I2C_GENERAL_CALL_ADDR,
+    I2C0_SLAVE_ADDR,
     START_BYTE_TRANSMIT_DISABLE,
     OD_BUFFER,
     FIXED_DUTY_CYCLE,
@@ -27,8 +27,8 @@ static const I2C_MasterConfig_t masterConfig =
 static const I2C_SlaveConfig_t slaveConfig =
 {
     I2C0_SLAVE_ADDR,
-    CLOCK_STRETCH_AFTER,
-    GENERAL_CALL_ACK_ENABLE,
+    CLOCK_STRETCH_BEFORE,
+    GENERAL_CALL_ACK_DISABLE,
     OD_BUFFER,
     FIXED_DUTY_CYCLE,
     CLOCK_RATE_400KHZ
@@ -38,9 +38,9 @@ static const I2C_SlaveConfig_t slaveConfig =
 static const uint32_t sendData[DATA_PACKAGE_LENGTH] = { 'H', 'E', 'L', 'L', 'O', ',', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 static uint32_t receivedData[DATA_PACKAGE_LENGTH];
 
-uint32_t slave_general_call(void)
+uint32_t renesas_slave_rx_fna_delay(void)
 {
-	uint32_t i = 0;
+    uint8_t i = 0;
 
     /* Configure I2C1 in master TX mode */
     I2C_masterInit(I2C1, &masterConfig);
@@ -49,6 +49,7 @@ uint32_t slave_general_call(void)
 
     /* Configure I2C0 in slave RX mode */
     I2C_slaveInit(I2C0, &slaveConfig);
+    I2C0->SDBS = 0;
     I2C_slaveClearInterruptStatus(I2C0, I2C_INT_ALL);
     I2C_slaveEnable(I2C0);
 
@@ -66,23 +67,29 @@ uint32_t slave_general_call(void)
     I2C1->ESG = 0;
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_MAT | I2C_INT_MDE);
 
-	for (i = 1; i < (DATA_PACKAGE_LENGTH + 1); i++)
-	{
-		/* Wait for MDE */
-		while (! I2C1->MDE);
-		if (i < DATA_PACKAGE_LENGTH) { I2C_masterSendMultipleByteNext(I2C1, sendData[i]); }
-		else { I2C_masterSendMultipleByteStop(I2C1); }
-		I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
+    for (i = 1; i < (DATA_PACKAGE_LENGTH + 1); i++)
+    {
+        /* Wait for MDE */
+        while (! I2C1->MDE);
+        if (i < DATA_PACKAGE_LENGTH) { I2C_masterSendMultipleByteNext(I2C1, sendData[i]); }
+        I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
 
-		/* Wait for MDT */
-		while (! I2C1->MDT);
-		I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDT);
+        /* Wait for MDT */
+        while (! I2C1->MDT);
+        I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDT);
 
-		/* Wait for SDR */
-		while (! I2C0->SDR);
-		receivedData[i-1] = I2C_slaveReceiveMultipleByteNext(I2C0);
-		I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDR);
-	}
+        /* Wait for SDR */
+        while (! I2C0->SDR);
+        if (i < (DATA_PACKAGE_LENGTH - 1)) { receivedData[i-1] = I2C_slaveReceiveMultipleByteNext(I2C0); }
+        else if (i == (DATA_PACKAGE_LENGTH - 1)) { receivedData[i-1] = I2C_slaveReceiveMultipleByteStop(I2C0); }
+        else if (i == DATA_PACKAGE_LENGTH) { receivedData[i-1] = I2C_slaveReceiveMultipleByteFinish(I2C0); }
+        Sim_Delay(800);
+        I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDR);
+    }
+
+    /* Wait for MNR */
+    while (! I2C1->MNR);
+    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MNR);
 
     /* Wait for SSR */
     while (! I2C0->SSR);
@@ -112,4 +119,3 @@ uint32_t slave_general_call(void)
 
 	return testResult;
 }
-

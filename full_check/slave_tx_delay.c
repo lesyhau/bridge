@@ -72,7 +72,7 @@ uint32_t slave_tx_delay(void)
 		/* Wait for SDE */
 		while (! I2C0->SDE);
 		if (i < DATA_PACKAGE_LENGTH) { I2C_slaveSetData(I2C0, sendData[i]); }
-        Sim_Delay(20);
+        Sim_Delay(800);
 		I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDE);
 
 		/* Wait for SDT */
