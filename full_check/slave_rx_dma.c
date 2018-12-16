@@ -37,6 +37,12 @@ static const I2C_SlaveConfig_t slaveConfig =
 #define DATA_PACKAGE_LENGTH 13
 static const uint32_t sendData[DATA_PACKAGE_LENGTH] = { 'H', 'E', 'L', 'L', 'O', ',', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 static uint32_t receivedData[DATA_PACKAGE_LENGTH];
+static volatile bool isTransferComplete = false;
+
+void i2c0InterruptHandler(void);
+void i2c1InterruptHandler(void);
+void sdmac1ch0InterruptHandler(void);
+void sdmac1ch1InterruptHandler(void);
 
 uint32_t slave_rx_dma(void)
 {
@@ -82,63 +88,73 @@ uint32_t slave_rx_dma(void)
     I2C_slaveClearInterruptStatus(I2C0, I2C_INT_ALL);
     I2C_slaveEnable(I2C0);
 
+    GIC_enable();
+    GIC_setInterruptHandler(GIC_INTID_I2C0, &i2c0InterruptHandler);
+    GIC_setInterruptHandler(GIC_INTID_I2C1, &i2c1InterruptHandler);
+    GIC_setInterruptHandler(GIC_INTID_SDMAC1CH0, &sdmac1ch0InterruptHandler);
+    GIC_setInterruptHandler(GIC_INTID_SDMAC1CH1, &sdmac1ch1InterruptHandler);
+    GIC_enableInterrupt(GIC_INTID_I2C0);
+    GIC_enableInterrupt(GIC_INTID_I2C1);
+    GIC_enableInterrupt(GIC_INTID_SDMAC1CH0);
+    GIC_enableInterrupt(GIC_INTID_SDMAC1CH1);
+
     /* Set the first data byte, send start condition, send slave address */
     I2C_masterSendMultipleByteStart(I2C1, sendData[0]);
 
-    /* Wait for SAR */
-    while (! I2C0->SAR);
-    I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SAR);
+    // /* Wait for SAR */
+    // while (! I2C0->SAR);
+    // I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SAR);
 
-    /* Wait for MAT */
-    /* Note: At this moment, MDE is also set, it is also need to be cleared */
-    while (! I2C1->MAT);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MAT | I2C_INT_MDE);
-
-    /* Clear ESG */
-    I2C1->ESG = 0;
+    // /* Wait for MAT */
+    // /* Note: At this moment, MDE is also set, it is also need to be cleared */
+    // while (! I2C1->MAT);
+    // I2C1->ESG = 0;
+    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MAT | I2C_INT_MDE);
 
     /**************************************************************************
      * DMA data transmition
      *************************************************************************/
 
-    /* Wait for MDE */
-    while (! I2C1->MDE);
-    /* Enable DMA transfer for DMAC and I2C */
-    SDMAC1->DMAOR = 1;
-    I2C_masterEnableDMATransmit(I2C1);
-    I2C_slaveEnableDMAReceive(I2C0);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
+    // /* Wait for MDE */
+    // while (! I2C1->MDE);
+    // /* Enable DMA transfer for DMAC and I2C */
+    // SDMAC1->DMAOR = 1;
+    // I2C_masterEnableDMATransmit(I2C1);
+    // I2C_slaveEnableDMAReceive(I2C0);
+    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
 
-    /* Wait for DMA transmition finish */
-    while (! SDMAC1CH0->TE);
-    SDMAC1CH0->DE = 0;
-    SDMAC1CH0->TE = 0;
+    // /* Wait for DMA transmition finish */
+    // while (! SDMAC1CH0->TE);
+    // SDMAC1CH0->DE = 0;
+    // SDMAC1CH0->TE = 0;
 
-    /* Wait for DMA reception finish */
-    while (! SDMAC1CH1->TE);
-    SDMAC1CH1->DE = 0;
-    SDMAC1CH1->TE = 0;
+    // /* Wait for DMA reception finish */
+    // while (! SDMAC1CH1->TE);
+    // SDMAC1CH1->DE = 0;
+    // SDMAC1CH1->TE = 0;
 
-    /* Disable DMA */
-    SDMAC1->DMAOR = 0;
+    // /* Disable DMA */
+    // SDMAC1->DMAOR = 0;
 
-    /* Wait for MDE */
-    while (! I2C1->MDE);
-    /* Master send a stop condition after received the last ACK */
-    I2C_masterSendMultipleByteStop(I2C1);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
+    // /* Wait for MDE */
+    // while (! I2C1->MDE);
+    // /* Master send a stop condition after received the last ACK */
+    // I2C_masterSendMultipleByteStop(I2C1);
+    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
 
-    /* Wait for MDT */
-    while (! I2C1->MDT);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDT);
+    // /* Wait for MDT */
+    // while (! I2C1->MDT);
+    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDT);
 
-    /* Wait for SSR */
-    while (! I2C0->SSR);
-    I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SSR);
+    // /* Wait for SSR */
+    // while (! I2C0->SSR);
+    // I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SSR);
 
-    /* Wait for MST */
-    while (! I2C1->MST);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MST);
+    // /* Wait for MST */
+    // while (! I2C1->MST);
+    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MST);
+
+    while (! isTransferComplete);
 
     /**************************************************************************
      * The end of the simulation
@@ -159,3 +175,47 @@ uint32_t slave_rx_dma(void)
 	return TEST_PASS;
 }
 
+void i2c0InterruptHandler(void)
+{
+    uint32_t status = I2C_slaveGetInterruptStatus(I2C0);
+    I2C_slaveClearInterruptStatus(I2C0, status);
+}
+
+void i2c1InterruptHandler(void)
+{
+    uint32_t status = I2C_masterGetInterruptStatus(I2C1);
+
+    if (status & I2C_INT_MAT) { I2C1->ESG = 0; }
+    else if (status & I2C_INT_MDE)
+    {
+        SDMAC1->DMAOR = 1;
+        I2C_masterEnableDMATransmit(I2C1);
+        I2C_slaveEnableDMAReceive(I2C0);
+    }
+
+    if (status & I2C_INT_MST) { isTransferComplete = true; }
+
+    I2C_masterClearInterruptStatus(I2C1, status);
+}
+
+void sdmac1ch0InterruptHandler(void)
+{
+    if (SDMAC1CH0->TE)
+    {
+        SDMAC1CH0->TE = 0;
+        SDMAC1CH0->DE = 0;
+        I2C_masterDisableDMATransmit(I2C1);
+    }
+}
+
+void sdmac1ch1InterruptHandler(void)
+{
+    if (SDMAC1CH1->TE)
+    {
+        SDMAC1CH1->TE = 0;
+        SDMAC1CH1->DE = 0;
+        SDMAC1->DMAOR = 0;
+        I2C_slaveDisableDMAReceive(I2C0);
+        I2C_masterSendMultipleByteStop(I2C1);
+    }
+}

@@ -37,6 +37,7 @@ const I2C_SlaveConfig_t slaveConfig =
 #define DATA_PACKAGE_LENGTH 13
 static const uint32_t sendData[DATA_PACKAGE_LENGTH] = { 'H', 'E', 'L', 'L', 'O', ',', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 static uint32_t receivedData[DATA_PACKAGE_LENGTH];
+static volatile bool isTransferComplete = false;
 
 volatile uint32_t i = 0, j = 0;
 
@@ -67,41 +68,41 @@ uint32_t master_tx_fsb(void)
     I2C_masterSendMultipleByteStart(I2C0, sendData[i++]);
 
     /* Wait for the transaction to complete */
-    while(j < DATA_PACKAGE_LENGTH);
+    while(! isTransferComplete);
 	
     /* Judge the result */
-    uint32_t testResult = TEST_PASS;
 	for (i = 0; i < DATA_PACKAGE_LENGTH; i++)
     {
         if (receivedData[i] != sendData[i])
         {
-            testResult = TEST_FAIL;
-            break;
+            return TEST_FAIL;
         }
     }
 
-    return testResult;
+    return TEST_TRUE;
 }
 
 void i2c0InterruptHandler(void)
 {
-    uint32_t mStatus = I2C_masterGetInterruptStatus(I2C0);
+    uint32_t status = I2C_masterGetInterruptStatus(I2C0);
 
-    if (mStatus & I2C_INT_MAT) { I2C0->ESG = 0; }
-    else if (mStatus & I2C_INT_MDE)
+    if (status & I2C_INT_MAT) { I2C0->ESG = 0; }
+    else if (status & I2C_INT_MDE)
 	{
 		if (i < DATA_PACKAGE_LENGTH) { I2C_masterSendMultipleByteNext(I2C0, sendData[i++]); }
 		else { I2C_masterSendMultipleByteStop(I2C0); }
 	}
 
-    I2C_masterClearInterruptStatus(I2C0, mStatus);
+    if (status & I2C_INT_MST) { isTransferComplete = true; }
+
+    I2C_masterClearInterruptStatus(I2C0, status);
 }
 
 void i2c1InterruptHandler(void)
 {
-    uint32_t sStatus = I2C_slaveGetInterruptStatus(I2C1);
+    uint32_t status = I2C_slaveGetInterruptStatus(I2C1);
 
-    if (sStatus & I2C_INT_SDR) { receivedData[j++] = I2C_slaveReceiveMultipleByteNext(I2C1); }
+    if (status & I2C_INT_SDR) { receivedData[j++] = I2C_slaveReceiveMultipleByteNext(I2C1); }
 
-    I2C_slaveClearInterruptStatus(I2C1, sStatus);
+    I2C_slaveClearInterruptStatus(I2C1, status);
 }
