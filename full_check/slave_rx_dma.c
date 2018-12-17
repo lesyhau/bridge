@@ -38,6 +38,7 @@ static const I2C_SlaveConfig_t slaveConfig =
 static const uint32_t sendData[DATA_PACKAGE_LENGTH] = { 'H', 'E', 'L', 'L', 'O', ',', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 static uint32_t receivedData[DATA_PACKAGE_LENGTH];
 static volatile bool isTransferComplete = false;
+static volatile bool isAutoTransferComplete = false;
 
 void i2c0InterruptHandler(void);
 void i2c1InterruptHandler(void);
@@ -66,8 +67,8 @@ uint32_t slave_rx_dma(void)
 
     /* Configure I2C1 in master TX mode with DMA transfer enabled */
     I2C_masterInit(I2C1, &masterConfig);
-    I2C_masterEnableInterrupt(I2C1, I2C_INT_MDE);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_ALL);
+    I2C_masterEnableInterrupt(I2C1, I2C_INT_MDE);
     I2C_masterEnable(I2C1);
 
     /* Configure a DMA channel for I2C0 */
@@ -84,8 +85,8 @@ uint32_t slave_rx_dma(void)
 
     /* Configure I2C0 in slave RX mode with DMA transfer enabled */
     I2C_slaveInit(I2C0, &slaveConfig);
-    I2C_slaveEnableInterrupt(I2C0, I2C_INT_SDR);
     I2C_slaveClearInterruptStatus(I2C0, I2C_INT_ALL);
+    I2C_slaveEnableInterrupt(I2C0, I2C_INT_SDR);
     I2C_slaveEnable(I2C0);
 
     GIC_enable();
@@ -101,58 +102,10 @@ uint32_t slave_rx_dma(void)
     /* Set the first data byte, send start condition, send slave address */
     I2C_masterSendMultipleByteStart(I2C1, sendData[0]);
 
-    // /* Wait for SAR */
-    // while (! I2C0->SAR);
-    // I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SAR);
-
-    // /* Wait for MAT */
-    // /* Note: At this moment, MDE is also set, it is also need to be cleared */
-    // while (! I2C1->MAT);
-    // I2C1->ESG = 0;
-    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MAT | I2C_INT_MDE);
-
-    /**************************************************************************
-     * DMA data transmition
-     *************************************************************************/
-
-    // /* Wait for MDE */
-    // while (! I2C1->MDE);
-    // /* Enable DMA transfer for DMAC and I2C */
-    // SDMAC1->DMAOR = 1;
-    // I2C_masterEnableDMATransmit(I2C1);
-    // I2C_slaveEnableDMAReceive(I2C0);
-    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
-
-    // /* Wait for DMA transmition finish */
-    // while (! SDMAC1CH0->TE);
-    // SDMAC1CH0->DE = 0;
-    // SDMAC1CH0->TE = 0;
-
-    // /* Wait for DMA reception finish */
-    // while (! SDMAC1CH1->TE);
-    // SDMAC1CH1->DE = 0;
-    // SDMAC1CH1->TE = 0;
-
-    // /* Disable DMA */
-    // SDMAC1->DMAOR = 0;
-
-    // /* Wait for MDE */
-    // while (! I2C1->MDE);
-    // /* Master send a stop condition after received the last ACK */
-    // I2C_masterSendMultipleByteStop(I2C1);
-    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDE);
-
-    // /* Wait for MDT */
-    // while (! I2C1->MDT);
-    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDT);
-
-    // /* Wait for SSR */
-    // while (! I2C0->SSR);
-    // I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SSR);
-
-    // /* Wait for MST */
-    // while (! I2C1->MST);
-    // I2C_masterClearInterruptStatus(I2C1, I2C_INT_MST);
+    while (! isAutoTransferComplete);
+    
+    /* Re-enable I2C1 interrupt */
+    GIC_enableInterrupt(GIC_INTID_I2C1);
 
     while (! isTransferComplete);
 
@@ -166,7 +119,7 @@ uint32_t slave_rx_dma(void)
     /* Judge the result */
 	for (i = 0; i < DATA_PACKAGE_LENGTH; i++)
     {
-        if (receivedData[i]!= sendData[i])
+        if (receivedData[i] != sendData[i])
         {
             return TEST_FAIL;
         }
@@ -188,9 +141,19 @@ void i2c1InterruptHandler(void)
     if (status & I2C_INT_MAT) { I2C1->ESG = 0; }
     else if (status & I2C_INT_MDE)
     {
-        SDMAC1->DMAOR = 1;
-        I2C_masterEnableDMATransmit(I2C1);
-        I2C_slaveEnableDMAReceive(I2C0);
+        if (! isAutoTransferComplete)
+        {
+            /* Start the automatic transfer */
+            SDMAC1->DMAOR = 1;
+            I2C_slaveEnableDMAReceive(I2C0);
+            I2C_masterEnableDMATransmit(I2C1);
+
+            /* Disable I2C1 interrupt since it will be handled automatically by I2C logic */
+            GIC_disableInterrupt(GIC_INTID_I2C1);
+        }
+        
+        /* Master device send a stop condition after the automatic transfer complete */
+        else { I2C_masterSendMultipleByteStop(I2C1); }
     }
 
     if (status & I2C_INT_MST) { isTransferComplete = true; }
@@ -202,8 +165,8 @@ void sdmac1ch0InterruptHandler(void)
 {
     if (SDMAC1CH0->TE)
     {
-        SDMAC1CH0->TE = 0;
         SDMAC1CH0->DE = 0;
+        SDMAC1CH0->TE = 0;
         I2C_masterDisableDMATransmit(I2C1);
     }
 }
@@ -212,10 +175,10 @@ void sdmac1ch1InterruptHandler(void)
 {
     if (SDMAC1CH1->TE)
     {
-        SDMAC1CH1->TE = 0;
         SDMAC1CH1->DE = 0;
+        SDMAC1CH1->TE = 0;
         SDMAC1->DMAOR = 0;
         I2C_slaveDisableDMAReceive(I2C0);
-        I2C_masterSendMultipleByteStop(I2C1);
+        isAutoTransferComplete = true;
     }
 }

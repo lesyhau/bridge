@@ -69,22 +69,22 @@ uint32_t slave_tx_delay(void)
 
 	for (i = 1; i < (DATA_PACKAGE_LENGTH + 1); i++)
 	{
-		/* Wait for SDE */
-		while (! I2C0->SDE);
-		if (i < DATA_PACKAGE_LENGTH) { I2C_slaveSetData(I2C0, sendData[i]); }
-        Sim_Delay(800);
-		I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDE);
-
-		/* Wait for SDT */
-		while (! I2C0->SDT);
-		I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDT);
-
 		/* Wait for MDR */
 		while (! I2C1->MDR);
 		if (i < (DATA_PACKAGE_LENGTH - 1)) { receivedData[i-1] = I2C_masterReceiveMultipleByteNext(I2C1); }
 		else if (i == (DATA_PACKAGE_LENGTH - 1)) { receivedData[i-1] = I2C_masterReceiveMultipleByteStop(I2C1); }
 		else if (i == DATA_PACKAGE_LENGTH) { receivedData[i-1] = I2C_masterReceiveMultipleByteFinish(I2C1); }
 		I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDR);
+
+		/* Wait for SDT */
+		while (! I2C0->SDT);
+		I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDT);
+
+		/* Wait for SDE */
+		while (! I2C0->SDE);
+		if (i < DATA_PACKAGE_LENGTH) { I2C_slaveSetData(I2C0, sendData[i]); }
+        Sim_Delay(200);
+		I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SDE);
 	}
 	
     /* Wait for SSR */

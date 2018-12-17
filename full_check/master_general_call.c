@@ -17,7 +17,7 @@
 const I2C_MasterConfig_t masterConfig =
 {
     MASTER_TX,
-    I2C1_SLAVE_ADDR,
+    I2C_GENERAL_CALL_ADDR,
     START_BYTE_TRANSMIT_DISABLE,
     OD_BUFFER,
     FIXED_DUTY_CYCLE,
@@ -28,7 +28,7 @@ const I2C_SlaveConfig_t slaveConfig =
 {
     I2C1_SLAVE_ADDR,
     CLOCK_STRETCH_AFTER,
-    GENERAL_CALL_ACK_DISABLE,
+    GENERAL_CALL_ACK_ENABLE,
     OD_BUFFER,
     FIXED_DUTY_CYCLE,
     CLOCK_RATE_400KHZ
@@ -44,7 +44,7 @@ volatile uint32_t i = 0, j = 0;
 void i2c0InterruptHandler(void);
 void i2c1InterruptHandler(void);
 
-uint32_t master_tx_fsb(void)
+uint32_t master_general_call(void)
 {
     /* Configure I2C0 in master TX mode */
     I2C_masterInit(I2C0, &masterConfig);
@@ -87,11 +87,7 @@ void i2c0InterruptHandler(void)
     uint32_t status = I2C_masterGetInterruptStatus(I2C0);
 
     if (status & I2C_INT_MAT) { I2C0->ESG = 0; }
-    else if (status & I2C_INT_MDE)
-	{
-		if (i < DATA_PACKAGE_LENGTH) { I2C_masterSendMultipleByteNext(I2C0, sendData[i++]); }
-		else { I2C_masterSendMultipleByteStop(I2C0); }
-	}
+    else if (status & I2C_INT_MDE) { I2C_masterSendMultipleByteNext(I2C0, sendData[i++]); }
 
     if (status & I2C_INT_MST) { isTransferComplete = true; }
 
@@ -102,7 +98,12 @@ void i2c1InterruptHandler(void)
 {
     uint32_t status = I2C_slaveGetInterruptStatus(I2C1);
 
-    if (status & I2C_INT_SDR) { receivedData[j++] = I2C_slaveReceiveMultipleByteNext(I2C1); }
+    if (status & I2C_INT_SDR)
+    {
+        if (j < (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_slaveReceiveMultipleByteNext(I2C1); }
+        else if (j == (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_slaveReceiveMultipleByteStop(I2C1); }
+        else if (j == (DATA_PACKAGE_LENGTH - 1)) { receivedData[j++] = I2C_slaveReceiveMultipleByteFinish(I2C1); }
+    }
 
     I2C_slaveClearInterruptStatus(I2C1, status);
 }
