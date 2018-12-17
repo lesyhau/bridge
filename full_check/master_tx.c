@@ -79,7 +79,7 @@ uint32_t master_tx(void)
         }
     }
 
-    return TEST_TRUE;
+    return TEST_PASS;
 }
 
 void i2c0InterruptHandler(void)
