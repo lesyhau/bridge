@@ -1,0 +1,598 @@
+
+========================================================================
+
+** ELF Header Information
+
+    File Name: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/debug/image.elf
+
+    Machine class: ELFCLASS32 (32-bit)
+    Data encoding: ELFDATA2LSB (Little endian)
+    Header version: EV_CURRENT (Current version)
+    Operating System ABI: none
+    ABI Version: 0
+    File Type: ET_EXEC (Executable) (2)
+    Machine: EM_ARM (ARM)
+
+    Image Entry point: 0x00000000
+    Flags: EF_ARM_HASENTRY (0x00000002)
+
+    ARM ELF revision: 0 (SDT / legacy GNU / unspecified)
+
+    Built with
+    Component: ARM Compiler 6.9 Tool: armasm [5ced1b00]
+    Component: ARM Compiler 6.9 Tool: armlink [5ced1b00]
+
+    Header size: 52 bytes (0x34)
+    Program header entry size: 32 bytes (0x20)
+    Section header entry size: 40 bytes (0x28)
+
+    Program header entries: 1
+    Section header entries: 8
+
+    Program header offset: 2932 (0x00000b74)
+    Section header offset: 2964 (0x00000b94)
+
+    Section header string table index: 7
+
+========================================================================
+
+** Program header #0
+
+    Type          : PT_LOAD (1)
+    File Offset   : 52 (0x34)
+    Virtual Addr  : 0x00000000
+    Physical Addr : 0x00000000
+    Size in file  : 1312 bytes (0x520)
+    Size in memory: 2336 bytes (0x920)
+    Flags         : PF_X + PF_W + PF_R + PF_ARM_ENTRY (0x80000007)
+    Alignment     : 4
+
+
+========================================================================
+
+** Section #1
+
+    Name        : ER0
+    Type        : SHT_PROGBITS (0x00000001)
+    Flags       : SHF_ALLOC + SHF_EXECINSTR (0x00000006)
+    Addr        : 0x00000000
+    File Offset : 52 (0x34)
+    Size        : 1312 bytes (0x520)
+    Link        : SHN_UNDEF
+    Info        : 0
+    Alignment   : 4
+    Entry Size  : 0
+
+    $a
+    VECTORS
+    $v0
+    vector_start
+        0x00000000:    e59ff018    ....    LDR      pc,[pc,#24] ; [0x20] = 0x38
+        0x00000004:    e59ff018    ....    LDR      pc,[pc,#24] ; [0x24] = 0x4d8
+        0x00000008:    e59ff018    ....    LDR      pc,[pc,#24] ; [0x28] = 0x4e0
+        0x0000000c:    e59ff018    ....    LDR      pc,[pc,#24] ; [0x2c] = 0x4e8
+        0x00000010:    e59ff018    ....    LDR      pc,[pc,#24] ; [0x30] = 0x4f0
+        0x00000014:    e320f000    .. .    NOP      
+        0x00000018:    e59ff014    ....    LDR      pc,[pc,#20] ; [0x34] = 0x4f8
+        0x0000001c:    eafffffe    ....    B        0x1c ; vector_start + 28
+    $d
+        0x00000020:    00000038    8...    DCD    56
+        0x00000024:    000004d8    ....    DCD    1240
+        0x00000028:    000004e0    ....    DCD    1248
+        0x0000002c:    000004e8    ....    DCD    1256
+        0x00000030:    000004f0    ....    DCD    1264
+        0x00000034:    000004f8    ....    DCD    1272
+    $a
+    Reset_Handler
+    vector_end
+        0x00000038:    e59f021c    ....    LDR      r0,[pc,#540] ; [0x25c] = 0x4404ff
+        0x0000003c:    ee8a0f12    ....    MCR      p15,#0x4,r0,c10,c2,#0
+        0x00000040:    e59f0218    ....    LDR      r0,[pc,#536] ; [0x260] = 0xddeebb00
+        0x00000044:    ee8a0f32    2...    MCR      p15,#0x4,r0,c10,c2,#1
+        0x00000048:    e3a00000    ....    MOV      r0,#0
+        0x0000004c:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000050:    e3a00002    ....    MOV      r0,#2
+        0x00000054:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000058:    e59f0204    ....    LDR      r0,[pc,#516] ; [0x264] = 0x7ffffc1
+        0x0000005c:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000060:    e3a00001    ....    MOV      r0,#1
+        0x00000064:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000068:    e3a00382    ....    MOV      r0,#0x8000002
+        0x0000006c:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000070:    e59f01f0    ....    LDR      r0,[pc,#496] ; [0x268] = 0xfffffc1
+        0x00000074:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000078:    e3a00002    ....    MOV      r0,#2
+        0x0000007c:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000080:    e3a00221    !...    MOV      r0,#0x10000002
+        0x00000084:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000088:    e59f01dc    ....    LDR      r0,[pc,#476] ; [0x26c] = 0x1fffffc1
+        0x0000008c:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000090:    e3a00003    ....    MOV      r0,#3
+        0x00000094:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000098:    e3a00222    "...    MOV      r0,#0x20000002
+        0x0000009c:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x000000a0:    e3e001fb    ....    MVN      r0,#0xc000003e
+        0x000000a4:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x000000a8:    e3a00004    ....    MOV      r0,#4
+        0x000000ac:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x000000b0:    e3a00109    ....    MOV      r0,#0x40000002
+        0x000000b4:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x000000b8:    e3e001f9    ....    MVN      r0,#0x4000003e
+        0x000000bc:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x000000c0:    e3a00005    ....    MOV      r0,#5
+        0x000000c4:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x000000c8:    e3a0010b    ....    MOV      r0,#0xc0000002
+        0x000000cc:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x000000d0:    e59f0198    ....    LDR      r0,[pc,#408] ; [0x270] = 0xdfffffc1
+        0x000000d4:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x000000d8:    e3a00006    ....    MOV      r0,#6
+        0x000000dc:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x000000e0:    e3a0022e    ....    MOV      r0,#0xe0000002
+        0x000000e4:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x000000e8:    e59f0184    ....    LDR      r0,[pc,#388] ; [0x274] = 0xe62fffc7
+        0x000000ec:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x000000f0:    e3a00007    ....    MOV      r0,#7
+        0x000000f4:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x000000f8:    e59f0178    x...    LDR      r0,[pc,#376] ; [0x278] = 0xe6300002
+        0x000000fc:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000100:    e59f0174    t...    LDR      r0,[pc,#372] ; [0x27c] = 0xe63fffc1
+        0x00000104:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000108:    e3a00008    ....    MOV      r0,#8
+        0x0000010c:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000110:    e59f0168    h...    LDR      r0,[pc,#360] ; [0x280] = 0xe6400002
+        0x00000114:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000118:    e59f0164    d...    LDR      r0,[pc,#356] ; [0x284] = 0xeb0fffc7
+        0x0000011c:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000120:    e3a00009    ....    MOV      r0,#9
+        0x00000124:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000128:    e59f0158    X...    LDR      r0,[pc,#344] ; [0x288] = 0xeb100002
+        0x0000012c:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000130:    e59f0154    T...    LDR      r0,[pc,#340] ; [0x28c] = 0xeb3fffc1
+        0x00000134:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000138:    e3a0000a    ....    MOV      r0,#0xa
+        0x0000013c:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000140:    e59f0148    H...    LDR      r0,[pc,#328] ; [0x290] = 0xeb400002
+        0x00000144:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000148:    e59f0144    D...    LDR      r0,[pc,#324] ; [0x294] = 0xecffffc7
+        0x0000014c:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000150:    e3a0000b    ....    MOV      r0,#0xb
+        0x00000154:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000158:    e59f0138    8...    LDR      r0,[pc,#312] ; [0x298] = 0xed000002
+        0x0000015c:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000160:    e59f0134    4...    LDR      r0,[pc,#308] ; [0x29c] = 0xedffffc1
+        0x00000164:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000168:    e3a0000c    ....    MOV      r0,#0xc
+        0x0000016c:    ee860f32    2...    MCR      p15,#0x4,r0,c6,c2,#1
+        0x00000170:    e59f0128    (...    LDR      r0,[pc,#296] ; [0x2a0] = 0xee000002
+        0x00000174:    ee860f13    ....    MCR      p15,#0x4,r0,c6,c3,#0
+        0x00000178:    e3e00038    8...    MVN      r0,#0x38
+        0x0000017c:    ee860f33    3...    MCR      p15,#0x4,r0,c6,c3,#1
+        0x00000180:    ee910f10    ....    MRC      p15,#0x4,r0,c1,c0,#0
+        0x00000184:    e3800001    ....    ORR      r0,r0,#1
+        0x00000188:    f57ff04f    O...    DSB      
+        0x0000018c:    ee810f10    ....    MCR      p15,#0x4,r0,c1,c0,#0
+        0x00000190:    f57ff06f    o...    ISB      
+        0x00000194:    e59f0108    ....    LDR      r0,[pc,#264] ; [0x2a4] = 0xe67f0024
+        0x00000198:    e3a01001    ....    MOV      r1,#1
+        0x0000019c:    e5801000    ....    STR      r1,[r0,#0]
+        0x000001a0:    e59f0100    ....    LDR      r0,[pc,#256] ; [0x2a8] = 0xe6790100
+        0x000001a4:    e3011234    4...    MOV      r1,#0x1234
+        0x000001a8:    e5801000    ....    STR      r1,[r0,#0]
+        0x000001ac:    e59f00f8    ....    LDR      r0,[pc,#248] ; [0x2ac] = 0xe6790108
+        0x000001b0:    e3011234    4...    MOV      r1,#0x1234
+        0x000001b4:    e5801000    ....    STR      r1,[r0,#0]
+        0x000001b8:    e59f00f0    ....    LDR      r0,[pc,#240] ; [0x2b0] = 0xe6798100
+        0x000001bc:    e3011234    4...    MOV      r1,#0x1234
+        0x000001c0:    e5801000    ....    STR      r1,[r0,#0]
+        0x000001c4:    e59f00e8    ....    LDR      r0,[pc,#232] ; [0x2b4] = 0xe6798108
+        0x000001c8:    e3011234    4...    MOV      r1,#0x1234
+        0x000001cc:    e5801000    ....    STR      r1,[r0,#0]
+        0x000001d0:    e59f00e0    ....    LDR      r0,[pc,#224] ; [0x2b8] = 0xe6797400
+        0x000001d4:    e3a01001    ....    MOV      r1,#1
+        0x000001d8:    e5801000    ....    STR      r1,[r0,#0]
+        0x000001dc:    e59f00d8    ....    LDR      r0,[pc,#216] ; [0x2bc] = 0xe679f400
+        0x000001e0:    e3a01001    ....    MOV      r1,#1
+        0x000001e4:    e5801000    ....    STR      r1,[r0,#0]
+        0x000001e8:    e59f00d0    ....    LDR      r0,[pc,#208] ; [0x2c0] = 0
+        0x000001ec:    e59f10d0    ....    LDR      r1,[pc,#208] ; [0x2c4] = 0x38
+        0x000001f0:    e0411000    ..A.    SUB      r1,r1,r0
+        0x000001f4:    e59f20cc    . ..    LDR      r2,[pc,#204] ; [0x2c8] = 0xe6300000
+        0x000001f8:    e8b000f0    ....    LDM      r0!,{r4-r7}
+        0x000001fc:    e8a200f0    ....    STM      r2!,{r4-r7}
+        0x00000200:    e2511010    ..Q.    SUBS     r1,r1,#0x10
+        0x00000204:    8afffffb    ....    BHI      0x1f8 ; Reset_Handler + 448
+        0x00000208:    e59f00bc    ....    LDR      r0,[pc,#188] ; [0x2cc] = 0x4d8
+        0x0000020c:    e59f10bc    ....    LDR      r1,[pc,#188] ; [0x2d0] = 0x520
+        0x00000210:    e0411000    ..A.    SUB      r1,r1,r0
+        0x00000214:    e59f20ac    . ..    LDR      r2,[pc,#172] ; [0x2c8] = 0xe6300000
+        0x00000218:    e0822000    . ..    ADD      r2,r2,r0
+        0x0000021c:    e8b000f0    ....    LDM      r0!,{r4-r7}
+        0x00000220:    e8a200f0    ....    STM      r2!,{r4-r7}
+        0x00000224:    e2511010    ..Q.    SUBS     r1,r1,#0x10
+        0x00000228:    8afffffb    ....    BHI      0x21c ; Reset_Handler + 484
+        0x0000022c:    e59f00a0    ....    LDR      r0,[pc,#160] ; [0x2d4] = 0x258
+        0x00000230:    e59f10a0    ....    LDR      r1,[pc,#160] ; [0x2d8] = 0x4d8
+        0x00000234:    e0411000    ..A.    SUB      r1,r1,r0
+        0x00000238:    e59f2088    . ..    LDR      r2,[pc,#136] ; [0x2c8] = 0xe6300000
+        0x0000023c:    e0822000    . ..    ADD      r2,r2,r0
+        0x00000240:    e1a03002    .0..    MOV      r3,r2
+        0x00000244:    e8b000f0    ....    LDM      r0!,{r4-r7}
+        0x00000248:    e8a200f0    ....    STM      r2!,{r4-r7}
+        0x0000024c:    e2511010    ..Q.    SUBS     r1,r1,#0x10
+        0x00000250:    8afffffb    ....    BHI      0x244 ; Reset_Handler + 524
+        0x00000254:    e1a0f003    ....    MOV      pc,r3
+    main_start
+        0x00000258:    ea00001f    ....    B        0x2dc ; main_start + 132
+    $d
+        0x0000025c:    004404ff    ..D.    DCD    4457727
+        0x00000260:    ddeebb00    ....    DCD    3723410176
+        0x00000264:    07ffffc1    ....    DCD    134217665
+        0x00000268:    0fffffc1    ....    DCD    268435393
+        0x0000026c:    1fffffc1    ....    DCD    536870849
+        0x00000270:    dfffffc1    ....    DCD    3758096321
+        0x00000274:    e62fffc7    ../.    DCD    3861905351
+        0x00000278:    e6300002    ..0.    DCD    3861905410
+        0x0000027c:    e63fffc1    ..?.    DCD    3862953921
+        0x00000280:    e6400002    ..@.    DCD    3862953986
+        0x00000284:    eb0fffc7    ....    DCD    3943694279
+        0x00000288:    eb100002    ....    DCD    3943694338
+        0x0000028c:    eb3fffc1    ..?.    DCD    3946840001
+        0x00000290:    eb400002    ..@.    DCD    3946840066
+        0x00000294:    ecffffc7    ....    DCD    3976200135
+        0x00000298:    ed000002    ....    DCD    3976200194
+        0x0000029c:    edffffc1    ....    DCD    3992977345
+        0x000002a0:    ee000002    ....    DCD    3992977410
+        0x000002a4:    e67f0024    $...    DCD    3867082788
+        0x000002a8:    e6790100    ..y.    DCD    3866689792
+        0x000002ac:    e6790108    ..y.    DCD    3866689800
+        0x000002b0:    e6798100    ..y.    DCD    3866722560
+        0x000002b4:    e6798108    ..y.    DCD    3866722568
+        0x000002b8:    e6797400    .ty.    DCD    3866719232
+        0x000002bc:    e679f400    ..y.    DCD    3866752000
+        0x000002c0:    00000000    ....    DCD    0
+        0x000002c4:    00000038    8...    DCD    56
+        0x000002c8:    e6300000    ..0.    DCD    3861905408
+        0x000002cc:    000004d8    ....    DCD    1240
+        0x000002d0:    00000520     ...    DCD    1312
+        0x000002d4:    00000258    X...    DCD    600
+        0x000002d8:    000004d8    ....    DCD    1240
+    $a
+        0x000002dc:    e3a00fcd    ....    MOV      r0,#0x334
+        0x000002e0:    e34e0617    ..N.    MOVT     r0,#0xe617
+        0x000002e4:    e3a01000    ....    MOV      r1,#0
+        0x000002e8:    e34e1630    0.N.    MOVT     r1,#0xe630
+        0x000002ec:    e5801000    ....    STR      r1,[r0,#0]
+        0x000002f0:    e3811010    ....    ORR      r1,r1,#0x10
+        0x000002f4:    e5801000    ....    STR      r1,[r0,#0]
+        0x000002f8:    f1080080    ....    CPSIE    i
+        0x000002fc:    ee3f2f13    ./?.    MRC      p15,#0x1,r2,c15,c3,#0
+        0x00000300:    e2821601    ....    ADD      r1,r2,#0x100000
+        0x00000304:    e3a00000    ....    MOV      r0,#0
+        0x00000308:    e5810014    ....    STR      r0,[r1,#0x14]
+        0x0000030c:    e5910014    ....    LDR      r0,[r1,#0x14]
+        0x00000310:    e3e03000    .0..    MVN      r3,#0
+        0x00000314:    e0100003    ....    ANDS     r0,r0,r3
+        0x00000318:    1afffff9    ....    BNE      0x304 ; main_start + 172
+        0x0000031c:    e3a000fc    ....    MOV      r0,#0xfc
+        0x00000320:    ee040f16    ....    MCR      p15,#0x0,r0,c4,c6,#0
+        0x00000324:    e300050c    ....    MOV      r0,#0x50c
+        0x00000328:    e0821000    ....    ADD      r1,r2,r0
+        0x0000032c:    e3a00000    ....    MOV      r0,#0
+        0x00000330:    e5810000    ....    STR      r0,[r1,#0]
+        0x00000334:    e3a000a0    ....    MOV      r0,#0xa0
+        0x00000338:    e0821000    ....    ADD      r1,r2,r0
+        0x0000033c:    e3a00901    ....    MOV      r0,#0x4000
+        0x00000340:    e5810000    ....    STR      r0,[r1,#0]
+        0x00000344:    e3a00e12    ....    MOV      r0,#0x120
+        0x00000348:    e0821000    ....    ADD      r1,r2,r0
+        0x0000034c:    e3a00901    ....    MOV      r0,#0x4000
+        0x00000350:    e5810000    ....    STR      r0,[r1,#0]
+        0x00000354:    e3a00d31    1...    MOV      r0,#0xc40
+        0x00000358:    e0821000    ....    ADD      r1,r2,r0
+        0x0000035c:    e3a00202    ....    MOV      r0,#0x20000000
+        0x00000360:    e5810000    ....    STR      r0,[r1,#0]
+        0x00000364:    e5910000    ....    LDR      r0,[r1,#0]
+        0x00000368:    e3a00000    ....    MOV      r0,#0
+        0x0000036c:    e0821000    ....    ADD      r1,r2,r0
+        0x00000370:    e3a00003    ....    MOV      r0,#3
+        0x00000374:    e5810000    ....    STR      r0,[r1,#0]
+        0x00000378:    ee1c0ffc    ....    MRC      p15,#0x0,r0,c12,c12,#7
+        0x0000037c:    e3a01003    ....    MOV      r1,#3
+        0x00000380:    e1800001    ....    ORR      r0,r0,r1
+        0x00000384:    ee0c0ffc    ....    MCR      p15,#0x0,r0,c12,c12,#7
+        0x00000388:    e3a07301    .s..    MOV      r7,#0x4000000
+        0x0000038c:    e30f1ffc    ....    MOV      r1,#0xfffc
+        0x00000390:    e1e02001    . ..    MVN      r2,r1
+        0x00000394:    e59f0100    ....    LDR      r0,[pc,#256] ; [0x49c] = 0xe6050800
+        0x00000398:    e5802000    . ..    STR      r2,[r0,#0]
+        0x0000039c:    e59f00fc    ....    LDR      r0,[pc,#252] ; [0x4a0] = 0xe6050900
+        0x000003a0:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003a4:    e59fa0f8    ....    LDR      r10,[pc,#248] ; [0x4a4] = 0xa55a0101
+        0x000003a8:    e59f00f8    ....    LDR      r0,[pc,#248] ; [0x4a8] = 0xe6500018
+        0x000003ac:    e3a0101e    ....    MOV      r1,#0x1e
+        0x000003b0:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003b4:    e59f00f0    ....    LDR      r0,[pc,#240] ; [0x4ac] = 0xe6500020
+        0x000003b8:    e3a01012    ....    MOV      r1,#0x12
+        0x000003bc:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003c0:    e59f00e8    ....    LDR      r0,[pc,#232] ; [0x4b0] = 0xe650000c
+        0x000003c4:    e3a01000    ....    MOV      r1,#0
+        0x000003c8:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003cc:    e59f00d4    ....    LDR      r0,[pc,#212] ; [0x4a8] = 0xe6500018
+        0x000003d0:    e3a0101e    ....    MOV      r1,#0x1e
+        0x000003d4:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003d8:    e59f00d4    ....    LDR      r0,[pc,#212] ; [0x4b4] = 0xe6500014
+        0x000003dc:    e3a01040    @...    MOV      r1,#0x40
+        0x000003e0:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003e4:    e59f00cc    ....    LDR      r0,[pc,#204] ; [0x4b8] = 0xe650801c
+        0x000003e8:    e3a01001    ....    MOV      r1,#1
+        0x000003ec:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003f0:    e59f00c4    ....    LDR      r0,[pc,#196] ; [0x4bc] = 0xe6508000
+        0x000003f4:    e3a01006    ....    MOV      r1,#6
+        0x000003f8:    e5801000    ....    STR      r1,[r0,#0]
+        0x000003fc:    e59f00bc    ....    LDR      r0,[pc,#188] ; [0x4c0] = 0xe6508008
+        0x00000400:    e3a01000    ....    MOV      r1,#0
+        0x00000404:    e5801000    ....    STR      r1,[r0,#0]
+        0x00000408:    e59f00b4    ....    LDR      r0,[pc,#180] ; [0x4c4] = 0xe6508018
+        0x0000040c:    e3a0101e    ....    MOV      r1,#0x1e
+        0x00000410:    e5801000    ....    STR      r1,[r0,#0]
+        0x00000414:    e59f00ac    ....    LDR      r0,[pc,#172] ; [0x4c8] = 0xe6500004
+        0x00000418:    e3a01089    ....    MOV      r1,#0x89
+        0x0000041c:    e5801000    ....    STR      r1,[r0,#0]
+        0x00000420:    e3a08000    ....    MOV      r8,#0
+        0x00000424:    e3a09001    ....    MOV      r9,#1
+        0x00000428:    e1580009    ..X.    CMP      r8,r9
+        0x0000042c:    1afffffd    ....    BNE      0x428 ; main_start + 464
+        0x00000430:    e59fa094    ....    LDR      r10,[pc,#148] ; [0x4cc] = 0xa55a0000
+        0x00000434:    e30f1ffc    ....    MOV      r1,#0xfffc
+        0x00000438:    e1e01001    ....    MVN      r1,r1
+        0x0000043c:    e1e02001    . ..    MVN      r2,r1
+        0x00000440:    e59f0054    T...    LDR      r0,[pc,#84] ; [0x49c] = 0xe6050800
+        0x00000444:    e5802000    . ..    STR      r2,[r0,#0]
+        0x00000448:    e59f0050    P...    LDR      r0,[pc,#80] ; [0x4a0] = 0xe6050900
+        0x0000044c:    e5801000    ....    STR      r1,[r0,#0]
+        0x00000450:    e3a0000a    ....    MOV      r0,#0xa
+        0x00000454:    e3a01000    ....    MOV      r1,#0
+        0x00000458:    e2811001    ....    ADD      r1,r1,#1
+        0x0000045c:    e1510000    ..Q.    CMP      r1,r0
+        0x00000460:    1afffffc    ....    BNE      0x458 ; main_start + 512
+        0x00000464:    e5874000    .@..    STR      r4,[r7,#0]
+        0x00000468:    e2877004    .p..    ADD      r7,r7,#4
+        0x0000046c:    e59f405c    \@..    LDR      r4,[pc,#92] ; [0x4d0] = 0x12345678
+        0x00000470:    e5874000    .@..    STR      r4,[r7,#0]
+        0x00000474:    e2877004    .p..    ADD      r7,r7,#4
+        0x00000478:    e3a0000a    ....    MOV      r0,#0xa
+        0x0000047c:    e3a01000    ....    MOV      r1,#0
+        0x00000480:    e2811001    ....    ADD      r1,r1,#1
+        0x00000484:    e1510000    ..Q.    CMP      r1,r0
+        0x00000488:    1afffffc    ....    BNE      0x480 ; main_start + 552
+        0x0000048c:    e59f0040    @...    LDR      r0,[pc,#64] ; [0x4d4] = 0x70003f0
+        0x00000490:    e5800000    ....    STR      r0,[r0,#0]
+        0x00000494:    eafffffe    ....    B        0x494 ; main_start + 572
+        0x00000498:    ea00000e    ....    B        UndefinedInstruction_Handler ; 0x4d8
+    $d
+        0x0000049c:    e6050800    ....    DCD    3859089408
+        0x000004a0:    e6050900    ....    DCD    3859089664
+        0x000004a4:    a55a0101    ..Z.    DCD    2774139137
+        0x000004a8:    e6500018    ..P.    DCD    3864002584
+        0x000004ac:    e6500020     .P.    DCD    3864002592
+        0x000004b0:    e650000c    ..P.    DCD    3864002572
+        0x000004b4:    e6500014    ..P.    DCD    3864002580
+        0x000004b8:    e650801c    ..P.    DCD    3864035356
+        0x000004bc:    e6508000    ..P.    DCD    3864035328
+        0x000004c0:    e6508008    ..P.    DCD    3864035336
+        0x000004c4:    e6508018    ..P.    DCD    3864035352
+        0x000004c8:    e6500004    ..P.    DCD    3864002564
+        0x000004cc:    a55a0000    ..Z.    DCD    2774138880
+        0x000004d0:    12345678    xV4.    DCD    305419896
+        0x000004d4:    070003f0    ....    DCD    117441520
+    $a
+    UndefinedInstruction_Handler
+    exc_start
+    main_end
+        0x000004d8:    eafffffe    ....    B        UndefinedInstruction_Handler ; 0x4d8
+        0x000004dc:    e160006e    n.`.    ERET     
+    SupervisorCall_Handler
+        0x000004e0:    eafffffe    ....    B        SupervisorCall_Handler ; 0x4e0
+        0x000004e4:    e160006e    n.`.    ERET     
+    PrefetchAbort_Handler
+        0x000004e8:    eafffffe    ....    B        PrefetchAbort_Handler ; 0x4e8
+        0x000004ec:    e160006e    n.`.    ERET     
+    DataAbort_Handler
+        0x000004f0:    eafffffe    ....    B        DataAbort_Handler ; 0x4f0
+        0x000004f4:    e160006e    n.`.    ERET     
+    IRQ_Handler
+        0x000004f8:    ee1c0f1c    ....    MRC      p15,#0x0,r0,c12,c12,#0
+        0x000004fc:    e300110e    ....    MOVW     r1,#0x10e
+        0x00000500:    e1510000    ..Q.    CMP      r1,r0
+        0x00000504:    1a000000    ....    BNE      0x50c ; IRQ_Handler + 20
+        0x00000508:    e1a04000    .@..    MOV      r4,r0
+        0x0000050c:    ee0c0f3c    <...    MCR      p15,#0x0,r0,c12,c12,#1
+        0x00000510:    e3a08001    ....    MOV      r8,#1
+        0x00000514:    e160006e    n.`.    ERET     
+        0x00000518:    eaffffff    ....    B        0x51c ; IRQ_Handler + 36
+        0x0000051c:    e320f000    .. .    NOP      
+    exc_end
+
+====================================
+
+** Section #2
+
+    Name        : ARM_LIB_STACK
+    Type        : SHT_NOBITS (0x00000008)
+    Flags       : SHF_ALLOC + SHF_WRITE (0x00000003)
+    Addr        : 0x03fffc00
+    File Offset : 1364 (0x554)
+    Size        : 1024 bytes (0x400)
+    Link        : SHN_UNDEF
+    Info        : 0
+    Alignment   : 1
+    Entry Size  : 0
+
+
+====================================
+
+** Section #3
+
+    Name        : .symtab
+    Type        : SHT_SYMTAB (0x00000002)
+    Flags       : None (0x00000000)
+    Addr        : 0x00000000
+    File Offset : 1364 (0x554)
+    Size        : 400 bytes (0x190)
+    Link        : Section 4 (.strtab)
+    Info        : Last local symbol no = 23
+    Alignment   : 4
+    Entry Size  : 16
+
+    Symbol table .symtab (24 symbols, 23 local)
+
+      #  Symbol Name                Value      Bind  Sec  Type  Vis  Size
+    ========================================================================
+
+      1  $a                         0x00000000   Lc    1   --   De 
+      2  $d                         0x00000020   Lc    1   --   De 
+      3  $a                         0x00000038   Lc    1   --   De 
+      4  $d                         0x0000025c   Lc    1   --   De 
+      5  $a                         0x000002dc   Lc    1   --   De 
+      6  $d                         0x0000049c   Lc    1   --   De 
+      7  $a                         0x000004d8   Lc    1   --   De 
+      8  $d.realdata                0x03fffc00   Lc    2   --   De 
+      9  /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/test.s 0x00000000   Lc  Abs  File  De 
+     10  VECTORS                    0x00000000   Lc    1  Sect  De   0x520
+     11  $v0                        0x00000000   Lc    1   --   De 
+     12  vector_start               0x00000000   Lc    1  Code  De 
+     13  Reset_Handler              0x00000038   Lc    1  Code  De 
+     14  vector_end                 0x00000038   Lc    1  Code  De 
+     15  main_start                 0x00000258   Lc    1  Code  De 
+     16  UndefinedInstruction_Handler 0x000004d8   Lc    1  Code  De 
+     17  exc_start                  0x000004d8   Lc    1  Code  De 
+     18  main_end                   0x000004d8   Lc    1  Code  De 
+     19  SupervisorCall_Handler     0x000004e0   Lc    1  Code  De 
+     20  PrefetchAbort_Handler      0x000004e8   Lc    1  Code  De 
+     21  DataAbort_Handler          0x000004f0   Lc    1  Code  De 
+     22  IRQ_Handler                0x000004f8   Lc    1  Code  De 
+     23  exc_end                    0x00000520   Lc    1  Code  De 
+     24  BuildAttributes$$ARM_ISAv8$E$P$J$N$DE$K$B$S$FP_ARMv8$PE$MPE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$~IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$STANDARDLIB$PRES8$EABIv2 0x00000000   Gb  Abs   --   Hi 
+
+
+====================================
+
+** Section #4
+
+    Name        : .strtab
+    Type        : SHT_STRTAB (0x00000003)
+    Flags       : None (0x00000000)
+    Addr        : 0x00000000
+    File Offset : 1764 (0x6e4)
+    Size        : 484 bytes (0x1e4)
+    Link        : SHN_UNDEF
+    Info        : 0
+    Alignment   : 1
+    Entry Size  : 0
+
+            #  Offset String
+        ====================================
+
+            1      1: $a
+            2      4: $d
+            3      7: $d.realdata
+            4     19: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/test.s
+            5    126: VECTORS
+            6    134: $v0
+            7    138: vector_start
+            8    151: Reset_Handler
+            9    165: vector_end
+           10    176: main_start
+           11    187: UndefinedInstruction_Handler
+           12    216: exc_start
+           13    226: main_end
+           14    235: SupervisorCall_Handler
+           15    258: PrefetchAbort_Handler
+           16    280: DataAbort_Handler
+           17    298: IRQ_Handler
+           18    310: exc_end
+           19    318: BuildAttributes$$ARM_ISAv8$E$P$J$N$DE$K$B$S$FP_ARMv8$PE$MPE$A:L22UL41UL21$X:L11$S22US41US21$IEEE1$~IW$USESV6$~STKCKD$USESV7$~SHL$OSPACE$EBA8$STANDARDLIB$PRES8$EABIv2
+
+
+====================================
+
+** Section #5
+
+    Name        : .note
+    Type        : SHT_NOTE (0x00000007)
+    Flags       : None (0x00000000)
+    Addr        : 0x00000000
+    File Offset : 2248 (0x8c8)
+    Size        : 24 bytes (0x18)
+    Link        : SHN_UNDEF
+    Info        : 0
+    Alignment   : 4
+    Entry Size  : 0
+
+        Section     Segment
+    ====================================
+
+              1           0
+              2           0
+
+====================================
+
+** Section #6
+
+    Name        : .comment
+    Type        : SHT_PROGBITS (0x00000001)
+    Flags       : None (0x00000000)
+    Addr        : 0x00000000
+    File Offset : 2272 (0x8e0)
+    Size        : 580 bytes (0x244)
+    Link        : SHN_UNDEF
+    Info        : 0
+    Alignment   : 1
+    Entry Size  : 0
+
+    Component: ARM Compiler 6.9 Tool: armlink [5ced1b00]
+    armlink --map --datacompressor=off --errors=error.log --output=image.elf --scatter=/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/scatter.scat --sysroot=/common/appl/ARM/DS500-BN-00019-r5p0-28rel1/sw/ARMCompiler6.9 --entry=0x00000000 --info=unused
+
+    Input Comments:
+    
+    test.o
+    
+    Component: ARM Compiler 6.9 Tool: armasm [5ced1b00]
+    armasm --cpu=Cortex-R52 -m -I/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check --list=test.list
+    
+    
+
+====================================
+
+** Section #7
+
+    Name        : .shstrtab
+    Type        : SHT_STRTAB (0x00000003)
+    Flags       : None (0x00000000)
+    Addr        : 0x00000000
+    File Offset : 2852 (0xb24)
+    Size        : 80 bytes (0x50)
+    Link        : SHN_UNDEF
+    Info        : 0
+    Alignment   : 1
+    Entry Size  : 0
+
+            #  Offset String
+        ====================================
+
+            1      1: ER0
+            2      5: ARM_LIB_HEAP
+            3     18: ARM_LIB_STACK
+            4     32: ER1
+            5     36: .symtab
+            6     44: .strtab
+            7     52: .note
+            8     58: .comment
+            9     67: .shstrtab
+           10     77: 
+           11     78: 
+           12     79: 
+
+
+====================================
+
