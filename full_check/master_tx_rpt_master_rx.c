@@ -87,16 +87,15 @@ void i2c0InterruptHandler(void)
     uint32_t status = I2C_masterGetInterruptStatus(I2C0);
 
     if (status & I2C_INT_MAT) { I2C0->ESG = 0; }
-
-    /* Master restart the transmisstion when the first data byte have sent */
-    if (status & I2C_INT_MDT) { I2C_masterRestart(I2C0, I2C1_SLAVE_ADDR, MASTER_RX); }
-
-    if (status & I2C_INT_MDR)
+    else if (status & I2C_INT_MDR)
     {
-        if (i < (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteNext(I2C0); }
-		else if (i == (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteStop(I2C0); }
-		else if (i == DATA_PACKAGE_LENGTH - 1) { receivedData[j++] = I2C_masterReceiveMultipleByteFinish(I2C0); }
+        if (j < (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteNext(I2C0); }
+		else if (j == (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteStop(I2C0); }
+		else if (j == DATA_PACKAGE_LENGTH - 1) { receivedData[j++] = I2C_masterReceiveMultipleByteFinish(I2C0); }
     }
+
+    /* Master restart the transmisstion */
+    if (status & I2C_INT_MDE) { I2C_masterRestart(I2C0, I2C1_SLAVE_ADDR, MASTER_RX); }
 
     if (status & I2C_INT_MST) { isTransferComplete = true; }
 
@@ -108,9 +107,13 @@ void i2c1InterruptHandler(void)
     uint32_t status = I2C_slaveGetInterruptStatus(I2C1);
 
     /* Slave get the first data byte and then get its data byte ready to the transission */
-    if (status & I2C_INT_SDR) { receivedData[j++] = I2C_slaveReceiveMultipleByteNext(I2C1); }
+    if (status & I2C_INT_SDR)
+    {
+        receivedData[j++] = I2C_slaveReceiveMultipleByteNext(I2C1);
+        I2C_slaveSetData(I2C1, sendData[i++]);
+    }
 
-    if (status & I2C_INT_SDE) { I2C_slaveSetData(I2C0, sendData[i++]); }
+    if (status & I2C_INT_SDE) { I2C_slaveSetData(I2C1, sendData[i++]); }
 
     I2C_slaveClearInterruptStatus(I2C1, status);
 }

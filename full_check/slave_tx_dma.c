@@ -63,12 +63,13 @@ uint32_t slave_tx_dma(void)
     SDMAC1CH0->TS2 = 0;  // Transfer size is 4 bytes
     SDMAC1CH0->TS = 2;
     SDMAC1CH0->DMARS = DMARS_I2C1_MRX;
+    SDMAC1CH0->IE = 1;   // Enable DMA interrupt
     SDMAC1CH0->DE = 1;   // Enable DMA
 
     /* Configure I2C1 in master RX mode with DMA transfer enabled */
     I2C_masterInit(I2C1, &masterConfig);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_ALL);
-    I2C_masterEnableInterrupt(I2C1, I2C_INT_MDR);
+    I2C_masterEnableInterrupt(I2C1, I2C_INT_ALL);
     I2C_masterEnable(I2C1);
 
     /* Configure a DMA channel for I2C0 */
@@ -81,12 +82,13 @@ uint32_t slave_tx_dma(void)
     SDMAC1CH1->TS2 = 0;  // Transfer size is 4 bytes
     SDMAC1CH1->TS = 2;
     SDMAC1CH1->DMARS = DMARS_I2C0_STX;
+    SDMAC1CH1->IE = 1;   // Enable DMA interrupt
     SDMAC1CH1->DE = 1;   // Enable DMA
 
     /* Configure I2C0 in slave TX mode with DMA transfer enabled */
     I2C_slaveInit(I2C0, &slaveConfig);
     I2C_slaveClearInterruptStatus(I2C0, I2C_INT_ALL);
-    I2C_slaveEnableInterrupt(I2C0, I2C_INT_SDE);
+    I2C_slaveEnableInterrupt(I2C0, I2C_INT_ALL);
     I2C_slaveSetData(I2C0, sendData[0]);
     I2C_slaveEnable(I2C0);
 
@@ -102,11 +104,6 @@ uint32_t slave_tx_dma(void)
 
     /* Send start condition, send slave address */
     I2C_masterReceiveStart(I2C1);
-
-    while (! isAutoTransferComplete);
-    
-    /* Re-enable I2C0 interrupt */
-    GIC_enableInterrupt(GIC_INTID_I2C0);
 
     while (! isTransferComplete);
 
@@ -141,9 +138,6 @@ void i2c0InterruptHandler(void)
             SDMAC1->DMAOR = 1;
             I2C_masterEnableDMAReceive(I2C1);
             I2C_slaveEnableDMATransmit(I2C0);
-            
-            /* Disable I2C0 interrupt since it will be handled automatically by I2C logic */
-            GIC_disableInterrupt(GIC_INTID_I2C0);
         }
         
         /* Master device send a stop condition after the automatic transfer complete */

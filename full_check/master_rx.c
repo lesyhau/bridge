@@ -66,7 +66,7 @@ uint32_t master_rx(void)
     GIC_enableInterrupt(GIC_INTID_I2C1);
 
     /* Master send start condition, send slave address */
-    I2C_masterReceiveStart(I2C1);
+    I2C_masterReceiveStart(I2C0);
 
     /* Wait for the transaction to complete */
     while(! isTransferComplete);
@@ -90,9 +90,9 @@ void i2c0InterruptHandler(void)
     if (status & I2C_INT_MAT) { I2C0->ESG = 0; }
     else if (status & I2C_INT_MDR)
 	{
-		if (i < (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteNext(I2C0); }
-		else if (i == (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteStop(I2C0); }
-		else if (i == DATA_PACKAGE_LENGTH - 1) { receivedData[j++] = I2C_masterReceiveMultipleByteFinish(I2C0); }
+		if (j < (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteNext(I2C0); }
+		else if (j == (DATA_PACKAGE_LENGTH - 2)) { receivedData[j++] = I2C_masterReceiveMultipleByteStop(I2C0); }
+		else if (j == DATA_PACKAGE_LENGTH - 1) { receivedData[j++] = I2C_masterReceiveMultipleByteFinish(I2C0); }
 	}
 
     if (status & I2C_INT_MST) { isTransferComplete = true; }
@@ -104,7 +104,7 @@ void i2c1InterruptHandler(void)
 {
     uint32_t status = I2C_slaveGetInterruptStatus(I2C1);
 
-	if (status & I2C_INT_SDE) { I2C_slaveSetData(I2C0, sendData[i++]); }
+	if (status & I2C_INT_SDE) { I2C_slaveSetData(I2C1, sendData[i++]); }
 
     I2C_slaveClearInterruptStatus(I2C1, status);
 }
