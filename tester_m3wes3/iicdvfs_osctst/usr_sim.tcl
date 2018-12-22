@@ -1,23 +1,23 @@
 
-# OSCTST for I2C
+# OSCTST for IICDVFS
 # Purpose:    AC/DC measure
-# AC:         tICF
+# AC:         tf
 # DC:         VIL, VIH, VOL
 # Test rate:  500ns
 
-source m3w_osctst_pin_i2c.tcl
+source m3w_osctst_pin_iicdvfs.tcl
 
-set	STBN    $::iic0_stby
-set	CONTA   $::iic0_conta
-set	CONTB   $::iic0_contb
-set	PUE1    $::iic0_sda_pue
-set	I1      $::iic0_sda_i
-set	CIN1    $::iic0_sda_cin
-set PAD1    $::SDA0
-set	PUE2    $::iic0_scl_pue
-set	I2      $::iic0_scl_i
-set	CIN2    $::iic0_scl_cin
-set PAD2    $::SCL0
+set	STBN    $::iicdvfs_stby
+set	CONTA   $::iicdvfs_conta
+set	CONTB   $::iicdvfs_contb
+set	PUE1    $::iicdvfs_sda_pue
+set	I1      $::iicdvfs_sda_i
+set	CIN1    $::iicdvfs_sda_cin
+set PAD1    $::SDA_DVFS
+set	PUE2    $::iicdvfs_scl_pue
+set	I2      $::iicdvfs_scl_i
+set	CIN2    $::iicdvfs_scl_cin
+set PAD2    $::SCL_DVFS
 
 proc force_signal { signal value } {
     force $signal $value
