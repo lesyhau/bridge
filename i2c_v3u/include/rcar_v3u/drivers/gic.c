@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifndef TARGET_AARCH64
+#ifdef __AARCH64
 #include <arm_compat.h>
 #endif
 
@@ -64,7 +64,7 @@ void (*GIC_intHandler[MAX_INTID+1])(void) =
 
 void GIC_enable(void)
 {
-    #ifndef TARGET_AARCH64
+    #ifdef __AARCH64
         /* Enable IRQ */
         __enable_irq();
 
@@ -196,7 +196,7 @@ uint32_t GIC_getACKID(void)
 {
     uint32_t ackID;
 
-    #ifndef TARGET_AARCH64
+    #ifdef __AARCH64
         __asm(
             "mrc    p15, 0, %[result], c12, c12, 0\n"
             "dsb"
@@ -217,7 +217,7 @@ uint32_t GIC_getACKID(void)
 
 void GIC_endInterrupt(uint32_t ackID)
 {
-    #ifndef TARGET_AARCH64
+    #ifdef __AARCH64
         __asm(
             "mcr	p15, 0, %[id], c12, c12, 1\n"
             "dsb"

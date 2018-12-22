@@ -26,17 +26,9 @@ void DMAC_initDescriptorMemory(DMAC_Common_t *dmac, uint8_t stage)
 	}
 }
 
-void DMAC_checkRegsAddress(DMAC_Channel_t *dmac)
-{
-	dmac->SAR = 0x5555;
-	dmac->DAR = 0x5555;
-	dmac->TCR = 0x5555;
-	dmac->CHCR = 0x5555;
-}
-
 void DMAC_configAutoTransfer(DMAC_Channel_t *dmac, DMAC_AutoTransferConfig_t *config)
 {
-	/* Reset DMAC channel */
+	/* Reset DMAC */
 	dmac->CHCR = 0;
 	
 	dmac->SAR = config->SourceAddress;
@@ -47,7 +39,7 @@ void DMAC_configAutoTransfer(DMAC_Channel_t *dmac, DMAC_AutoTransferConfig_t *co
 	dmac->SM = config->SourceAddressMode;
 	dmac->DM = config->DestinationAddressMode;
 	dmac->RS = DMAC_AUTO_REQUEST;
-	dmac->IE = config->InterruptEnable;
+	dmac->IE = config->IsInterruptEnable;
 }
 
 void DMAC_enableChannel(DMAC_Channel_t *dmac)

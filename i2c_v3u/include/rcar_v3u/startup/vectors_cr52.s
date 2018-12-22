@@ -1,4 +1,6 @@
 
+    IF :DEF: __AARCH32
+
     area    VECTORS, code, readonly
 	
     import  Reset_Handler
@@ -59,6 +61,8 @@ IRQ_EXC_VECTORS
     eret
 
 vectors_end
+
+    ENDIF
 
     end
 

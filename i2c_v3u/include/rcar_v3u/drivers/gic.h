@@ -17,14 +17,6 @@
 #include <rcar_v3u/drivers/dmac.h>
 #include <rcar_v3u/drivers/kcrc.h>
 
-#ifdef TARGET_AARCH32
-#define GIC_BASE_ADDR   GIC_CR52_BASE_ADDR
-#endif
-
-#ifdef TARGET_AARCH64
-#define GIC_BASE_ADDR   GIC_CA76_BASE_ADDR
-#endif
-
 #define GIC_INTID_SDMAC1AE     0x026
 #define GIC_INTID_SDMAC2AE     0x027
 #define GIC_INTID_RDMAC0AE     0x028

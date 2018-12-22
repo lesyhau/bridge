@@ -1687,11 +1687,10 @@ typedef struct
 	AddressMode_t DestinationAddressMode;
 	uint32_t TransferCount;
 	TransferSize_t TransferSize;
-	bool InterruptEnable;
+	bool IsInterruptEnable;
 	
 } DMAC_AutoTransferConfig_t;
 
-extern void DMAC_checkRegsAddress(DMAC_Channel_t *dmac);
 extern void DMAC_initDescriptorMemory(DMAC_Common_t *dmac, uint8_t stage);
 extern void DMAC_configAutoTransfer(DMAC_Channel_t *dmac, DMAC_AutoTransferConfig_t *config);
 extern void DMAC_enableChannel(DMAC_Channel_t *dmac);

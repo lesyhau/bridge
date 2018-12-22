@@ -2,13 +2,19 @@
 #ifndef V3U_H_
 #define V3U_H_
 
+/* Standard C libraries */
 #include <stdint.h>
-#include "drivers/i2c.h"
-#include "drivers/pfc.h"
-#include "drivers/cpg.h"
-#include "drivers/dmac.h"
-#include "drivers/pfc.h"
-#include "drivers/swdt.h"
+#include <stdbool.h>
+
+/* R-Car V3U drives */
+#include <global.h>
+#include <rcar_v3u/drivers/sim_utils.h>
+#include <rcar_v3u/drivers/i2c.h>
+#include <rcar_v3u/drivers/pfc.h>
+#include <rcar_v3u/drivers/cpg.h>
+#include <rcar_v3u/drivers/gic.h>
+#include <rcar_v3u/drivers/dmac.h>
+#include <rcar_v3u/drivers/kcrc.h>
 
 #define BSC0_BASE_ADDR      0x00000000
 #define BSC1_BASE_ADDR      0x04000000
@@ -53,6 +59,11 @@
 #define	RWDT_BASE_ADDR	    0xe6020000
 #define GIC_CA76_BASE_ADDR  0xf1000000
 #define GIC_CR52_BASE_ADDR  0xf0000000
+#ifdef __AARCH64
+    #define GIC_BASE_ADDR   GIC_CA76_BASE_ADDR
+#else
+    #define GIC_BASE_ADDR   GIC_CR52_BASE_ADDR
+#endif
 
 /******************************************************************************
  * WDT, SWDT

@@ -6,22 +6,23 @@
    ;MSTPSR4   EQU  0xE6152E10
    ;CPG_LOCK  EQU  0xE6150000
 
-   LDR   R0, =0xE6152E10  ; MSTPSR4
-   LDR   R1, [R0]
-   AND   R1, #0xFFFFFFE7  ; bit 3,4 are 0
-   MVN   R2, R1
-   LDR   R0, =0xE6150000
-   STR   R2, [R0]
-   LDR   R0, =0xE6152D10  ; MSTPCR4
-   STR   R1, [R0]
+   LDR   X0, =0xE6152E10  ; MSTPSR4
+   LDR   W1, [X0]
+   LDR   W2, =0xFFFFFFE7  ; MSTPSR4
+   AND   W1, W1, W2  ; bit 3,4 are 0
+   MVN   W2, W1
+   LDR   X0, =0xE6150000
+   STR   W2, [X0]
+   LDR   X0, =0xE6152D10  ; MSTPCR4
+   STR   W1, [X0]
 
-   LDR   R0, =0xE6152E10  ; MSTPSR4
-   LDR   R1, [R0]
+   LDR   X0, =0xE6152E10  ; MSTPSR4
+   LDR   W1, [X0]
 
-   LDR   R0, =0x10
+   LDR   W0, =0x10
 wait_mstp_setting_end
-   SUB   R0, R0, #0x1
-   CMP   R0, #0x0
+   SUB   W0, W0, #0x1
+   CMP   W0, #0x0
    BNE   wait_mstp_setting_end
 
 
@@ -38,27 +39,27 @@ wait_mstp_setting_end
    ;-------------------------------------------
    MACRO
    MYWRITE $addr, $data
-   ldr	r0, =$data
-   ldr	r1, =$addr
-   str	r0, [r1] ; 
+   ldr	W0, =$data
+   ldr	X1, =$addr
+   str	W0, [X1] ; 
 
    MEND
    ;-------------------------------------------
    ;-------------------------------------------
    MACRO
    PHYWRITE $addr, $data
-   ldr	r0, =$addr
-   ldr	r1, =0xe6790624
-   str	r0, [r1,#0x00] ; 
-   str	r0, [r1,#0x40] ; 
-   str	r0, [r1,#0x80] ; 
-   str	r0, [r1,#0xc0] ; 
-   ldr	r0, =$data
-   ldr	r1, =0xe6790628
-   str	r0, [r1,#0x00] ; 
-   str	r0, [r1,#0x40] ; 
-   str	r0, [r1,#0x80] ; 
-   str	r0, [r1,#0xc0] ; 
+   ldr	X0, =$addr
+   ldr	X1, =0xe6790624
+   str	W0, [X1,#0x00] ; 
+   str	W0, [X1,#0x40] ; 
+   str	W0, [X1,#0x80] ; 
+   str	W0, [X1,#0xc0] ; 
+   ldr	W0, =$data
+   ldr	X1, =0xe6790628
+   str	W0, [X1,#0x00] ; 
+   str	W0, [X1,#0x40] ; 
+   str	W0, [X1,#0x80] ; 
+   str	W0, [X1,#0xc0] ; 
    MEND
    ;-------------------------------------------
 
@@ -66,26 +67,26 @@ wait_mstp_setting_end
    NOP
    ;--------------------------------------------------------------------------------------------
    ; Write DDR_PHY Register Subroutine
-   ;   R0[IN]  : Register Data
-   ;   R1[IN]  : Register Address
-   ;   R2[IN]  : Access Address for Register Address
-   ;   R3[IN]  : Access Address for Register Data
-   ;   R4[--]  : Work Use
+   ;   X0[IN]  : Register Data
+   ;   X1[IN]  : Register Address
+   ;   X2[IN]  : Access Address for Register Address
+   ;   X3[IN]  : Access Address for Register Data
+   ;   X4[--]  : Work Use
    ;--------------------------------------------------------------------------------------------
 SUB_WRITE_PHY_REG
-   LDR  R4, = 0x00003FFF   ; Clear py_t_state/read access of Register Address
-   AND  R1, R1, R4
-   STR  R1, [R2]                   ; Write Register Address
-   STR  R0, [R3]                   ; Write Register Data
+   LDR  X4, = 0x00003FFF   ; Clear py_t_state/read access of Register Address
+   AND  X1, X1, X4
+   STR  X1, [X2]                   ; Write Register Address
+   STR  X0, [X3]                   ; Write Register Data
 LOOP_PHY_ACCESS
-   LDR  R0, [R2]                   ; Read Register Address
-   LDR  R4, = 0x00008000   ; Check py_t_state of Register Address
-   AND  R0, R0, R4
-   CMPS R0, R4
+   LDR  X0, [X2]                   ; Read Register Address
+   LDR  X4, = 0x00008000   ; Check py_t_state of Register Address
+   AND  X0, X0, X4
+   CMPS X0, X4
    BNE  LOOP_PHY_ACCESS  ; Loop Until Write access OK
-   ORR  R1, R1, R4                 ; Set py_t_state_clear of Register Address
-   STR  R1, [R2]                   ; Write Register Address
-   BX   LR                                 ; Return
+   ORR  X1, X1, X4                 ; Set py_t_state_clear of Register Address
+   STR  X1, [X2]                   ; Write Register Address
+   BR   LR                                 ; Return
    ; END SUB_WRITE_PHY_REG
    ;--------------------------------------------------------------------------------------------
 END_INIT_SUBROUTINE
@@ -93,10 +94,10 @@ END_INIT_SUBROUTINE
    ;-------------------------------------------
    MACRO
    MACRO_WRITE_PHY_REG $add,$dat
-   ldr    r2,=0xE6790624 ;;DBPDRGA0
-   ldr    r3,=0xE6790628 ;;DBPDRGD0
-   ldr    r1,=$add
-   ldr    r0,=$dat
+   ldr    X2,=0xE6790624 ;;DBPDRGA0
+   ldr    X3,=0xE6790628 ;;DBPDRGD0
+   ldr    X1,=$add
+   ldr    X0,=$dat
    BL  SUB_WRITE_PHY_REG
    nop
    MEND
@@ -120,14 +121,6 @@ END_INIT_SUBROUTINE
    MYWRITE   0xE6790080,0x0e030a01;memconf10a(ch1/rank0), 2Gbit (clk_axim)
    MYWRITE   0xE6790044,0x0e030a01;memconf11(ch1/rank1), 2Gbit
    MYWRITE   0xE6790084,0x0e030a01;memconf11a(ch1/rank1), 2Gbit (clk_axim)
-   MYWRITE   0xE6790050,0x0e030a01;memconf00(ch2/rank0), 2Gbit
-   MYWRITE   0xE6790090,0x0e030a01;memconf00a(ch2/rank0), 2Gbit (clk_axim)
-   MYWRITE   0xE6790054,0x0e030a01;memconf01(ch2/rank1), 2Gbit
-   MYWRITE   0xE6790094,0x0e030a01;memconf01a(ch2/rank1), 2Gbit (clk_axim)
-   MYWRITE   0xE6790060,0x0e030a01;memconf10(ch3/rank0), 2Gbit
-   MYWRITE   0xE67900a0,0x0e030a01;memconf10a(ch3/rank0), 2Gbit (clk_axim)
-   MYWRITE   0xE6790064,0x0e030a01;memconf11(ch3/rank1), 2Gbit
-   MYWRITE   0xE67900a4,0x0e030a01;memconf11a(ch3/rank1), 2Gbit (clk_axim)
    ;;   MYWRITE   0xE6790050,0x0e030a02;memconf20(ch2/rank0), 4Gbit
    ;;   MYWRITE   0xE6790054,0x0e030a02;memconf21(ch2/rank1), 4Gbit
    ;;   MYWRITE   0xE6790060,0x0e030a02;memconf30(ch3/rank0), 4Gbit
@@ -291,35 +284,35 @@ END_INIT_SUBROUTINE
    MYWRITE   0xE67906DC,0x0000CF01;dll_rst_n0 -> 1
 
 
-   ldr   r6, =0x00000001
+   ldr   W6, =0x00000001
 
 wait_init_complete
-   ldr   r0, =0xE6790600
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE6790600
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete
 
-   ldr   r0, =0xE6790640
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE6790640
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete
 
    ;; Remove comment by mochi for H3 ;; Comment Out 2015/07/29 M.Sano
-   ldr   r0, =0xE6790680
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE6790680
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete
 
-   ldr   r0, =0xE67906C0
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE67906C0
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete
 
-   ldr r0, =0xE6790000
+   ldr X0, =0xE6790000
 
    ;;MRR,MRW
    MYWRITE   0xE6790208,0x08840000;	PDE ch0 rk0
@@ -400,14 +393,6 @@ wait_init_complete
    MYWRITE   0xE6798080,0x0e030a01;memconf10a(ch1/rank0), 2Gbit (clk_axim)
    MYWRITE   0xE6798044,0x0e030a01;memconf11(ch1/rank1), 2Gbit
    MYWRITE   0xE6798084,0x0e030a01;memconf11a(ch1/rank1), 2Gbit (clk_axim)
-   MYWRITE   0xE6798050,0x0e030a01;memconf00(ch2/rank0), 2Gbit
-   MYWRITE   0xE6798090,0x0e030a01;memconf00a(ch2/rank0), 2Gbit (clk_axim)
-   MYWRITE   0xE6798054,0x0e030a01;memconf01(ch2/rank1), 2Gbit
-   MYWRITE   0xE6798094,0x0e030a01;memconf01a(ch2/rank1), 2Gbit (clk_axim)
-   MYWRITE   0xE6798060,0x0e030a01;memconf10(ch3/rank0), 2Gbit
-   MYWRITE   0xE67980a0,0x0e030a01;memconf10a(ch3/rank0), 2Gbit (clk_axim)
-   MYWRITE   0xE6798064,0x0e030a01;memconf11(ch3/rank1), 2Gbit
-   MYWRITE   0xE67980a4,0x0e030a01;memconf11a(ch3/rank1), 2Gbit (clk_axim)
    ;;   MYWRITE   0xE6798050,0x0e030a02;memconf20(ch2/rank0), 4Gbit
    ;;   MYWRITE   0xE6798054,0x0e030a02;memconf21(ch2/rank1), 4Gbit
    ;;   MYWRITE   0xE6798060,0x0e030a02;memconf30(ch3/rank0), 4Gbit
@@ -571,35 +556,35 @@ wait_init_complete
    MYWRITE   0xE67986DC,0x0000CF01;dll_rst_n0 -> 1
 
 
-   ldr   r6, =0x00000001
+   ldr   W6, =0x00000001
 
 wait_init_complete_DBS1
-   ldr   r0, =0xE6798600
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE6798600
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete_DBS1
 
-   ldr   r0, =0xE6798640
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE6798640
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete_DBS1
 
    ;; Remove comment by mochi for H3 ;; Comment Out 2015/07/29 M.Sano
-   ldr   r0, =0xE6798680
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE6798680
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete_DBS1
 
-   ldr   r0, =0xE67986C0
-   ldr   r7, [r0,#0x0]
-   and   r7, r6, r7
-   cmp   r6, r7
+   ldr   X0, =0xE67986C0
+   ldr   W7, [X0,#0x0]
+   and   W7, W6, W7
+   cmp   W6, W7
    bne   wait_init_complete_DBS1
 
-   ldr r0, =0xE6798000
+   ldr X0, =0xE6798000
 
    ;;MRR,MRW
    MYWRITE   0xE6798208,0x08840000;	PDE ch0 rk0

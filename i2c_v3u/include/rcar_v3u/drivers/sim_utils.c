@@ -93,4 +93,3 @@ void Sim_SetCR52BAR(uint32_t bar)
     *CR52BAR = bar;
     *CR52BAR |= 0x10;
 }
-

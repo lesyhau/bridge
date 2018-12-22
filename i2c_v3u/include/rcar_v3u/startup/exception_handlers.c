@@ -14,38 +14,56 @@
 #include <rcar_v3u/drivers/dmac.h>
 #include <rcar_v3u/drivers/kcrc.h>
 
+#ifdef __AARCH64
 void UndefinedInstruction_Handler(void)
 {
     Sim_Stop();
     while(1);
 }
+#endif
 
+#ifdef __AARCH64
 void SupervisorCall_Handler(void)
 {
     Sim_Stop();
     while(1);
 }
+#endif
 
+#ifdef __AARCH64
 void PrefetchAbort_Handler(void)
 {
     Sim_Stop();
     while(1);
 }
+#endif
 
+#ifdef __AARCH64
 void DataAbort_Handler(void)
 {
     Sim_Stop();
     while(1);
 }
+#endif
+
+#ifdef __TARGET_AARCH64
+void Synchronous_Handler (void)
+{
+    Sim_Stop();
+    while(1);
+}
+#endif
+
+#ifdef __TARGET_AARCH64
+void SError_Handler (void)
+{
+    Sim_Stop();
+    while(1);
+}
+#endif
 
 void IRQ_Handler(void)
 {
 	uint32_t ackID = GIC_getACKID();
     GIC_executeInterruptHandler(ackID);    
-}
-
-void FIQ_Handler(void)
-{
-    Sim_Stop();
-    while(1);
 }

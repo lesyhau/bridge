@@ -979,4 +979,3 @@ extern void I2C_masterEnableStartByteTransmit(I2C_t *i2c);
 extern void I2C_masterDisableStartByteTransmit(I2C_t *i2c);
 
 #endif	/* I2C_H_ */
-
