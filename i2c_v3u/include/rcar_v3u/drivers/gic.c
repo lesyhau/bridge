@@ -65,34 +65,7 @@ void (*GIC_intHandler[MAX_INTID+1])(void) =
 void GIC_enable(void)
 {
     #ifdef __AARCH64
-        /* Enable IRQ */
-        __enable_irq();
 
-        __RW uint32_t *gicrBase = (__RW uint32_t *)(GIC_BASE_ADDR + 0x100000);
-        __RW uint32_t *gicrWAKER = (__RW uint32_t *)((uint32_t)gicrBase + 0x14);
-
-        /* Wake GICR up */
-        *gicrWAKER = 0;
-        while (*gicrWAKER & 0x6);
-
-        /* Set priority mask */
-        __asm(
-            "mov    r1, #(0x1f << 3)\n"
-            "mcr    p15, 0, r1, c4, c6, 0"
-        );
-
-        /* Enable GICD */
-        __RW uint32_t *gicdCTRL = (__RW uint32_t *)(GIC_BASE_ADDR);
-        *gicdCTRL = 0x3;
-
-        /* Enable GICC */
-        __asm(
-            "mrc p15, 0, r1, c12, c12, 7\n"
-            "mov r2, #3\n"
-            "orr r1, r1, r2\n"
-            "mcr p15, 0, r1, c12, c12, 7"
-        );
-    #else
         /* Enable IRQ */
         __asm(
             "mov    w0, #0\n"
@@ -136,6 +109,37 @@ void GIC_enable(void)
             "mov    x0, #0xff\n"
             "msr    ICC_PMR_EL1, x0"
         );
+
+    #else
+
+        /* Enable IRQ */
+        __enable_irq();
+
+        __RW uint32_t *gicrBase = (__RW uint32_t *)(GIC_BASE_ADDR + 0x100000);
+        __RW uint32_t *gicrWAKER = (__RW uint32_t *)((uint32_t)gicrBase + 0x14);
+
+        /* Wake GICR up */
+        *gicrWAKER = 0;
+        while (*gicrWAKER & 0x6);
+
+        /* Set priority mask */
+        __asm(
+            "mov    r1, #(0x1f << 3)\n"
+            "mcr    p15, 0, r1, c4, c6, 0"
+        );
+
+        /* Enable GICD */
+        __RW uint32_t *gicdCTRL = (__RW uint32_t *)(GIC_BASE_ADDR);
+        *gicdCTRL = 0x3;
+
+        /* Enable GICC */
+        __asm(
+            "mrc p15, 0, r1, c12, c12, 7\n"
+            "mov r2, #3\n"
+            "orr r1, r1, r2\n"
+            "mcr p15, 0, r1, c12, c12, 7"
+        );
+        
     #endif
 }
 

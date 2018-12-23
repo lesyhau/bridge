@@ -969,13 +969,14 @@ extern void I2C_masterDisableDMATransmit(I2C_t *i2c);
 extern void I2C_masterRestart(I2C_t *i2c, uint8_t slaveAddress, I2C_MasterTransferMode_t masterTransferMode);
 extern bool I2C_slaveIsGeneralCall(I2C_t *i2c);
 extern bool I2C_masterIsArbitrationLost(I2C_t *i2c);
+extern void I2C_masterDisableStartGeneration(I2C_t *i2c);
+extern void I2C_masterEnableStartByteTransmit(I2C_t *i2c);
+extern void I2C_masterDisableStartByteTransmit(I2C_t *i2c);
+
 extern void I2C_configPins(void);
 extern void I2C_releasePins(void);
 extern void I2C_modelEnable(void);
 extern void I2C_modelDisable(void);
-extern void I2C_modelConnect(const uint32_t a, const uint32_t b);
-extern void I2C_masterDisableStartGeneration(I2C_t *i2c);
-extern void I2C_masterEnableStartByteTransmit(I2C_t *i2c);
-extern void I2C_masterDisableStartByteTransmit(I2C_t *i2c);
+extern void I2C_modelConnect(uint32_t a, uint32_t b);
 
 #endif	/* I2C_H_ */

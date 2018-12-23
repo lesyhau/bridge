@@ -1,12 +1,4 @@
 
-# Ball shared between these pins
-# SD1_CD <--> SCL0
-# SD1_WP <--> SDA0
-# PWM1_A <--> SCL3
-# PWM2_A <--> SDA3
-# AVB_AVTP_MATCH_A    <--> SCL5
-# AVB_AVTP_CAPTURE_A  <--> SDA5
-
 set	PRESET_N        "shxsim.shxbrd.u7796hrcarm3w000.PRESET_N"
 set	BSMODE          "shxsim.shxbrd.u7796hrcarm3w000.BSMODE"
 set	TEST1           "shxsim.shxbrd.u7796hrcarm3w000.TEST1"
@@ -66,6 +58,14 @@ set	iic4_sda_cin    "shxsim.shxbrd.u7796hrcarm3w000.TX2"
 set	iic4_scl_cin    "shxsim.shxbrd.u7796hrcarm3w000.RX2"
 set	iic5_sda_cin    "shxsim.shxbrd.u7796hrcarm3w000.HSCK0"
 set	iic5_scl_cin    "shxsim.shxbrd.u7796hrcarm3w000.HRX0"
+
+# Ball shared between these pins
+# SD1_CD <--> SCL0
+# SD1_WP <--> SDA0
+# PWM1_A <--> SCL3
+# PWM2_A <--> SDA3
+# AVB_AVTP_MATCH_A    <--> SCL5
+# AVB_AVTP_CAPTURE_A  <--> SDA5
 
 set	SCL0            "shxsim.shxbrd.u7796hrcarm3w000.SD1_CD"
 set	SDA0            "shxsim.shxbrd.u7796hrcarm3w000.SD1_WP"

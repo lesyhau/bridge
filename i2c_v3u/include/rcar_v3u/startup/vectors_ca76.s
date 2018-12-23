@@ -6,7 +6,6 @@
     import  Synchronous_Handler
     import  SError_Handler
     import  IRQ_Handler
-    import  FIQ_Handler
     export  __vectors_start
 
 __vectors_start
@@ -41,7 +40,7 @@ IRQ_EXC0
     eret
 
 FIQ_EXC0
-    bl  FIQ_Handler
+    b   FIQ_EXC0
     eret
 
 SYNC_EXCx
@@ -57,7 +56,7 @@ IRQ_EXCx
     eret
 
 FIQ_EXCx
-    bl  FIQ_Handler
+    b   FIQ_EXCx
     eret
 
 __vectors_end
