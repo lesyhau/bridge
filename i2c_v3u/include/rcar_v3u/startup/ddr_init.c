@@ -16,22 +16,14 @@
 
 #ifdef __USE_DDR
 
-void __ddr_init_bsc(void)
-{
-    #ifdef __AARCH64
-        __asm("include rel_dbsc4_init_lpddr4_4266_CL40WL18_181002_ca76.s");
-    #else
-        __asm("include rel_dbsc4_init_lpddr4_4266_CL40WL18_181002_cr52.s");
-    #endif
-}
-
+extern void __ddr_init_bsc(void);
 void (*__ddr_init_sram)(void) = SRAM_BASE_ADDR + __ddr_init_bsc;
 
 void __ddr_init(void)
 {
     /* Copy DDR initialize sequence from BSC region into SRAM */
-    SDMAC1CH0->SAR = __ddr_init_bsc;
-    SDMAC1CH0->DAR = __ddr_init_sram;
+    SDMAC1CH0->SAR = (uint32_t)__ddr_init_bsc;
+    SDMAC1CH0->DAR = (uint32_t)__ddr_init_sram;
     SDMAC1CH0->TCR = (sizeof(__ddr_init_bsc) >> 6) + 1;
     SDMAC1CH0->DM = 1;
     SDMAC1CH0->SM = 1;

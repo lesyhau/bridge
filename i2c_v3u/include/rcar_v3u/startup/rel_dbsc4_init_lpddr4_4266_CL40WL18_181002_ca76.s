@@ -1,4 +1,13 @@
 
+    IF :DEF: __USE_DDR
+    IF :DEF: __AARCH64
+
+    area DDR_INIT, code, readonly
+    export  __ddr_init_bsc
+    entry
+
+__ddr_init_bsc
+
    ; MSTP settings for DBQ and DBL
    ;   Control register MSTPCR4 (0xE6152D10), bit 3,4
    ;   Status  register MSTPSR4 (0xE6152E10), bit 3,4
@@ -650,5 +659,8 @@ wait_init_complete_DBS1
    LTORG
 SKIP_DBSCINIT
    ;;        .pool
+
+    ENDIF
+    ENDIF
 
    END

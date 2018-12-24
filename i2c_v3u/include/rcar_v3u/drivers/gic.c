@@ -3,7 +3,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef __AARCH64
+#ifdef __AARCH32
 #include <arm_compat.h>
 #endif
 
@@ -198,40 +198,40 @@ void GIC_disableInterrupt(uint32_t id)
 
 uint32_t GIC_getACKID(void)
 {
-    uint32_t ackID;
+    uint32_t id;
 
     #ifdef __AARCH64
-        __asm(
-            "mrc    p15, 0, %[result], c12, c12, 0\n"
-            "dsb"
-            : [result] "=r" (ackID)
-        );
-    #else
         __asm(
             "MRS    %[result], ICC_IAR1_EL1\n"
             "DSB    SY\n"
-            : [result] "=r" (ackID)
-        );
-    #endif
-
-    GIC_endInterrupt(ackID);
-
-    return ackID;
-}
-
-void GIC_endInterrupt(uint32_t ackID)
-{
-    #ifdef __AARCH64
-        __asm(
-            "mcr	p15, 0, %[id], c12, c12, 1\n"
-            "dsb"
-            :
-            : [id] "r" (ackID)
+            : [result] "=r" (id)
         );
     #else
         __asm(
+            "mrc    p15, 0, %[result], c12, c12, 0\n"
+            "dsb"
+            : [result] "=r" (id)
+        );
+    #endif
+
+    GIC_endInterrupt(id);
+
+    return id;
+}
+
+void GIC_endInterrupt(uint32_t id)
+{
+    #ifdef __AARCH64
+        __asm(
             "MSR    ICC_EOIR1_EL1, %[id]\n"
             "DSB    SY\n"
+            :
+            : [id] "r" (id)
+        );
+    #else
+        __asm(
+            "mcr	p15, 0, %[id], c12, c12, 1\n"
+            "dsb"
             :
             : [id] "r" (id)
         );

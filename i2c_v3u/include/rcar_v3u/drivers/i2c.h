@@ -824,31 +824,39 @@ typedef struct
 
 typedef enum
 {
+    GENERAL_CALL_ACK_DISABLE,
+    GENERAL_CALL_ACK_ENABLE,
+	GENERAL_CALL_MODE_COUNT
+
+} I2C_GenCallMode_t;
+
+const uint32_t I2C_GEN_CALL_MODE[GENERAL_CALL_MODE_COUNT] = {0, 1};
+
+typedef enum
+{
+    CLOCK_STRETCH_BEFORE,
+    CLOCK_STRETCH_AFTER,
+	CLOCK_STRETCH_MODE_COUNT
+
+} I2C_ClockStretchMode_t;
+
+const uint32_t I2C_CLOCK_STRETCH_MODE[CLOCK_STRETCH_MODE_COUNT] = {0, 1};
+
+typedef enum
+{
     OD_BUFFER,
-    LVTTL_BUFFER
+    LVTTL_BUFFER,
+	IO_BUFFER_TYPE_COUNT
 
 } I2C_IOBufferType_t;
 
 typedef enum
 {
     FIXED_DUTY_CYCLE,
-    VARIABLE_DUTY_CYCLE
+    VARIABLE_DUTY_CYCLE,
+	CLOCK_TYPE_COUNT
 
 } I2C_ClockType_t;
-
-typedef enum
-{
-    GENERAL_CALL_ACK_DISABLE,
-    GENERAL_CALL_ACK_ENABLE
-
-} I2C_GenCallMode_t;
-
-typedef enum
-{
-    CLOCK_STRETCH_BEFORE,
-    CLOCK_STRETCH_AFTER
-
-} I2C_ClockStretchMode_t;
 
 typedef enum
 {
@@ -858,9 +866,72 @@ typedef enum
     CLOCK_RATE_250KHZ,
     CLOCK_RATE_300KHZ,
     CLOCK_RATE_400KHZ,
-    CLOCK_RATE_1MHZ
+    CLOCK_RATE_1MHZ,
+	CLOCK_RATE_COUNT
 
 } I2C_ClockRate_t;
+
+const uint32_t I2C_CLOCK_SETTINGS[IO_BUFFER_TYPE_COUNT][CLOCK_TYPE_COUNT][CLOCK_RATE_COUNT][10] =
+{
+	/* Setting for open drain IO cells */
+	{
+		/* Setting for fixed duty cycle mode */
+		{
+			/*
+			C	H	S	F	C	S	M	H		L		F
+			D	L	M	B	D	C	P	P		P		M
+			F	S	E	S	F	G	R	R		R		P
+			D	E		C		D						E
+			*/
+			{0,	0,	0,	0,	6,	44,	0,	0,		0,		0},	// 50kHz
+			{0,	0,	0,	0,	6,	20,	0,	0,		0,		0},	// 100kHz
+			{0,	0,	0,	0,	6,	9,	0,	0,		0,		0},	// 200kHz
+			{0,	0,	0,	0,	6,	7,	0,	0,		0,		0},	// 250kHz
+			{0,	0,	0,	0,	6,	5,	0,	0,		0,		0},	// 300kHz
+			{0,	0,	0,	0,	6,	3,	0,	0,		0,		0},	// 400kHz
+			{0,	0,	0,	0,	6,	3,	0,	0,		0,		0}	// 1MHz
+		},
+		/* Setting for variable duty cycle mode */
+		{
+			{1,	1,	1,	15,	6,	0,	28,	1281,	1300,	0},	// 50kHz
+			{1,	1,	1,	15,	6,	0,	28,	615,	633,	0},	// 100kHz
+			{1,	1,	1,	15,	6,	0,	28,	281,	281,	0},	// 200kHz
+			{1,	1,	1,	15,	6,	0,	28,	215,	233,	0},	// 250kHz
+			{1,	1,	1,	15,	6,	0,	28,	170,	189,	0},	// 300kHz
+			{1,	1,	1,	15,	6,	0,	28,	115,	133,	0},	// 400kHz
+			{1,	1,	1,	15,	6,	0,	28,	32,		39,		1}	// 1MHz
+		},
+	},
+	/* Setting for LVTTL IO cells */
+	{
+		/* Setting for fixed duty cycle mode */
+		{
+			/*
+			C		H	S	F	C	S	M	H		L		F
+			D		L	M	B	D	C	P	P		P		M
+			F		S	E	S	F	G	R	R		R		P
+			D		E		C		D						E
+			*/
+			{0,		0,	0,	0,	6,	44,	0,	0,		0,		0},	// 50kHz
+			{0,		0,	0,	0,	6,	20,	0,	0,		0,		0},	// 100kHz
+			{0,		0,	0,	0,	6,	9,	0,	0,		0,		0},	// 200kHz
+			{0,		0,	0,	0,	6,	7,	0,	0,		0,		0},	// 250kHz
+			{0,		0,	0,	0,	6,	5,	0,	0,		0,		0},	// 300kHz
+			{0,		0,	0,	0,	6,	3,	0,	0,		0,		0},	// 400kHz
+			{0,		0,	0,	0,	6,	3,	0,	0,		0,		1}	// 1MHz
+		},
+		/* Setting for variable duty cycle mode */
+		{
+			{15,	1,	1,	1,	6,	0,	28,	1281,	1300,	0},	// 50kHz
+			{15,	1,	1,	1,	6,	0,	28,	615,	633,	0},	// 100kHz
+			{15,	1,	1,	1,	6,	0,	28,	281,	281,	0},	// 200kHz
+			{15,	1,	1,	1,	6,	0,	28,	215,	233,	0},	// 250kHz
+			{15,	1,	1,	1,	6,	0,	28,	170,	189,	0},	// 300kHz
+			{15,	1,	1,	1,	6,	0,	28,	115,	133,	0},	// 400kHz
+			{15,	1,	1,	1,	6,	0,	28,	32,		39,		1}	// 1MHz
+		},
+	},
+};
 
 typedef enum
 {

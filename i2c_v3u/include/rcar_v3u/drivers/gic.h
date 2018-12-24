@@ -126,6 +126,6 @@ extern void GIC_disableInterrupt(uint32_t id);
 extern void GIC_setInterruptHandler(uint32_t id, void (*intHandler)(void));
 extern void GIC_executeInterruptHandler(uint32_t id);
 extern uint32_t GIC_getACKID(void);
-extern void GIC_endInterrupt(uint32_t ackID);
+extern void GIC_endInterrupt(uint32_t id);
 
 #endif

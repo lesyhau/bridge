@@ -12,11 +12,11 @@
 	import	__use_no_semihosting_swi
     import  __mpu_init
     import  __main
-    export  vectors_start
+    export  __vectors_start
 
     entry
 
-vectors_start
+__vectors_start
 
     b   Reset_Handler   ; 0x00
     b   UDF_EXC_VECTORS ; 0x04
