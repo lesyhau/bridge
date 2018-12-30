@@ -1,0 +1,5 @@
+"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/../include/rcar_v3u/scatters/scatter_ddr.scat", line 28 (column 5): Warning: L6312W: Empty Execution region description for region ER01
+"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/../include/rcar_v3u/scatters/scatter_ddr.scat", line 41 (column 5): Warning: L6312W: Empty Execution region description for region ER02
+"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/../include/rcar_v3u/scatters/scatter_ddr.scat", line 62 (column 5): Warning: L6312W: Empty Execution region description for region ARM_LIB_HEAP
+"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/../include/rcar_v3u/scatters/scatter_ddr.scat", line 14 (column 11): Warning: L6314W: No section matches pattern *(MPU_INIT).
+Finished: 0 information, 4 warning and 0 error messages.

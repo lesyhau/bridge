@@ -1,0 +1,42 @@
+[Info] GNU assembly source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src
+[Info] GNU assembly source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/vectors_cr52.src
+[Info] GNU assembly source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/mpu_cr52.src
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/drivers/sim_utils.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/drivers/gic.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_rx_delay.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/pad_check.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_rx_fna.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/drivers/pfc.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_tx_dma.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_general_call.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_tx.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_arbitration_lost.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_general_call.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_tx_fsb.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_rx_dma.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/drivers/i2c_utils.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_tx.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_tx_delay.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_rx.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_nack_addr.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/drivers/cpg.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_rx.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_rx_dma.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/srst_check.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/main.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_rx_fna_sdbs.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_tx_rpt_master_rx.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/interrupt_check.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/drivers/dmac.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/slave_rx.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/mstp_check.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_tx.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_rx_fna_delay.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_tx_dma.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/drivers/i2c.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/reg_check.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_rx_sdbs.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_rx_fna.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/master_send_start_byte.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/renesas_slave_tx_delay.c
+[Info] C source file: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/exception_handlers.c

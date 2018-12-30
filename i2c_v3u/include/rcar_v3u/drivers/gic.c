@@ -3,10 +3,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#ifdef __AARCH32
-#include <arm_compat.h>
-#endif
-
 /* R-Car V3U drives */
 #include <global.h>
 #include <rcar_v3u/v3u.h>
@@ -113,7 +109,7 @@ void GIC_enable(void)
     #else
 
         /* Enable IRQ */
-        __enable_irq();
+        __asm("CPSIE I");
 
         __RW uint32_t *gicrBase = (__RW uint32_t *)(GIC_BASE_ADDR + 0x100000);
         __RW uint32_t *gicrWAKER = (__RW uint32_t *)((uint32_t)gicrBase + 0x14);

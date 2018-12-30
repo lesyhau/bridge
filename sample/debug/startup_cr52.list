@@ -1,0 +1,101 @@
+ARM GAS  /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src 			page 1
+
+
+   1              	
+   2              	    .ifdef __AARCH32
+   3              	
+   4              	    .section    STARTUP
+   5              		
+   6              	    .global Reset_Handler
+   7              	    .global UndefinedInstruction_Handler
+   8              	    .global SupervisorCall_Handler
+   9              	    .global PrefetchAbort_Handler
+  10              	    .global DataAbort_Handler
+  11              	    .global IRQ_Handler
+  12              		.global __use_no_semihosting_swi
+  13              	    .global __main
+  14              		
+  15 0000 FEFFFFEA 	    b   Reset_Handler   // 0x00
+  16 0004 050000EA 	    b   UDF_EXC         // 0x04
+  17 0008 080000EA 	    b   SVC_EXC         // 0x08
+  18 000c 0B0000EA 	    b   PAB_EXC         // 0x0c
+  19 0010 0E0000EA 	    b   DAB_EXC         // 0x10
+  20 0014 00F020E3 	    nop                 // 0x14
+  21 0018 100000EA 	    b   IRQ_EXC	        // 0x18
+  22              	FIQ_EXC:                // 0x1c
+  23              	    // If you want to use fast interrupt, place its service code here.
+  24              	    // Maximum code size allowed is 4kB
+  25 001c FEFFFFEA 	    b   FIQ_EXC
+  26              	    
+  27              	UDF_EXC:
+  28 0020 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  29 0024 FEFFFFEB 	    bl  UndefinedInstruction_Handler
+  30 0028 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  31 002c 6E0060E1 	    eret
+  32              	
+  33              	SVC_EXC:
+  34 0030 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  35 0034 FEFFFFEB 	    bl  SupervisorCall_Handler
+  36 0038 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  37 003c 6E0060E1 	    eret
+  38              	
+  39              	PAB_EXC:
+  40 0040 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  41 0044 FEFFFFEB 	    bl  PrefetchAbort_Handler
+  42 0048 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  43 004c 6E0060E1 	    eret
+  44              	
+  45              	DAB_EXC:
+  46 0050 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  47 0054 FEFFFFEB 	    bl  DataAbort_Handler
+  48 0058 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  49 005c 6E0060E1 	    eret
+  50              	
+  51              	IRQ_EXC:
+  52 0060 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  53 0064 FEFFFFEB 	    bl  IRQ_Handler
+  54 0068 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  55 006c 6E0060E1 	    eret
+  56              	
+  57              	Reset_Handler:
+ARM GAS  /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src 			page 2
+
+
+  58              	
+  59              	    // Set the CPACR for access to CP10 and CP11 (the FPU coprocessors)
+  60 0070 0F06A0E3 	    ldr r0, = (0xF << 20)
+  61 0074 500F01EE 	    mcr p15, 0, r0, c1, c0, 2
+  62              	    // Set the FPEXC: EN bit to enable the FPU
+  63 0078 0030A0E3 	    mov  r3, #0x0
+  64 007c 003044E3 	    movt r3, #0x4000
+  65 0080 103AE8EE 	    vmsr FPEXC, r3
+  66              	
+  67              	    // Give the control to the C library
+  68 0084 FEFFFFEA 	    b   __main
+  69              	
+  70              	    .endif
+  71              	
+  72              	    .end
+ARM GAS  /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000001 __USE_DDR
+                            *ABS*:0000000000000001 __AARCH32
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:57     STARTUP:0000000000000070 Reset_Handler
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:15     STARTUP:0000000000000000 $a
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:27     STARTUP:0000000000000020 UDF_EXC
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:33     STARTUP:0000000000000030 SVC_EXC
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:39     STARTUP:0000000000000040 PAB_EXC
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:45     STARTUP:0000000000000050 DAB_EXC
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:51     STARTUP:0000000000000060 IRQ_EXC
+/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/i2c_v3u/include/rcar_v3u/startup/startup_cr52.src:22     STARTUP:000000000000001c FIQ_EXC
+
+UNDEFINED SYMBOLS
+UndefinedInstruction_Handler
+SupervisorCall_Handler
+PrefetchAbort_Handler
+DataAbort_Handler
+IRQ_Handler
+__use_no_semihosting_swi
+__main

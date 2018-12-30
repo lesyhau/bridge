@@ -91,7 +91,7 @@ void I2C_modelConnect(uint32_t a, uint32_t b)
             "lsl    r1, r1, #8\n"
             "orr    r10, r10, r0\n"
             "orr    r10, r10, r1\n"
-            "orr    r10, r10, 0x1\n"
+            "orr    r10, r10, #0x1\n"
             "movt   r10, #0xa55a\n"
             "nop\n"
             "nop\n"

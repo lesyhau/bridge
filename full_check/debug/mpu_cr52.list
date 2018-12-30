@@ -1,0 +1,17 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 IF               :DEF: __AARCH32
+  329                          ENDIF
+  330 00000000         
+  331 00000000                 end
+Command Line: --cpu=8.2-A.64 -m -I/design01/rcarv3ufed_master/common_rvc/rcarv3
+u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check -I/design01/rcarv3ufed_master/
+common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine="__AARCH6
+4 SETL {TRUE}" --predefine="__USE_DDR SETL {TRUE}" --list=mpu_cr52.list /design
+01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/
+rcar_v3u/startup/mpu_cr52.s

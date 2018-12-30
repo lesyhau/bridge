@@ -138,23 +138,23 @@ void I2C_masterInit(I2C_t *i2c, const I2C_MasterConfig_t *masterConfig)
     i2c->ICMAR = (masterConfig->SlaveAddress << 1 | masterConfig->TransferMode);
 
     /* Select single buffer mode */
-    i2c0->MDBS = 1;
+    i2c->MDBS = 1;
 
     /* Configure start byte transmit mode */
     if (masterConfig->StartByteTransmitMode == START_BYTE_TRANSMIT_ENABLE) { i2c->TSBE = 1; }
     else { i2c->TSBE = 0; }
 
     /* Configure clock rate and clock type */
-    i2c->CDFD   = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][0];
-    i2c->HLSE   = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][1];
-    i2c->SME    = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][2];
-    i2c->FBSC   = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][3];
-    i2c->CDF    = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][4];
-    i2c->SCGD   = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][5];
-    i2c->ICMPR  = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][6];
-    i2c->ICHPR  = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][7];
-    i2c->ICLPR  = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][8];
-    i2c->FMPE   = I2C_CLOCK_SETTINGS[slaveConfig->IOBufferType][slaveConfig->ClockType][slaveConfig->ClockRate][9];
+    i2c->CDFD   = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][0];
+    i2c->HLSE   = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][1];
+    i2c->SME    = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][2];
+    i2c->FBSC   = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][3];
+    i2c->CDF    = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][4];
+    i2c->SCGD   = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][5];
+    i2c->ICMPR  = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][6];
+    i2c->ICHPR  = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][7];
+    i2c->ICLPR  = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][8];
+    i2c->FMPE   = I2C_CLOCK_SETTINGS[masterConfig->IOBufferType][masterConfig->ClockType][masterConfig->ClockRate][9];
 }
 
 void I2C_masterSetSlaveAddress(I2C_t *i2c, uint8_t addr)
