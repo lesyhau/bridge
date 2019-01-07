@@ -12,8 +12,6 @@ LR0 0x00000000 0x07ffffff
     {
         *(STARTUP, +FIRST)
         *(MPU_INIT)
-        *(DDR_INIT)
-        ddr_init.o
         *(InRoot$$Sections)
     }
 

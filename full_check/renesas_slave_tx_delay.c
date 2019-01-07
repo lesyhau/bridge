@@ -38,6 +38,7 @@ static const I2C_SlaveConfig_t slaveConfig =
 static const uint32_t sendData[DATA_PACKAGE_LENGTH] = { 'H', 'E', 'L', 'L', 'O', ',', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 static uint32_t receivedData[DATA_PACKAGE_LENGTH];
 static volatile uint32_t sendDataIndex = 0, receivedDataIndex = 0;
+static volatile bool isTransferComplete = false;
 
 uint32_t renesas_slave_tx_delay(void)
 {

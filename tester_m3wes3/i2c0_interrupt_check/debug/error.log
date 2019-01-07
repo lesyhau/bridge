@@ -1,6 +1,0 @@
-"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/scatter.scat", line 30 (column 5): Warning: L6312W: Empty Execution region description for region ARM_LIB_HEAP
-"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/scatter.scat", line 45 (column 5): Warning: L6312W: Empty Execution region description for region ER1
-"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/scatter.scat", line 24 (column 12): Warning: L6314W: No section matches pattern *(RO).
-"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/scatter.scat", line 25 (column 12): Warning: L6314W: No section matches pattern *(RW).
-"/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/asm/i2c0_interrupt_check/scatter.scat", line 25 (column 17): Warning: L6314W: No section matches pattern *(ZI).
-Finished: 0 information, 5 warning and 0 error messages.

@@ -5,7 +5,7 @@
 #	2082 - Hau Sy Le - hau.le.eb@renesas.com
 #******************************************************************************
 #	File name:		cmd_compile.csh
-#	Date created:	Mon Dec 24 16:12:25 ICT 2018
+#	Date created:	Sat Jan  5 16:07:40 ICT 2019
 #	PC name:		rvc-app07
 #	User name:		haule2
 #******************************************************************************

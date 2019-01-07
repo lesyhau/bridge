@@ -68,7 +68,7 @@ uint32_t master_rx_dma_continuous(void)
         SDMAC1->DMADESMEM[i].TCR = DATA_PACKAGE_LENGTH;
         SDMAC1->DMADESMEM[i].DM = 1;    // Destination address is increasement
         SDMAC1->DMADESMEM[i].SM = 0;    // Source address is fixed
-        SDMAC1->DMADESMEM[i].RS = 8;    // DMA trigger source is peripheral
+        SDMAC1->DMADESMEM[i].RS = (8 >> 2);    // DMA trigger source is peripheral
         SDMAC1->DMADESMEM[i].TS = 2;    // Transfer size is 4 bytes
         SDMAC1->DMADESMEM[i].DRS = DMARS_I2C0_MRX;
     }
@@ -108,7 +108,7 @@ uint32_t master_rx_dma_continuous(void)
     /* Configure I2C1 in slave TX mode with DMA transfer enabled */
     I2C_slaveInit(I2C1, &slaveConfig);
     I2C_slaveClearInterruptStatus(I2C1, I2C_INT_ALL);
-    I2C_slaveEnableInterrupt(I2C1, I2C_INT_ALL);
+    I2C_slaveEnableInterrupt(I2C1, (I2C_INT_ALL & ~I2C_INT_SDT));
     I2C_slaveSetData(I2C1, sendData[currentDataPackageIndex][0]);
     I2C_slaveEnable(I2C1);
 

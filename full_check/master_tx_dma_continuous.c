@@ -63,12 +63,12 @@ uint32_t master_tx_dma_continuous(void)
     /* Configure DMA descriptor for I2C0 */
     for (i = 0; i < DATA_PACKAGE_COUNT; i++)
     {
-        SDMAC1->DMADESMEM[i].SAR = &sendData[currentDataPackageIndex][1];
+        SDMAC1->DMADESMEM[i].SAR = &sendData[i][1];
         SDMAC1->DMADESMEM[i].DAR = &I2C0->ICTXD;
         SDMAC1->DMADESMEM[i].TCR = DATA_PACKAGE_LENGTH;
         SDMAC1->DMADESMEM[i].DM = 0;    // Destination address is fixed
         SDMAC1->DMADESMEM[i].SM = 1;    // Source address is increasement
-        SDMAC1->DMADESMEM[i].RS = 8;    // DMA trigger source is peripheral
+        SDMAC1->DMADESMEM[i].RS = (8 >> 2);    // DMA trigger source is peripheral
         SDMAC1->DMADESMEM[i].TS = 2;    // Transfer size is 4 bytes
         SDMAC1->DMADESMEM[i].DRS = DMARS_I2C0_MTX;
     }

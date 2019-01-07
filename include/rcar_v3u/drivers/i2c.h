@@ -931,6 +931,7 @@ typedef struct
 extern void I2C_slaveInit(I2C_t *i2c, const I2C_SlaveConfig_t *slaveConfig);
 extern void I2C_slaveEnable(I2C_t *i2c);
 extern void I2C_slaveDisable(I2C_t *i2c);
+extern void I2C_slaveSetAddress(I2C_t *i2c, uint8_t addr);
 extern void I2C_slaveEnableInterrupt(I2C_t *i2c, uint32_t flag);
 extern void I2C_slaveDisableInterrupt(I2C_t *i2c, uint32_t flag);
 extern uint32_t I2C_slaveGetInterruptStatus(I2C_t *i2c);
@@ -978,6 +979,7 @@ extern void I2C_masterDisableStartGeneration(I2C_t *i2c);
 extern void I2C_masterEnableStartByteTransmit(I2C_t *i2c);
 extern void I2C_masterDisableStartByteTransmit(I2C_t *i2c);
 
+extern void I2C_reset(void);
 extern void I2C_configPins(void);
 extern void I2C_releasePins(void);
 extern void I2C_modelEnable(void);

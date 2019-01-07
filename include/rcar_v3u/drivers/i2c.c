@@ -37,7 +37,7 @@ const uint32_t I2C_CLOCK_SETTINGS[IO_BUFFER_TYPE_COUNT][CLOCK_TYPE_COUNT][CLOCK_
 			{0,	0,	0,	0,	6,	7,	0,	0,		0,		0},	// 250kHz
 			{0,	0,	0,	0,	6,	5,	0,	0,		0,		0},	// 300kHz
 			{0,	0,	0,	0,	6,	3,	0,	0,		0,		0},	// 400kHz
-			{0,	0,	0,	0,	6,	3,	0,	0,		0,		0}	// 1MHz
+			{0,	0,	0,	0,	6,	3,	0,	0,		0,		1}	// 1MHz
 		},
 		/* Setting for variable duty cycle mode */
 		{
@@ -116,6 +116,11 @@ void I2C_slaveEnable(I2C_t *i2c)
 void I2C_slaveDisable(I2C_t *i2c)
 {
     i2c->SIE = 0;
+}
+
+void I2C_slaveSetAddress(I2C_t *i2c, uint8_t addr)
+{
+    i2c->ICSAR = addr;
 }
 
 void I2C_slaveEnableInterrupt(I2C_t *i2c, uint32_t flag)

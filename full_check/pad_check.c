@@ -50,13 +50,13 @@ uint32_t pad_check(void)
     /* Configure I2C0 in master TX mode */
     I2C_masterInit(I2C0, &masterConfig);
     I2C_masterClearInterruptStatus(I2C0, I2C_INT_ALL);
-    I2C_masterEnableInterrupt(I2C0, I2C_INT_ALL);
+    I2C_masterEnableInterrupt(I2C0, I2C_INT_MAT | I2C_INT_MDE | I2C_INT_MST);
     I2C_masterEnable(I2C0);
 
     /* Configure I2C1 in slave RX mode */
     I2C_slaveInit(I2C1, &slaveConfig);
     I2C_slaveClearInterruptStatus(I2C1, I2C_INT_ALL);
-    I2C_slaveEnableInterrupt(I2C1, I2C_INT_ALL);
+    I2C_slaveEnableInterrupt(I2C1, I2C_INT_SAR | I2C_INT_SDR | I2C_INT_SSR);
     I2C_slaveEnable(I2C1);
 
     GIC_enable();

@@ -17,7 +17,7 @@
 static const I2C_MasterConfig_t masterConfig =
 {
     MASTER_TX,
-    I2C_START_ADDR,
+    I2C1_SLAVE_ADDR,
     START_BYTE_TRANSMIT_ENABLE,
     OD_BUFFER,
     FIXED_DUTY_CYCLE,
@@ -26,7 +26,7 @@ static const I2C_MasterConfig_t masterConfig =
 
 static const I2C_SlaveConfig_t slaveConfig =
 {
-    I2C_START_ADDR,
+    I2C1_SLAVE_ADDR,
     CLOCK_STRETCH_AFTER,
     GENERAL_CALL_ACK_DISABLE,
     OD_BUFFER,
@@ -39,6 +39,7 @@ static const uint32_t sendData[DATA_PACKAGE_LENGTH] = { 'H', 'E', 'L', 'L', 'O',
 static uint32_t receivedData[DATA_PACKAGE_LENGTH];
 static volatile uint32_t sendDataIndex = 0, receivedDataIndex = 0;
 static volatile bool isTransferComplete = false;
+static volatile bool isStartByteTransmitted = false;
 
 static void i2c0InterruptHandler(void);
 static void i2c1InterruptHandler(void);
@@ -50,20 +51,20 @@ uint32_t master_send_start_byte(void)
     /* Configure I2C0 in master TX mode */
     I2C_masterInit(I2C0, &masterConfig);
     I2C_masterClearInterruptStatus(I2C0, I2C_INT_ALL);
-    I2C_masterEnableInterrupt(I2C0, I2C_INT_ALL);
+    I2C_masterEnableInterrupt(I2C0, I2C_INT_MAT | I2C_INT_MDE | I2C_INT_MST);
     I2C_masterEnable(I2C0);
 
     /* Exceptional setting
      * Master mode and slave mode can operate independently.
      * When the master logic send out the start byte 0x01, the slave logic will
-     * recognize it's default address 0x00 in the bus. To avoid that, we need
+     * recognize its default address 0x00 in the bus. To avoid that, we need
      * to change the slave address. */
     I2C_slaveSetAddress(I2C0, 0x11);
 
     /* Configure I2C1 in slave RX mode */
     I2C_slaveInit(I2C1, &slaveConfig);
     I2C_slaveClearInterruptStatus(I2C1, I2C_INT_ALL);
-    I2C_slaveEnableInterrupt(I2C1, I2C_INT_ALL);
+    I2C_slaveEnableInterrupt(I2C1, I2C_INT_SAR | I2C_INT_SDR | I2C_INT_SSR);
     I2C_slaveEnable(I2C1);
 
     GIC_enable();
@@ -96,8 +97,15 @@ void i2c0InterruptHandler(void)
 
     if (status & I2C_INT_MAT)
     {
-        I2C_masterDisableStartGeneration(I2C0);
-        I2C_masterDisableStartByteTransmit(I2C0);
+        if (isStartByteTransmitted)
+        {
+            I2C_masterDisableStartGeneration(I2C0);
+        }
+        else
+        {
+            I2C_masterDisableStartByteTransmit(I2C0);
+            isStartByteTransmitted = true;
+        }
     }
     else if (status & I2C_INT_MDE) { I2C_masterSendMultipleByteNext(I2C0, sendData[sendDataIndex++]); }
 

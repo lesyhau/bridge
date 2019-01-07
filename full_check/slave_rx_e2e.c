@@ -105,8 +105,8 @@ uint32_t slave_rx_e2e(void)
 
     /* Configure I2C1 in master TX mode with DMA transfer enabled */
     I2C_masterInit(I2C1, &masterConfig);
-    I2C_masterEnableInterrupt(I2C1, I2C_INT_MDE);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_ALL);
+    I2C_masterEnableInterrupt(I2C1, I2C_INT_MDE);
     I2C_masterEnable(I2C1);
 
     /* Configure a DMA channel for I2C0 */
@@ -123,13 +123,9 @@ uint32_t slave_rx_e2e(void)
 
     /* Configure I2C0 in slave RX mode with DMA transfer enabled */
     I2C_slaveInit(I2C0, &slaveConfig);
-    I2C_slaveEnableInterrupt(I2C0, I2C_INT_SDR);
     I2C_slaveClearInterruptStatus(I2C0, I2C_INT_ALL);
+    I2C_slaveEnableInterrupt(I2C0, I2C_INT_SDR);
     I2C_slaveEnable(I2C0);
-
-    /**************************************************************************
-     * Slave address transmition
-     *************************************************************************/
 
     /* Set the first data byte, send start condition, send slave address */
     I2C_masterSendMultipleByteStart(I2C1, SendDataPkg.BufferPtr[0]);
@@ -141,14 +137,8 @@ uint32_t slave_rx_e2e(void)
     /* Wait for MAT */
     /* Note: At this moment, MDE is also set, it is also need to be cleared */
     while (! I2C1->MAT);
+    I2C_masterDisableStartGeneration(I2C1);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_MAT | I2C_INT_MDE);
-
-    /* Clear ESG */
-    I2C1->ESG = 0;
-
-    /**************************************************************************
-     * DMA data transmition
-     *************************************************************************/
 
     /* Wait for MDE */
     while (! I2C1->MDE);
@@ -181,10 +171,6 @@ uint32_t slave_rx_e2e(void)
     while (! I2C1->MDT);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_MDT);
 
-    /**************************************************************************
-     * The end of the current transmition
-     *************************************************************************/
-
     /* Wait for SSR */
     while (! I2C0->SSR);
     I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SSR);
@@ -193,10 +179,6 @@ uint32_t slave_rx_e2e(void)
     while (! I2C1->MST);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_MST);
 
-    /**************************************************************************
-     * The end of the simulation
-     *************************************************************************/
-	
     /* Mask bits 31:8 for received data */
     uint8_t i;
     for (i = 0; i < DATA_PACKAGE_LENGTH; i++)

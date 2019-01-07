@@ -73,6 +73,7 @@ uint32_t master_arbitration_lost(void)
     /* Configure I2C1 in master TX mode */
     I2C_masterInit(I2C1, &masterConfig1);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_ALL);
+    I2C_masterEnableInterrupt(I2C1, I2C_INT_ALL);
     I2C_masterEnable(I2C1);
 
     GIC_enable();
@@ -112,25 +113,20 @@ uint32_t master_arbitration_lost(void)
 
 void i2c0InterruptHandler(void)
 {
-    if (! isMasterLostArbitration)
-    {
-        uint32_t mStatus = I2C_masterGetInterruptStatus(I2C0);
-        if (mStatus & I2C_INT_MAL) { isMasterLostArbitration = true; }
-        I2C_masterClearInterruptStatus(I2C0, mStatus);
-    }
-    else
-    {
-        uint32_t status = I2C_slaveGetInterruptStatus(I2C0);
+    uint32_t mStatus = I2C_masterGetInterruptStatus(I2C0);
+    if (mStatus & I2C_INT_MAL) { isMasterLostArbitration = true; }
+    I2C_masterClearInterruptStatus(I2C0, mStatus);
 
-        if (status & I2C_INT_SDR)
-        {
-            if (receivedDataIndex < (DATA_PACKAGE_LENGTH - 2)) { receivedData[receivedDataIndex++] = I2C_slaveReceiveMultipleByteNext(I2C0); }
-            else if (receivedDataIndex == (DATA_PACKAGE_LENGTH - 2)) { receivedData[receivedDataIndex++] = I2C_slaveReceiveMultipleByteStop(I2C0); }
-            else if (receivedDataIndex == (DATA_PACKAGE_LENGTH - 1)) { receivedData[receivedDataIndex++] = I2C_slaveReceiveMultipleByteFinish(I2C0); }
-        }
+    uint32_t status = I2C_slaveGetInterruptStatus(I2C0);
 
-        I2C_slaveClearInterruptStatus(I2C0, status);
+    if (status & I2C_INT_SDR)
+    {
+        if (receivedDataIndex < (DATA_PACKAGE_LENGTH - 2)) { receivedData[receivedDataIndex++] = I2C_slaveReceiveMultipleByteNext(I2C0); }
+        else if (receivedDataIndex == (DATA_PACKAGE_LENGTH - 2)) { receivedData[receivedDataIndex++] = I2C_slaveReceiveMultipleByteStop(I2C0); }
+        else if (receivedDataIndex == (DATA_PACKAGE_LENGTH - 1)) { receivedData[receivedDataIndex++] = I2C_slaveReceiveMultipleByteFinish(I2C0); }
     }
+
+    I2C_slaveClearInterruptStatus(I2C0, status);
 }
 
 void i2c1InterruptHandler(void)

@@ -38,6 +38,10 @@ static const I2C_SlaveConfig_t slaveConfig =
 static const uint32_t sendData[DATA_PACKAGE_LENGTH] = { 'H', 'E', 'L', 'L', 'O', ',', ' ', 'W', 'O', 'R', 'L', 'D', '!' };
 static uint32_t receivedData[DATA_PACKAGE_LENGTH];
 static volatile uint32_t sendDataIndex = 0, receivedDataIndex = 0;
+static volatile bool isTransferComplete = false;
+
+static void i2c0InterruptHandler(void);
+static void i2c1InterruptHandler(void);
 
 uint32_t slave_nack_addr(void)
 {
@@ -46,48 +50,46 @@ uint32_t slave_nack_addr(void)
     /* Configure I2C1 in master TX mode */
     I2C_masterInit(I2C1, &masterConfig);
     I2C_masterClearInterruptStatus(I2C1, I2C_INT_ALL);
+    I2C_masterEnableInterrupt(I2C1, I2C_INT_MAT | I2C_INT_MDE | I2C_INT_MST);
     I2C_masterEnable(I2C1);
 
     /* Configure I2C0 in slave RX mode */
     I2C_slaveInit(I2C0, &slaveConfig);
     I2C_slaveClearInterruptStatus(I2C0, I2C_INT_ALL);
+    I2C_slaveEnableInterrupt(I2C0, I2C_INT_SAR | I2C_INT_SDR | I2C_INT_SSR);
     I2C_slaveEnable(I2C0);
+
+    GIC_enable();
+    GIC_setInterruptHandler(GIC_INTID_I2C0, &i2c0InterruptHandler);
+    GIC_setInterruptHandler(GIC_INTID_I2C1, &i2c1InterruptHandler);
+    GIC_enableInterrupt(GIC_INTID_I2C0);
+    GIC_enableInterrupt(GIC_INTID_I2C1);
 
     /* Set the first data byte, send start condition, send slave address */
     I2C_masterSendMultipleByteStart(I2C1, sendData[sendDataIndex++]);
 
-    /* Wait for MAT */
-    /* Note: At this moment, MDE is also set, it is also need to be cleared */
-    while (! I2C1->MAT);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MAT | I2C_INT_MDE);
-
-    /* Clear ESG */
-    I2C_masterDisableStartGeneration(I2C1);
-
-    /* The slave address on the bus does not match with I2C0 address, therefore
-     * I2C0 return a NACK */
+    /* Wait for the transaction to complete */
+    while(! isTransferComplete);
 	
-    /* Wait for MNR */
-    while (! I2C1->MNR);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MNR);
-
-    /* Wait for SSR */
-    while (! I2C0->SSR);
-    I2C_slaveClearInterruptStatus(I2C0, I2C_INT_SSR);
-
-    /* Wait for MST */
-    while (! I2C1->MST);
-    I2C_masterClearInterruptStatus(I2C1, I2C_INT_MST);
-
-    /**************************************************************************
-     * The end of the simulation
-     *************************************************************************/
-
     I2C_masterDisable(I2C1);
     I2C_slaveDisable(I2C0);
-
-    /* Judge the result */
 
 	return TEST_PASS;
 }
 
+
+void i2c1InterruptHandler(void)
+{
+    uint32_t status = I2C_masterGetInterruptStatus(I2C1);
+
+    if (status & I2C_INT_MAT) { I2C_masterDisableStartGeneration(I2C1); }
+    if (status & I2C_INT_MST) { isTransferComplete = true; }
+
+    I2C_masterClearInterruptStatus(I2C1, status);
+}
+
+void i2c0InterruptHandler(void)
+{
+    uint32_t status = I2C_slaveGetInterruptStatus(I2C0);
+    I2C_slaveClearInterruptStatus(I2C0, status);
+}

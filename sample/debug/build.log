@@ -1,8 +1,0 @@
-make: Nothing to be done for 'gen_mk_files'.
-[Info] Cleanning temporary files...
-mv -f make* /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/debug
-mv -f *.csh /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/debug
-mv -f *.log /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/sample/debug
-date
-Sat Dec 29 17:13:12 DST 2018
-[Info] **** Build finished successfully ****
