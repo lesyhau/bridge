@@ -1,0 +1,71 @@
+# Automatic generated file. Do not modify!
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example/debug
+LINKER = arm-none-eabi-ld
+OPTS += -T ./scatter.ld
+OPTS += -e 0x0
+OPTS += -I ./include
+OPTS += -I ./include/rcar_v3u/drivers
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example
+OPTS += -I ./include/rcar_v3u/startup_gnu
+OBJS += $(DEBUG)/startup_cr52.o
+OBJS += $(DEBUG)/master_tx_300kHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_rpt_master_rx.o
+OBJS += $(DEBUG)/slave_tx.o
+OBJS += $(DEBUG)/slave_nack_addr.o
+OBJS += $(DEBUG)/master_tx.o
+OBJS += $(DEBUG)/renesas_slave_rx_fna_sdbs.o
+OBJS += $(DEBUG)/master_tx_1MHz_var_duty.o
+OBJS += $(DEBUG)/interrupt_check.o
+OBJS += $(DEBUG)/renesas_slave_rx_fna_delay.o
+OBJS += $(DEBUG)/slave_rx_fna.o
+OBJS += $(DEBUG)/main.o
+OBJS += $(DEBUG)/renesas_slave_rx_fna.o
+OBJS += $(DEBUG)/master_arbitration_lost.o
+OBJS += $(DEBUG)/master_tx_dma_continuous.o
+OBJS += $(DEBUG)/slave_general_call.o
+OBJS += $(DEBUG)/master_tx_200kHz.o
+OBJS += $(DEBUG)/master_send_start_byte.o
+OBJS += $(DEBUG)/i2c.o
+OBJS += $(DEBUG)/sim_utils.o
+OBJS += $(DEBUG)/master_tx_400kHz.o
+OBJS += $(DEBUG)/renesas_slave_tx_delay.o
+OBJS += $(DEBUG)/master_tx_50kHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_50kHz.o
+OBJS += $(DEBUG)/master_rx_dma_continuous.o
+OBJS += $(DEBUG)/renesas_slave_tx.o
+OBJS += $(DEBUG)/mstp_check.o
+OBJS += $(DEBUG)/srst_check.o
+OBJS += $(DEBUG)/exception_handlers.o
+OBJS += $(DEBUG)/renesas_slave_rx.o
+OBJS += $(DEBUG)/master_rx_dma.o
+OBJS += $(DEBUG)/master_rx.o
+OBJS += $(DEBUG)/slave_tx_dma.o
+OBJS += $(DEBUG)/pad_check.o
+OBJS += $(DEBUG)/master_tx_250kHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_dma.o
+OBJS += $(DEBUG)/renesas_slave_rx_sdbs.o
+OBJS += $(DEBUG)/slave_rx_e2e.o
+OBJS += $(DEBUG)/master_tx_200kHz_var_duty.o
+OBJS += $(DEBUG)/dmac.o
+OBJS += $(DEBUG)/renesas_slave_rx_delay.o
+OBJS += $(DEBUG)/master_tx_fsb.o
+OBJS += $(DEBUG)/master_tx_400kHz_var_duty.o
+OBJS += $(DEBUG)/gic.o
+OBJS += $(DEBUG)/slave_tx_delay.o
+OBJS += $(DEBUG)/master_tx_300kHz.o
+OBJS += $(DEBUG)/reg_check.o
+OBJS += $(DEBUG)/master_tx_100kHz_var_duty.o
+OBJS += $(DEBUG)/slave_rx.o
+OBJS += $(DEBUG)/slave_rx_dma.o
+OBJS += $(DEBUG)/i2c_utils.o
+OBJS += $(DEBUG)/master_general_call.o
+OBJS += $(DEBUG)/master_tx_100kHz.o
+OBJS += $(DEBUG)/cpg.o
+OBJS += $(DEBUG)/pfc.o
+OBJS += $(DEBUG)/master_tx_250kHz.o
+OBJS += $(DEBUG)/example.o
+.PHONY: LINK
+LINK: $(DEBUG)/image.elf
+$(DEBUG)/image.elf: $(OBJS)
+	$(LINKER) $(OPTS) $(OBJS) -o image.elf
+	mv -f *.elf $(DEBUG)

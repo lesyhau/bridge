@@ -1,0 +1,12 @@
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example/debug
+COMPILER = arm-none-eabi-gcc
+OPTS += -MM
+OPTS += -I ./include
+OPTS += -I ./include/rcar_v3u/drivers
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example
+OPTS += -I ./include/rcar_v3u/startup_gnu
+MKS += $(DEBUG)/example.mk
+.PHONY: GENDEP
+GENDEP: $(MKS)
+$(DEBUG)/example.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example/example.cpp
+	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example/example.cpp -MF $(DEBUG)/example.mk

@@ -1,0 +1,18 @@
+# Automatic generated file. Do not modify!
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example/debug
+COMPILER = arm-none-eabi-as
+OPTS += -march=armv8-r
+OPTS += -mcpu=cortex-r52
+OPTS += -mfpu=vfpv3-fp16
+OPTS += -EL
+OPTS += -I ./include
+OPTS += -I ./include/rcar_v3u/drivers
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example
+OPTS += -I ./include/rcar_v3u/startup_gnu
+OBJS += $(DEBUG)/startup_cr52.o
+.PHONY: COMPILE
+COMPILE: $(OBJS)
+$(DEBUG)/startup_cr52.o: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example/include/rcar_v3u/startup_gnu/startup_cr52.src
+	$(COMPILER) $(OPTS) -al=startup_cr52.list -o startup_cr52.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/example/include/rcar_v3u/startup_gnu/startup_cr52.src
+	mv -f *.o $(DEBUG)
+	mv -f *.list $(DEBUG)
