@@ -1,0 +1,947 @@
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /home/u/haule2/tools/armcpl/v2.2.5a/retarget.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/retarget.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_fbsc_check.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_fbsc_check.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_dma_continuous.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_dma_continuous.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_400kHz.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_400kHz.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/exception_handlers.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/exception_handlers.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_100kHz.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_100kHz.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/main.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/main.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_200kHz_var_duty.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_200kHz_var_duty.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_dma.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx_dma.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_rpt_master_rx.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_rpt_master_rx.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/sim_utils.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/sim_utils.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_50kHz.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_50kHz.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_dma_continuous.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx_dma_continuous.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_300kHz_var_duty.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_300kHz_var_duty.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_delay.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx_delay.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_250kHz_var_duty.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_250kHz_var_duty.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_dma.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_dma.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_general_call.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_general_call.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_1MHz_var_duty.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_1MHz_var_duty.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/i2c.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/i2c.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_100kHz_var_duty.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_100kHz_var_duty.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_200kHz.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_200kHz.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_250kHz.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_250kHz.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_arbitration_lost.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_arbitration_lost.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/dmac.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/dmac.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/i2c_utils.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/i2c_utils.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_fsb.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_fsb.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_300kHz.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_300kHz.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_400kHz_var_duty.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_400kHz_var_duty.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/pfc.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/pfc.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_50kHz_var_duty.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_50kHz_var_duty.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_send_start_byte.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_send_start_byte.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/cpg.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/cpg.mk
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/gic.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/gic.mk
+[Info] Compiling /home/u/haule2/tools/armcpl/v2.2.5a/retarget.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /home/u/haule2/tools/armcpl/v2.2.5a/retarget.c
+[Info] Collecting object file retarget.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_fbsc_check.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_fbsc_check.c
+[Info] Collecting object file master_tx_fbsc_check.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_dma_continuous.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_dma_continuous.c
+[Info] Collecting object file master_tx_dma_continuous.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_400kHz.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_400kHz.c
+[Info] Collecting object file master_tx_400kHz.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/exception_handlers.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/exception_handlers.c
+[Info] Collecting object file exception_handlers.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_100kHz.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_100kHz.c
+[Info] Collecting object file master_tx_100kHz.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/main.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/main.c
+[Info] Collecting object file main.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx.c
+[Info] Collecting object file master_tx.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_200kHz_var_duty.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_200kHz_var_duty.c
+[Info] Collecting object file master_tx_200kHz_var_duty.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_dma.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_dma.c
+[Info] Collecting object file master_rx_dma.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_rpt_master_rx.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_rpt_master_rx.c
+[Info] Collecting object file master_tx_rpt_master_rx.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/sim_utils.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/sim_utils.c
+[Info] Collecting object file sim_utils.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_50kHz.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_50kHz.c
+[Info] Collecting object file master_tx_50kHz.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_dma_continuous.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_dma_continuous.c
+[Info] Collecting object file master_rx_dma_continuous.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_300kHz_var_duty.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_300kHz_var_duty.c
+[Info] Collecting object file master_tx_300kHz_var_duty.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_delay.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx_delay.c
+[Info] Collecting object file master_rx_delay.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_250kHz_var_duty.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_250kHz_var_duty.c
+[Info] Collecting object file master_tx_250kHz_var_duty.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_rx.c
+[Info] Collecting object file master_rx.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_dma.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_dma.c
+[Info] Collecting object file master_tx_dma.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_general_call.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_general_call.c
+[Info] Collecting object file master_general_call.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_1MHz_var_duty.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_1MHz_var_duty.c
+[Info] Collecting object file master_tx_1MHz_var_duty.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/i2c.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/i2c.c
+[Info] Collecting object file i2c.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_100kHz_var_duty.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_100kHz_var_duty.c
+[Info] Collecting object file master_tx_100kHz_var_duty.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_200kHz.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_200kHz.c
+[Info] Collecting object file master_tx_200kHz.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_250kHz.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_250kHz.c
+[Info] Collecting object file master_tx_250kHz.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_arbitration_lost.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_arbitration_lost.c
+[Info] Collecting object file master_arbitration_lost.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/dmac.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/dmac.c
+[Info] Collecting object file dmac.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/i2c_utils.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/i2c_utils.c
+[Info] Collecting object file i2c_utils.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_fsb.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_fsb.c
+[Info] Collecting object file master_tx_fsb.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_300kHz.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_300kHz.c
+[Info] Collecting object file master_tx_300kHz.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_400kHz_var_duty.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_400kHz_var_duty.c
+[Info] Collecting object file master_tx_400kHz_var_duty.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/pfc.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/pfc.c
+[Info] Collecting object file pfc.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_50kHz_var_duty.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_tx_50kHz_var_duty.c
+[Info] Collecting object file master_tx_50kHz_var_duty.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_send_start_byte.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/master_send_start_byte.c
+[Info] Collecting object file master_send_start_byte.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/cpg.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/cpg.c
+[Info] Collecting object file cpg.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/gic.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/drivers/gic.c
+[Info] Collecting object file gic.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/vectors_ca76.s...
+armasm -m --littleend --cpu=Cortex-R52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine  '__AARCH32 SETL {TRUE}' --predefine  '__USE_DDR SETL {TRUE}' --list=vectors_ca76.list  /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/vectors_ca76.s
+vectors_ca76.o: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/vectors_ca76.s
+[Info] Collecting object files vectors_ca76.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+mv -f *.list /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/startup_cr52.s...
+armasm -m --littleend --cpu=Cortex-R52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine  '__AARCH32 SETL {TRUE}' --predefine  '__USE_DDR SETL {TRUE}' --list=startup_cr52.list  /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/startup_cr52.s
+startup_cr52.o: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/startup_cr52.s
+startup_cr52.o: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.s
+[Info] Collecting object files startup_cr52.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+mv -f *.list /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/mpu_cr52.s...
+armasm -m --littleend --cpu=Cortex-R52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine  '__AARCH32 SETL {TRUE}' --predefine  '__USE_DDR SETL {TRUE}' --list=mpu_cr52.list  /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/mpu_cr52.s
+mpu_cr52.o: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/mpu_cr52.s
+[Info] Collecting object files mpu_cr52.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+mv -f *.list /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/vectors_cr52.s...
+armasm -m --littleend --cpu=Cortex-R52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine  '__AARCH32 SETL {TRUE}' --predefine  '__USE_DDR SETL {TRUE}' --list=vectors_cr52.list  /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/vectors_cr52.s
+vectors_cr52.o: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/vectors_cr52.s
+[Info] Collecting object files vectors_cr52.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+mv -f *.list /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/startup_ca76.s...
+armasm -m --littleend --cpu=Cortex-R52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine  '__AARCH32 SETL {TRUE}' --predefine  '__USE_DDR SETL {TRUE}' --list=startup_ca76.list  /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/startup_ca76.s
+startup_ca76.o: /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/startup/startup_ca76.s
+[Info] Collecting object files startup_ca76.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+mv -f *.list /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Linking object files...
+armlink --map --remove --info=unused --datacompressor off --entry=0x00000000 --scatter=/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/scatters/scatter_ddr.scat --errors=error.log /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/retarget.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_fbsc_check.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_dma_continuous.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_400kHz.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/exception_handlers.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_100kHz.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/main.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_200kHz_var_duty.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx_dma.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_rpt_master_rx.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/sim_utils.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_50kHz.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx_dma_continuous.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_300kHz_var_duty.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx_delay.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_250kHz_var_duty.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_rx.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_dma.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_general_call.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_1MHz_var_duty.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/i2c.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_100kHz_var_duty.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_200kHz.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_250kHz.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_arbitration_lost.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/dmac.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/i2c_utils.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_fsb.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_300kHz.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_400kHz_var_duty.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/pfc.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_tx_50kHz_var_duty.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/master_send_start_byte.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/cpg.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/gic.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/vectors_ca76.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/startup_cr52.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/mpu_cr52.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/vectors_cr52.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/startup_ca76.o --output=image.elf
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing retarget.o(.text), (0 bytes).
+    Removing retarget.o(.ARM.exidx.text._sys_exit), (8 bytes).
+    Removing retarget.o(.text._ttywrch), (4 bytes).
+    Removing retarget.o(.ARM.exidx.text._ttywrch), (8 bytes).
+    Removing retarget.o(.text._sys_command_string), (8 bytes).
+    Removing retarget.o(.ARM.exidx.text._sys_command_string), (8 bytes).
+    Removing master_tx_fbsc_check.o(.text), (0 bytes).
+    Removing master_tx_fbsc_check.o(.ARM.exidx.text.master_tx_fbsc_check), (8 bytes).
+    Removing master_tx_fbsc_check.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_fbsc_check.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_fbsc_check.o(.rodata.cst4), (4 bytes).
+    Removing master_tx_dma_continuous.o(.text), (0 bytes).
+    Removing master_tx_dma_continuous.o(.ARM.exidx.text.master_tx_dma_continuous), (8 bytes).
+    Removing master_tx_dma_continuous.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_dma_continuous.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_dma_continuous.o(.ARM.exidx.text.sdmac1ch0InterruptHandler), (8 bytes).
+    Removing master_tx_dma_continuous.o(.ARM.exidx.text.sdmac1ch1InterruptHandler), (8 bytes).
+    Removing master_tx_400kHz.o(.text), (0 bytes).
+    Removing master_tx_400kHz.o(.ARM.exidx.text.master_tx_400kHz), (8 bytes).
+    Removing master_tx_400kHz.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_400kHz.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing exception_handlers.o(.text), (0 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.UndefinedInstruction_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.SupervisorCall_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.PrefetchAbort_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.DataAbort_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.IRQ_Handler), (8 bytes).
+    Removing master_tx_100kHz.o(.text), (0 bytes).
+    Removing master_tx_100kHz.o(.ARM.exidx.text.master_tx_100kHz), (8 bytes).
+    Removing master_tx_100kHz.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_100kHz.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing main.o(.text), (0 bytes).
+    Removing main.o(.ARM.exidx.text.main), (8 bytes).
+    Removing main.o(.ARM.use_no_argv), (4 bytes).
+    Removing master_tx.o(.text), (0 bytes).
+    Removing master_tx.o(.ARM.exidx.text.master_tx), (8 bytes).
+    Removing master_tx.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_200kHz_var_duty.o(.text), (0 bytes).
+    Removing master_tx_200kHz_var_duty.o(.ARM.exidx.text.master_tx_200kHz_var_duty), (8 bytes).
+    Removing master_tx_200kHz_var_duty.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_200kHz_var_duty.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_rx_dma.o(.text), (0 bytes).
+    Removing master_rx_dma.o(.ARM.exidx.text.master_rx_dma), (8 bytes).
+    Removing master_rx_dma.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_rx_dma.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_rx_dma.o(.ARM.exidx.text.sdmac1ch0InterruptHandler), (8 bytes).
+    Removing master_rx_dma.o(.ARM.exidx.text.sdmac1ch1InterruptHandler), (8 bytes).
+    Removing master_tx_rpt_master_rx.o(.text), (0 bytes).
+    Removing master_tx_rpt_master_rx.o(.ARM.exidx.text.master_tx_rpt_master_rx), (8 bytes).
+    Removing master_tx_rpt_master_rx.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_rpt_master_rx.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing sim_utils.o(.text), (0 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Dump), (8 bytes).
+    Removing sim_utils.o(.text.Sim_DumpCheck), (52 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_DumpCheck), (8 bytes).
+    Removing sim_utils.o(.text.Sim_DumpSkip), (24 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_DumpSkip), (8 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Stop), (8 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Delay), (8 bytes).
+    Removing sim_utils.o(.text.Sim_Judge), (40 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Judge), (8 bytes).
+    Removing sim_utils.o(.text.Sim_CopyToSRAM), (204 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_CopyToSRAM), (8 bytes).
+    Removing sim_utils.o(.text.Sim_SetCR52BAR), (36 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_SetCR52BAR), (8 bytes).
+    Removing master_tx_50kHz.o(.text), (0 bytes).
+    Removing master_tx_50kHz.o(.ARM.exidx.text.master_tx_50kHz), (8 bytes).
+    Removing master_tx_50kHz.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_50kHz.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_rx_dma_continuous.o(.text), (0 bytes).
+    Removing master_rx_dma_continuous.o(.ARM.exidx.text.master_rx_dma_continuous), (8 bytes).
+    Removing master_rx_dma_continuous.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_rx_dma_continuous.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_rx_dma_continuous.o(.ARM.exidx.text.sdmac1ch0InterruptHandler), (8 bytes).
+    Removing master_rx_dma_continuous.o(.ARM.exidx.text.sdmac1ch1InterruptHandler), (8 bytes).
+    Removing master_tx_300kHz_var_duty.o(.text), (0 bytes).
+    Removing master_tx_300kHz_var_duty.o(.ARM.exidx.text.master_tx_300kHz_var_duty), (8 bytes).
+    Removing master_tx_300kHz_var_duty.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_300kHz_var_duty.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_rx_delay.o(.text), (0 bytes).
+    Removing master_rx_delay.o(.ARM.exidx.text.master_rx_delay), (8 bytes).
+    Removing master_tx_250kHz_var_duty.o(.text), (0 bytes).
+    Removing master_tx_250kHz_var_duty.o(.ARM.exidx.text.master_tx_250kHz_var_duty), (8 bytes).
+    Removing master_tx_250kHz_var_duty.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_250kHz_var_duty.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_rx.o(.text), (0 bytes).
+    Removing master_rx.o(.ARM.exidx.text.master_rx), (8 bytes).
+    Removing master_rx.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_rx.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_dma.o(.text), (0 bytes).
+    Removing master_tx_dma.o(.ARM.exidx.text.master_tx_dma), (8 bytes).
+    Removing master_tx_dma.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_dma.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_dma.o(.ARM.exidx.text.sdmac1ch0InterruptHandler), (8 bytes).
+    Removing master_tx_dma.o(.ARM.exidx.text.sdmac1ch1InterruptHandler), (8 bytes).
+    Removing master_general_call.o(.text), (0 bytes).
+    Removing master_general_call.o(.ARM.exidx.text.master_general_call), (8 bytes).
+    Removing master_general_call.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_general_call.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_1MHz_var_duty.o(.text), (0 bytes).
+    Removing master_tx_1MHz_var_duty.o(.ARM.exidx.text.master_tx_1MHz_var_duty), (8 bytes).
+    Removing master_tx_1MHz_var_duty.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_1MHz_var_duty.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing i2c.o(.text), (0 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveInit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnable), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisable), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveSetAddress), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnableInterrupt), (8 bytes).
+    Removing i2c.o(.text.I2C_slaveDisableInterrupt), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisableInterrupt), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveGetInterruptStatus), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveClearInterruptStatus), (8 bytes).
+    Removing i2c.o(.text.I2C_slaveForceNAK), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveForceNAK), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveReceiveMultipleByteNext), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveReceiveMultipleByteStop), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveReceiveMultipleByteFinish), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveSetData), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnableDMATransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisableDMATransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterInit), (8 bytes).
+    Removing i2c.o(.text.I2C_masterSetSlaveAddress), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetSlaveAddress), (8 bytes).
+    Removing i2c.o(.text.I2C_masterSetMode), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetMode), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnable), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisable), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableInterrupt), (8 bytes).
+    Removing i2c.o(.text.I2C_masterDisableInterrupt), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableInterrupt), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterGetInterruptStatus), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterClearInterruptStatus), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSendMultipleByteStart), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSendMultipleByteNext), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSendMultipleByteStop), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveStart), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveMultipleByteNext), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveMultipleByteStop), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveMultipleByteFinish), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetDMAContinuousTransferCount), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetDMAContinuousReceiveBlockCount), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetDMAContinuousTransmitBlockCount), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMAContinuousReceive), (8 bytes).
+    Removing i2c.o(.text.I2C_masterDisableDMAContinuousReceive), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMAContinuousReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMAContinuousTransmit), (8 bytes).
+    Removing i2c.o(.text.I2C_masterDisableDMAContinuousTransmit), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMAContinuousTransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMATransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMATransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterRestart), (8 bytes).
+    Removing i2c.o(.text.I2C_slaveIsGeneralCall), (12 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveIsGeneralCall), (8 bytes).
+    Removing i2c.o(.text.I2C_masterIsArbitrationLost), (12 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterIsArbitrationLost), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableStartGeneration), (8 bytes).
+    Removing i2c.o(.text.I2C_masterEnableStartByteTransmit), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableStartByteTransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableStartByteTransmit), (8 bytes).
+    Removing master_tx_100kHz_var_duty.o(.text), (0 bytes).
+    Removing master_tx_100kHz_var_duty.o(.ARM.exidx.text.master_tx_100kHz_var_duty), (8 bytes).
+    Removing master_tx_100kHz_var_duty.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_100kHz_var_duty.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_200kHz.o(.text), (0 bytes).
+    Removing master_tx_200kHz.o(.ARM.exidx.text.master_tx_200kHz), (8 bytes).
+    Removing master_tx_200kHz.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_200kHz.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_250kHz.o(.text), (0 bytes).
+    Removing master_tx_250kHz.o(.ARM.exidx.text.master_tx_250kHz), (8 bytes).
+    Removing master_tx_250kHz.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_250kHz.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_arbitration_lost.o(.text), (0 bytes).
+    Removing master_arbitration_lost.o(.ARM.exidx.text.master_arbitration_lost), (8 bytes).
+    Removing master_arbitration_lost.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_arbitration_lost.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing dmac.o(.text), (0 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_initDescriptorMemory), (8 bytes).
+    Removing dmac.o(.text.DMAC_configAutoTransfer), (156 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_configAutoTransfer), (8 bytes).
+    Removing dmac.o(.text.DMAC_enableChannel), (16 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_enableChannel), (8 bytes).
+    Removing dmac.o(.text.DMAC_disableChannel), (16 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_disableChannel), (8 bytes).
+    Removing dmac.o(.text.DMAC_enable), (12 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_enable), (8 bytes).
+    Removing dmac.o(.text.DMAC_disable), (12 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_disable), (8 bytes).
+    Removing i2c_utils.o(.text), (0 bytes).
+    Removing i2c_utils.o(.text.I2C_modelEnable), (40 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_modelEnable), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_modelDisable), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_modelConnect), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_configPins), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_releasePins), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_reset), (8 bytes).
+    Removing master_tx_fsb.o(.text), (0 bytes).
+    Removing master_tx_fsb.o(.ARM.exidx.text.master_tx_fsb), (8 bytes).
+    Removing master_tx_fsb.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_fsb.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_300kHz.o(.text), (0 bytes).
+    Removing master_tx_300kHz.o(.ARM.exidx.text.master_tx_300kHz), (8 bytes).
+    Removing master_tx_300kHz.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_300kHz.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_tx_400kHz_var_duty.o(.text), (0 bytes).
+    Removing master_tx_400kHz_var_duty.o(.ARM.exidx.text.master_tx_400kHz_var_duty), (8 bytes).
+    Removing master_tx_400kHz_var_duty.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_400kHz_var_duty.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing pfc.o(.text), (0 bytes).
+    Removing pfc.o(.text.PFC_SetBit), (28 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_SetBit), (8 bytes).
+    Removing pfc.o(.text.PFC_ClearBit), (36 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_ClearBit), (8 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_SetMultipleBit), (8 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_ClearMultipleBit), (8 bytes).
+    Removing pfc.o(.text.PFC_WriteOr), (24 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_WriteOr), (8 bytes).
+    Removing pfc.o(.text.PFC_WriteAnd), (24 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_WriteAnd), (8 bytes).
+    Removing master_tx_50kHz_var_duty.o(.text), (0 bytes).
+    Removing master_tx_50kHz_var_duty.o(.ARM.exidx.text.master_tx_50kHz_var_duty), (8 bytes).
+    Removing master_tx_50kHz_var_duty.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_tx_50kHz_var_duty.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing master_send_start_byte.o(.text), (0 bytes).
+    Removing master_send_start_byte.o(.ARM.exidx.text.master_send_start_byte), (8 bytes).
+    Removing master_send_start_byte.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing master_send_start_byte.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing cpg.o(.text), (0 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_SetBit), (8 bytes).
+    Removing cpg.o(.text.CPG_ClearBit), (36 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_ClearBit), (8 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_SetMultipleBit), (8 bytes).
+    Removing cpg.o(.text.CPG_ClearMultipleBit), (32 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_ClearMultipleBit), (8 bytes).
+    Removing cpg.o(.text.CPG_WriteAnd), (32 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_WriteAnd), (8 bytes).
+    Removing cpg.o(.text.CPG_WriteOr), (32 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_WriteOr), (8 bytes).
+    Removing gic.o(.text), (0 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_defaultHandler), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_enable), (8 bytes).
+    Removing gic.o(.text.GIC_configInterrupt), (4 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_configInterrupt), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_enableInterrupt), (8 bytes).
+    Removing gic.o(.text.GIC_disableInterrupt), (40 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_disableInterrupt), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_getACKID), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_endInterrupt), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_setInterruptHandler), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_executeInterruptHandler), (8 bytes).
+
+255 unused section(s) (total 2540 bytes) removed from the image.
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x00000000
+
+  Load Region LR0 (Base: 0x00000000, Size: 0x000013fc, Max: 0x07ffffff, ABSOLUTE)
+
+    Execution Region ER00 (Base: 0x00000000, Size: 0x000013fc, Max: 0x03ffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00000000   0x00001178   Code   RO          603  * STARTUP             startup_cr52.o
+    0x00001178   0x00000008   Code   RO          608  * !!!main             c_8u.l(__main.o)
+    0x00001180   0x0000003c   Code   RO          770    !!!scatter          c_8u.l(__scatter.o)
+    0x000011bc   0x0000002c   Code   RO          772    !!handler_zi        c_8u.l(__scatter_zi.o)
+    0x000011e8   0x000001d4   Code   RO          604  * MPU_INIT            mpu_cr52.o
+    0x000013bc   0x00000008   Ven    RO          774    Veneer$$Code        anon$$obj.o
+    0x000013c4   0x00000008   Ven    RO          775    Veneer$$Code        anon$$obj.o
+    0x000013cc   0x00000008   Ven    RO          776    Veneer$$Code        anon$$obj.o
+    0x000013d4   0x00000008   Ven    RO          777    Veneer$$Code        anon$$obj.o
+    0x000013dc   0x00000008   Ven    RO          778    Veneer$$Code        anon$$obj.o
+    0x000013e4   0x00000008   Ven    RO          779    Veneer$$Code        anon$$obj.o
+    0x000013ec   0x00000010   Data   RO          768    Region$$Table       anon$$obj.o
+
+
+    Execution Region ER01 (Base: 0x04000000, Size: 0x00000000, Max: 0x03ffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region ER02 (Base: 0xe6300000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+
+  Load Region LR1 (Base: 0x40000000, Size: 0x00006890, Max: 0xbfffffff, ABSOLUTE)
+
+    Execution Region ER10 (Base: 0x40000000, Size: 0x00006a4c, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x40000000   0x00000070   Code   RO          605  * VECTORS             vectors_cr52.o
+    0x40000070   0x00000002   Code   RO          640    .ARM.Collect$$libinit$$00000000  c_8u.l(libinit.o)
+    0x40000072   0x00000004   Code   RO          650    .ARM.Collect$$libinit$$00000001  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          653    .ARM.Collect$$libinit$$00000004  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          656    .ARM.Collect$$libinit$$0000000A  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          658    .ARM.Collect$$libinit$$0000000C  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          660    .ARM.Collect$$libinit$$0000000E  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          663    .ARM.Collect$$libinit$$00000011  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          665    .ARM.Collect$$libinit$$00000013  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          667    .ARM.Collect$$libinit$$00000015  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          669    .ARM.Collect$$libinit$$00000017  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          671    .ARM.Collect$$libinit$$00000019  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          673    .ARM.Collect$$libinit$$0000001B  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          675    .ARM.Collect$$libinit$$0000001D  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          677    .ARM.Collect$$libinit$$0000001F  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          679    .ARM.Collect$$libinit$$00000021  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          681    .ARM.Collect$$libinit$$00000023  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          683    .ARM.Collect$$libinit$$00000025  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          687    .ARM.Collect$$libinit$$0000002C  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          689    .ARM.Collect$$libinit$$0000002E  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          691    .ARM.Collect$$libinit$$00000030  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          693    .ARM.Collect$$libinit$$00000032  c_8u.l(libinit2.o)
+    0x40000076   0x00000002   Code   RO          694    .ARM.Collect$$libinit$$00000033  c_8u.l(libinit2.o)
+    0x40000078   0x00000002   Code   RO          717    .ARM.Collect$$libshutdown$$00000000  c_8u.l(libshutdown.o)
+    0x4000007a   0x00000000   Code   RO          725    .ARM.Collect$$libshutdown$$00000002  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          727    .ARM.Collect$$libshutdown$$00000004  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          730    .ARM.Collect$$libshutdown$$00000007  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          733    .ARM.Collect$$libshutdown$$0000000A  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          735    .ARM.Collect$$libshutdown$$0000000C  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          738    .ARM.Collect$$libshutdown$$0000000F  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000002   Code   RO          739    .ARM.Collect$$libshutdown$$00000010  c_8u.l(libshutdown2.o)
+    0x4000007c   0x00000000   Code   RO          610    .ARM.Collect$$rtentry$$00000000  c_8u.l(__rtentry.o)
+    0x4000007c   0x00000000   Code   RO          612    .ARM.Collect$$rtentry$$00000002  c_8u.l(__rtentry2.o)
+    0x4000007c   0x00000004   Code   RO          626    .ARM.Collect$$rtentry$$00000007  c_8u.l(__rtentry7.o)
+    0x40000080   0x00000000   Code   RO          614    .ARM.Collect$$rtentry$$00000009  c_8u.l(__rtentry2.o)
+    0x40000080   0x00000004   Code   RO          615    .ARM.Collect$$rtentry$$0000000A  c_8u.l(__rtentry2.o)
+    0x40000084   0x00000000   Code   RO          617    .ARM.Collect$$rtentry$$0000000C  c_8u.l(__rtentry2.o)
+    0x40000084   0x00000008   Code   RO          618    .ARM.Collect$$rtentry$$0000000D  c_8u.l(__rtentry2.o)
+    0x4000008c   0x00000004   Code   RO          627    .ARM.Collect$$rtentry$$00002718  c_8u.l(__rtentry7.o)
+    0x40000090   0x00000002   Code   RO          648    .ARM.Collect$$rtexit$$00000000  c_8u.l(rtexit.o)
+    0x40000092   0x00000000   Code   RO          701    .ARM.Collect$$rtexit$$00000002  c_8u.l(rtexit2.o)
+    0x40000092   0x00000004   Code   RO          702    .ARM.Collect$$rtexit$$00000003  c_8u.l(rtexit2.o)
+    0x40000096   0x00000006   Code   RO          703    .ARM.Collect$$rtexit$$00000004  c_8u.l(rtexit2.o)
+    0x4000009c   0x00000004   Code   RO          606    .text               c_8u.l(use_no_semi.o)
+    0x400000a0   0x00000012   Code   RO          633    .text               c_8u.l(exit.o)
+    0x400000b2   0x00000002   PAD
+    0x400000b4   0x00000024   Code   RO          571    .text.CPG_SetBit    cpg.o
+    0x400000d8   0x00000020   Code   RO          575    .text.CPG_SetMultipleBit  cpg.o
+    0x400000f8   0x00000030   Code   RO          461    .text.DMAC_initDescriptorMemory  dmac.o
+    0x40000128   0x0000000c   Code   RO           65    .text.DataAbort_Handler  exception_handlers.o
+    0x40000134   0x00000004   Code   RO          584    .text.GIC_defaultHandler  gic.o
+    0x40000138   0x00000048   Code   RO          586    .text.GIC_enable    gic.o
+    0x40000180   0x000000a0   Code   RO          590    .text.GIC_enableInterrupt  gic.o
+    0x40000220   0x00000014   Code   RO          596    .text.GIC_endInterrupt  gic.o
+    0x40000234   0x00000018   Code   RO          600    .text.GIC_executeInterruptHandler  gic.o
+    0x4000024c   0x0000001c   Code   RO          594    .text.GIC_getACKID  gic.o
+    0x40000268   0x00000018   Code   RO          598    .text.GIC_setInterruptHandler  gic.o
+    0x40000280   0x00000014   Code   RO          480    .text.I2C_configPins  i2c_utils.o
+    0x40000294   0x00000010   Code   RO          351    .text.I2C_masterClearInterruptStatus  i2c.o
+    0x400002a4   0x00000010   Code   RO          343    .text.I2C_masterDisable  i2c.o
+    0x400002b4   0x00000010   Code   RO          383    .text.I2C_masterDisableDMAReceive  i2c.o
+    0x400002c4   0x00000010   Code   RO          387    .text.I2C_masterDisableDMATransmit  i2c.o
+    0x400002d4   0x00000010   Code   RO          399    .text.I2C_masterDisableStartByteTransmit  i2c.o
+    0x400002e4   0x00000010   Code   RO          395    .text.I2C_masterDisableStartGeneration  i2c.o
+    0x400002f4   0x00000010   Code   RO          341    .text.I2C_masterEnable  i2c.o
+    0x40000304   0x00000010   Code   RO          373    .text.I2C_masterEnableDMAContinuousReceive  i2c.o
+    0x40000314   0x00000010   Code   RO          377    .text.I2C_masterEnableDMAContinuousTransmit  i2c.o
+    0x40000324   0x00000010   Code   RO          381    .text.I2C_masterEnableDMAReceive  i2c.o
+    0x40000334   0x00000010   Code   RO          385    .text.I2C_masterEnableDMATransmit  i2c.o
+    0x40000344   0x00000010   Code   RO          345    .text.I2C_masterEnableInterrupt  i2c.o
+    0x40000354   0x0000000c   Code   RO          349    .text.I2C_masterGetInterruptStatus  i2c.o
+    0x40000360   0x000001c4   Code   RO          335    .text.I2C_masterInit  i2c.o
+    0x40000524   0x0000000c   Code   RO          365    .text.I2C_masterReceiveMultipleByteFinish  i2c.o
+    0x40000530   0x0000000c   Code   RO          361    .text.I2C_masterReceiveMultipleByteNext  i2c.o
+    0x4000053c   0x00000018   Code   RO          363    .text.I2C_masterReceiveMultipleByteStop  i2c.o
+    0x40000554   0x00000010   Code   RO          359    .text.I2C_masterReceiveStart  i2c.o
+    0x40000564   0x00000018   Code   RO          389    .text.I2C_masterRestart  i2c.o
+    0x4000057c   0x00000008   Code   RO          355    .text.I2C_masterSendMultipleByteNext  i2c.o
+    0x40000584   0x00000014   Code   RO          353    .text.I2C_masterSendMultipleByteStart  i2c.o
+    0x40000598   0x00000010   Code   RO          357    .text.I2C_masterSendMultipleByteStop  i2c.o
+    0x400005a8   0x00000014   Code   RO          369    .text.I2C_masterSetDMAContinuousReceiveBlockCount  i2c.o
+    0x400005bc   0x00000014   Code   RO          367    .text.I2C_masterSetDMAContinuousTransferCount  i2c.o
+    0x400005d0   0x00000014   Code   RO          371    .text.I2C_masterSetDMAContinuousTransmitBlockCount  i2c.o
+    0x400005e4   0x00000034   Code   RO          478    .text.I2C_modelConnect  i2c_utils.o
+    0x40000618   0x00000020   Code   RO          476    .text.I2C_modelDisable  i2c_utils.o
+    0x40000638   0x00000014   Code   RO          482    .text.I2C_releasePins  i2c_utils.o
+    0x4000064c   0x00000030   Code   RO          484    .text.I2C_reset     i2c_utils.o
+    0x4000067c   0x00000010   Code   RO          315    .text.I2C_slaveClearInterruptStatus  i2c.o
+    0x4000068c   0x00000010   Code   RO          305    .text.I2C_slaveDisable  i2c.o
+    0x4000069c   0x00000010   Code   RO          329    .text.I2C_slaveDisableDMAReceive  i2c.o
+    0x400006ac   0x00000010   Code   RO          333    .text.I2C_slaveDisableDMATransmit  i2c.o
+    0x400006bc   0x00000010   Code   RO          303    .text.I2C_slaveEnable  i2c.o
+    0x400006cc   0x00000010   Code   RO          327    .text.I2C_slaveEnableDMAReceive  i2c.o
+    0x400006dc   0x00000010   Code   RO          331    .text.I2C_slaveEnableDMATransmit  i2c.o
+    0x400006ec   0x00000010   Code   RO          309    .text.I2C_slaveEnableInterrupt  i2c.o
+    0x400006fc   0x0000000c   Code   RO          313    .text.I2C_slaveGetInterruptStatus  i2c.o
+    0x40000708   0x000001d4   Code   RO          301    .text.I2C_slaveInit  i2c.o
+    0x400008dc   0x0000000c   Code   RO          323    .text.I2C_slaveReceiveMultipleByteFinish  i2c.o
+    0x400008e8   0x0000000c   Code   RO          319    .text.I2C_slaveReceiveMultipleByteNext  i2c.o
+    0x400008f4   0x00000018   Code   RO          321    .text.I2C_slaveReceiveMultipleByteStop  i2c.o
+    0x4000090c   0x00000008   Code   RO          307    .text.I2C_slaveSetAddress  i2c.o
+    0x40000914   0x00000008   Code   RO          325    .text.I2C_slaveSetData  i2c.o
+    0x4000091c   0x00000010   Code   RO           67    .text.IRQ_Handler   exception_handlers.o
+    0x4000092c   0x00000018   Code   RO          535    .text.PFC_ClearMultipleBit  pfc.o
+    0x40000944   0x00000018   Code   RO          533    .text.PFC_SetMultipleBit  pfc.o
+    0x4000095c   0x0000000c   Code   RO           63    .text.PrefetchAbort_Handler  exception_handlers.o
+    0x40000968   0x00000014   Code   RO          159    .text.Sim_Delay     sim_utils.o
+    0x4000097c   0x00000028   Code   RO          151    .text.Sim_Dump      sim_utils.o
+    0x400009a4   0x00000010   Code   RO          157    .text.Sim_Stop      sim_utils.o
+    0x400009b4   0x0000000c   Code   RO           61    .text.SupervisorCall_Handler  exception_handlers.o
+    0x400009c0   0x0000000c   Code   RO           59    .text.UndefinedInstruction_Handler  exception_handlers.o
+    0x400009cc   0x00000004   Code   RO            3    .text._sys_exit     retarget.o
+    0x400009d0   0x00000084   Code   RO           12    .text.i2c0InterruptHandler  master_tx_fbsc_check.o
+    0x40000a54   0x000000b8   Code   RO           26    .text.i2c0InterruptHandler  master_tx_dma_continuous.o
+    0x40000b0c   0x0000008c   Code   RO           47    .text.i2c0InterruptHandler  master_tx_400kHz.o
+    0x40000b98   0x0000008c   Code   RO           72    .text.i2c0InterruptHandler  master_tx_100kHz.o
+    0x40000c24   0x0000008c   Code   RO           91    .text.i2c0InterruptHandler  master_tx.o
+    0x40000cb0   0x0000008c   Code   RO          105    .text.i2c0InterruptHandler  master_tx_200kHz_var_duty.o
+    0x40000d3c   0x000000c0   Code   RO          121    .text.i2c0InterruptHandler  master_rx_dma.o
+    0x40000dfc   0x000000cc   Code   RO          139    .text.i2c0InterruptHandler  master_tx_rpt_master_rx.o
+    0x40000ec8   0x0000008c   Code   RO          171    .text.i2c0InterruptHandler  master_tx_50kHz.o
+    0x40000f54   0x000000b8   Code   RO          185    .text.i2c0InterruptHandler  master_rx_dma_continuous.o
+    0x4000100c   0x0000008c   Code   RO          206    .text.i2c0InterruptHandler  master_tx_300kHz_var_duty.o
+    0x40001098   0x0000008c   Code   RO          227    .text.i2c0InterruptHandler  master_tx_250kHz_var_duty.o
+    0x40001124   0x000000b4   Code   RO          241    .text.i2c0InterruptHandler  master_rx.o
+    0x400011d8   0x000000c0   Code   RO          257    .text.i2c0InterruptHandler  master_tx_dma.o
+    0x40001298   0x0000008c   Code   RO          275    .text.i2c0InterruptHandler  master_general_call.o
+    0x40001324   0x0000008c   Code   RO          289    .text.i2c0InterruptHandler  master_tx_1MHz_var_duty.o
+    0x400013b0   0x0000008c   Code   RO          405    .text.i2c0InterruptHandler  master_tx_100kHz_var_duty.o
+    0x4000143c   0x0000008c   Code   RO          419    .text.i2c0InterruptHandler  master_tx_200kHz.o
+    0x400014c8   0x0000008c   Code   RO          433    .text.i2c0InterruptHandler  master_tx_250kHz.o
+    0x40001554   0x000000ac   Code   RO          447    .text.i2c0InterruptHandler  master_arbitration_lost.o
+    0x40001600   0x000000ac   Code   RO          489    .text.i2c0InterruptHandler  master_tx_fsb.o
+    0x400016ac   0x0000008c   Code   RO          503    .text.i2c0InterruptHandler  master_tx_300kHz.o
+    0x40001738   0x0000008c   Code   RO          517    .text.i2c0InterruptHandler  master_tx_400kHz_var_duty.o
+    0x400017c4   0x0000008c   Code   RO          544    .text.i2c0InterruptHandler  master_tx_50kHz_var_duty.o
+    0x40001850   0x000000bc   Code   RO          558    .text.i2c0InterruptHandler  master_send_start_byte.o
+    0x4000190c   0x00000094   Code   RO           14    .text.i2c1InterruptHandler  master_tx_fbsc_check.o
+    0x400019a0   0x00000054   Code   RO           28    .text.i2c1InterruptHandler  master_tx_dma_continuous.o
+    0x400019f4   0x00000080   Code   RO           49    .text.i2c1InterruptHandler  master_tx_400kHz.o
+    0x40001a74   0x00000080   Code   RO           74    .text.i2c1InterruptHandler  master_tx_100kHz.o
+    0x40001af4   0x00000080   Code   RO           93    .text.i2c1InterruptHandler  master_tx.o
+    0x40001b74   0x00000080   Code   RO          107    .text.i2c1InterruptHandler  master_tx_200kHz_var_duty.o
+    0x40001bf4   0x00000054   Code   RO          119    .text.i2c1InterruptHandler  master_rx_dma.o
+    0x40001c48   0x000000b0   Code   RO          141    .text.i2c1InterruptHandler  master_tx_rpt_master_rx.o
+    0x40001cf8   0x00000080   Code   RO          173    .text.i2c1InterruptHandler  master_tx_50kHz.o
+    0x40001d78   0x000000a8   Code   RO          187    .text.i2c1InterruptHandler  master_rx_dma_continuous.o
+    0x40001e20   0x00000080   Code   RO          208    .text.i2c1InterruptHandler  master_tx_300kHz_var_duty.o
+    0x40001ea0   0x00000080   Code   RO          229    .text.i2c1InterruptHandler  master_tx_250kHz_var_duty.o
+    0x40001f20   0x00000058   Code   RO          243    .text.i2c1InterruptHandler  master_rx.o
+    0x40001f78   0x00000054   Code   RO          255    .text.i2c1InterruptHandler  master_tx_dma.o
+    0x40001fcc   0x00000080   Code   RO          277    .text.i2c1InterruptHandler  master_general_call.o
+    0x4000204c   0x00000080   Code   RO          291    .text.i2c1InterruptHandler  master_tx_1MHz_var_duty.o
+    0x400020cc   0x00000080   Code   RO          407    .text.i2c1InterruptHandler  master_tx_100kHz_var_duty.o
+    0x4000214c   0x00000080   Code   RO          421    .text.i2c1InterruptHandler  master_tx_200kHz.o
+    0x400021cc   0x00000080   Code   RO          435    .text.i2c1InterruptHandler  master_tx_250kHz.o
+    0x4000224c   0x0000008c   Code   RO          449    .text.i2c1InterruptHandler  master_arbitration_lost.o
+    0x400022d8   0x00000058   Code   RO          491    .text.i2c1InterruptHandler  master_tx_fsb.o
+    0x40002330   0x00000080   Code   RO          505    .text.i2c1InterruptHandler  master_tx_300kHz.o
+    0x400023b0   0x00000080   Code   RO          519    .text.i2c1InterruptHandler  master_tx_400kHz_var_duty.o
+    0x40002430   0x00000080   Code   RO          546    .text.i2c1InterruptHandler  master_tx_50kHz_var_duty.o
+    0x400024b0   0x00000080   Code   RO          560    .text.i2c1InterruptHandler  master_send_start_byte.o
+    0x40002530   0x00000094   Code   RO           84    .text.main          main.o
+    0x400025c4   0x00000170   Code   RO          445    .text.master_arbitration_lost  master_arbitration_lost.o
+    0x40002734   0x0000011c   Code   RO          273    .text.master_general_call  master_general_call.o
+    0x40002850   0x00000124   Code   RO          239    .text.master_rx     master_rx.o
+    0x40002974   0x000001e4   Code   RO          218    .text.master_rx_delay  master_rx_delay.o
+    0x40002b58   0x0000027c   Code   RO          117    .text.master_rx_dma  master_rx_dma.o
+    0x40002dd4   0x0000035c   Code   RO          183    .text.master_rx_dma_continuous  master_rx_dma_continuous.o
+    0x40003130   0x00000128   Code   RO          556    .text.master_send_start_byte  master_send_start_byte.o
+    0x40003258   0x0000011c   Code   RO           89    .text.master_tx     master_tx.o
+    0x40003374   0x0000011c   Code   RO           70    .text.master_tx_100kHz  master_tx_100kHz.o
+    0x40003490   0x0000011c   Code   RO          403    .text.master_tx_100kHz_var_duty  master_tx_100kHz_var_duty.o
+    0x400035ac   0x0000011c   Code   RO          287    .text.master_tx_1MHz_var_duty  master_tx_1MHz_var_duty.o
+    0x400036c8   0x0000011c   Code   RO          417    .text.master_tx_200kHz  master_tx_200kHz.o
+    0x400037e4   0x0000011c   Code   RO          103    .text.master_tx_200kHz_var_duty  master_tx_200kHz_var_duty.o
+    0x40003900   0x0000011c   Code   RO          431    .text.master_tx_250kHz  master_tx_250kHz.o
+    0x40003a1c   0x0000011c   Code   RO          225    .text.master_tx_250kHz_var_duty  master_tx_250kHz_var_duty.o
+    0x40003b38   0x0000011c   Code   RO          501    .text.master_tx_300kHz  master_tx_300kHz.o
+    0x40003c54   0x0000011c   Code   RO          204    .text.master_tx_300kHz_var_duty  master_tx_300kHz_var_duty.o
+    0x40003d70   0x0000011c   Code   RO           45    .text.master_tx_400kHz  master_tx_400kHz.o
+    0x40003e8c   0x0000011c   Code   RO          515    .text.master_tx_400kHz_var_duty  master_tx_400kHz_var_duty.o
+    0x40003fa8   0x0000011c   Code   RO          169    .text.master_tx_50kHz  master_tx_50kHz.o
+    0x400040c4   0x0000011c   Code   RO          542    .text.master_tx_50kHz_var_duty  master_tx_50kHz_var_duty.o
+    0x400041e0   0x00000274   Code   RO          253    .text.master_tx_dma  master_tx_dma.o
+    0x40004454   0x00000354   Code   RO           24    .text.master_tx_dma_continuous  master_tx_dma_continuous.o
+    0x400047a8   0x00000144   Code   RO           10    .text.master_tx_fbsc_check  master_tx_fbsc_check.o
+    0x400048ec   0x0000011c   Code   RO          487    .text.master_tx_fsb  master_tx_fsb.o
+    0x40004a08   0x0000011c   Code   RO          137    .text.master_tx_rpt_master_rx  master_tx_rpt_master_rx.o
+    0x40004b24   0x00000054   Code   RO           30    .text.sdmac1ch0InterruptHandler  master_tx_dma_continuous.o
+    0x40004b78   0x00000064   Code   RO          123    .text.sdmac1ch0InterruptHandler  master_rx_dma.o
+    0x40004bdc   0x00000064   Code   RO          189    .text.sdmac1ch0InterruptHandler  master_rx_dma_continuous.o
+    0x40004c40   0x00000054   Code   RO          259    .text.sdmac1ch0InterruptHandler  master_tx_dma.o
+    0x40004c94   0x000000c0   Code   RO           32    .text.sdmac1ch1InterruptHandler  master_tx_dma_continuous.o
+    0x40004d54   0x00000054   Code   RO          125    .text.sdmac1ch1InterruptHandler  master_rx_dma.o
+    0x40004da8   0x000000b4   Code   RO          191    .text.sdmac1ch1InterruptHandler  master_rx_dma_continuous.o
+    0x40004e5c   0x00000064   Code   RO          261    .text.sdmac1ch1InterruptHandler  master_tx_dma.o
+    0x40004ec0   0x00000008   Ven    RO          780    Veneer$$Code        anon$$obj.o
+    0x40004ec8   0x0000000c   Code   RO          709    x$fpl$fpinit        fz_8v.l(fpinit.o)
+    0x40004ed4   0x00000460   Data   RO          401    .rodata.I2C_CLOCK_SETTINGS  i2c.o
+    0x40005334   0x00000008   Data   RO           53    .rodata.cst8        master_tx_400kHz.o
+    0x4000533c   0x00000008   Data   RO           78    .rodata.cst8        master_tx_100kHz.o
+    0x40005344   0x00000008   Data   RO           97    .rodata.cst8        master_tx.o
+    0x4000534c   0x00000008   Data   RO          111    .rodata.cst8        master_tx_200kHz_var_duty.o
+    0x40005354   0x00000008   Data   RO          145    .rodata.cst8        master_tx_rpt_master_rx.o
+    0x4000535c   0x00000008   Data   RO          177    .rodata.cst8        master_tx_50kHz.o
+    0x40005364   0x00000008   Data   RO          212    .rodata.cst8        master_tx_300kHz_var_duty.o
+    0x4000536c   0x00000008   Data   RO          222    .rodata.cst8        master_rx_delay.o
+    0x40005374   0x00000008   Data   RO          233    .rodata.cst8        master_tx_250kHz_var_duty.o
+    0x4000537c   0x00000008   Data   RO          247    .rodata.cst8        master_rx.o
+    0x40005384   0x00000008   Data   RO          281    .rodata.cst8        master_general_call.o
+    0x4000538c   0x00000008   Data   RO          295    .rodata.cst8        master_tx_1MHz_var_duty.o
+    0x40005394   0x00000008   Data   RO          411    .rodata.cst8        master_tx_100kHz_var_duty.o
+    0x4000539c   0x00000008   Data   RO          425    .rodata.cst8        master_tx_200kHz.o
+    0x400053a4   0x00000008   Data   RO          439    .rodata.cst8        master_tx_250kHz.o
+    0x400053ac   0x00000008   Data   RO          454    .rodata.cst8        master_arbitration_lost.o
+    0x400053b4   0x00000008   Data   RO          495    .rodata.cst8        master_tx_fsb.o
+    0x400053bc   0x00000008   Data   RO          509    .rodata.cst8        master_tx_300kHz.o
+    0x400053c4   0x00000008   Data   RO          523    .rodata.cst8        master_tx_400kHz_var_duty.o
+    0x400053cc   0x00000008   Data   RO          550    .rodata.cst8        master_tx_50kHz_var_duty.o
+    0x400053d4   0x00000008   Data   RO          564    .rodata.cst8        master_send_start_byte.o
+    0x400053dc   0x00000018   Data   RO           19    .rodata.masterConfig  master_tx_fbsc_check.o
+    0x400053f4   0x00000018   Data   RO           35    .rodata.masterConfig  master_tx_dma_continuous.o
+    0x4000540c   0x00000018   Data   RO           51    .rodata.masterConfig  master_tx_400kHz.o
+    0x40005424   0x00000018   Data   RO           76    .rodata.masterConfig  master_tx_100kHz.o
+    0x4000543c   0x00000018   Data   RO           95    .rodata.masterConfig  master_tx.o
+    0x40005454   0x00000018   Data   RO          109    .rodata.masterConfig  master_tx_200kHz_var_duty.o
+    0x4000546c   0x00000018   Data   RO          128    .rodata.masterConfig  master_rx_dma.o
+    0x40005484   0x00000018   Data   RO          143    .rodata.masterConfig  master_tx_rpt_master_rx.o
+    0x4000549c   0x00000018   Data   RO          175    .rodata.masterConfig  master_tx_50kHz.o
+    0x400054b4   0x00000018   Data   RO          194    .rodata.masterConfig  master_rx_dma_continuous.o
+    0x400054cc   0x00000018   Data   RO          210    .rodata.masterConfig  master_tx_300kHz_var_duty.o
+    0x400054e4   0x00000018   Data   RO          220    .rodata.masterConfig  master_rx_delay.o
+    0x400054fc   0x00000018   Data   RO          231    .rodata.masterConfig  master_tx_250kHz_var_duty.o
+    0x40005514   0x00000018   Data   RO          245    .rodata.masterConfig  master_rx.o
+    0x4000552c   0x00000018   Data   RO          264    .rodata.masterConfig  master_tx_dma.o
+    0x40005544   0x00000018   Data   RO          279    .rodata.masterConfig  master_general_call.o
+    0x4000555c   0x00000018   Data   RO          293    .rodata.masterConfig  master_tx_1MHz_var_duty.o
+    0x40005574   0x00000018   Data   RO          409    .rodata.masterConfig  master_tx_100kHz_var_duty.o
+    0x4000558c   0x00000018   Data   RO          423    .rodata.masterConfig  master_tx_200kHz.o
+    0x400055a4   0x00000018   Data   RO          437    .rodata.masterConfig  master_tx_250kHz.o
+    0x400055bc   0x00000018   Data   RO          493    .rodata.masterConfig  master_tx_fsb.o
+    0x400055d4   0x00000018   Data   RO          507    .rodata.masterConfig  master_tx_300kHz.o
+    0x400055ec   0x00000018   Data   RO          521    .rodata.masterConfig  master_tx_400kHz_var_duty.o
+    0x40005604   0x00000018   Data   RO          548    .rodata.masterConfig  master_tx_50kHz_var_duty.o
+    0x4000561c   0x00000018   Data   RO          562    .rodata.masterConfig  master_send_start_byte.o
+    0x40005634   0x00000018   Data   RO          451    .rodata.masterConfig0  master_arbitration_lost.o
+    0x4000564c   0x00000018   Data   RO          453    .rodata.masterConfig1  master_arbitration_lost.o
+    0x40005664   0x00000010   Data   RO           34    .rodata.sendData    master_tx_dma_continuous.o
+    0x40005674   0x00000008   Data   RO          129    .rodata.sendData    master_rx_dma.o
+    0x4000567c   0x00000010   Data   RO          195    .rodata.sendData    master_rx_dma_continuous.o
+    0x4000568c   0x00000008   Data   RO          263    .rodata.sendData    master_tx_dma.o
+    0x40005694   0x00000018   Data   RO           20    .rodata.slaveConfig  master_tx_fbsc_check.o
+    0x400056ac   0x00000018   Data   RO           38    .rodata.slaveConfig  master_tx_dma_continuous.o
+    0x400056c4   0x00000018   Data   RO           52    .rodata.slaveConfig  master_tx_400kHz.o
+    0x400056dc   0x00000018   Data   RO           77    .rodata.slaveConfig  master_tx_100kHz.o
+    0x400056f4   0x00000018   Data   RO           96    .rodata.slaveConfig  master_tx.o
+    0x4000570c   0x00000018   Data   RO          110    .rodata.slaveConfig  master_tx_200kHz_var_duty.o
+    0x40005724   0x00000018   Data   RO          130    .rodata.slaveConfig  master_rx_dma.o
+    0x4000573c   0x00000018   Data   RO          144    .rodata.slaveConfig  master_tx_rpt_master_rx.o
+    0x40005754   0x00000018   Data   RO          176    .rodata.slaveConfig  master_tx_50kHz.o
+    0x4000576c   0x00000018   Data   RO          197    .rodata.slaveConfig  master_rx_dma_continuous.o
+    0x40005784   0x00000018   Data   RO          211    .rodata.slaveConfig  master_tx_300kHz_var_duty.o
+    0x4000579c   0x00000018   Data   RO          221    .rodata.slaveConfig  master_rx_delay.o
+    0x400057b4   0x00000018   Data   RO          232    .rodata.slaveConfig  master_tx_250kHz_var_duty.o
+    0x400057cc   0x00000018   Data   RO          246    .rodata.slaveConfig  master_rx.o
+    0x400057e4   0x00000018   Data   RO          266    .rodata.slaveConfig  master_tx_dma.o
+    0x400057fc   0x00000018   Data   RO          280    .rodata.slaveConfig  master_general_call.o
+    0x40005814   0x00000018   Data   RO          294    .rodata.slaveConfig  master_tx_1MHz_var_duty.o
+    0x4000582c   0x00000018   Data   RO          410    .rodata.slaveConfig  master_tx_100kHz_var_duty.o
+    0x40005844   0x00000018   Data   RO          424    .rodata.slaveConfig  master_tx_200kHz.o
+    0x4000585c   0x00000018   Data   RO          438    .rodata.slaveConfig  master_tx_250kHz.o
+    0x40005874   0x00000018   Data   RO          494    .rodata.slaveConfig  master_tx_fsb.o
+    0x4000588c   0x00000018   Data   RO          508    .rodata.slaveConfig  master_tx_300kHz.o
+    0x400058a4   0x00000018   Data   RO          522    .rodata.slaveConfig  master_tx_400kHz_var_duty.o
+    0x400058bc   0x00000018   Data   RO          549    .rodata.slaveConfig  master_tx_50kHz_var_duty.o
+    0x400058d4   0x00000018   Data   RO          563    .rodata.slaveConfig  master_send_start_byte.o
+    0x400058ec   0x00000018   Data   RO          452    .rodata.slaveConfig0  master_arbitration_lost.o
+    0x40005904   0x00000f24   Data   RW          602    .data.GIC_intHandler  gic.o
+    0x40006828   0x00000068   Data   RW           86    .data.pattern       main.o
+    0x40006890   0x00000004   Zero   RW          167    .bss.DumpOffset     sim_utils.o
+    0x40006894   0x00000004   Zero   RW           37    .bss.currentDataPackageIndex  master_tx_dma_continuous.o
+    0x40006898   0x00000004   Zero   RW          196    .bss.currentDataPackageIndex  master_rx_dma_continuous.o
+    0x4000689c   0x00000001   Zero   RW           42    .bss.isAutoRXComplete  master_tx_dma_continuous.o
+    0x4000689d   0x00000001   Zero   RW          134    .bss.isAutoRXComplete  master_rx_dma.o
+    0x4000689e   0x00000001   Zero   RW          201    .bss.isAutoRXComplete  master_rx_dma_continuous.o
+    0x4000689f   0x00000001   Zero   RW          270    .bss.isAutoRXComplete  master_tx_dma.o
+    0x400068a0   0x00000001   Zero   RW           43    .bss.isAutoRXStarted  master_tx_dma_continuous.o
+    0x400068a1   0x00000001   Zero   RW          132    .bss.isAutoRXStarted  master_rx_dma.o
+    0x400068a2   0x00000001   Zero   RW          199    .bss.isAutoRXStarted  master_rx_dma_continuous.o
+    0x400068a3   0x00000001   Zero   RW          271    .bss.isAutoRXStarted  master_tx_dma.o
+    0x400068a4   0x00000001   Zero   RW           41    .bss.isAutoTXComplete  master_tx_dma_continuous.o
+    0x400068a5   0x00000001   Zero   RW          133    .bss.isAutoTXComplete  master_rx_dma.o
+    0x400068a6   0x00000001   Zero   RW          200    .bss.isAutoTXComplete  master_rx_dma_continuous.o
+    0x400068a7   0x00000001   Zero   RW          269    .bss.isAutoTXComplete  master_tx_dma.o
+    0x400068a8   0x00000001   Zero   RW           40    .bss.isAutoTXStarted  master_tx_dma_continuous.o
+    0x400068a9   0x00000001   Zero   RW          135    .bss.isAutoTXStarted  master_rx_dma.o
+    0x400068aa   0x00000001   Zero   RW          202    .bss.isAutoTXStarted  master_rx_dma_continuous.o
+    0x400068ab   0x00000001   Zero   RW          268    .bss.isAutoTXStarted  master_tx_dma.o
+    0x400068ac   0x00000001   Zero   RW          458    .bss.isMasterLostArbitration  master_arbitration_lost.o
+    0x400068ad   0x00000001   Zero   RW          568    .bss.isStartByteTransmitted  master_send_start_byte.o
+    0x400068ae   0x00000001   Zero   RW           18    .bss.isTransferComplete  master_tx_fbsc_check.o
+    0x400068af   0x00000001   Zero   RW           39    .bss.isTransferComplete  master_tx_dma_continuous.o
+    0x400068b0   0x00000001   Zero   RW           55    .bss.isTransferComplete  master_tx_400kHz.o
+    0x400068b1   0x00000001   Zero   RW           80    .bss.isTransferComplete  master_tx_100kHz.o
+    0x400068b2   0x00000001   Zero   RW           99    .bss.isTransferComplete  master_tx.o
+    0x400068b3   0x00000001   Zero   RW          113    .bss.isTransferComplete  master_tx_200kHz_var_duty.o
+    0x400068b4   0x00000001   Zero   RW          131    .bss.isTransferComplete  master_rx_dma.o
+    0x400068b5   0x00000001   Zero   RW          147    .bss.isTransferComplete  master_tx_rpt_master_rx.o
+    0x400068b6   0x00000001   Zero   RW          179    .bss.isTransferComplete  master_tx_50kHz.o
+    0x400068b7   0x00000001   Zero   RW          198    .bss.isTransferComplete  master_rx_dma_continuous.o
+    0x400068b8   0x00000001   Zero   RW          214    .bss.isTransferComplete  master_tx_300kHz_var_duty.o
+    0x400068b9   0x00000001   Zero   RW          235    .bss.isTransferComplete  master_tx_250kHz_var_duty.o
+    0x400068ba   0x00000001   Zero   RW          249    .bss.isTransferComplete  master_rx.o
+    0x400068bb   0x00000001   Zero   RW          267    .bss.isTransferComplete  master_tx_dma.o
+    0x400068bc   0x00000001   Zero   RW          283    .bss.isTransferComplete  master_general_call.o
+    0x400068bd   0x00000001   Zero   RW          297    .bss.isTransferComplete  master_tx_1MHz_var_duty.o
+    0x400068be   0x00000001   Zero   RW          413    .bss.isTransferComplete  master_tx_100kHz_var_duty.o
+    0x400068bf   0x00000001   Zero   RW          427    .bss.isTransferComplete  master_tx_200kHz.o
+    0x400068c0   0x00000001   Zero   RW          441    .bss.isTransferComplete  master_tx_250kHz.o
+    0x400068c1   0x00000001   Zero   RW          456    .bss.isTransferComplete  master_arbitration_lost.o
+    0x400068c2   0x00000001   Zero   RW          497    .bss.isTransferComplete  master_tx_fsb.o
+    0x400068c3   0x00000001   Zero   RW          511    .bss.isTransferComplete  master_tx_300kHz.o
+    0x400068c4   0x00000001   Zero   RW          525    .bss.isTransferComplete  master_tx_400kHz_var_duty.o
+    0x400068c5   0x00000001   Zero   RW          552    .bss.isTransferComplete  master_tx_50kHz_var_duty.o
+    0x400068c6   0x00000001   Zero   RW          566    .bss.isTransferComplete  master_send_start_byte.o
+    0x400068c7   0x00000001   PAD
+    0x400068c8   0x00000004   Zero   RW           22    .bss.receivedData   master_tx_fbsc_check.o
+    0x400068cc   0x00000010   Zero   RW           36    .bss.receivedData   master_tx_dma_continuous.o
+    0x400068dc   0x00000008   Zero   RW           56    .bss.receivedData   master_tx_400kHz.o
+    0x400068e4   0x00000008   Zero   RW           81    .bss.receivedData   master_tx_100kHz.o
+    0x400068ec   0x00000008   Zero   RW          100    .bss.receivedData   master_tx.o
+    0x400068f4   0x00000008   Zero   RW          114    .bss.receivedData   master_tx_200kHz_var_duty.o
+    0x400068fc   0x00000008   Zero   RW          127    .bss.receivedData   master_rx_dma.o
+    0x40006904   0x00000008   Zero   RW          148    .bss.receivedData   master_tx_rpt_master_rx.o
+    0x4000690c   0x00000008   Zero   RW          180    .bss.receivedData   master_tx_50kHz.o
+    0x40006914   0x00000010   Zero   RW          193    .bss.receivedData   master_rx_dma_continuous.o
+    0x40006924   0x00000008   Zero   RW          215    .bss.receivedData   master_tx_300kHz_var_duty.o
+    0x4000692c   0x00000008   Zero   RW          223    .bss.receivedData   master_rx_delay.o
+    0x40006934   0x00000008   Zero   RW          236    .bss.receivedData   master_tx_250kHz_var_duty.o
+    0x4000693c   0x00000008   Zero   RW          250    .bss.receivedData   master_rx.o
+    0x40006944   0x00000008   Zero   RW          265    .bss.receivedData   master_tx_dma.o
+    0x4000694c   0x00000008   Zero   RW          284    .bss.receivedData   master_general_call.o
+    0x40006954   0x00000008   Zero   RW          298    .bss.receivedData   master_tx_1MHz_var_duty.o
+    0x4000695c   0x00000008   Zero   RW          414    .bss.receivedData   master_tx_100kHz_var_duty.o
+    0x40006964   0x00000008   Zero   RW          428    .bss.receivedData   master_tx_200kHz.o
+    0x4000696c   0x00000008   Zero   RW          442    .bss.receivedData   master_tx_250kHz.o
+    0x40006974   0x00000008   Zero   RW          457    .bss.receivedData   master_arbitration_lost.o
+    0x4000697c   0x00000008   Zero   RW          498    .bss.receivedData   master_tx_fsb.o
+    0x40006984   0x00000008   Zero   RW          512    .bss.receivedData   master_tx_300kHz.o
+    0x4000698c   0x00000008   Zero   RW          526    .bss.receivedData   master_tx_400kHz_var_duty.o
+    0x40006994   0x00000008   Zero   RW          553    .bss.receivedData   master_tx_50kHz_var_duty.o
+    0x4000699c   0x00000008   Zero   RW          567    .bss.receivedData   master_send_start_byte.o
+    0x400069a4   0x00000004   Zero   RW           17    .bss.receivedDataIndex  master_tx_fbsc_check.o
+    0x400069a8   0x00000004   Zero   RW           57    .bss.receivedDataIndex  master_tx_400kHz.o
+    0x400069ac   0x00000004   Zero   RW           82    .bss.receivedDataIndex  master_tx_100kHz.o
+    0x400069b0   0x00000004   Zero   RW          101    .bss.receivedDataIndex  master_tx.o
+    0x400069b4   0x00000004   Zero   RW          115    .bss.receivedDataIndex  master_tx_200kHz_var_duty.o
+    0x400069b8   0x00000004   Zero   RW          149    .bss.receivedDataIndex  master_tx_rpt_master_rx.o
+    0x400069bc   0x00000004   Zero   RW          181    .bss.receivedDataIndex  master_tx_50kHz.o
+    0x400069c0   0x00000004   Zero   RW          216    .bss.receivedDataIndex  master_tx_300kHz_var_duty.o
+    0x400069c4   0x00000004   Zero   RW          237    .bss.receivedDataIndex  master_tx_250kHz_var_duty.o
+    0x400069c8   0x00000004   Zero   RW          251    .bss.receivedDataIndex  master_rx.o
+    0x400069cc   0x00000004   Zero   RW          285    .bss.receivedDataIndex  master_general_call.o
+    0x400069d0   0x00000004   Zero   RW          299    .bss.receivedDataIndex  master_tx_1MHz_var_duty.o
+    0x400069d4   0x00000004   Zero   RW          415    .bss.receivedDataIndex  master_tx_100kHz_var_duty.o
+    0x400069d8   0x00000004   Zero   RW          429    .bss.receivedDataIndex  master_tx_200kHz.o
+    0x400069dc   0x00000004   Zero   RW          443    .bss.receivedDataIndex  master_tx_250kHz.o
+    0x400069e0   0x00000004   Zero   RW          459    .bss.receivedDataIndex  master_arbitration_lost.o
+    0x400069e4   0x00000004   Zero   RW          499    .bss.receivedDataIndex  master_tx_fsb.o
+    0x400069e8   0x00000004   Zero   RW          513    .bss.receivedDataIndex  master_tx_300kHz.o
+    0x400069ec   0x00000004   Zero   RW          527    .bss.receivedDataIndex  master_tx_400kHz_var_duty.o
+    0x400069f0   0x00000004   Zero   RW          554    .bss.receivedDataIndex  master_tx_50kHz_var_duty.o
+    0x400069f4   0x00000004   Zero   RW          569    .bss.receivedDataIndex  master_send_start_byte.o
+    0x400069f8   0x00000004   Zero   RW           16    .bss.sendDataIndex  master_tx_fbsc_check.o
+    0x400069fc   0x00000004   Zero   RW           54    .bss.sendDataIndex  master_tx_400kHz.o
+    0x40006a00   0x00000004   Zero   RW           79    .bss.sendDataIndex  master_tx_100kHz.o
+    0x40006a04   0x00000004   Zero   RW           98    .bss.sendDataIndex  master_tx.o
+    0x40006a08   0x00000004   Zero   RW          112    .bss.sendDataIndex  master_tx_200kHz_var_duty.o
+    0x40006a0c   0x00000004   Zero   RW          146    .bss.sendDataIndex  master_tx_rpt_master_rx.o
+    0x40006a10   0x00000004   Zero   RW          178    .bss.sendDataIndex  master_tx_50kHz.o
+    0x40006a14   0x00000004   Zero   RW          213    .bss.sendDataIndex  master_tx_300kHz_var_duty.o
+    0x40006a18   0x00000004   Zero   RW          234    .bss.sendDataIndex  master_tx_250kHz_var_duty.o
+    0x40006a1c   0x00000004   Zero   RW          248    .bss.sendDataIndex  master_rx.o
+    0x40006a20   0x00000004   Zero   RW          282    .bss.sendDataIndex  master_general_call.o
+    0x40006a24   0x00000004   Zero   RW          296    .bss.sendDataIndex  master_tx_1MHz_var_duty.o
+    0x40006a28   0x00000004   Zero   RW          412    .bss.sendDataIndex  master_tx_100kHz_var_duty.o
+    0x40006a2c   0x00000004   Zero   RW          426    .bss.sendDataIndex  master_tx_200kHz.o
+    0x40006a30   0x00000004   Zero   RW          440    .bss.sendDataIndex  master_tx_250kHz.o
+    0x40006a34   0x00000004   Zero   RW          455    .bss.sendDataIndex  master_arbitration_lost.o
+    0x40006a38   0x00000004   Zero   RW          496    .bss.sendDataIndex  master_tx_fsb.o
+    0x40006a3c   0x00000004   Zero   RW          510    .bss.sendDataIndex  master_tx_300kHz.o
+    0x40006a40   0x00000004   Zero   RW          524    .bss.sendDataIndex  master_tx_400kHz_var_duty.o
+    0x40006a44   0x00000004   Zero   RW          551    .bss.sendDataIndex  master_tx_50kHz_var_duty.o
+    0x40006a48   0x00000004   Zero   RW          565    .bss.sendDataIndex  master_send_start_byte.o
+
+
+    Execution Region ARM_LIB_HEAP (Base: 0x40006a4c, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region ARM_LIB_STACK (Base: 0x6ffffc00, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x6ffffc00   0x00000400   Zero   RW            1    ARM_LIB_STACK.bss   anon$$obj.o
+
+[Info] Object files has been linked successfully.
+mv -f image.elf /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Creating binary file...
+fromelf --m32 /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/image.elf --output=image.bin
+[Info] Binary file has been generated successfully.
+[Info] Listing memory map...
+fromelf --text -cdvtgsw /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/image.elf --output=image.lst
+[Info] Memory map has been listed successfully.
+mv -f *.lst /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Disassembling...
+fromelf --disassemble --cpu=Cortex-R52 /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug/image.elf --output=image.asm
+[Info] Disassembled successfully.
+mv -f *.asm /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+[Info] Cleanning temporary files...
+mv -f make* /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+mv -f *.csh /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+mv -f *.log /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_master/debug
+date
+Mon Jan 14 11:06:53 ICT 2019
+**** Build finished successfully ****

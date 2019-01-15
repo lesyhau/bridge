@@ -1,0 +1,17 @@
+
+
+
+ARM Macro Assembler    Page 1 
+
+
+    1 00000000         
+    2 00000000                 IF               :DEF: __AARCH64
+   64                          ENDIF
+   65 00000000         
+   66 00000000                 end
+Command Line: --cpu=Cortex-R52 -m -I/design01/rcarv3ufed_master/common_rvc/rcar
+v3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave -I/design01/rcarv3ufed
+_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include --predefine="
+__AARCH32 SETL {TRUE}" --predefine="__USE_DDR SETL {TRUE}" --list=vectors_ca76.
+list /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL
+/ct/include/rcar_v3u/startup/vectors_ca76.s
