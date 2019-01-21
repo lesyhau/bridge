@@ -1,0 +1,50 @@
+#******************************************************************************
+#	Automatic generated file. Do not modify!
+#	CT Pattern Builder v3
+#	2082 - Hau Sy Le - hau.le.eb@renesas.com
+#******************************************************************************
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/debug
+COMPILER = arm-none-eabi-as
+OPTS += -march=armv8-r
+OPTS += -mcpu=cortex-r52
+OPTS += -mfpu=vfpv3-fp16
+OPTS += --defsym __arm__=1
+OPTS += -EL
+OPTS += -L
+OPTS += -I ../include
+OPTS += -I ../include/rcar_v3u/startup
+OPTS += -I ../include/rcar_v3u/drivers
+OPTS += -I ../include/rcar_v3u
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master
+OBJS += $(DEBUG)/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.o
+OBJS += $(DEBUG)/startup_cr52.o
+OBJS += $(DEBUG)/vectors_cr52.o
+OBJS += $(DEBUG)/mpu_cr52.o
+OBJS += $(DEBUG)/startup_ca76.o
+OBJS += $(DEBUG)/vectors_ca76.o
+.PHONY: COMPILE
+COMPILE: $(OBJS)
+$(DEBUG)/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.o: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src
+	$(COMPILER) $(OPTS) -al=rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.list -o rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src
+	mv -f *.o $(DEBUG)
+	mv -f *.list $(DEBUG)
+$(DEBUG)/startup_cr52.o: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/startup_cr52.src
+	$(COMPILER) $(OPTS) -al=startup_cr52.list -o startup_cr52.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/startup_cr52.src
+	mv -f *.o $(DEBUG)
+	mv -f *.list $(DEBUG)
+$(DEBUG)/vectors_cr52.o: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_cr52.src
+	$(COMPILER) $(OPTS) -al=vectors_cr52.list -o vectors_cr52.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_cr52.src
+	mv -f *.o $(DEBUG)
+	mv -f *.list $(DEBUG)
+$(DEBUG)/mpu_cr52.o: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src
+	$(COMPILER) $(OPTS) -al=mpu_cr52.list -o mpu_cr52.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src
+	mv -f *.o $(DEBUG)
+	mv -f *.list $(DEBUG)
+$(DEBUG)/startup_ca76.o: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/startup_ca76.src
+	$(COMPILER) $(OPTS) -al=startup_ca76.list -o startup_ca76.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/startup_ca76.src
+	mv -f *.o $(DEBUG)
+	mv -f *.list $(DEBUG)
+$(DEBUG)/vectors_ca76.o: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_ca76.src
+	$(COMPILER) $(OPTS) -al=vectors_ca76.list -o vectors_ca76.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_ca76.src
+	mv -f *.o $(DEBUG)
+	mv -f *.list $(DEBUG)

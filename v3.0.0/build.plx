@@ -3,65 +3,388 @@ use strict;
 use warnings;
 use File::Spec;
 
+require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/help.plx";
 require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/utils.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gen_dependency.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/compile.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/link.plx";
+require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/gen_dependency.plx";
+require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/compile.plx";
+require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/link.plx";
+require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/extract_image.plx";
+
+my $gcc = 0;
 
 my $workingDir = `pwd`; chomp $workingDir;
-my $debug = "$workingDir/debug";
+my $configDir = "$workingDir/build.cfg";
+my $debugDir = "$workingDir/debug";
+my $recursiveOn = 0;
+my @predefinedSymbols;
+my $cpuName = "cr52";
+my $optimizeLevel = 1;
+my $scatterDir;
+my $firstSection;
 
 my @armasmCompilerOptions;
 my @gnuasmCompilerOptions;
 my @cCompilerOptions;
 my @cppCompilerOptions;
 my @linkerOptions;
-my @imageExtracterOptions;
-
 my @includeDirs;
+my @sourceDirs;
 my @armasmFiles;
 my @gnuasmFiles;
 my @cFiles;
 my @cppFiles;
+my $buildStatus = 0;
 
-# Get include directories
+$buildStatus = readBuildConfig($configDir);
+if ($buildStatus != 0) { exit; }
+
+$buildStatus = readCommandLineArgs();
+if ($buildStatus != 0) { exit; }
+
+if (! -d $workingDir)
+{
+	print "[Error] No such directory $workingDir\n";
+	exit;
+}
+
+if (! -d $debugDir)
+{
+	$buildStatus = system("mkdir $debugDir");
+	if ($buildStatus != 0)
+	{
+		print "[Error] Failed to create folder $debugDir\n";
+		exit;
+	}
+}
+
 push @includeDirs, $workingDir;
-push @includeDirs, "./include";
-push @includeDirs, "./include/rcar_v3u/startup_gnu";
-push @includeDirs, "./include/rcar_v3u/drivers";
+push @sourceDirs, $workingDir;
 @includeDirs = removeDuplicateFile(\@includeDirs);
+@sourceDirs = removeDuplicateFile(\@sourceDirs);
 
-# Get source files
-foreach my $dir (@includeDirs) { push @armasmFiles, getFiles($dir, "s", 0); }
-foreach my $dir (@includeDirs) { push @gnuasmFiles, getFiles($dir, "src", 0); }
-foreach my $dir (@includeDirs) { push @cFiles, getFiles($dir, "c", 0); }
-foreach my $dir (@includeDirs) { push @cppFiles, getFiles($dir, "cpp", 0); }
+foreach my $dir (@includeDirs)
+{
+	if (! -d $dir)
+	{
+		print "[Error] No such directory $dir\n";
+		exit;
+	}
+}
 
-# Remove duplicate files
+foreach my $dir (@sourceDirs)
+{
+	if (! -d $dir)
+	{
+		print "[Error] No such directory $dir\n";
+		exit;
+	}
+}
+
+push @armasmCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16", "--defsym __arm__=1";
+push @gnuasmCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16", "--defsym __arm__=1";
+push @cCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16", "-O1", "-D __arm__";
+push @cppCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16", "-O1", "-D __arm__";
+push @linkerOptions, "-T ./scatter.ld";
+
+foreach my $dir (@sourceDirs) { push @armasmFiles, getFiles($dir, "s", 0); }
+foreach my $dir (@sourceDirs) { push @gnuasmFiles, getFiles($dir, "src", 0); }
+foreach my $dir (@sourceDirs) { push @cFiles, getFiles($dir, "c", 0); }
+foreach my $dir (@sourceDirs) { push @cppFiles, getFiles($dir, "cpp", 0); }
+
 @armasmFiles = removeDuplicateFile(\@armasmFiles);
 @gnuasmFiles = removeDuplicateFile(\@gnuasmFiles);
 @cFiles = removeDuplicateFile(\@cFiles);
 @cppFiles = removeDuplicateFile(\@cppFiles);
 
-gen_source_files_list($workingDir, \@armasmFiles, 0);
-gen_source_files_list($workingDir, \@gnuasmFiles, 1);
-gen_source_files_list($workingDir, \@cFiles, 1);
-gen_source_files_list($workingDir, \@cppFiles, 1);
+gen_files_list($workingDir, \@armasmFiles, 0);
+gen_files_list($workingDir, \@gnuasmFiles, 1);
+gen_files_list($workingDir, \@cFiles, 1);
+gen_files_list($workingDir, \@cppFiles, 1);
 
-# gen_source_files_list($workingDir, \@files, $append);
-sub gen_source_files_list
+if ($buildStatus == 0) { $buildStatus = gen_armasm_dependency($workingDir, \@includeDirs, \@armasmFiles); }
+if ($buildStatus == 0) { $buildStatus = gen_gnuasm_dependency($workingDir, \@includeDirs, \@gnuasmFiles); }
+if ($buildStatus == 0) { $buildStatus = gen_c_dependency($workingDir, \@includeDirs, \@cFiles); }
+if ($buildStatus == 0) { $buildStatus = gen_cpp_dependency($workingDir, \@includeDirs, \@cppFiles); }
+if ($buildStatus == 0) { $buildStatus = compile_armasm($workingDir, \@includeDirs, \@armasmFiles, \@armasmCompilerOptions); }
+if ($buildStatus == 0) { $buildStatus = compile_gnuasm($workingDir, \@includeDirs, \@gnuasmFiles, \@gnuasmCompilerOptions); }
+if ($buildStatus == 0) { $buildStatus = compile_c($workingDir, \@includeDirs, \@cFiles, \@cCompilerOptions); }
+if ($buildStatus == 0) { $buildStatus = compile_cpp($workingDir, \@includeDirs, \@cppFiles, \@cppCompilerOptions); }
+if ($buildStatus == 0) { $buildStatus = link_object($workingDir, \@includeDirs, \@armasmFiles, \@gnuasmFiles, \@cFiles, \@cppFiles, \@linkerOptions); }
+if ($buildStatus == 0) { $buildStatus = extract_image($workingDir); }
+
+clean($workingDir, $buildStatus);
+
+sub readBuildConfig
 {
-	my $workingDir = shift(@_);
-	my @files = @{shift(@_)};
-	my $append = shift(@_);
+	my $configDir = shift(@_);
+	my $status = 0;
+	my $i = 0;
 
-	my $sourceFilesList = "$workingDir/sourceFilesList";
-	if ($append == 1) { open FILE, ">>$sourceFilesList"; }
-	else { open FILE, ">$sourceFilesList"; }
+	if (! -f $configDir) { exit; }
 
-	foreach my $file (@files) { print FILE $file, "\n"; }
+	print "[Info] Reading build configuration...\n";
 
-	close FILE;
+	open CFG, "<$configDir";
+    while (<CFG>)
+    {
+        $i++;
+
+        if ($_ =~ /^#/) { goto NEXT_LINE; }
+
+        my @words = split " ", $_;
+		my $option = $words[0]; chomp $option;
+		
+		if ($option =~ /^-/)
+		{
+			if ($option eq "-dir")
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($words[1]);
+				$workingDir = $words[1];
+				$debugDir = join "/", $workingDir, "debug";
+			}
+
+			elsif ($option eq "-include")
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($words[1]);
+				push @includeDirs, $words[1];
+			}
+
+			elsif ($option eq "-source")
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($words[1]);
+				push @sourceDirs, $words[1];
+			}
+
+			elsif ($option eq "-recursive")
+			{
+				$recursiveOn = 1;
+			}
+
+			elsif (($option eq "-pd") or ($option eq "--PD"))
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				my $pd = "";
+				for (my $i = 1; $i < (scalar @words); $i++) { $pd = join " ", $pd, $words[$i]; }
+				push @predefinedSymbols, $pd;
+			}
+
+			elsif ($option eq "-cpu")
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($words[1]);
+				$cpuName = $words[1];
+			}
+
+			elsif ($option eq "-optimize")
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($words[1]);
+				$optimizeLevel = $words[1];
+			}
+
+			elsif ($option eq "-scatter")
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($words[1]);
+				$scatterDir = $words[1];
+			}
+
+			elsif ($option eq "-first")
+			{
+				if (! $words[1])
+				{
+					print "[Error] Syntax error at line $i, file $configDir\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($words[1]);
+				$firstSection = $words[1];
+			}
+
+			else
+			{
+				print "[Error] Invalid option $option at line $i, file $configDir\n";
+				$status = 1;
+				goto RETURN;
+			}
+		}
+    }
+
+	RETURN:
+	close CFG;
+	if ($status == 0) { print "[Info] Done\n"; }
+	return $status;
+}
+
+sub readCommandLineArgs
+{
+	my $status = 0;
+	my $args = scalar @ARGV;
+
+	print "[Info] Reading command line options...\n";
+
+    for (my $i = 0; $i < $args; $i++)
+    {
+		my $option = $ARGV[$i]; chomp $option;
+
+		if ($option =~ /^-/)
+		{
+			if ($option eq "-dir")
+			{
+				if (! $ARGV[$i+1])
+				{
+					print "[Error] Syntax error at argument $option\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($ARGV[$i+1]);
+				$workingDir = $ARGV[$i+1];
+				$debugDir = join "/", $workingDir, "debug";
+			}
+
+			elsif ($option eq "-include")
+			{
+				if (! $ARGV[$i+1])
+				{
+					print "[Error] Syntax error at argument $option\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($ARGV[$i+1]);
+				push @includeDirs, $ARGV[$i+1];
+			}
+
+			elsif ($option eq "-source")
+			{
+				if (! $ARGV[$i+1])
+				{
+					print "[Error] Syntax error at argument $option\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($ARGV[$i+1]);
+				push @sourceDirs, $ARGV[$i+1];
+			}
+
+			elsif ($option eq "-recursive")
+			{
+				$recursiveOn = 1;
+			}
+
+			elsif ($option eq "-cpu")
+			{
+				if (! $ARGV[$i+1])
+				{
+					print "[Error] Syntax error at argument $option\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($ARGV[$i+1]);
+				$cpuName = $ARGV[$i+1];
+			}
+
+			elsif ($option eq "-optimize")
+			{
+				if (! $ARGV[$i+1])
+				{
+					print "[Error] Syntax error at argument $option\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($ARGV[$i+1]);
+				$optimizeLevel = $ARGV[$i+1];
+			}
+
+			elsif ($option eq "-scatter")
+			{
+				if (! $ARGV[$i+1])
+				{
+					print "[Error] Syntax error at argument $option\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($ARGV[$i+1]);
+				$scatterDir = $ARGV[$i+1];
+			}
+
+			elsif ($option eq "-first")
+			{
+				if (! $ARGV[$i+1])
+				{
+					print "[Error] Syntax error at argument $option\n";
+					$status = 1;
+					goto RETURN;
+				}
+
+				chomp($ARGV[$i+1]);
+				$firstSection = $ARGV[$i+1];
+			}
+
+			else
+			{
+				print "[Error] Invalid command line option $option\n";
+				$status = 1;
+				goto RETURN;
+			}
+		}
+    }
+
+	RETURN:
+	close CFG;
+	if ($status == 0) { print "[Info] Done\n"; }
+	return $status;
 }
 
 # -march=
@@ -71,7 +394,7 @@ sub gen_source_files_list
 # ‘armv8.5-a’, ‘armv7-r’, ‘armv8-r’, ‘armv6-m’, ‘armv6s-m’, ‘armv7-m’,
 # ‘armv7e-m’, ‘armv8-m.base’, ‘armv8-m.main’, ‘iwmmxt’, ‘iwmmxt2’
 
-# -mcpu=
+# -mcpuName=
 # ‘arm7tdmi’, ‘arm7tdmi-s’, ‘arm710t’,
 # ‘arm720t’, ‘arm740t’, ‘strongarm’, ‘strongarm110’, ‘strongarm1100’,
 # ‘strongarm1110’, ‘arm8’, ‘arm810’, ‘arm9’, ‘arm9e’, ‘arm920’, ‘arm920t’,
@@ -96,22 +419,17 @@ sub gen_source_files_list
 # ‘neon-fp16’, ‘vfpv4’, ‘vfpv4-d16’, ‘fpv4-sp-d16’, ‘neon-vfpv4’, ‘fpv5-d16’,
 # ‘fpv5-sp-d16’, ‘fp-armv8’, ‘neon-fp-armv8’, ‘crypto-neon-fp-armv8’
 
-# Get tool options
-push @armasmCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16";
-push @gnuasmCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16";
-push @cCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16", "-O1", "-D __example__", "-D __another_example__=1";
-push @cppCompilerOptions, "-march=armv8-r", "-mcpu=cortex-r52", "-mfpu=vfpv3-fp16", "-O1", "-D __example__", "-D __another_example__=1";
-push @linkerOptions, "-T ./scatter.ld";
-# push @imageExtracterOptions, "";
-
-gen_armasm_dependency($workingDir, \@includeDirs, \@armasmFiles);
-gen_gnuasm_dependency($workingDir, \@includeDirs, \@gnuasmFiles);
-gen_c_dependency($workingDir, \@includeDirs, \@cFiles);
-gen_cpp_dependency($workingDir, \@includeDirs, \@cppFiles);
-
-# compile_armasm($workingDir, \@includeDirs, \@armasmFiles, \@armasmCompilerOptions);
-compile_gnuasm($workingDir, \@includeDirs, \@gnuasmFiles, \@gnuasmCompilerOptions);
-compile_c($workingDir, \@includeDirs, \@cFiles, \@cCompilerOptions);
-compile_cpp($workingDir, \@includeDirs, \@cppFiles, \@cppCompilerOptions);
-
-link_object($workingDir, \@includeDirs, \@armasmFiles, \@gnuasmFiles, \@cFiles, \@cppFiles, \@linkerOptions);
+# as has following command-line options for the Renesas (formerly Hitachi) / SuperH SH family
+# --little				Generate little endian code.
+# --big					Generate big endian code.
+# --relax 				Alter jump instructions for long displacements.
+# --small				Align sections to 4 byte boundaries, not 16.
+# --dsp 				Enable sh-dsp insns, and disable sh3e / sh4 insns.
+# --renesas				Disable optimization with section symbol for compatibility with Renesas assembler.
+# --allow-reg-prefix	Allow ’$’ as a register name prefix.
+# --fdpic 				Generate an FDPIC object file.
+# --isa=sh4 | sh4a		Specify the sh4 or sh4a instruction set.
+# --isa=dsp				Enable sh-dsp insns, and disable sh3e / sh4 insns.
+# --isa=fp 				Enable sh2e, sh3e, sh4, and sh4a insn sets.
+# --isa=all				Enable sh1, sh2, sh2e, sh3, sh3e, sh4, sh4a, and sh-dsp insn sets.
+# -h-tick-hex			Support H’00 style hex constants in addition to 0x00 style.

@@ -1,0 +1,72 @@
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_ca76.src 			page 1
+
+
+   1              	
+   2              	    .ifdef	__aarch64__
+   3              	
+   4              	    .section    VECTORS
+   5              	
+   6              	    .global Synchronous_Handler
+   7              	    .global SError_Handler
+   8              	    .global IRQ_Handler
+   9              	    .global __vectors_start
+  10              	
+  11              	__vectors_start:
+  12              	
+  13              	    b   SYNC_EXC0
+  14              	    align   0x80
+  15              	    b   SERR_EXC0
+  16              	    align   0x80
+  17              	    b   IRQ_EXC0
+  18              	    align   0x80
+  19              	    b   FIQ_EXC0
+  20              	    align   0x80
+  21              	    b   SYNC_EXCx
+  22              	    align   0x80
+  23              	    b   SERR_EXCx
+  24              	    align   0x80
+  25              	    b   IRQ_EXCx
+  26              	    align   0x80
+  27              	    b   FIQ_EXCx
+  28              	    align   0x80
+  29              	
+  30              	SYNC_EXC0:
+  31              	    bl  Synchronous_Handler
+  32              	    eret
+  33              	
+  34              	SERR_EXC0:
+  35              	    bl  SError_Handler
+  36              	    eret
+  37              	
+  38              	IRQ_EXC0:
+  39              	    bl  IRQ_Handler
+  40              	    eret
+  41              	
+  42              	FIQ_EXC0:
+  43              	    b   FIQ_EXC0
+  44              	    eret
+  45              	
+  46              	SYNC_EXCx:
+  47              	    bl  Synchronous_Handler
+  48              	    eret
+  49              	
+  50              	SERR_EXCx:
+  51              	    bl  SError_Handler
+  52              	    eret
+  53              	
+  54              	IRQ_EXCx:
+  55              	    bl  IRQ_Handler
+  56              	    eret
+  57              	
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_ca76.src 			page 2
+
+
+  58              	FIQ_EXCx:
+  59              	    b   FIQ_EXCx
+  60              	    eret
+  61              	
+  62              	__vectors_end:
+  63              	
+  64              	    .endif
+  65              	
+  66              	    .end

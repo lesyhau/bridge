@@ -1,0 +1,66 @@
+
+    .ifdef	__aarch64__
+
+    .section    VECTORS
+
+    .global Synchronous_Handler
+    .global SError_Handler
+    .global IRQ_Handler
+    .global __vectors_start
+
+__vectors_start:
+
+    b   SYNC_EXC0
+    align   0x80
+    b   SERR_EXC0
+    align   0x80
+    b   IRQ_EXC0
+    align   0x80
+    b   FIQ_EXC0
+    align   0x80
+    b   SYNC_EXCx
+    align   0x80
+    b   SERR_EXCx
+    align   0x80
+    b   IRQ_EXCx
+    align   0x80
+    b   FIQ_EXCx
+    align   0x80
+
+SYNC_EXC0:
+    bl  Synchronous_Handler
+    eret
+
+SERR_EXC0:
+    bl  SError_Handler
+    eret
+
+IRQ_EXC0:
+    bl  IRQ_Handler
+    eret
+
+FIQ_EXC0:
+    b   FIQ_EXC0
+    eret
+
+SYNC_EXCx:
+    bl  Synchronous_Handler
+    eret
+
+SERR_EXCx:
+    bl  SError_Handler
+    eret
+
+IRQ_EXCx:
+    bl  IRQ_Handler
+    eret
+
+FIQ_EXCx:
+    b   FIQ_EXCx
+    eret
+
+__vectors_end:
+
+    .endif
+
+    .end

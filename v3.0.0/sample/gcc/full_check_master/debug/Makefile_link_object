@@ -1,0 +1,60 @@
+#******************************************************************************
+#	Automatic generated file. Do not modify!
+#	CT Pattern Builder v3
+#	2082 - Hau Sy Le - hau.le.eb@renesas.com
+#******************************************************************************
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/debug
+LINKER = arm-none-eabi-ld
+OPTS += -T ./scatter.ld
+OPTS += -e 0x0
+OPTS += -I ../include
+OPTS += -I ../include/rcar_v3u/startup
+OPTS += -I ../include/rcar_v3u/drivers
+OPTS += -I ../include/rcar_v3u
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master
+OBJS += $(DEBUG)/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.o
+OBJS += $(DEBUG)/startup_cr52.o
+OBJS += $(DEBUG)/vectors_cr52.o
+OBJS += $(DEBUG)/mpu_cr52.o
+OBJS += $(DEBUG)/startup_ca76.o
+OBJS += $(DEBUG)/vectors_ca76.o
+OBJS += $(DEBUG)/master_rx_dma.o
+OBJS += $(DEBUG)/master_tx_50kHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_250kHz.o
+OBJS += $(DEBUG)/master_tx_rpt_master_rx.o
+OBJS += $(DEBUG)/master_tx_100kHz.o
+OBJS += $(DEBUG)/master_arbitration_lost.o
+OBJS += $(DEBUG)/master_tx_fbsc_check.o
+OBJS += $(DEBUG)/master_tx_dma_continuous.o
+OBJS += $(DEBUG)/master_send_start_byte.o
+OBJS += $(DEBUG)/master_tx_300kHz_var_duty.o
+OBJS += $(DEBUG)/master_general_call.o
+OBJS += $(DEBUG)/master_tx_50kHz.o
+OBJS += $(DEBUG)/master_tx_250kHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_400kHz.o
+OBJS += $(DEBUG)/master_tx_400kHz_var_duty.o
+OBJS += $(DEBUG)/master_rx.o
+OBJS += $(DEBUG)/exception_handlers.o
+OBJS += $(DEBUG)/i2c_utils.o
+OBJS += $(DEBUG)/i2c.o
+OBJS += $(DEBUG)/master_tx_fsb.o
+OBJS += $(DEBUG)/master_tx_200kHz.o
+OBJS += $(DEBUG)/gic.o
+OBJS += $(DEBUG)/master_rx_delay.o
+OBJS += $(DEBUG)/sim_utils.o
+OBJS += $(DEBUG)/pfc.o
+OBJS += $(DEBUG)/master_tx.o
+OBJS += $(DEBUG)/main.o
+OBJS += $(DEBUG)/master_tx_dma.o
+OBJS += $(DEBUG)/master_tx_300kHz.o
+OBJS += $(DEBUG)/master_tx_200kHz_var_duty.o
+OBJS += $(DEBUG)/dmac.o
+OBJS += $(DEBUG)/master_tx_1MHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_100kHz_var_duty.o
+OBJS += $(DEBUG)/master_rx_dma_continuous.o
+OBJS += $(DEBUG)/cpg.o
+.PHONY: LINK
+LINK: $(DEBUG)/image.elf
+$(DEBUG)/image.elf: $(OBJS)
+	$(LINKER) $(OPTS) $(OBJS) -o image.elf
+	mv -f *.elf $(DEBUG)

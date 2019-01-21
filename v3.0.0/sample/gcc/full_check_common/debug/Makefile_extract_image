@@ -1,0 +1,19 @@
+#******************************************************************************
+#	Automatic generated file. Do not modify!
+#	CT Pattern Builder v3
+#	2082 - Hau Sy Le - hau.le.eb@renesas.com
+#******************************************************************************
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/debug
+BIN = arm-none-eabi-objcopy
+LIST = arm-none-eabi-objdump
+BINOPTS += --output-target=srec
+LISTOPTS += --disassemble
+LISTOPTS += --endian=little
+LISTOPTS += --reloc
+.PHONY: EXTRACT
+EXTRACT: image.bin $(DEBUG)/image.lst
+image.bin: $(DEBUG)/image.elf
+	$(BIN) $(BINOPTS) $(DEBUG)/image.elf image.bin
+$(DEBUG)/image.lst: $(DEBUG)/image.elf
+	$(LIST) $(LISTOPTS) $(DEBUG)/image.elf > image.lst
+	mv -f *.lst $(DEBUG)

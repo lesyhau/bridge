@@ -1,0 +1,598 @@
+armclang --verbose -mlittle-endian -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -c -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/main.c -MM -MF /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/main.mk
+[Info] Compiling /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/main.c...
+armclang --verbose -mlittle-endian -c -O1 --target=arm-arm-non-eabi -mcpu=cortex-r52 -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave -I /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/main.c
+[Info] Collecting object file main.o...
+mv -f *.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug
+[Info] Linking object files...
+armlink --map --remove --info=unused --datacompressor off --entry=0x00000000 --scatter=/design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/include/rcar_v3u/scatters/scatter_ddr.scat --errors=error.log /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/retarget.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_rx_e2e.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_tx.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_rx_delay.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_rx.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_rx_fna_delay.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_rx_fna.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/main.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_rx.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/exception_handlers.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_tx_delay.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/i2c.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_rx_fbsc_check.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_rx_fna.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/i2c_utils.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/dmac.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_nack_addr.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_rx_dma.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_tx_delay.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_tx.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_tx_fbsc_check.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_rx_sdbs.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/renesas_slave_rx_fna_sdbs.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/sim_utils.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/pfc.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_general_call.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/gic.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/cpg.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/slave_tx_dma.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/vectors_cr52.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/vectors_ca76.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/startup_cr52.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/mpu_cr52.o /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/startup_ca76.o --output=image.elf
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing retarget.o(.text), (0 bytes).
+    Removing retarget.o(.ARM.exidx.text._sys_exit), (8 bytes).
+    Removing retarget.o(.text._ttywrch), (4 bytes).
+    Removing retarget.o(.ARM.exidx.text._ttywrch), (8 bytes).
+    Removing retarget.o(.text._sys_command_string), (8 bytes).
+    Removing retarget.o(.ARM.exidx.text._sys_command_string), (8 bytes).
+    Removing slave_rx_e2e.o(.text), (0 bytes).
+    Removing slave_rx_e2e.o(.text.slave_rx_e2e), (1408 bytes).
+    Removing slave_rx_e2e.o(.ARM.exidx.text.slave_rx_e2e), (8 bytes).
+    Removing slave_rx_e2e.o(.rodata.masterConfig), (24 bytes).
+    Removing slave_rx_e2e.o(.rodata.slaveConfig), (24 bytes).
+    Removing slave_rx_e2e.o(.rodata.sendDataID), (4 bytes).
+    Removing slave_rx_e2e.o(.rodata.sendData), (56 bytes).
+    Removing slave_rx_e2e.o(.data.SendDataPkg), (16 bytes).
+    Removing slave_rx_e2e.o(.bss.receiveData), (56 bytes).
+    Removing slave_rx_e2e.o(.data.ReceiveDataPkg), (16 bytes).
+    Removing renesas_slave_tx.o(.text), (0 bytes).
+    Removing renesas_slave_tx.o(.ARM.exidx.text.renesas_slave_tx), (8 bytes).
+    Removing renesas_slave_tx.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing renesas_slave_tx.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing renesas_slave_rx_delay.o(.text), (0 bytes).
+    Removing renesas_slave_rx_delay.o(.ARM.exidx.text.renesas_slave_rx_delay), (8 bytes).
+    Removing slave_rx.o(.text), (0 bytes).
+    Removing slave_rx.o(.ARM.exidx.text.slave_rx), (8 bytes).
+    Removing slave_rx.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_rx.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing renesas_slave_rx_fna_delay.o(.text), (0 bytes).
+    Removing renesas_slave_rx_fna_delay.o(.ARM.exidx.text.renesas_slave_rx_fna_delay), (8 bytes).
+    Removing slave_rx_fna.o(.text), (0 bytes).
+    Removing slave_rx_fna.o(.ARM.exidx.text.slave_rx_fna), (8 bytes).
+    Removing slave_rx_fna.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_rx_fna.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing main.o(.text), (0 bytes).
+    Removing main.o(.ARM.exidx.text.main), (8 bytes).
+    Removing main.o(.ARM.use_no_argv), (4 bytes).
+    Removing renesas_slave_rx.o(.text), (0 bytes).
+    Removing renesas_slave_rx.o(.ARM.exidx.text.renesas_slave_rx), (8 bytes).
+    Removing renesas_slave_rx.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing renesas_slave_rx.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing exception_handlers.o(.text), (0 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.UndefinedInstruction_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.SupervisorCall_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.PrefetchAbort_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.DataAbort_Handler), (8 bytes).
+    Removing exception_handlers.o(.ARM.exidx.text.IRQ_Handler), (8 bytes).
+    Removing renesas_slave_tx_delay.o(.text), (0 bytes).
+    Removing renesas_slave_tx_delay.o(.ARM.exidx.text.renesas_slave_tx_delay), (8 bytes).
+    Removing i2c.o(.text), (0 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveInit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnable), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisable), (8 bytes).
+    Removing i2c.o(.text.I2C_slaveSetAddress), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveSetAddress), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnableInterrupt), (8 bytes).
+    Removing i2c.o(.text.I2C_slaveDisableInterrupt), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisableInterrupt), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveGetInterruptStatus), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveClearInterruptStatus), (8 bytes).
+    Removing i2c.o(.text.I2C_slaveForceNAK), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveForceNAK), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveReceiveMultipleByteNext), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveReceiveMultipleByteStop), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveReceiveMultipleByteFinish), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveSetData), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveEnableDMATransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveDisableDMATransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterInit), (8 bytes).
+    Removing i2c.o(.text.I2C_masterSetSlaveAddress), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetSlaveAddress), (8 bytes).
+    Removing i2c.o(.text.I2C_masterSetMode), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetMode), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnable), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisable), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableInterrupt), (8 bytes).
+    Removing i2c.o(.text.I2C_masterDisableInterrupt), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableInterrupt), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterGetInterruptStatus), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterClearInterruptStatus), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSendMultipleByteStart), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSendMultipleByteNext), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSendMultipleByteStop), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveStart), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveMultipleByteNext), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveMultipleByteStop), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterReceiveMultipleByteFinish), (8 bytes).
+    Removing i2c.o(.text.I2C_masterSetDMAContinuousTransferCount), (20 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetDMAContinuousTransferCount), (8 bytes).
+    Removing i2c.o(.text.I2C_masterSetDMAContinuousReceiveBlockCount), (20 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetDMAContinuousReceiveBlockCount), (8 bytes).
+    Removing i2c.o(.text.I2C_masterSetDMAContinuousTransmitBlockCount), (20 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterSetDMAContinuousTransmitBlockCount), (8 bytes).
+    Removing i2c.o(.text.I2C_masterEnableDMAContinuousReceive), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMAContinuousReceive), (8 bytes).
+    Removing i2c.o(.text.I2C_masterDisableDMAContinuousReceive), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMAContinuousReceive), (8 bytes).
+    Removing i2c.o(.text.I2C_masterEnableDMAContinuousTransmit), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMAContinuousTransmit), (8 bytes).
+    Removing i2c.o(.text.I2C_masterDisableDMAContinuousTransmit), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMAContinuousTransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMAReceive), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableDMATransmit), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableDMATransmit), (8 bytes).
+    Removing i2c.o(.text.I2C_masterRestart), (24 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterRestart), (8 bytes).
+    Removing i2c.o(.text.I2C_slaveIsGeneralCall), (12 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_slaveIsGeneralCall), (8 bytes).
+    Removing i2c.o(.text.I2C_masterIsArbitrationLost), (12 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterIsArbitrationLost), (8 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableStartGeneration), (8 bytes).
+    Removing i2c.o(.text.I2C_masterEnableStartByteTransmit), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterEnableStartByteTransmit), (8 bytes).
+    Removing i2c.o(.text.I2C_masterDisableStartByteTransmit), (16 bytes).
+    Removing i2c.o(.ARM.exidx.text.I2C_masterDisableStartByteTransmit), (8 bytes).
+    Removing slave_rx_fbsc_check.o(.text), (0 bytes).
+    Removing slave_rx_fbsc_check.o(.ARM.exidx.text.slave_rx_fbsc_check), (8 bytes).
+    Removing slave_rx_fbsc_check.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_rx_fbsc_check.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing slave_rx_fbsc_check.o(.rodata.cst4), (4 bytes).
+    Removing renesas_slave_rx_fna.o(.text), (0 bytes).
+    Removing renesas_slave_rx_fna.o(.ARM.exidx.text.renesas_slave_rx_fna), (8 bytes).
+    Removing renesas_slave_rx_fna.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing renesas_slave_rx_fna.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing i2c_utils.o(.text), (0 bytes).
+    Removing i2c_utils.o(.text.I2C_modelEnable), (40 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_modelEnable), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_modelDisable), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_modelConnect), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_configPins), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_releasePins), (8 bytes).
+    Removing i2c_utils.o(.ARM.exidx.text.I2C_reset), (8 bytes).
+    Removing dmac.o(.text), (0 bytes).
+    Removing dmac.o(.text.DMAC_initDescriptorMemory), (48 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_initDescriptorMemory), (8 bytes).
+    Removing dmac.o(.text.DMAC_configAutoTransfer), (156 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_configAutoTransfer), (8 bytes).
+    Removing dmac.o(.text.DMAC_enableChannel), (16 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_enableChannel), (8 bytes).
+    Removing dmac.o(.text.DMAC_disableChannel), (16 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_disableChannel), (8 bytes).
+    Removing dmac.o(.text.DMAC_enable), (12 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_enable), (8 bytes).
+    Removing dmac.o(.text.DMAC_disable), (12 bytes).
+    Removing dmac.o(.ARM.exidx.text.DMAC_disable), (8 bytes).
+    Removing slave_nack_addr.o(.text), (0 bytes).
+    Removing slave_nack_addr.o(.ARM.exidx.text.slave_nack_addr), (8 bytes).
+    Removing slave_nack_addr.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_nack_addr.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing slave_rx_dma.o(.text), (0 bytes).
+    Removing slave_rx_dma.o(.ARM.exidx.text.slave_rx_dma), (8 bytes).
+    Removing slave_rx_dma.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_rx_dma.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing slave_rx_dma.o(.ARM.exidx.text.sdmac1ch0InterruptHandler), (8 bytes).
+    Removing slave_rx_dma.o(.ARM.exidx.text.sdmac1ch1InterruptHandler), (8 bytes).
+    Removing slave_tx_delay.o(.text), (0 bytes).
+    Removing slave_tx_delay.o(.ARM.exidx.text.slave_tx_delay), (8 bytes).
+    Removing slave_tx.o(.text), (0 bytes).
+    Removing slave_tx.o(.ARM.exidx.text.slave_tx), (8 bytes).
+    Removing slave_tx.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_tx.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing slave_tx_fbsc_check.o(.text), (0 bytes).
+    Removing slave_tx_fbsc_check.o(.ARM.exidx.text.slave_tx_fbsc_check), (8 bytes).
+    Removing slave_tx_fbsc_check.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_tx_fbsc_check.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing slave_tx_fbsc_check.o(.rodata.cst4), (4 bytes).
+    Removing renesas_slave_rx_sdbs.o(.text), (0 bytes).
+    Removing renesas_slave_rx_sdbs.o(.ARM.exidx.text.renesas_slave_rx_sdbs), (8 bytes).
+    Removing renesas_slave_rx_sdbs.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing renesas_slave_rx_sdbs.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing renesas_slave_rx_fna_sdbs.o(.text), (0 bytes).
+    Removing renesas_slave_rx_fna_sdbs.o(.ARM.exidx.text.renesas_slave_rx_fna_sdbs), (8 bytes).
+    Removing renesas_slave_rx_fna_sdbs.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing renesas_slave_rx_fna_sdbs.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing sim_utils.o(.text), (0 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Dump), (8 bytes).
+    Removing sim_utils.o(.text.Sim_DumpCheck), (52 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_DumpCheck), (8 bytes).
+    Removing sim_utils.o(.text.Sim_DumpSkip), (24 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_DumpSkip), (8 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Stop), (8 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Delay), (8 bytes).
+    Removing sim_utils.o(.text.Sim_Judge), (40 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_Judge), (8 bytes).
+    Removing sim_utils.o(.text.Sim_CopyToSRAM), (204 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_CopyToSRAM), (8 bytes).
+    Removing sim_utils.o(.text.Sim_SetCR52BAR), (36 bytes).
+    Removing sim_utils.o(.ARM.exidx.text.Sim_SetCR52BAR), (8 bytes).
+    Removing pfc.o(.text), (0 bytes).
+    Removing pfc.o(.text.PFC_SetBit), (28 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_SetBit), (8 bytes).
+    Removing pfc.o(.text.PFC_ClearBit), (36 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_ClearBit), (8 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_SetMultipleBit), (8 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_ClearMultipleBit), (8 bytes).
+    Removing pfc.o(.text.PFC_WriteOr), (24 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_WriteOr), (8 bytes).
+    Removing pfc.o(.text.PFC_WriteAnd), (24 bytes).
+    Removing pfc.o(.ARM.exidx.text.PFC_WriteAnd), (8 bytes).
+    Removing slave_general_call.o(.text), (0 bytes).
+    Removing slave_general_call.o(.ARM.exidx.text.slave_general_call), (8 bytes).
+    Removing slave_general_call.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_general_call.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing gic.o(.text), (0 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_defaultHandler), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_enable), (8 bytes).
+    Removing gic.o(.text.GIC_configInterrupt), (4 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_configInterrupt), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_enableInterrupt), (8 bytes).
+    Removing gic.o(.text.GIC_disableInterrupt), (40 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_disableInterrupt), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_getACKID), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_endInterrupt), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_setInterruptHandler), (8 bytes).
+    Removing gic.o(.ARM.exidx.text.GIC_executeInterruptHandler), (8 bytes).
+    Removing cpg.o(.text), (0 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_SetBit), (8 bytes).
+    Removing cpg.o(.text.CPG_ClearBit), (36 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_ClearBit), (8 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_SetMultipleBit), (8 bytes).
+    Removing cpg.o(.text.CPG_ClearMultipleBit), (32 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_ClearMultipleBit), (8 bytes).
+    Removing cpg.o(.text.CPG_WriteAnd), (32 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_WriteAnd), (8 bytes).
+    Removing cpg.o(.text.CPG_WriteOr), (32 bytes).
+    Removing cpg.o(.ARM.exidx.text.CPG_WriteOr), (8 bytes).
+    Removing slave_tx_dma.o(.text), (0 bytes).
+    Removing slave_tx_dma.o(.ARM.exidx.text.slave_tx_dma), (8 bytes).
+    Removing slave_tx_dma.o(.ARM.exidx.text.i2c0InterruptHandler), (8 bytes).
+    Removing slave_tx_dma.o(.ARM.exidx.text.i2c1InterruptHandler), (8 bytes).
+    Removing slave_tx_dma.o(.ARM.exidx.text.sdmac1ch0InterruptHandler), (8 bytes).
+    Removing slave_tx_dma.o(.ARM.exidx.text.sdmac1ch1InterruptHandler), (8 bytes).
+
+233 unused section(s) (total 4072 bytes) removed from the image.
+
+==============================================================================
+
+Memory Map of the image
+
+  Image Entry point : 0x00000000
+
+  Load Region LR0 (Base: 0x00000000, Size: 0x000013fc, Max: 0x07ffffff, ABSOLUTE)
+
+    Execution Region ER00 (Base: 0x00000000, Size: 0x000013fc, Max: 0x03ffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x00000000   0x00001178   Code   RO          461  * STARTUP             startup_cr52.o
+    0x00001178   0x00000008   Code   RO          465  * !!!main             c_8u.l(__main.o)
+    0x00001180   0x0000003c   Code   RO          627    !!!scatter          c_8u.l(__scatter.o)
+    0x000011bc   0x0000002c   Code   RO          629    !!handler_zi        c_8u.l(__scatter_zi.o)
+    0x000011e8   0x000001d4   Code   RO          462  * MPU_INIT            mpu_cr52.o
+    0x000013bc   0x00000008   Ven    RO          631    Veneer$$Code        anon$$obj.o
+    0x000013c4   0x00000008   Ven    RO          632    Veneer$$Code        anon$$obj.o
+    0x000013cc   0x00000008   Ven    RO          633    Veneer$$Code        anon$$obj.o
+    0x000013d4   0x00000008   Ven    RO          634    Veneer$$Code        anon$$obj.o
+    0x000013dc   0x00000008   Ven    RO          635    Veneer$$Code        anon$$obj.o
+    0x000013e4   0x00000008   Ven    RO          636    Veneer$$Code        anon$$obj.o
+    0x000013ec   0x00000010   Data   RO          625    Region$$Table       anon$$obj.o
+
+
+    Execution Region ER01 (Base: 0x04000000, Size: 0x00000000, Max: 0x03ffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region ER02 (Base: 0xe6300000, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+
+  Load Region LR1 (Base: 0x40000000, Size: 0x00004c58, Max: 0xbfffffff, ABSOLUTE)
+
+    Execution Region ER10 (Base: 0x40000000, Size: 0x00004d50, Max: 0xffffffff, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x40000000   0x00000070   Code   RO          460  * VECTORS             vectors_cr52.o
+    0x40000070   0x00000002   Code   RO          497    .ARM.Collect$$libinit$$00000000  c_8u.l(libinit.o)
+    0x40000072   0x00000004   Code   RO          507    .ARM.Collect$$libinit$$00000001  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          510    .ARM.Collect$$libinit$$00000004  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          513    .ARM.Collect$$libinit$$0000000A  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          515    .ARM.Collect$$libinit$$0000000C  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          517    .ARM.Collect$$libinit$$0000000E  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          520    .ARM.Collect$$libinit$$00000011  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          522    .ARM.Collect$$libinit$$00000013  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          524    .ARM.Collect$$libinit$$00000015  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          526    .ARM.Collect$$libinit$$00000017  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          528    .ARM.Collect$$libinit$$00000019  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          530    .ARM.Collect$$libinit$$0000001B  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          532    .ARM.Collect$$libinit$$0000001D  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          534    .ARM.Collect$$libinit$$0000001F  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          536    .ARM.Collect$$libinit$$00000021  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          538    .ARM.Collect$$libinit$$00000023  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          540    .ARM.Collect$$libinit$$00000025  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          544    .ARM.Collect$$libinit$$0000002C  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          546    .ARM.Collect$$libinit$$0000002E  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          548    .ARM.Collect$$libinit$$00000030  c_8u.l(libinit2.o)
+    0x40000076   0x00000000   Code   RO          550    .ARM.Collect$$libinit$$00000032  c_8u.l(libinit2.o)
+    0x40000076   0x00000002   Code   RO          551    .ARM.Collect$$libinit$$00000033  c_8u.l(libinit2.o)
+    0x40000078   0x00000002   Code   RO          574    .ARM.Collect$$libshutdown$$00000000  c_8u.l(libshutdown.o)
+    0x4000007a   0x00000000   Code   RO          582    .ARM.Collect$$libshutdown$$00000002  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          584    .ARM.Collect$$libshutdown$$00000004  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          587    .ARM.Collect$$libshutdown$$00000007  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          590    .ARM.Collect$$libshutdown$$0000000A  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          592    .ARM.Collect$$libshutdown$$0000000C  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000000   Code   RO          595    .ARM.Collect$$libshutdown$$0000000F  c_8u.l(libshutdown2.o)
+    0x4000007a   0x00000002   Code   RO          596    .ARM.Collect$$libshutdown$$00000010  c_8u.l(libshutdown2.o)
+    0x4000007c   0x00000000   Code   RO          467    .ARM.Collect$$rtentry$$00000000  c_8u.l(__rtentry.o)
+    0x4000007c   0x00000000   Code   RO          469    .ARM.Collect$$rtentry$$00000002  c_8u.l(__rtentry2.o)
+    0x4000007c   0x00000004   Code   RO          483    .ARM.Collect$$rtentry$$00000007  c_8u.l(__rtentry7.o)
+    0x40000080   0x00000000   Code   RO          471    .ARM.Collect$$rtentry$$00000009  c_8u.l(__rtentry2.o)
+    0x40000080   0x00000004   Code   RO          472    .ARM.Collect$$rtentry$$0000000A  c_8u.l(__rtentry2.o)
+    0x40000084   0x00000000   Code   RO          474    .ARM.Collect$$rtentry$$0000000C  c_8u.l(__rtentry2.o)
+    0x40000084   0x00000008   Code   RO          475    .ARM.Collect$$rtentry$$0000000D  c_8u.l(__rtentry2.o)
+    0x4000008c   0x00000004   Code   RO          484    .ARM.Collect$$rtentry$$00002718  c_8u.l(__rtentry7.o)
+    0x40000090   0x00000002   Code   RO          505    .ARM.Collect$$rtexit$$00000000  c_8u.l(rtexit.o)
+    0x40000092   0x00000000   Code   RO          558    .ARM.Collect$$rtexit$$00000002  c_8u.l(rtexit2.o)
+    0x40000092   0x00000004   Code   RO          559    .ARM.Collect$$rtexit$$00000003  c_8u.l(rtexit2.o)
+    0x40000096   0x00000006   Code   RO          560    .ARM.Collect$$rtexit$$00000004  c_8u.l(rtexit2.o)
+    0x4000009c   0x00000004   Code   RO          463    .text               c_8u.l(use_no_semi.o)
+    0x400000a0   0x00000012   Code   RO          490    .text               c_8u.l(exit.o)
+    0x400000b2   0x00000002   PAD
+    0x400000b4   0x00000024   Code   RO          428    .text.CPG_SetBit    cpg.o
+    0x400000d8   0x00000020   Code   RO          432    .text.CPG_SetMultipleBit  cpg.o
+    0x400000f8   0x0000000c   Code   RO          101    .text.DataAbort_Handler  exception_handlers.o
+    0x40000104   0x00000004   Code   RO          408    .text.GIC_defaultHandler  gic.o
+    0x40000108   0x00000048   Code   RO          410    .text.GIC_enable    gic.o
+    0x40000150   0x000000a0   Code   RO          414    .text.GIC_enableInterrupt  gic.o
+    0x400001f0   0x00000014   Code   RO          420    .text.GIC_endInterrupt  gic.o
+    0x40000204   0x00000018   Code   RO          424    .text.GIC_executeInterruptHandler  gic.o
+    0x4000021c   0x0000001c   Code   RO          418    .text.GIC_getACKID  gic.o
+    0x40000238   0x00000018   Code   RO          422    .text.GIC_setInterruptHandler  gic.o
+    0x40000250   0x00000014   Code   RO          249    .text.I2C_configPins  i2c_utils.o
+    0x40000264   0x00000010   Code   RO          163    .text.I2C_masterClearInterruptStatus  i2c.o
+    0x40000274   0x00000010   Code   RO          155    .text.I2C_masterDisable  i2c.o
+    0x40000284   0x00000010   Code   RO          195    .text.I2C_masterDisableDMAReceive  i2c.o
+    0x40000294   0x00000010   Code   RO          199    .text.I2C_masterDisableDMATransmit  i2c.o
+    0x400002a4   0x00000010   Code   RO          207    .text.I2C_masterDisableStartGeneration  i2c.o
+    0x400002b4   0x00000010   Code   RO          153    .text.I2C_masterEnable  i2c.o
+    0x400002c4   0x00000010   Code   RO          193    .text.I2C_masterEnableDMAReceive  i2c.o
+    0x400002d4   0x00000010   Code   RO          197    .text.I2C_masterEnableDMATransmit  i2c.o
+    0x400002e4   0x00000010   Code   RO          157    .text.I2C_masterEnableInterrupt  i2c.o
+    0x400002f4   0x0000000c   Code   RO          161    .text.I2C_masterGetInterruptStatus  i2c.o
+    0x40000300   0x000001c4   Code   RO          147    .text.I2C_masterInit  i2c.o
+    0x400004c4   0x0000000c   Code   RO          177    .text.I2C_masterReceiveMultipleByteFinish  i2c.o
+    0x400004d0   0x0000000c   Code   RO          173    .text.I2C_masterReceiveMultipleByteNext  i2c.o
+    0x400004dc   0x00000018   Code   RO          175    .text.I2C_masterReceiveMultipleByteStop  i2c.o
+    0x400004f4   0x00000010   Code   RO          171    .text.I2C_masterReceiveStart  i2c.o
+    0x40000504   0x00000008   Code   RO          167    .text.I2C_masterSendMultipleByteNext  i2c.o
+    0x4000050c   0x00000014   Code   RO          165    .text.I2C_masterSendMultipleByteStart  i2c.o
+    0x40000520   0x00000010   Code   RO          169    .text.I2C_masterSendMultipleByteStop  i2c.o
+    0x40000530   0x00000034   Code   RO          247    .text.I2C_modelConnect  i2c_utils.o
+    0x40000564   0x00000020   Code   RO          245    .text.I2C_modelDisable  i2c_utils.o
+    0x40000584   0x00000014   Code   RO          251    .text.I2C_releasePins  i2c_utils.o
+    0x40000598   0x00000030   Code   RO          253    .text.I2C_reset     i2c_utils.o
+    0x400005c8   0x00000010   Code   RO          127    .text.I2C_slaveClearInterruptStatus  i2c.o
+    0x400005d8   0x00000010   Code   RO          117    .text.I2C_slaveDisable  i2c.o
+    0x400005e8   0x00000010   Code   RO          141    .text.I2C_slaveDisableDMAReceive  i2c.o
+    0x400005f8   0x00000010   Code   RO          145    .text.I2C_slaveDisableDMATransmit  i2c.o
+    0x40000608   0x00000010   Code   RO          115    .text.I2C_slaveEnable  i2c.o
+    0x40000618   0x00000010   Code   RO          139    .text.I2C_slaveEnableDMAReceive  i2c.o
+    0x40000628   0x00000010   Code   RO          143    .text.I2C_slaveEnableDMATransmit  i2c.o
+    0x40000638   0x00000010   Code   RO          121    .text.I2C_slaveEnableInterrupt  i2c.o
+    0x40000648   0x0000000c   Code   RO          125    .text.I2C_slaveGetInterruptStatus  i2c.o
+    0x40000654   0x000001d4   Code   RO          113    .text.I2C_slaveInit  i2c.o
+    0x40000828   0x0000000c   Code   RO          135    .text.I2C_slaveReceiveMultipleByteFinish  i2c.o
+    0x40000834   0x0000000c   Code   RO          131    .text.I2C_slaveReceiveMultipleByteNext  i2c.o
+    0x40000840   0x00000018   Code   RO          133    .text.I2C_slaveReceiveMultipleByteStop  i2c.o
+    0x40000858   0x00000008   Code   RO          137    .text.I2C_slaveSetData  i2c.o
+    0x40000860   0x00000010   Code   RO          103    .text.IRQ_Handler   exception_handlers.o
+    0x40000870   0x00000018   Code   RO          387    .text.PFC_ClearMultipleBit  pfc.o
+    0x40000888   0x00000018   Code   RO          385    .text.PFC_SetMultipleBit  pfc.o
+    0x400008a0   0x0000000c   Code   RO           99    .text.PrefetchAbort_Handler  exception_handlers.o
+    0x400008ac   0x00000014   Code   RO          371    .text.Sim_Delay     sim_utils.o
+    0x400008c0   0x00000028   Code   RO          363    .text.Sim_Dump      sim_utils.o
+    0x400008e8   0x00000010   Code   RO          369    .text.Sim_Stop      sim_utils.o
+    0x400008f8   0x0000000c   Code   RO           97    .text.SupervisorCall_Handler  exception_handlers.o
+    0x40000904   0x0000000c   Code   RO           95    .text.UndefinedInstruction_Handler  exception_handlers.o
+    0x40000910   0x00000004   Code   RO            3    .text._sys_exit     retarget.o
+    0x40000914   0x00000064   Code   RO           22    .text.i2c0InterruptHandler  renesas_slave_tx.o
+    0x40000978   0x00000058   Code   RO           43    .text.i2c0InterruptHandler  slave_rx.o
+    0x400009d0   0x00000080   Code   RO           64    .text.i2c0InterruptHandler  slave_rx_fna.o
+    0x40000a50   0x00000058   Code   RO           83    .text.i2c0InterruptHandler  renesas_slave_rx.o
+    0x40000aa8   0x00000058   Code   RO          217    .text.i2c0InterruptHandler  slave_rx_fbsc_check.o
+    0x40000b00   0x00000080   Code   RO          231    .text.i2c0InterruptHandler  renesas_slave_rx_fna.o
+    0x40000b80   0x00000024   Code   RO          271    .text.i2c0InterruptHandler  slave_nack_addr.o
+    0x40000ba4   0x00000054   Code   RO          282    .text.i2c0InterruptHandler  slave_rx_dma.o
+    0x40000bf8   0x00000064   Code   RO          309    .text.i2c0InterruptHandler  slave_tx.o
+    0x40000c5c   0x0000005c   Code   RO          323    .text.i2c0InterruptHandler  slave_tx_fbsc_check.o
+    0x40000cb8   0x00000058   Code   RO          337    .text.i2c0InterruptHandler  renesas_slave_rx_sdbs.o
+    0x40000d10   0x00000080   Code   RO          351    .text.i2c0InterruptHandler  renesas_slave_rx_fna_sdbs.o
+    0x40000d90   0x00000058   Code   RO          396    .text.i2c0InterruptHandler  slave_general_call.o
+    0x40000de8   0x00000060   Code   RO          443    .text.i2c0InterruptHandler  slave_tx_dma.o
+    0x40000e48   0x000000c8   Code   RO           24    .text.i2c1InterruptHandler  renesas_slave_tx.o
+    0x40000f10   0x000000b4   Code   RO           45    .text.i2c1InterruptHandler  slave_rx.o
+    0x40000fc4   0x0000008c   Code   RO           66    .text.i2c1InterruptHandler  slave_rx_fna.o
+    0x40001050   0x000000b4   Code   RO           85    .text.i2c1InterruptHandler  renesas_slave_rx.o
+    0x40001104   0x000000ac   Code   RO          219    .text.i2c1InterruptHandler  slave_rx_fbsc_check.o
+    0x400011b0   0x0000008c   Code   RO          233    .text.i2c1InterruptHandler  renesas_slave_rx_fna.o
+    0x4000123c   0x00000050   Code   RO          273    .text.i2c1InterruptHandler  slave_nack_addr.o
+    0x4000128c   0x000000c0   Code   RO          284    .text.i2c1InterruptHandler  slave_rx_dma.o
+    0x4000134c   0x000000c8   Code   RO          311    .text.i2c1InterruptHandler  slave_tx.o
+    0x40001414   0x000000b4   Code   RO          325    .text.i2c1InterruptHandler  slave_tx_fbsc_check.o
+    0x400014c8   0x000000b4   Code   RO          339    .text.i2c1InterruptHandler  renesas_slave_rx_sdbs.o
+    0x4000157c   0x0000008c   Code   RO          353    .text.i2c1InterruptHandler  renesas_slave_rx_fna_sdbs.o
+    0x40001608   0x000000b4   Code   RO          398    .text.i2c1InterruptHandler  slave_general_call.o
+    0x400016bc   0x000000b4   Code   RO          445    .text.i2c1InterruptHandler  slave_tx_dma.o
+    0x40001770   0x00000094   Code   RO           76    .text.main          main.o
+    0x40001804   0x00000138   Code   RO           81    .text.renesas_slave_rx  renesas_slave_rx.o
+    0x4000193c   0x000001e8   Code   RO           34    .text.renesas_slave_rx_delay  renesas_slave_rx_delay.o
+    0x40001b24   0x00000138   Code   RO          229    .text.renesas_slave_rx_fna  renesas_slave_rx_fna.o
+    0x40001c5c   0x00000200   Code   RO           55    .text.renesas_slave_rx_fna_delay  renesas_slave_rx_fna_delay.o
+    0x40001e5c   0x0000012c   Code   RO          349    .text.renesas_slave_rx_fna_sdbs  renesas_slave_rx_fna_sdbs.o
+    0x40001f88   0x0000012c   Code   RO          335    .text.renesas_slave_rx_sdbs  renesas_slave_rx_sdbs.o
+    0x400020b4   0x00000134   Code   RO           20    .text.renesas_slave_tx  renesas_slave_tx.o
+    0x400021e8   0x000001ec   Code   RO          106    .text.renesas_slave_tx_delay  renesas_slave_tx_delay.o
+    0x400023d4   0x00000054   Code   RO          286    .text.sdmac1ch0InterruptHandler  slave_rx_dma.o
+    0x40002428   0x00000064   Code   RO          447    .text.sdmac1ch0InterruptHandler  slave_tx_dma.o
+    0x4000248c   0x00000064   Code   RO          288    .text.sdmac1ch1InterruptHandler  slave_rx_dma.o
+    0x400024f0   0x00000054   Code   RO          449    .text.sdmac1ch1InterruptHandler  slave_tx_dma.o
+    0x40002544   0x0000012c   Code   RO          394    .text.slave_general_call  slave_general_call.o
+    0x40002670   0x000000fc   Code   RO          269    .text.slave_nack_addr  slave_nack_addr.o
+    0x4000276c   0x0000012c   Code   RO           41    .text.slave_rx      slave_rx.o
+    0x40002898   0x00000278   Code   RO          280    .text.slave_rx_dma  slave_rx_dma.o
+    0x40002b10   0x00000160   Code   RO          215    .text.slave_rx_fbsc_check  slave_rx_fbsc_check.o
+    0x40002c70   0x0000012c   Code   RO           62    .text.slave_rx_fna  slave_rx_fna.o
+    0x40002d9c   0x00000134   Code   RO          307    .text.slave_tx      slave_tx.o
+    0x40002ed0   0x000001ec   Code   RO          300    .text.slave_tx_delay  slave_tx_delay.o
+    0x400030bc   0x00000288   Code   RO          441    .text.slave_tx_dma  slave_tx_dma.o
+    0x40003344   0x0000015c   Code   RO          321    .text.slave_tx_fbsc_check  slave_tx_fbsc_check.o
+    0x400034a0   0x00000008   Ven    RO          637    Veneer$$Code        anon$$obj.o
+    0x400034a8   0x0000000c   Code   RO          566    x$fpl$fpinit        fz_8v.l(fpinit.o)
+    0x400034b4   0x00000460   Data   RO          213    .rodata.I2C_CLOCK_SETTINGS  i2c.o
+    0x40003914   0x00000008   Data   RO           28    .rodata.cst8        renesas_slave_tx.o
+    0x4000391c   0x00000008   Data   RO           38    .rodata.cst8        renesas_slave_rx_delay.o
+    0x40003924   0x00000008   Data   RO           49    .rodata.cst8        slave_rx.o
+    0x4000392c   0x00000008   Data   RO           59    .rodata.cst8        renesas_slave_rx_fna_delay.o
+    0x40003934   0x00000008   Data   RO           70    .rodata.cst8        slave_rx_fna.o
+    0x4000393c   0x00000008   Data   RO           89    .rodata.cst8        renesas_slave_rx.o
+    0x40003944   0x00000008   Data   RO          110    .rodata.cst8        renesas_slave_tx_delay.o
+    0x4000394c   0x00000008   Data   RO          237    .rodata.cst8        renesas_slave_rx_fna.o
+    0x40003954   0x00000008   Data   RO          304    .rodata.cst8        slave_tx_delay.o
+    0x4000395c   0x00000008   Data   RO          315    .rodata.cst8        slave_tx.o
+    0x40003964   0x00000008   Data   RO          343    .rodata.cst8        renesas_slave_rx_sdbs.o
+    0x4000396c   0x00000008   Data   RO          357    .rodata.cst8        renesas_slave_rx_fna_sdbs.o
+    0x40003974   0x00000008   Data   RO          402    .rodata.cst8        slave_general_call.o
+    0x4000397c   0x00000018   Data   RO           26    .rodata.masterConfig  renesas_slave_tx.o
+    0x40003994   0x00000018   Data   RO           36    .rodata.masterConfig  renesas_slave_rx_delay.o
+    0x400039ac   0x00000018   Data   RO           47    .rodata.masterConfig  slave_rx.o
+    0x400039c4   0x00000018   Data   RO           57    .rodata.masterConfig  renesas_slave_rx_fna_delay.o
+    0x400039dc   0x00000018   Data   RO           68    .rodata.masterConfig  slave_rx_fna.o
+    0x400039f4   0x00000018   Data   RO           87    .rodata.masterConfig  renesas_slave_rx.o
+    0x40003a0c   0x00000018   Data   RO          108    .rodata.masterConfig  renesas_slave_tx_delay.o
+    0x40003a24   0x00000018   Data   RO          224    .rodata.masterConfig  slave_rx_fbsc_check.o
+    0x40003a3c   0x00000018   Data   RO          235    .rodata.masterConfig  renesas_slave_rx_fna.o
+    0x40003a54   0x00000018   Data   RO          275    .rodata.masterConfig  slave_nack_addr.o
+    0x40003a6c   0x00000018   Data   RO          291    .rodata.masterConfig  slave_rx_dma.o
+    0x40003a84   0x00000018   Data   RO          302    .rodata.masterConfig  slave_tx_delay.o
+    0x40003a9c   0x00000018   Data   RO          313    .rodata.masterConfig  slave_tx.o
+    0x40003ab4   0x00000018   Data   RO          330    .rodata.masterConfig  slave_tx_fbsc_check.o
+    0x40003acc   0x00000018   Data   RO          341    .rodata.masterConfig  renesas_slave_rx_sdbs.o
+    0x40003ae4   0x00000018   Data   RO          355    .rodata.masterConfig  renesas_slave_rx_fna_sdbs.o
+    0x40003afc   0x00000018   Data   RO          400    .rodata.masterConfig  slave_general_call.o
+    0x40003b14   0x00000018   Data   RO          452    .rodata.masterConfig  slave_tx_dma.o
+    0x40003b2c   0x00000008   Data   RO          290    .rodata.sendData    slave_rx_dma.o
+    0x40003b34   0x00000008   Data   RO          453    .rodata.sendData    slave_tx_dma.o
+    0x40003b3c   0x00000018   Data   RO           27    .rodata.slaveConfig  renesas_slave_tx.o
+    0x40003b54   0x00000018   Data   RO           37    .rodata.slaveConfig  renesas_slave_rx_delay.o
+    0x40003b6c   0x00000018   Data   RO           48    .rodata.slaveConfig  slave_rx.o
+    0x40003b84   0x00000018   Data   RO           58    .rodata.slaveConfig  renesas_slave_rx_fna_delay.o
+    0x40003b9c   0x00000018   Data   RO           69    .rodata.slaveConfig  slave_rx_fna.o
+    0x40003bb4   0x00000018   Data   RO           88    .rodata.slaveConfig  renesas_slave_rx.o
+    0x40003bcc   0x00000018   Data   RO          109    .rodata.slaveConfig  renesas_slave_tx_delay.o
+    0x40003be4   0x00000018   Data   RO          225    .rodata.slaveConfig  slave_rx_fbsc_check.o
+    0x40003bfc   0x00000018   Data   RO          236    .rodata.slaveConfig  renesas_slave_rx_fna.o
+    0x40003c14   0x00000018   Data   RO          276    .rodata.slaveConfig  slave_nack_addr.o
+    0x40003c2c   0x00000018   Data   RO          293    .rodata.slaveConfig  slave_rx_dma.o
+    0x40003c44   0x00000018   Data   RO          303    .rodata.slaveConfig  slave_tx_delay.o
+    0x40003c5c   0x00000018   Data   RO          314    .rodata.slaveConfig  slave_tx.o
+    0x40003c74   0x00000018   Data   RO          331    .rodata.slaveConfig  slave_tx_fbsc_check.o
+    0x40003c8c   0x00000018   Data   RO          342    .rodata.slaveConfig  renesas_slave_rx_sdbs.o
+    0x40003ca4   0x00000018   Data   RO          356    .rodata.slaveConfig  renesas_slave_rx_fna_sdbs.o
+    0x40003cbc   0x00000018   Data   RO          401    .rodata.slaveConfig  slave_general_call.o
+    0x40003cd4   0x00000018   Data   RO          454    .rodata.slaveConfig  slave_tx_dma.o
+    0x40003cec   0x00000f24   Data   RW          426    .data.GIC_intHandler  gic.o
+    0x40004c10   0x00000048   Data   RW           78    .data.pattern       main.o
+    0x40004c58   0x00000004   Zero   RW          379    .bss.DumpOffset     sim_utils.o
+    0x40004c5c   0x00000001   Zero   RW          298    .bss.isAutoRXComplete  slave_rx_dma.o
+    0x40004c5d   0x00000001   Zero   RW          459    .bss.isAutoRXComplete  slave_tx_dma.o
+    0x40004c5e   0x00000001   Zero   RW          295    .bss.isAutoRXStarted  slave_rx_dma.o
+    0x40004c5f   0x00000001   Zero   RW          457    .bss.isAutoRXStarted  slave_tx_dma.o
+    0x40004c60   0x00000001   Zero   RW          297    .bss.isAutoTXComplete  slave_rx_dma.o
+    0x40004c61   0x00000001   Zero   RW          458    .bss.isAutoTXComplete  slave_tx_dma.o
+    0x40004c62   0x00000001   Zero   RW          296    .bss.isAutoTXStarted  slave_rx_dma.o
+    0x40004c63   0x00000001   Zero   RW          456    .bss.isAutoTXStarted  slave_tx_dma.o
+    0x40004c64   0x00000001   Zero   RW           30    .bss.isTransferComplete  renesas_slave_tx.o
+    0x40004c65   0x00000001   Zero   RW           51    .bss.isTransferComplete  slave_rx.o
+    0x40004c66   0x00000001   Zero   RW           72    .bss.isTransferComplete  slave_rx_fna.o
+    0x40004c67   0x00000001   Zero   RW           91    .bss.isTransferComplete  renesas_slave_rx.o
+    0x40004c68   0x00000001   Zero   RW          223    .bss.isTransferComplete  slave_rx_fbsc_check.o
+    0x40004c69   0x00000001   Zero   RW          239    .bss.isTransferComplete  renesas_slave_rx_fna.o
+    0x40004c6a   0x00000001   Zero   RW          278    .bss.isTransferComplete  slave_nack_addr.o
+    0x40004c6b   0x00000001   Zero   RW          294    .bss.isTransferComplete  slave_rx_dma.o
+    0x40004c6c   0x00000001   Zero   RW          317    .bss.isTransferComplete  slave_tx.o
+    0x40004c6d   0x00000001   Zero   RW          329    .bss.isTransferComplete  slave_tx_fbsc_check.o
+    0x40004c6e   0x00000001   Zero   RW          345    .bss.isTransferComplete  renesas_slave_rx_sdbs.o
+    0x40004c6f   0x00000001   Zero   RW          359    .bss.isTransferComplete  renesas_slave_rx_fna_sdbs.o
+    0x40004c70   0x00000001   Zero   RW          404    .bss.isTransferComplete  slave_general_call.o
+    0x40004c71   0x00000001   Zero   RW          455    .bss.isTransferComplete  slave_tx_dma.o
+    0x40004c72   0x00000002   PAD
+    0x40004c74   0x00000008   Zero   RW           31    .bss.receivedData   renesas_slave_tx.o
+    0x40004c7c   0x00000008   Zero   RW           39    .bss.receivedData   renesas_slave_rx_delay.o
+    0x40004c84   0x00000008   Zero   RW           52    .bss.receivedData   slave_rx.o
+    0x40004c8c   0x00000008   Zero   RW           60    .bss.receivedData   renesas_slave_rx_fna_delay.o
+    0x40004c94   0x00000008   Zero   RW           73    .bss.receivedData   slave_rx_fna.o
+    0x40004c9c   0x00000008   Zero   RW           92    .bss.receivedData   renesas_slave_rx.o
+    0x40004ca4   0x00000008   Zero   RW          111    .bss.receivedData   renesas_slave_tx_delay.o
+    0x40004cac   0x00000004   Zero   RW          227    .bss.receivedData   slave_rx_fbsc_check.o
+    0x40004cb0   0x00000008   Zero   RW          240    .bss.receivedData   renesas_slave_rx_fna.o
+    0x40004cb8   0x00000008   Zero   RW          292    .bss.receivedData   slave_rx_dma.o
+    0x40004cc0   0x00000008   Zero   RW          305    .bss.receivedData   slave_tx_delay.o
+    0x40004cc8   0x00000008   Zero   RW          318    .bss.receivedData   slave_tx.o
+    0x40004cd0   0x00000004   Zero   RW          333    .bss.receivedData   slave_tx_fbsc_check.o
+    0x40004cd4   0x00000008   Zero   RW          346    .bss.receivedData   renesas_slave_rx_sdbs.o
+    0x40004cdc   0x00000008   Zero   RW          360    .bss.receivedData   renesas_slave_rx_fna_sdbs.o
+    0x40004ce4   0x00000008   Zero   RW          405    .bss.receivedData   slave_general_call.o
+    0x40004cec   0x00000008   Zero   RW          451    .bss.receivedData   slave_tx_dma.o
+    0x40004cf4   0x00000004   Zero   RW           32    .bss.receivedDataIndex  renesas_slave_tx.o
+    0x40004cf8   0x00000004   Zero   RW           53    .bss.receivedDataIndex  slave_rx.o
+    0x40004cfc   0x00000004   Zero   RW           74    .bss.receivedDataIndex  slave_rx_fna.o
+    0x40004d00   0x00000004   Zero   RW           93    .bss.receivedDataIndex  renesas_slave_rx.o
+    0x40004d04   0x00000004   Zero   RW          222    .bss.receivedDataIndex  slave_rx_fbsc_check.o
+    0x40004d08   0x00000004   Zero   RW          241    .bss.receivedDataIndex  renesas_slave_rx_fna.o
+    0x40004d0c   0x00000004   Zero   RW          319    .bss.receivedDataIndex  slave_tx.o
+    0x40004d10   0x00000004   Zero   RW          328    .bss.receivedDataIndex  slave_tx_fbsc_check.o
+    0x40004d14   0x00000004   Zero   RW          347    .bss.receivedDataIndex  renesas_slave_rx_sdbs.o
+    0x40004d18   0x00000004   Zero   RW          361    .bss.receivedDataIndex  renesas_slave_rx_fna_sdbs.o
+    0x40004d1c   0x00000004   Zero   RW          406    .bss.receivedDataIndex  slave_general_call.o
+    0x40004d20   0x00000004   Zero   RW           29    .bss.sendDataIndex  renesas_slave_tx.o
+    0x40004d24   0x00000004   Zero   RW           50    .bss.sendDataIndex  slave_rx.o
+    0x40004d28   0x00000004   Zero   RW           71    .bss.sendDataIndex  slave_rx_fna.o
+    0x40004d2c   0x00000004   Zero   RW           90    .bss.sendDataIndex  renesas_slave_rx.o
+    0x40004d30   0x00000004   Zero   RW          221    .bss.sendDataIndex  slave_rx_fbsc_check.o
+    0x40004d34   0x00000004   Zero   RW          238    .bss.sendDataIndex  renesas_slave_rx_fna.o
+    0x40004d38   0x00000004   Zero   RW          277    .bss.sendDataIndex  slave_nack_addr.o
+    0x40004d3c   0x00000004   Zero   RW          316    .bss.sendDataIndex  slave_tx.o
+    0x40004d40   0x00000004   Zero   RW          327    .bss.sendDataIndex  slave_tx_fbsc_check.o
+    0x40004d44   0x00000004   Zero   RW          344    .bss.sendDataIndex  renesas_slave_rx_sdbs.o
+    0x40004d48   0x00000004   Zero   RW          358    .bss.sendDataIndex  renesas_slave_rx_fna_sdbs.o
+    0x40004d4c   0x00000004   Zero   RW          403    .bss.sendDataIndex  slave_general_call.o
+
+
+    Execution Region ARM_LIB_HEAP (Base: 0x40004d50, Size: 0x00000000, Max: 0xffffffff, ABSOLUTE)
+
+    **** No section assigned to this execution region ****
+
+
+    Execution Region ARM_LIB_STACK (Base: 0x6ffffc00, Size: 0x00000400, Max: 0x00000400, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x6ffffc00   0x00000400   Zero   RW            1    ARM_LIB_STACK.bss   anon$$obj.o
+
+[Info] Object files has been linked successfully.
+mv -f image.elf /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug
+[Info] Creating binary file...
+fromelf --m32 /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/image.elf --output=image.bin
+[Info] Binary file has been generated successfully.
+[Info] Listing memory map...
+fromelf --text -cdvtgsw /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/image.elf --output=image.lst
+[Info] Memory map has been listed successfully.
+mv -f *.lst /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug
+[Info] Disassembling...
+fromelf --disassemble --cpu=Cortex-R52 /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug/image.elf --output=image.asm
+[Info] Disassembled successfully.
+mv -f *.asm /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug
+[Info] Cleanning temporary files...
+mv -f make* /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug
+mv -f *.csh /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug
+mv -f *.log /design01/rcarv3ufed_master/common_rvc/rcarv3u/VNET1/MASTER_TM/I2C_V3U_RTL/ct/i2c0/full_check_slave/debug
+date
+Mon Jan 14 11:07:09 ICT 2019
+**** Build finished successfully ****

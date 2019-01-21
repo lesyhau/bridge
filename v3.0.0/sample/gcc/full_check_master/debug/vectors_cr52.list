@@ -1,0 +1,71 @@
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_cr52.src 			page 1
+
+
+   1              	
+   2              	    .ifdef	__arm__
+   3              	
+   4              	    .section    VECTORS
+   5              		
+   6              	    .global Reset_Handler
+   7              	    .global UndefinedInstruction_Handler
+   8              	    .global SupervisorCall_Handler
+   9              	    .global PrefetchAbort_Handler
+  10              	    .global DataAbort_Handler
+  11              	    .global IRQ_Handler
+  12              		.global __use_no_semihosting_swi
+  13              	    .global __mpu_init
+  14              	    .global main
+  15              	    .global __vectors_start
+  16              	
+  17              	__vectors_start:
+  18              	
+  19 0000 FEFFFFEA 	    b   Reset_Handler   // 0x00
+  20 0004 050000EA 	    b   UDF_EXC_VECTORS // 0x04
+  21 0008 080000EA 	    b   SVC_EXC_VECTORS // 0x08
+  22 000c 0B0000EA 	    b   PAB_EXC_VECTORS // 0x0c
+  23 0010 0E0000EA 	    b   DAB_EXC_VECTORS // 0x10
+  24 0014 00F020E3 	    nop                 // 0x14
+  25 0018 100000EA 	    b   IRQ_EXC_VECTORS // 0x18
+  26              	FIQ_EXC_VECTORS:        // 0x1c
+  27              	    // If you want to use fast interrupt, place its service code here.
+  28              	    // Maximum code size allowed is 4kB
+  29 001c FEFFFFEA 	    b   FIQ_EXC_VECTORS
+  30              	    
+  31              	UDF_EXC_VECTORS:
+  32 0020 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  33 0024 FEFFFFEB 	    bl  UndefinedInstruction_Handler
+  34 0028 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  35 002c 6E0060E1 	    eret
+  36              	
+  37              	SVC_EXC_VECTORS:
+  38 0030 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  39 0034 FEFFFFEB 	    bl  SupervisorCall_Handler
+  40 0038 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  41 003c 6E0060E1 	    eret
+  42              	
+  43              	PAB_EXC_VECTORS:
+  44 0040 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  45 0044 FEFFFFEB 	    bl  PrefetchAbort_Handler
+  46 0048 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  47 004c 6E0060E1 	    eret
+  48              	
+  49              	DAB_EXC_VECTORS:
+  50 0050 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  51 0054 FEFFFFEB 	    bl  DataAbort_Handler
+  52 0058 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  53 005c 6E0060E1 	    eret
+  54              	
+  55              	IRQ_EXC_VECTORS:
+  56 0060 0F5C2DE9 	    push    {r0-r3,r10-r12,lr}
+  57 0064 FEFFFFEB 	    bl  IRQ_Handler
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/vectors_cr52.src 			page 2
+
+
+  58 0068 0F5CBDE8 	    pop {r0-r3,r10-r12,lr}
+  59 006c 6E0060E1 	    eret
+  60              	
+  61              	vectors_end:
+  62              	
+  63              	    .endif
+  64              	
+  65              	    .end

@@ -1,0 +1,1198 @@
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 1
+
+
+   1              	
+   2              	   // MSTP settings for DBQ and DBL
+   3              	   //   Control register MSTPCR4 (0xE6152D10), bit 3,4
+   4              	   //   Status  register MSTPSR4 (0xE6152E10), bit 3,4
+   5              	   //MSTPCR4   EQU  0xE6152D10
+   6              	   //MSTPSR4   EQU  0xE6152E10
+   7              	   //CPG_LOCK  EQU  0xE6150000
+   8              	
+   9 0000 140C9FE5 	   LDR   R0, =0xE6152E10  // MSTPSR4
+  10 0004 001090E5 	   LDR   R1, [R0]
+  11 0008 1810C1E3 	   AND   R1, #0xFFFFFFE7  // bit 3,4 are 0
+  12 000c 0120E0E1 	   MVN   R2, R1
+  13 0010 080C9FE5 	   LDR   R0, =0xE6150000
+  14 0014 002080E5 	   STR   R2, [R0]
+  15 0018 040C9FE5 	   LDR   R0, =0xE6152D10  // MSTPCR4
+  16 001c 001080E5 	   STR   R1, [R0]
+  17              	
+  18 0020 F40B9FE5 	   LDR   R0, =0xE6152E10  // MSTPSR4
+  19 0024 001090E5 	   LDR   R1, [R0]
+  20              	
+  21 0028 1000A0E3 	   LDR   R0, =0x10
+  22              	wait_mstp_setting_end:
+  23 002c 010040E2 	   SUB   R0, R0, #0x1
+  24 0030 000050E3 	   CMP   R0, #0x0
+  25 0034 FCFFFF1A 	   BNE   wait_mstp_setting_end
+  26              	
+  27              	
+  28              	   //// Original is /design01/rcarh3fed_master/common/utility/SIM_TOOLS/DDR_init/ARM/DDR4/rel_dbsc4
+  29              	   //// copy on Fri Jun  3 14:15:41 JST 2016
+  30              	   //// run at  /design03/rcarh3fed_user6/work/mochizhi/1chipSim/TP_ES2/H3ES2_arm_ddr_ca53_3200_com
+  31              	   //// run by  mochizhi
+  32              	   //// Script is /svhome/mochizhi/mytools/filecopy 
+  33              	   //// History
+  34              	   //// Rev001   2017/09/25   HIENG/Y.Tamura    Copy form Ver20161207 "rel_dbsc4_init_lpddr4_3200_C
+  35              	   ////                                         modefy for R-CarM3N CT-Sim and Tester-Sim.
+  36              	   ////                                         New file name "rel_dbsc4_init_lpddr4_3200_CL32WL14_
+  37              	
+  38              	   //-------------------------------------------
+  39              	   .macro MYWRITE addr, data
+  40              	   ldr	r0, = \data
+  41              	   ldr	r1, = \addr
+  42              	   str	r0, [r1] // 
+  43              	
+  44              	   .endm
+  45              	   //-------------------------------------------
+  46              	   //-------------------------------------------
+  47              	   .macro PHYWRITE addr, data
+  48              	   ldr	r0, = \addr
+  49              	   ldr	r1, =0xe6790624
+  50              	   str	r0, [r1,#0x00] // 
+  51              	   str	r0, [r1,#0x40] // 
+  52              	   str	r0, [r1,#0x80] // 
+  53              	   str	r0, [r1,#0xc0] // 
+  54              	   ldr	r0, = \data
+  55              	   ldr	r1, =0xe6790628
+  56              	   str	r0, [r1,#0x00] // 
+  57              	   str	r0, [r1,#0x40] // 
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 2
+
+
+  58              	   str	r0, [r1,#0x80] // 
+  59              	   str	r0, [r1,#0xc0] // 
+  60              	   .endm
+  61              	   //-------------------------------------------
+  62              	
+  63 0038 0C0000EA 	   B END_INIT_SUBROUTINE
+  64 003c 00F020E3 	   NOP
+  65              	   //--------------------------------------------------------------------------------------------
+  66              	   // Write DDR_PHY Register Subroutine
+  67              	   //   R0[IN]  : Register Data
+  68              	   //   R1[IN]  : Register Address
+  69              	   //   R2[IN]  : Access Address for Register Address
+  70              	   //   R3[IN]  : Access Address for Register Data
+  71              	   //   R4[--]  : Work Use
+  72              	   //--------------------------------------------------------------------------------------------
+  73              	SUB_WRITE_PHY_REG:
+  74 0040 E04B9FE5 	   LDR  R4, = 0x00003FFF   // Clear py_t_state/read access of Register Address
+  75 0044 041001E0 	   AND  R1, R1, R4
+  76 0048 001082E5 	   STR  R1, [R2]                   // Write Register Address
+  77 004c 000083E5 	   STR  R0, [R3]                   // Write Register Data
+  78              	LOOP_PHY_ACCESS:
+  79 0050 000092E5 	   LDR  R0, [R2]                   // Read Register Address
+  80 0054 0249A0E3 	   LDR  R4, = 0x00008000   // Check py_t_state of Register Address
+  81 0058 040000E0 	   AND  R0, R0, R4
+  82 005c 040050E1 	   CMPS R0, R4
+  83 0060 FAFFFF1A 	   BNE  LOOP_PHY_ACCESS  // Loop Until Write access OK
+  84 0064 041081E1 	   ORR  R1, R1, R4                 // Set py_t_state_clear of Register Address
+  85 0068 001082E5 	   STR  R1, [R2]                   // Write Register Address
+  86 006c 1EFF2FE1 	   BX   LR                                 // Return
+  87              	   // END SUB_WRITE_PHY_REG
+  88              	   //--------------------------------------------------------------------------------------------
+  89              	END_INIT_SUBROUTINE:
+  90              	
+  91              	   //-------------------------------------------
+  92              	   .macro MACRO_WRITE_PHY_REG add,dat
+  93              	   ldr    r2,=0xE6790624 //;DBPDRGA0
+  94              	   ldr    r3,=0xE6790628 //;DBPDRGD0
+  95              	   ldr    r1,= \add
+  96              	   ldr    r0,= \dat
+  97              	   BL  SUB_WRITE_PHY_REG
+  98              	   nop
+  99              	   .endm
+ 100              	   //-------------------------------------------
+ 101              	
+ 102              	   //;=======================================================================
+ 103              	   //; For DBS0
+ 104              	   //;=======================================================================
+ 105              	   //; ADD H3ES2
+ 106 0070 B40B9FE5 	   MYWRITE   0xE6790100,0x00001234//DBSYSCNT0 REGROCK enable
+ 106      B41B9FE5 
+ 106      000081E5 
+ 107 007c A80B9FE5 	   MYWRITE   0xE6790108,0x00001234//DBSYSCNT0A REGROCKA enable
+ 107      AC1B9FE5 
+ 107      000081E5 
+ 108              	   //;; WAIT
+ 109 0088 0A00A0E3 	   MYWRITE   0xE6790020,0x0000000a//dbkind	ddcg=a(lpddr4)
+ 109      A41B9FE5 
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 3
+
+
+ 109      000081E5 
+ 110 0094 0A00A0E3 	   MYWRITE   0xE6790024,0x0000000a//dbkinda	ddcga=a(lpddr4)
+ 110      9C1B9FE5 
+ 110      000081E5 
+ 111              	   //;   MYWRITE   0xE6790030,0x0e030a02;memconf00(ch0/rank0), 4Gbit
+ 112 00a0 980B9FE5 	   MYWRITE   0xE6790030,0x0e030a01//memconf00(ch0/rank0), 2Gbit
+ 112      981B9FE5 
+ 112      000081E5 
+ 113 00ac 8C0B9FE5 	   MYWRITE   0xE6790070,0x0e030a01//memconf00a(ch0/rank0), 2Gbit (clk_axim)
+ 113      901B9FE5 
+ 113      000081E5 
+ 114 00b8 800B9FE5 	   MYWRITE   0xE6790034,0x0e030a01//memconf01(ch0/rank1), 2Gbit
+ 114      881B9FE5 
+ 114      000081E5 
+ 115 00c4 740B9FE5 	   MYWRITE   0xE6790074,0x0e030a01//memconf01a(ch0/rank1), 2Gbit (clk_axim)
+ 115      801B9FE5 
+ 115      000081E5 
+ 116 00d0 680B9FE5 	   MYWRITE   0xE6790040,0x0e030a01//memconf10(ch1/rank0), 2Gbit
+ 116      781B9FE5 
+ 116      000081E5 
+ 117 00dc 5C0B9FE5 	   MYWRITE   0xE6790080,0x0e030a01//memconf10a(ch1/rank0), 2Gbit (clk_axim)
+ 117      701B9FE5 
+ 117      000081E5 
+ 118 00e8 500B9FE5 	   MYWRITE   0xE6790044,0x0e030a01//memconf11(ch1/rank1), 2Gbit
+ 118      681B9FE5 
+ 118      000081E5 
+ 119 00f4 440B9FE5 	   MYWRITE   0xE6790084,0x0e030a01//memconf11a(ch1/rank1), 2Gbit (clk_axim)
+ 119      601B9FE5 
+ 119      000081E5 
+ 120 0100 380B9FE5 	   MYWRITE   0xE6790050,0x0e030a01//memconf00(ch2/rank0), 2Gbit
+ 120      581B9FE5 
+ 120      000081E5 
+ 121 010c 2C0B9FE5 	   MYWRITE   0xE6790090,0x0e030a01//memconf00a(ch2/rank0), 2Gbit (clk_axim)
+ 121      501B9FE5 
+ 121      000081E5 
+ 122 0118 200B9FE5 	   MYWRITE   0xE6790054,0x0e030a01//memconf01(ch2/rank1), 2Gbit
+ 122      481B9FE5 
+ 122      000081E5 
+ 123 0124 140B9FE5 	   MYWRITE   0xE6790094,0x0e030a01//memconf01a(ch2/rank1), 2Gbit (clk_axim)
+ 123      401B9FE5 
+ 123      000081E5 
+ 124 0130 080B9FE5 	   MYWRITE   0xE6790060,0x0e030a01//memconf10(ch3/rank0), 2Gbit
+ 124      381B9FE5 
+ 124      000081E5 
+ 125 013c FC0A9FE5 	   MYWRITE   0xE67900a0,0x0e030a01//memconf10a(ch3/rank0), 2Gbit (clk_axim)
+ 125      301B9FE5 
+ 125      000081E5 
+ 126 0148 F00A9FE5 	   MYWRITE   0xE6790064,0x0e030a01//memconf11(ch3/rank1), 2Gbit
+ 126      281B9FE5 
+ 126      000081E5 
+ 127 0154 E40A9FE5 	   MYWRITE   0xE67900a4,0x0e030a01//memconf11a(ch3/rank1), 2Gbit (clk_axim)
+ 127      201B9FE5 
+ 127      000081E5 
+ 128              	   //;   MYWRITE   0xE6790050,0x0e030a02;memconf20(ch2/rank0), 4Gbit
+ 129              	   //;   MYWRITE   0xE6790054,0x0e030a02;memconf21(ch2/rank1), 4Gbit
+ 130              	   //;   MYWRITE   0xE6790060,0x0e030a02;memconf30(ch3/rank0), 4Gbit
+ 131              	   //;   MYWRITE   0xE6790064,0x0e030a02;memconf31(ch3/rank1), 4Gbit
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 4
+
+
+ 132 0160 0000A0E3 	   MYWRITE   0xE6790104,0x00000000//dbsyscnt1       
+ 132      181B9FE5 
+ 132      000081E5 
+ 133 016c 0100A0E3 	   MYWRITE   0xE6790010,0x00000001//DBPHYCONF0 01:DFI
+ 133      101B9FE5 
+ 133      000081E5 
+ 134              	   //;        .pool
+ 135 0178 2800A0E3 	   MYWRITE   0xE6790300,0x00000028//dbtr0	cl=40
+ 135      081B9FE5 
+ 135      000081E5 
+ 136 0184 1200A0E3 	   MYWRITE   0xE6790304,0x00000012//dbtr1	cwl=14
+ 136      001B9FE5 
+ 136      000081E5 
+ 137              	   //;   MYWRITE   0xE6790308,0x00000000;dbtr2	al=0
+ 138 0190 2700A0E3 	   MYWRITE   0xE679030C,0x00000027//dbtr3	trcd=39
+ 138      F81A9FE5 
+ 138      000081E5 
+ 139 019c F40A9FE5 	   MYWRITE   0xE6790310,0x002D0027//dbtr4	trpa=45	trp=39
+ 139      F41A9FE5 
+ 139      000081E5 
+ 140 01a8 8700A0E3 	   MYWRITE   0xE6790314,0x00000087//dbtr5	trc=135
+ 140      EC1A9FE5 
+ 140      000081E5 
+ 141 01b4 5A00A0E3 	   MYWRITE   0xE6790318,0x0000005A//dbtr6	tras=90
+ 141      E41A9FE5 
+ 141      000081E5 
+ 142 01c0 E00A9FE5 	   MYWRITE   0xE679031C,0x00100010//dbtr7 	trrd_s=16 trrd=16
+ 142      E01A9FE5 
+ 142      000081E5 
+ 143 01cc 4000A0E3 	   MYWRITE   0xE6790320,0x00000040//dbtr8 	tfaw=64
+ 143      D81A9FE5 
+ 143      000081E5 
+ 144 01d8 1000A0E3 	   MYWRITE   0xE6790324,0x00000010//dbtr9	trdpr=16
+ 144      D01A9FE5 
+ 144      000081E5 
+ 145 01e4 2900A0E3 	   MYWRITE   0xE6790328,0x00000029//dbtr10	twr=41
+ 145      C81A9FE5 
+ 145      000081E5 
+ 146 01f0 2900A0E3 	   MYWRITE   0xE679032C,0x00000029//dbtr11 	trdwr>=41 ;; PHY may have restriction of this value.
+ 146      C01A9FE5 
+ 146      000081E5 
+ 147 01fc BC0A9FE5 	   MYWRITE   0xE6790330,0x00310031//dbtr12	twrrd_s>=49 twrrd>=49 ;; PHY may restriction of this val
+ 147      BC1A9FE5 
+ 147      000081E5 
+ 148 0208 B80A9FE5 	   MYWRITE   0xE6790334,0x00000116//dbtr13	trfcpb=0(W/A) trfc=278(2Gbit/ch)
+ 148      B81A9FE5 
+ 148      000081E5 
+ 149 0214 B40A9FE5 	   MYWRITE   0xE6790338,0x00130013//dbtr14	tckehdll=19 tckeh=19
+ 149      B41A9FE5 
+ 149      000081E5 
+ 150 0220 B00A9FE5 	   MYWRITE   0xE679033C,0x00200010//dbtr15	tckesr=32 tckel=16
+ 150      B01A9FE5 
+ 150      000081E5 
+ 151 022c AC0A9FE5 	   MYWRITE   0xE6790340,0x0d400a0e//dbtr16	latency?  CWL=13 CL=32 New dbsc ;; Please refer PHY manu
+ 151      AC1A9FE5 
+ 151      000081E5 
+ 152 0238 A80A9FE5 	   MYWRITE   0xE6790344,0x081E0000//dbtr17	tmodrd=8  tmod=30
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 5
+
+
+ 152      A81A9FE5 
+ 152      000081E5 
+ 153 0244 A40A9FE5 	   MYWRITE   0xE6790350,0x01290129//dbtr20	txsdll=txs=297 txs=trfcab+7.5ns+3nCK(W/A)=297
+ 153      A41A9FE5 
+ 153      000081E5 
+ 154 0250 A00A9FE5 	   MYWRITE   0xE6790354,0x00080008//dbtr21	tccd_s=8 tccd=8
+ 154      A01A9FE5 
+ 154      000081E5 
+ 155 025c 9C0A9FE5 	   MYWRITE   0xE6790358,0x08550040//dbtr22	tzqcal=2133 tzqlat=48
+ 155      9C1A9FE5 
+ 155      000081E5 
+ 156 0268 0300A0E3 	   MYWRITE   0xE679035C,0x00000003//dbtr23
+ 156      941A9FE5 
+ 156      000081E5 
+ 157 0274 0200A0E3 	   MYWRITE   0xE6790400,0x00000002//dbbl		dbbl=2(BL16)(LPDDR4)
+ 157      8C1A9FE5 
+ 157      000081E5 
+ 158 0280 0200A0E3 	   MYWRITE   0xE6790404,0x00000002//dbbla	dbbla=2(BL16)(LPDDR4)
+ 158      841A9FE5 
+ 158      000081E5 
+ 159              	   //;   MYWRITE   0xE6790430,0x00000000;dbrnk0	No odt for DQ exists in LPDDR4(N.Honda).
+ 160              	   //;   MYWRITE   0xE6790434,0x00000000;dbrnk1	Don't need to set it cause we use all-rank refresh.
+ 161 028c 800A9FE5 	   MYWRITE   0xE6790438,0x00004444//dbrnk2	rkrr = 4 (Are there any info ?)
+ 161      801A9FE5 
+ 161      000081E5 
+ 162 0298 740A9FE5 	   MYWRITE   0xE679043C,0x00004444//dbrnk3	rkrw = 4 (Are there any info ?)
+ 162      781A9FE5 
+ 162      000081E5 
+ 163 02a4 680A9FE5 	   MYWRITE   0xE6790440,0x00004444//dbrnk4	rkwr = 4 (Are there any info ?)
+ 163      701A9FE5 
+ 163      000081E5 
+ 164 02b0 5C0A9FE5 	   MYWRITE   0xE6790444,0x00004444//dbrnk5	rkww = 4 (Are there any info ?)
+ 164      681A9FE5 
+ 164      000081E5 
+ 165              	   //;   MYWRITE   0xE6790448,0x00000000;dbrnk6	use all-rank/all-bank refresh
+ 166              	   //;   MYWRITE   0xE6790500,0x00000000;dbadj0	currently, no optional setting exists.
+ 167              	   //;   MYWRITE   0xE6790508,0x00000000;dbadj2	currently, no optional setting exists.
+ 168              	   //;   MYWRITE   0xE6790900,0x00000000;dbcam0cnf0	inoen=0, actually it is not used.
+ 169 02bc 640A9FE5 	   MYWRITE   0xE6790904,0x00104214//dbcam0cnf1	wbkwait=8, wbkmdhi=32, wbkmdlo=16
+ 169      641A9FE5 
+ 169      000081E5 
+ 170 02c8 710FA0E3 	   MYWRITE   0xE6790908,0x000001c4//dbcam0cnf2	scexp=8192
+ 170      5C1A9FE5 
+ 170      000081E5 
+ 171 02d4 0300A0E3 	   MYWRITE   0xE679090C,0x00000003//dbcam0cnf3       
+ 171      541A9FE5 
+ 171      000081E5 
+ 172              	
+ 173 02e0 500A9FE5 	   MYWRITE   0xE6791000,0x000f0037//dbschcnt0
+ 173      501A9FE5 
+ 173      000081E5 
+ 174 02ec 4C0A9FE5 	   MYWRITE   0xE6791004,0x00001010//dbschcnt1
+ 174      4C1A9FE5 
+ 174      000081E5 
+ 175 02f8 0100A0E3 	   MYWRITE   0xE6791010,0x00000001//dbschsz0
+ 175      441A9FE5 
+ 175      000081E5 
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 6
+
+
+ 176 0304 400A9FE5 	   MYWRITE   0xE6791020,0xf7311111//dbschrw0
+ 176      401A9FE5 
+ 176      000081E5 
+ 177 0310 3C0A9FE5 	   MYWRITE   0xE6791024,0x00001834//dbschrw1
+ 177      3C1A9FE5 
+ 177      000081E5 
+ 178 031c 0000E0E3 	   MYWRITE   0xE6791030,0xffffffff//dbschqos00 QoS = 00_00 doesn't come from AXI
+ 178      341A9FE5 
+ 178      000081E5 
+ 179 0328 120DA0E3 	   MYWRITE   0xE6791034,0x00000480//dbschqos01
+ 179      2C1A9FE5 
+ 179      000081E5 
+ 180 0334 030CA0E3 	   MYWRITE   0xE6791038,0x00000300//dbschqos02
+ 180      241A9FE5 
+ 180      000081E5 
+ 181 0340 060DA0E3 	   MYWRITE   0xE679103C,0x00000180//dbschqos03
+ 181      1C1A9FE5 
+ 181      000081E5 
+ 182              	   //;   MYWRITE   0xE6791030,0x00000600;dbschqos00	QoS = 00_00 doesn't come from AXI
+ 183              	   //;   MYWRITE   0xE6791034,0x00000480;dbschqos01
+ 184              	   //;   MYWRITE   0xE6791038,0x00000300;dbschqos02
+ 185              	   //;   MYWRITE   0xE679103C,0x00000180;dbschqos03
+ 186              	   //;   MYWRITE   0xE6791040,0x00000600;dbschqos10	QoS = 00_01 doesn't come from AXI
+ 187              	   //;   MYWRITE   0xE6791044,0x00000480;dbschqos11
+ 188              	   //;   MYWRITE   0xE6791048,0x00000300;dbschqos12
+ 189              	   //;   MYWRITE   0xE679104C,0x00000180;dbschqos13
+ 190              	   //;   MYWRITE   0xE6791050,0x00000600;dbschqos20	QoS = 00_10 doesn't come from AXI
+ 191              	   //;   MYWRITE   0xE6791054,0x00000480;dbschqos21
+ 192              	   //;   MYWRITE   0xE6791058,0x00000300;dbschqos22
+ 193              	   //;   MYWRITE   0xE679105C,0x00000180;dbschqos23
+ 194              	   //;   MYWRITE   0xE6791060,0x00000600;dbschqos30	QoS = 00_11 doesn't come from AXI
+ 195              	   //;   MYWRITE   0xE6791064,0x00000480;dbschqos31
+ 196              	   //;   MYWRITE   0xE6791068,0x00000300;dbschqos32
+ 197              	   //;   MYWRITE   0xE679106C,0x00000180;dbschqos33
+ 198 034c 060CA0E3 	   MYWRITE   0xE6791070,0x00000600//dbschqos40
+ 198      141A9FE5 
+ 198      000081E5 
+ 199 0358 120DA0E3 	   MYWRITE   0xE6791074,0x00000480//dbschqos41
+ 199      0C1A9FE5 
+ 199      000081E5 
+ 200 0364 030CA0E3 	   MYWRITE   0xE6791078,0x00000300//dbschqos42
+ 200      041A9FE5 
+ 200      000081E5 
+ 201 0370 060DA0E3 	   MYWRITE   0xE679107C,0x00000180//dbschqos43
+ 201      FC199FE5 
+ 201      000081E5 
+ 202              	   //;   MYWRITE   0xE6791080,0x00000400;dbschqos50	QoS = 01_01 doesn't come from AXI
+ 203              	   //;   MYWRITE   0xE6791084,0x00000300;dbschqos51
+ 204              	   //;   MYWRITE   0xE6791088,0x00000200;dbschqos52
+ 205              	   //;   MYWRITE   0xE679108C,0x00000100;dbschqos53
+ 206              	   //;   MYWRITE   0xE6791090,0x00000400;dbschqos60	QoS = 01_10 doesn't come from AXI
+ 207              	   //;   MYWRITE   0xE6791094,0x00000300;dbschqos61
+ 208              	   //;   MYWRITE   0xE6791098,0x00000200;dbschqos62
+ 209              	   //;   MYWRITE   0xE679109C,0x00000100;dbschqos63
+ 210              	   //;   MYWRITE   0xE67910A0,0x00000400;dbschqos70	QoS = 01_11 doesn't come from AXI
+ 211              	   //;   MYWRITE   0xE67910A4,0x00000300;dbschqos71
+ 212              	   //;   MYWRITE   0xE67910A8,0x00000200;dbschqos72
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 7
+
+
+ 213              	   //;   MYWRITE   0xE67910AC,0x00000100;dbschqos73
+ 214              	   //;   MYWRITE   0xE67910B0,0x00000400;dbschqos80	QoS = 10_00 doesn't come from AXI
+ 215              	   //;   MYWRITE   0xE67910B4,0x00000300;dbschqos81
+ 216              	   //;   MYWRITE   0xE67910B8,0x00000200;dbschqos82
+ 217              	   //;   MYWRITE   0xE67910BC,0x00000100;dbschqos83
+ 218 037c 010BA0E3 	   MYWRITE   0xE67910C0,0x00000400//dbschqos90
+ 218      F4199FE5 
+ 218      000081E5 
+ 219 0388 030CA0E3 	   MYWRITE   0xE67910C4,0x00000300//dbschqos91
+ 219      EC199FE5 
+ 219      000081E5 
+ 220 0394 020CA0E3 	   MYWRITE   0xE67910C8,0x00000200//dbschqos92
+ 220      E4199FE5 
+ 220      000081E5 
+ 221 03a0 010CA0E3 	   MYWRITE   0xE67910CC,0x00000100//dbschqos93
+ 221      DC199FE5 
+ 221      000081E5 
+ 222              	   //;   MYWRITE   0xE67910D0,0x00000300;dbschqos100	QoS = 10_10 doesn't come from AXI
+ 223              	   //;   MYWRITE   0xE67910D4,0x00000240;dbschqos101
+ 224              	   //;   MYWRITE   0xE67910D8,0x00000180;dbschqos102
+ 225              	   //;   MYWRITE   0xE67910DC,0x000000c0;dbschqos103
+ 226              	   //;   MYWRITE   0xE67910E0,0x00000300;dbschqos110	QoS = 10_11 doesn't come from AXI
+ 227              	   //;   MYWRITE   0xE67910E4,0x00000240;dbschqos111
+ 228              	   //;   MYWRITE   0xE67910E8,0x00000180;dbschqos112
+ 229              	   //;   MYWRITE   0xE67910EC,0x000000c0;dbschqos113
+ 230              	   //;   MYWRITE   0xE67910F0,0x00000300;dbschqos120	QoS = 11_00 doesn't come from AXI
+ 231              	   //;   MYWRITE   0xE67910F4,0x00000240;dbschqos121
+ 232              	   //;   MYWRITE   0xE67910F8,0x00000180;dbschqos122
+ 233              	   //;   MYWRITE   0xE67910FC,0x000000c0;dbschqos123
+ 234 03ac 030CA0E3 	   MYWRITE   0xE6791100,0x00000300//dbschqos130
+ 234      D4199FE5 
+ 234      000081E5 
+ 235 03b8 090DA0E3 	   MYWRITE   0xE6791104,0x00000240//dbschqos131
+ 235      CC199FE5 
+ 235      000081E5 
+ 236 03c4 060DA0E3 	   MYWRITE   0xE6791108,0x00000180//dbschqos132
+ 236      C4199FE5 
+ 236      000081E5 
+ 237 03d0 C000A0E3 	   MYWRITE   0xE679110C,0x000000c0//dbschqos133
+ 237      BC199FE5 
+ 237      000081E5 
+ 238 03dc 020CA0E3 	   MYWRITE   0xE6791110,0x00000200//dbschqos140
+ 238      B4199FE5 
+ 238      000081E5 
+ 239 03e8 060DA0E3 	   MYWRITE   0xE6791114,0x00000180//dbschqos141
+ 239      AC199FE5 
+ 239      000081E5 
+ 240 03f4 010CA0E3 	   MYWRITE   0xE6791118,0x00000100//dbschqos142
+ 240      A4199FE5 
+ 240      000081E5 
+ 241 0400 8000A0E3 	   MYWRITE   0xE679111C,0x00000080//dbschqos143
+ 241      9C199FE5 
+ 241      000081E5 
+ 242 040c 010CA0E3 	   MYWRITE   0xE6791120,0x00000100//dbschqos150
+ 242      94199FE5 
+ 242      000081E5 
+ 243 0418 C000A0E3 	   MYWRITE   0xE6791124,0x000000c0//dbschqos151
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 8
+
+
+ 243      8C199FE5 
+ 243      000081E5 
+ 244 0424 8000A0E3 	   MYWRITE   0xE6791128,0x00000080//dbschqos152
+ 244      84199FE5 
+ 244      000081E5 
+ 245 0430 4000A0E3 	   MYWRITE   0xE679112C,0x00000040//dbschqos153
+ 245      7C199FE5 
+ 245      000081E5 
+ 246              	
+ 247 043c 78099FE5 	   MYWRITE   0xE6791700,0x220E110A//dbschfctst0 scactact=34, scrdact=14, scwract=17, scpreact=10
+ 247      78199FE5 
+ 247      000081E5 
+ 248 0448 74099FE5 	   MYWRITE   0xE6791708,0x0B0D0A0C//dbschfctst1 scrdwr=11, scwrrd=13, scactrdwr=10, scasyncofs=12
+ 248      74199FE5 
+ 248      000081E5 
+ 249 0454 70099FE5 	   MYWRITE   0xE679170C,0x111f1fff//dbschfctst2 wrperi3=1, wrperi2=1, wrperi1=1, wrperi0=15, rdperi
+ 249      70199FE5 
+ 249      000081E5 
+ 250              	
+ 251 0460 0100A0E3 	   MYWRITE   0xE6790000,0x00000001//dbsysconf0	rg_pch=2, rg_mch=2.
+ 251      68199FE5 
+ 251      000081E5 
+ 252 046c 0200A0E3 	   MYWRITE   0xE6790004,0x00000002//dbsysconf1	freqratio=2.
+ 252      60199FE5 
+ 252      000081E5 
+ 253 0478 0200A0E3 	   MYWRITE   0xE6790008,0x00000002//dbsysconf1a	freqratioa=2.
+ 253      58199FE5 
+ 253      000081E5 
+ 254 0484 0100A0E3 	   MYWRITE   0xE679000c,0x00000001//dbsysconf2	schmd=1 (2ch mode).
+ 254      50199FE5 
+ 254      000081E5 
+ 255 0490 4100A0E3 	   MYWRITE   0xE6790014,0x00000041//dbsysconf2a	chpos=8(256Byte channel interleave), schmda=1 (2ch 
+ 255      48199FE5 
+ 255      000081E5 
+ 256              	
+ 257              	   //;        .pool
+ 258              	   //;   MYWRITE   0xE6790604,0x00000010;dbdficnt0
+ 259              	   //;   MYWRITE   0xE6790644,0x00000010;dbdficnt1
+ 260              	   //;   MYWRITE   0xE6790684,0x00000010;dbdficnt2
+ 261              	   //;   MYWRITE   0xE67906C4,0x00000010;dbdficnt3
+ 262              	   //; wait init_complete
+ 263              	   //;   MYWRITE   0xE6790904,0x00044020;
+ 264              	   //;   MYWRITE   0xE6790908,0x00000008;
+ 265              	
+ 266              	   //; FOR 1212B
+ 267              	   //;   MYWRITE   0xE6790904,0x0004140c;
+ 268              	   //;   MYWRITE   0xE6790908,0x00000008;
+ 269              	   //;   MYWRITE   0xE6791010,0x00000003;
+ 270              	   //;   MYWRITE   0xE6791024,0x001a0080;
+ 271              	
+ 272              	   //; FOR 1213A
+ 273              	   //   MYWRITE   0xE6790904,0x00040C04;
+ 274              	   //   MYWRITE   0xE6790908,0x00000108;
+ 275              	   //   MYWRITE   0xE6791010,0x00000003;
+ 276              	   //   MYWRITE   0xE6791024,0x001a0080;
+ 277              	
+ 278              	   //; Add 2015/07/29 M.Sano
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 9
+
+
+ 279              	   //; Remove comment by mochi for H3 ;; Comment Out 2015/07/29 M.Sano
+ 280 049c 1100A0E3 	   MYWRITE   0xE6790604,0x00000011//dbdficnt0 freq_ratio = 01 (2:1)init_start =1 
+ 280      40199FE5 
+ 280      000081E5 
+ 281 04a8 1100A0E3 	   MYWRITE   0xE6790644,0x00000011//dbdficnt1 freq_ratio = 01 (2:1)init_start =1 
+ 281      38199FE5 
+ 281      000081E5 
+ 282 04b4 1100A0E3 	   MYWRITE   0xE6790684,0x00000011//dbdficnt2 freq_ratio = 01 (2:1)init_start =1 
+ 282      30199FE5 
+ 282      000081E5 
+ 283 04c0 1100A0E3 	   MYWRITE   0xE67906C4,0x00000011//dbdficnt3 freq_ratio = 01 (2:1)init_start =1 
+ 283      28199FE5 
+ 283      000081E5 
+ 284              	
+ 285 04cc 24099FE5 	   MYWRITE   0xE679061C,0x0000CF01//dll_rst_n0 -> 1
+ 285      24199FE5 
+ 285      000081E5 
+ 286 04d8 18099FE5 	   MYWRITE   0xE679065C,0x0000CF01//dll_rst_n0 -> 1
+ 286      1C199FE5 
+ 286      000081E5 
+ 287 04e4 0C099FE5 	   MYWRITE   0xE679069C,0x0000CF01//dll_rst_n0 -> 1
+ 287      14199FE5 
+ 287      000081E5 
+ 288 04f0 00099FE5 	   MYWRITE   0xE67906DC,0x0000CF01//dll_rst_n0 -> 1
+ 288      0C199FE5 
+ 288      000081E5 
+ 289              	
+ 290              	
+ 291 04fc 0160A0E3 	   ldr   r6, =0x00000001
+ 292              	
+ 293              	wait_init_complete:
+ 294 0500 04099FE5 	   ldr   r0, =0xE6790600
+ 295 0504 007090E5 	   ldr   r7, [r0,#0x0]
+ 296 0508 077006E0 	   and   r7, r6, r7
+ 297 050c 070056E1 	   cmp   r6, r7
+ 298 0510 FAFFFF1A 	   bne   wait_init_complete
+ 299              	
+ 300 0514 F4089FE5 	   ldr   r0, =0xE6790640
+ 301 0518 007090E5 	   ldr   r7, [r0,#0x0]
+ 302 051c 077006E0 	   and   r7, r6, r7
+ 303 0520 070056E1 	   cmp   r6, r7
+ 304 0524 F5FFFF1A 	   bne   wait_init_complete
+ 305              	
+ 306              	   //; Remove comment by mochi for H3 ;; Comment Out 2015/07/29 M.Sano
+ 307 0528 E4089FE5 	   ldr   r0, =0xE6790680
+ 308 052c 007090E5 	   ldr   r7, [r0,#0x0]
+ 309 0530 077006E0 	   and   r7, r6, r7
+ 310 0534 070056E1 	   cmp   r6, r7
+ 311 0538 F0FFFF1A 	   bne   wait_init_complete
+ 312              	
+ 313 053c D4089FE5 	   ldr   r0, =0xE67906C0
+ 314 0540 007090E5 	   ldr   r7, [r0,#0x0]
+ 315 0544 077006E0 	   and   r7, r6, r7
+ 316 0548 070056E1 	   cmp   r6, r7
+ 317 054c EBFFFF1A 	   bne   wait_init_complete
+ 318              	
+ 319 0550 7C089FE5 	   ldr r0, =0xE6790000
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 10
+
+
+ 320              	
+ 321              	   //;MRR,MRW
+ 322 0554 C0089FE5 	   MYWRITE   0xE6790208,0x08840000//	PDE ch0 rk0
+ 322      C0189FE5 
+ 322      000081E5 
+ 323 0560 BC089FE5 	   MYWRITE   0xE6790208,0x08840001//	PDX ch0 rk0
+ 323      B4189FE5 
+ 323      000081E5 
+ 324 056c B4089FE5 	   MYWRITE   0xE6790208,0x01840001//	RSX ch0 rk0
+ 324      A8189FE5 
+ 324      000081E5 
+ 325 0578 AC089FE5 	   MYWRITE   0xE6790208,0x0e840aff//	MRW ch0 rk0 0a:ff ZQCinit
+ 325      9C189FE5 
+ 325      000081E5 
+ 326              	   //; test 0427    MYWRITE   0xE6790208,0x0e8401d4;	MRW ch0 rk0 01:43 DeviceFeature1(010, 011(nWR=
+ 327 0584 A4089FE5 	   MYWRITE   0xE6790208,0x0e840154//	MRW ch0 rk0 01:43 DeviceFeature1(010, 011(nWR=30,BL8))
+ 327      90189FE5 
+ 327      000081E5 
+ 328 0590 9C089FE5 	   MYWRITE   0xE6790208,0x0e84022e//	MRW ch0 rk0 02:24 DeviceFeature2(0,0,1,1010(WLSetA,RL32,WL14))
+ 328      84189FE5 
+ 328      000081E5 
+ 329              	
+ 330 059c 94089FE5 	   MYWRITE   0xE6790208,0x0d84004F//     MPC chA rkA 4F (ZQCAL start)
+ 330      78189FE5 
+ 330      000081E5 
+ 331 05a8 8C089FE5 	   MYWRITE   0xE6790208,0x0d840051//     MPC chA rkA 51 (ZQCAL latch)
+ 331      6C189FE5 
+ 331      000081E5 
+ 332              	
+ 333              	   //
+ 334 05b4 84089FE5 	   MYWRITE   0xE6790804,0x70000100//dbbus0cnf1
+ 334      84189FE5 
+ 334      000081E5 
+ 335 05c0 80089FE5 	   MYWRITE   0xE6790800,0x18010001//dbbus0cnf
+ 335      80189FE5 
+ 335      000081E5 
+ 336              	   //;   MYWRITE   0xE6790410,0x000000000;dbrfcnf0	refthf=0 This parameter is obsolete, no real eff
+ 337 05cc 7C089FE5 	   MYWRITE   0xE6790414,0x00081860//dbrfcnf1	refpmax=8 refint=6240
+ 337      7C189FE5 
+ 337      000081E5 
+ 338 05d8 0108A0E3 	   MYWRITE   0xE6790418,0x00010000//dbrfcnf2	refpmin=1 refints=0
+ 338      74189FE5 
+ 338      000081E5 
+ 339 05e4 0100A0E3 	   MYWRITE   0xE6790204,0x00000001//dbrfen
+ 339      6C189FE5 
+ 339      000081E5 
+ 340              	   //; PHY reg patch 
+ 341              	   //   MYWRITE   0xE6790620,0x0000A55A;	Unlock 
+ 342              	   //      MYWRITE   0xE6790624,0x0000042A;	
+ 343              	   //      MYWRITE   0xE6790628,0x01000005;   Original = 0x00000005;	add write_path_lat_0 0 -> 1
+ 344              	   //      MYWRITE   0xE6790624,0x00000408;	
+ 345              	   //      MYWRITE   0xE6790628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ 346              	   //      MYWRITE   0xE6790624,0x00000488;	
+ 347              	   //      MYWRITE   0xE6790628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ 348              	   //      MYWRITE   0xE6790624,0x00000508;	
+ 349              	   //      MYWRITE   0xE6790628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ 350              	   //      MYWRITE   0xE6790624,0x00000588;	
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 11
+
+
+ 351              	   //      MYWRITE   0xE6790628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ 352              	   //      MYWRITE   0xE6790624,0x0000040a;	
+ 353              	   //      MYWRITE   0xE6790628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 354              	   //      MYWRITE   0xE6790624,0x0000048a;	
+ 355              	   //      MYWRITE   0xE6790628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 356              	   //      MYWRITE   0xE6790624,0x0000050a;	
+ 357              	   //      MYWRITE   0xE6790628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 358              	   //      MYWRITE   0xE6790624,0x0000058a;	
+ 359              	   //      MYWRITE   0xE6790628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 360              	
+ 361 05f0 68089FE5 	   MYWRITE   0xE6790620,0x0000A55A//	Unlock 
+ 361      68189FE5 
+ 361      000081E5 
+ 362 05fc 5C089FE5 	   MYWRITE   0xE6790660,0x0000A55A//	Unlock 
+ 362      60189FE5 
+ 362      000081E5 
+ 363 0608 50089FE5 	   MYWRITE   0xE67906a0,0x0000A55A//	Unlock 
+ 363      58189FE5 
+ 363      000081E5 
+ 364 0614 44089FE5 	   MYWRITE   0xE67906e0,0x0000A55A//	Unlock 
+ 364      50189FE5 
+ 364      000081E5 
+ 365              	   //;   PHYWRITE  0x0000061f , 0x00000355;   Original = #H'00030055;	Change phy_adrY_clk_wr_slave_
+ 366              	   //;   PHYWRITE  0x00000620 , 0x00030003;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 367              	   //;   PHYWRITE  0x00000621 , 0x00030003;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 368              	   //;   PHYWRITE  0x00000622 , 0x00000003;   Original = #H'00000300;	Change phy_adrY_clk_wr_slave_
+ 369              	   //;   PHYWRITE  0x0000069d , 0x00000300;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 370              	   //;   PHYWRITE  0x0000069e , 0x00030003;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 371              	   //;   PHYWRITE  0x0000069f , 0x00000003;   Original = #H'00000300;	Change phy_adrY_clk_wr_slave_
+ 372              	
+ 373 0620 0100A0E3 	   MYWRITE   0xE6790200,0x00000001//dbacen
+ 373      48189FE5 
+ 373      000081E5 
+ 374              	   //;        .pool
+ 375              	
+ 376 062c 0100A0E3 	   MYWRITE   0xE67F0024,0x00000001// ; V3U DN2 (test mode)
+ 376      40189FE5 
+ 376      000081E5 
+ 377              	   //   MYWRITE   0xE67F0054,0x00010000;
+ 378              	   //   MYWRITE   0xE67F0018,0x00000001;
+ 379 0638 0000A0E3 	   MYWRITE   0xE67F0018,0x00000000// ; V3U DN2 (test mode)
+ 379      38189FE5 
+ 379      000081E5 
+ 380              	
+ 381              	
+ 382              	   //;=======================================================================
+ 383              	   //; For DBS1
+ 384              	   //;=======================================================================
+ 385              	   //; ADD H3ES2
+ 386 0644 E0059FE5 	   MYWRITE   0xE6798100,0x00001234//DBSYSCNT0 REGROCK enable
+ 386      30189FE5 
+ 386      000081E5 
+ 387 0650 D4059FE5 	   MYWRITE   0xE6798108,0x00001234//DBSYSCNT0A REGROCKA enable
+ 387      28189FE5 
+ 387      000081E5 
+ 388              	   //;; WAIT
+ 389 065c 0A00A0E3 	   MYWRITE   0xE6798020,0x0000000a//dbkind	ddcg=a(lpddr4)
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 12
+
+
+ 389      20189FE5 
+ 389      000081E5 
+ 390 0668 0A00A0E3 	   MYWRITE   0xE6798024,0x0000000a//dbkinda	ddcga=a(lpddr4)
+ 390      18189FE5 
+ 390      000081E5 
+ 391              	   //;   MYWRITE   0xE6798030,0x0e030a02;memconf00(ch0/rank0), 4Gbit
+ 392 0674 C4059FE5 	   MYWRITE   0xE6798030,0x0e030a01//memconf00(ch0/rank0), 2Gbit
+ 392      10189FE5 
+ 392      000081E5 
+ 393 0680 B8059FE5 	   MYWRITE   0xE6798070,0x0e030a01//memconf00a(ch0/rank0), 2Gbit (clk_axim)
+ 393      08189FE5 
+ 393      000081E5 
+ 394 068c AC059FE5 	   MYWRITE   0xE6798034,0x0e030a01//memconf01(ch0/rank1), 2Gbit
+ 394      00189FE5 
+ 394      000081E5 
+ 395 0698 A0059FE5 	   MYWRITE   0xE6798074,0x0e030a01//memconf01a(ch0/rank1), 2Gbit (clk_axim)
+ 395      F8179FE5 
+ 395      000081E5 
+ 396 06a4 94059FE5 	   MYWRITE   0xE6798040,0x0e030a01//memconf10(ch1/rank0), 2Gbit
+ 396      F0179FE5 
+ 396      000081E5 
+ 397 06b0 88059FE5 	   MYWRITE   0xE6798080,0x0e030a01//memconf10a(ch1/rank0), 2Gbit (clk_axim)
+ 397      E8179FE5 
+ 397      000081E5 
+ 398 06bc 7C059FE5 	   MYWRITE   0xE6798044,0x0e030a01//memconf11(ch1/rank1), 2Gbit
+ 398      E0179FE5 
+ 398      000081E5 
+ 399 06c8 70059FE5 	   MYWRITE   0xE6798084,0x0e030a01//memconf11a(ch1/rank1), 2Gbit (clk_axim)
+ 399      D8179FE5 
+ 399      000081E5 
+ 400 06d4 64059FE5 	   MYWRITE   0xE6798050,0x0e030a01//memconf00(ch2/rank0), 2Gbit
+ 400      D0179FE5 
+ 400      000081E5 
+ 401 06e0 58059FE5 	   MYWRITE   0xE6798090,0x0e030a01//memconf00a(ch2/rank0), 2Gbit (clk_axim)
+ 401      C8179FE5 
+ 401      000081E5 
+ 402 06ec 4C059FE5 	   MYWRITE   0xE6798054,0x0e030a01//memconf01(ch2/rank1), 2Gbit
+ 402      C0179FE5 
+ 402      000081E5 
+ 403 06f8 40059FE5 	   MYWRITE   0xE6798094,0x0e030a01//memconf01a(ch2/rank1), 2Gbit (clk_axim)
+ 403      B8179FE5 
+ 403      000081E5 
+ 404 0704 34059FE5 	   MYWRITE   0xE6798060,0x0e030a01//memconf10(ch3/rank0), 2Gbit
+ 404      B0179FE5 
+ 404      000081E5 
+ 405 0710 28059FE5 	   MYWRITE   0xE67980a0,0x0e030a01//memconf10a(ch3/rank0), 2Gbit (clk_axim)
+ 405      A8179FE5 
+ 405      000081E5 
+ 406 071c 1C059FE5 	   MYWRITE   0xE6798064,0x0e030a01//memconf11(ch3/rank1), 2Gbit
+ 406      A0179FE5 
+ 406      000081E5 
+ 407 0728 10059FE5 	   MYWRITE   0xE67980a4,0x0e030a01//memconf11a(ch3/rank1), 2Gbit (clk_axim)
+ 407      98179FE5 
+ 407      000081E5 
+ 408              	   //;   MYWRITE   0xE6798050,0x0e030a02;memconf20(ch2/rank0), 4Gbit
+ 409              	   //;   MYWRITE   0xE6798054,0x0e030a02;memconf21(ch2/rank1), 4Gbit
+ 410              	   //;   MYWRITE   0xE6798060,0x0e030a02;memconf30(ch3/rank0), 4Gbit
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 13
+
+
+ 411              	   //;   MYWRITE   0xE6798064,0x0e030a02;memconf31(ch3/rank1), 4Gbit
+ 412 0734 0000A0E3 	   MYWRITE   0xE6798104,0x00000000//dbsyscnt1       
+ 412      90179FE5 
+ 412      000081E5 
+ 413 0740 0100A0E3 	   MYWRITE   0xE6798010,0x00000001//DBPHYCONF0 01:DFI
+ 413      88179FE5 
+ 413      000081E5 
+ 414              	   //;        .pool
+ 415 074c 2800A0E3 	   MYWRITE   0xE6798300,0x00000028//dbtr0	cl=40
+ 415      80179FE5 
+ 415      000081E5 
+ 416 0758 1200A0E3 	   MYWRITE   0xE6798304,0x00000012//dbtr1	cwl=14
+ 416      78179FE5 
+ 416      000081E5 
+ 417              	   //;   MYWRITE   0xE6798308,0x00000000;dbtr2	al=0
+ 418 0764 2700A0E3 	   MYWRITE   0xE679830C,0x00000027//dbtr3	trcd=39
+ 418      70179FE5 
+ 418      000081E5 
+ 419 0770 20059FE5 	   MYWRITE   0xE6798310,0x002D0027//dbtr4	trpa=45	trp=39
+ 419      68179FE5 
+ 419      000081E5 
+ 420 077c 8700A0E3 	   MYWRITE   0xE6798314,0x00000087//dbtr5	trc=135
+ 420      60179FE5 
+ 420      000081E5 
+ 421 0788 5A00A0E3 	   MYWRITE   0xE6798318,0x0000005A//dbtr6	tras=90
+ 421      58179FE5 
+ 421      000081E5 
+ 422 0794 0C059FE5 	   MYWRITE   0xE679831C,0x00100010//dbtr7 	trrd_s=16 trrd=16
+ 422      50179FE5 
+ 422      000081E5 
+ 423 07a0 4000A0E3 	   MYWRITE   0xE6798320,0x00000040//dbtr8 	tfaw=64
+ 423      48179FE5 
+ 423      000081E5 
+ 424 07ac 1000A0E3 	   MYWRITE   0xE6798324,0x00000010//dbtr9	trdpr=16
+ 424      40179FE5 
+ 424      000081E5 
+ 425 07b8 2900A0E3 	   MYWRITE   0xE6798328,0x00000029//dbtr10	twr=41
+ 425      38179FE5 
+ 425      000081E5 
+ 426 07c4 2900A0E3 	   MYWRITE   0xE679832C,0x00000029//dbtr11 	trdwr>=41 ;; PHY may have restriction of this value.
+ 426      30179FE5 
+ 426      000081E5 
+ 427 07d0 E8049FE5 	   MYWRITE   0xE6798330,0x00310031//dbtr12	twrrd_s>=49 twrrd>=49 ;; PHY may restriction of this val
+ 427      28179FE5 
+ 427      000081E5 
+ 428 07dc E4049FE5 	   MYWRITE   0xE6798334,0x00000116//dbtr13	trfcpb=0(W/A) trfc=278(2Gbit/ch)
+ 428      20179FE5 
+ 428      000081E5 
+ 429 07e8 E0049FE5 	   MYWRITE   0xE6798338,0x00130013//dbtr14	tckehdll=19 tckeh=19
+ 429      18179FE5 
+ 429      000081E5 
+ 430 07f4 DC049FE5 	   MYWRITE   0xE679833C,0x00200010//dbtr15	tckesr=32 tckel=16
+ 430      10179FE5 
+ 430      000081E5 
+ 431 0800 D8049FE5 	   MYWRITE   0xE6798340,0x0d400a0e//dbtr16	latency?  CWL=13 CL=32 New dbsc ;; Please refer PHY manu
+ 431      08179FE5 
+ 431      000081E5 
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 14
+
+
+ 432 080c D4049FE5 	   MYWRITE   0xE6798344,0x081E0000//dbtr17	tmodrd=8  tmod=30
+ 432      00179FE5 
+ 432      000081E5 
+ 433 0818 D0049FE5 	   MYWRITE   0xE6798350,0x01290129//dbtr20	txsdll=txs=297 txs=trfcab+7.5ns+3nCK(W/A)=297
+ 433      F8169FE5 
+ 433      000081E5 
+ 434 0824 CC049FE5 	   MYWRITE   0xE6798354,0x00080008//dbtr21	tccd_s=8 tccd=8
+ 434      F0169FE5 
+ 434      000081E5 
+ 435 0830 C8049FE5 	   MYWRITE   0xE6798358,0x08550040//dbtr22	tzqcal=2133 tzqlat=48
+ 435      E8169FE5 
+ 435      000081E5 
+ 436 083c 0300A0E3 	   MYWRITE   0xE679835C,0x00000003//dbtr23
+ 436      E0169FE5 
+ 436      000081E5 
+ 437 0848 0200A0E3 	   MYWRITE   0xE6798400,0x00000002//dbbl		dbbl=2(BL16)(LPDDR4)
+ 437      D8169FE5 
+ 437      000081E5 
+ 438 0854 0200A0E3 	   MYWRITE   0xE6798404,0x00000002//dbbla	dbbla=2(BL16)(LPDDR4)
+ 438      D0169FE5 
+ 438      000081E5 
+ 439              	   //;   MYWRITE   0xE6798430,0x00000000;dbrnk0	No odt for DQ exists in LPDDR4(N.Honda).
+ 440              	   //;   MYWRITE   0xE6798434,0x00000000;dbrnk1	Don't need to set it cause we use all-rank refresh.
+ 441 0860 AC049FE5 	   MYWRITE   0xE6798438,0x00004444//dbrnk2	rkrr = 4 (Are there any info ?)
+ 441      C8169FE5 
+ 441      000081E5 
+ 442 086c A0049FE5 	   MYWRITE   0xE679843C,0x00004444//dbrnk3	rkrw = 4 (Are there any info ?)
+ 442      C0169FE5 
+ 442      000081E5 
+ 443 0878 94049FE5 	   MYWRITE   0xE6798440,0x00004444//dbrnk4	rkwr = 4 (Are there any info ?)
+ 443      B8169FE5 
+ 443      000081E5 
+ 444 0884 88049FE5 	   MYWRITE   0xE6798444,0x00004444//dbrnk5	rkww = 4 (Are there any info ?)
+ 444      B0169FE5 
+ 444      000081E5 
+ 445              	   //;   MYWRITE   0xE6798448,0x00000000;dbrnk6	use all-rank/all-bank refresh
+ 446              	   //;   MYWRITE   0xE6798500,0x00000000;dbadj0	currently, no optional setting exists.
+ 447              	   //;   MYWRITE   0xE6798508,0x00000000;dbadj2	currently, no optional setting exists.
+ 448              	   //;   MYWRITE   0xE6798900,0x00000000;dbcam0cnf0	inoen=0, actually it is not used.
+ 449 0890 90049FE5 	   MYWRITE   0xE6798904,0x00104214//dbcam0cnf1	wbkwait=8, wbkmdhi=32, wbkmdlo=16
+ 449      A8169FE5 
+ 449      000081E5 
+ 450 089c 710FA0E3 	   MYWRITE   0xE6798908,0x000001c4//dbcam0cnf2	scexp=8192
+ 450      A0169FE5 
+ 450      000081E5 
+ 451 08a8 0300A0E3 	   MYWRITE   0xE679890C,0x00000003//dbcam0cnf3       
+ 451      98169FE5 
+ 451      000081E5 
+ 452              	
+ 453 08b4 7C049FE5 	   MYWRITE   0xE6799000,0x000f0037//dbschcnt0
+ 453      90169FE5 
+ 453      000081E5 
+ 454 08c0 78049FE5 	   MYWRITE   0xE6799004,0x00001010//dbschcnt1
+ 454      88169FE5 
+ 454      000081E5 
+ 455 08cc 0100A0E3 	   MYWRITE   0xE6799010,0x00000001//dbschsz0
+ 455      80169FE5 
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 15
+
+
+ 455      000081E5 
+ 456 08d8 6C049FE5 	   MYWRITE   0xE6799020,0xf7311111//dbschrw0
+ 456      78169FE5 
+ 456      000081E5 
+ 457 08e4 68049FE5 	   MYWRITE   0xE6799024,0x00001834//dbschrw1
+ 457      70169FE5 
+ 457      000081E5 
+ 458 08f0 0000E0E3 	   MYWRITE   0xE6799030,0xffffffff//dbschqos00 QoS = 00_00 doesn't come from AXI
+ 458      68169FE5 
+ 458      000081E5 
+ 459 08fc 120DA0E3 	   MYWRITE   0xE6799034,0x00000480//dbschqos01
+ 459      60169FE5 
+ 459      000081E5 
+ 460 0908 030CA0E3 	   MYWRITE   0xE6799038,0x00000300//dbschqos02
+ 460      58169FE5 
+ 460      000081E5 
+ 461 0914 060DA0E3 	   MYWRITE   0xE679903C,0x00000180//dbschqos03
+ 461      50169FE5 
+ 461      000081E5 
+ 462              	   //;   MYWRITE   0xE6799030,0x00000600;dbschqos00	QoS = 00_00 doesn't come from AXI
+ 463              	   //;   MYWRITE   0xE6799034,0x00000480;dbschqos01
+ 464              	   //;   MYWRITE   0xE6799038,0x00000300;dbschqos02
+ 465              	   //;   MYWRITE   0xE679903C,0x00000180;dbschqos03
+ 466              	   //;   MYWRITE   0xE6799040,0x00000600;dbschqos10	QoS = 00_01 doesn't come from AXI
+ 467              	   //;   MYWRITE   0xE6799044,0x00000480;dbschqos11
+ 468              	   //;   MYWRITE   0xE6799048,0x00000300;dbschqos12
+ 469              	   //;   MYWRITE   0xE679904C,0x00000180;dbschqos13
+ 470              	   //;   MYWRITE   0xE6799050,0x00000600;dbschqos20	QoS = 00_10 doesn't come from AXI
+ 471              	   //;   MYWRITE   0xE6799054,0x00000480;dbschqos21
+ 472              	   //;   MYWRITE   0xE6799058,0x00000300;dbschqos22
+ 473              	   //;   MYWRITE   0xE679905C,0x00000180;dbschqos23
+ 474              	   //;   MYWRITE   0xE6799060,0x00000600;dbschqos30	QoS = 00_11 doesn't come from AXI
+ 475              	   //;   MYWRITE   0xE6799064,0x00000480;dbschqos31
+ 476              	   //;   MYWRITE   0xE6799068,0x00000300;dbschqos32
+ 477              	   //;   MYWRITE   0xE679906C,0x00000180;dbschqos33
+ 478 0920 060CA0E3 	   MYWRITE   0xE6799070,0x00000600//dbschqos40
+ 478      48169FE5 
+ 478      000081E5 
+ 479 092c 120DA0E3 	   MYWRITE   0xE6799074,0x00000480//dbschqos41
+ 479      40169FE5 
+ 479      000081E5 
+ 480 0938 030CA0E3 	   MYWRITE   0xE6799078,0x00000300//dbschqos42
+ 480      38169FE5 
+ 480      000081E5 
+ 481 0944 060DA0E3 	   MYWRITE   0xE679907C,0x00000180//dbschqos43
+ 481      30169FE5 
+ 481      000081E5 
+ 482              	   //;   MYWRITE   0xE6799080,0x00000400;dbschqos50	QoS = 01_01 doesn't come from AXI
+ 483              	   //;   MYWRITE   0xE6799084,0x00000300;dbschqos51
+ 484              	   //;   MYWRITE   0xE6799088,0x00000200;dbschqos52
+ 485              	   //;   MYWRITE   0xE679908C,0x00000100;dbschqos53
+ 486              	   //;   MYWRITE   0xE6799090,0x00000400;dbschqos60	QoS = 01_10 doesn't come from AXI
+ 487              	   //;   MYWRITE   0xE6799094,0x00000300;dbschqos61
+ 488              	   //;   MYWRITE   0xE6799098,0x00000200;dbschqos62
+ 489              	   //;   MYWRITE   0xE679909C,0x00000100;dbschqos63
+ 490              	   //;   MYWRITE   0xE67990A0,0x00000400;dbschqos70	QoS = 01_11 doesn't come from AXI
+ 491              	   //;   MYWRITE   0xE67990A4,0x00000300;dbschqos71
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 16
+
+
+ 492              	   //;   MYWRITE   0xE67990A8,0x00000200;dbschqos72
+ 493              	   //;   MYWRITE   0xE67990AC,0x00000100;dbschqos73
+ 494              	   //;   MYWRITE   0xE67990B0,0x00000400;dbschqos80	QoS = 10_00 doesn't come from AXI
+ 495              	   //;   MYWRITE   0xE67990B4,0x00000300;dbschqos81
+ 496              	   //;   MYWRITE   0xE67990B8,0x00000200;dbschqos82
+ 497              	   //;   MYWRITE   0xE67990BC,0x00000100;dbschqos83
+ 498 0950 010BA0E3 	   MYWRITE   0xE67990C0,0x00000400//dbschqos90
+ 498      28169FE5 
+ 498      000081E5 
+ 499 095c 030CA0E3 	   MYWRITE   0xE67990C4,0x00000300//dbschqos91
+ 499      20169FE5 
+ 499      000081E5 
+ 500 0968 020CA0E3 	   MYWRITE   0xE67990C8,0x00000200//dbschqos92
+ 500      18169FE5 
+ 500      000081E5 
+ 501 0974 010CA0E3 	   MYWRITE   0xE67990CC,0x00000100//dbschqos93
+ 501      10169FE5 
+ 501      000081E5 
+ 502              	   //;   MYWRITE   0xE67990D0,0x00000300;dbschqos100	QoS = 10_10 doesn't come from AXI
+ 503              	   //;   MYWRITE   0xE67990D4,0x00000240;dbschqos101
+ 504              	   //;   MYWRITE   0xE67990D8,0x00000180;dbschqos102
+ 505              	   //;   MYWRITE   0xE67990DC,0x000000c0;dbschqos103
+ 506              	   //;   MYWRITE   0xE67990E0,0x00000300;dbschqos110	QoS = 10_11 doesn't come from AXI
+ 507              	   //;   MYWRITE   0xE67990E4,0x00000240;dbschqos111
+ 508              	   //;   MYWRITE   0xE67990E8,0x00000180;dbschqos112
+ 509              	   //;   MYWRITE   0xE67990EC,0x000000c0;dbschqos113
+ 510              	   //;   MYWRITE   0xE67990F0,0x00000300;dbschqos120	QoS = 11_00 doesn't come from AXI
+ 511              	   //;   MYWRITE   0xE67990F4,0x00000240;dbschqos121
+ 512              	   //;   MYWRITE   0xE67990F8,0x00000180;dbschqos122
+ 513              	   //;   MYWRITE   0xE67990FC,0x000000c0;dbschqos123
+ 514 0980 030CA0E3 	   MYWRITE   0xE6799100,0x00000300//dbschqos130
+ 514      08169FE5 
+ 514      000081E5 
+ 515 098c 090DA0E3 	   MYWRITE   0xE6799104,0x00000240//dbschqos131
+ 515      00169FE5 
+ 515      000081E5 
+ 516 0998 060DA0E3 	   MYWRITE   0xE6799108,0x00000180//dbschqos132
+ 516      F8159FE5 
+ 516      000081E5 
+ 517 09a4 C000A0E3 	   MYWRITE   0xE679910C,0x000000c0//dbschqos133
+ 517      F0159FE5 
+ 517      000081E5 
+ 518 09b0 020CA0E3 	   MYWRITE   0xE6799110,0x00000200//dbschqos140
+ 518      E8159FE5 
+ 518      000081E5 
+ 519 09bc 060DA0E3 	   MYWRITE   0xE6799114,0x00000180//dbschqos141
+ 519      E0159FE5 
+ 519      000081E5 
+ 520 09c8 010CA0E3 	   MYWRITE   0xE6799118,0x00000100//dbschqos142
+ 520      D8159FE5 
+ 520      000081E5 
+ 521 09d4 8000A0E3 	   MYWRITE   0xE679911C,0x00000080//dbschqos143
+ 521      D0159FE5 
+ 521      000081E5 
+ 522 09e0 010CA0E3 	   MYWRITE   0xE6799120,0x00000100//dbschqos150
+ 522      C8159FE5 
+ 522      000081E5 
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 17
+
+
+ 523 09ec C000A0E3 	   MYWRITE   0xE6799124,0x000000c0//dbschqos151
+ 523      C0159FE5 
+ 523      000081E5 
+ 524 09f8 8000A0E3 	   MYWRITE   0xE6799128,0x00000080//dbschqos152
+ 524      B8159FE5 
+ 524      000081E5 
+ 525 0a04 4000A0E3 	   MYWRITE   0xE679912C,0x00000040//dbschqos153
+ 525      B0159FE5 
+ 525      000081E5 
+ 526              	
+ 527 0a10 A4039FE5 	   MYWRITE   0xE6799700,0x220E110A//dbschfctst0 scactact=34, scrdact=14, scwract=17, scpreact=10
+ 527      A8159FE5 
+ 527      000081E5 
+ 528 0a1c A0039FE5 	   MYWRITE   0xE6799708,0x0B0D0A0C//dbschfctst1 scrdwr=11, scwrrd=13, scactrdwr=10, scasyncofs=12
+ 528      A0159FE5 
+ 528      000081E5 
+ 529 0a28 9C039FE5 	   MYWRITE   0xE679970C,0x111f1fff//dbschfctst2 wrperi3=1, wrperi2=1, wrperi1=1, wrperi0=15, rdperi
+ 529      98159FE5 
+ 529      000081E5 
+ 530              	
+ 531 0a34 0100A0E3 	   MYWRITE   0xE6798000,0x00000001//dbsysconf0	rg_pch=2, rg_mch=2.
+ 531      90159FE5 
+ 531      000081E5 
+ 532 0a40 0200A0E3 	   MYWRITE   0xE6798004,0x00000002//dbsysconf1	freqratio=2.
+ 532      88159FE5 
+ 532      000081E5 
+ 533 0a4c 0200A0E3 	   MYWRITE   0xE6798008,0x00000002//dbsysconf1a	freqratioa=2.
+ 533      80159FE5 
+ 533      000081E5 
+ 534 0a58 0100A0E3 	   MYWRITE   0xE679800c,0x00000001//dbsysconf2	schmd=1 (2ch mode).
+ 534      78159FE5 
+ 534      000081E5 
+ 535 0a64 4100A0E3 	   MYWRITE   0xE6798014,0x00000041//dbsysconf2a	chpos=8(256Byte channel interleave), schmda=1 (2ch 
+ 535      70159FE5 
+ 535      000081E5 
+ 536              	
+ 537              	   //;        .pool
+ 538              	   //;   MYWRITE   0xE6798604,0x00000010;dbdficnt0
+ 539              	   //;   MYWRITE   0xE6798644,0x00000010;dbdficnt1
+ 540              	   //;   MYWRITE   0xE6798684,0x00000010;dbdficnt2
+ 541              	   //;   MYWRITE   0xE67986C4,0x00000010;dbdficnt3
+ 542              	   //; wait init_complete
+ 543              	   //;   MYWRITE   0xE6798904,0x00044020;
+ 544              	   //;   MYWRITE   0xE6798908,0x00000008;
+ 545              	
+ 546              	   //; FOR 1212B
+ 547              	   //;   MYWRITE   0xE6798904,0x0004140c;
+ 548              	   //;   MYWRITE   0xE6798908,0x00000008;
+ 549              	   //;   MYWRITE   0xE6799010,0x00000003;
+ 550              	   //;   MYWRITE   0xE6799024,0x001a0080;
+ 551              	
+ 552              	   //; FOR 1213A
+ 553              	   //   MYWRITE   0xE6798904,0x00040C04;
+ 554              	   //   MYWRITE   0xE6798908,0x00000108;
+ 555              	   //   MYWRITE   0xE6799010,0x00000003;
+ 556              	   //   MYWRITE   0xE6799024,0x001a0080;
+ 557              	
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 18
+
+
+ 558              	   //; Add 2015/07/29 M.Sano
+ 559              	   //; Remove comment by mochi for H3 ;; Comment Out 2015/07/29 M.Sano
+ 560 0a70 1100A0E3 	   MYWRITE   0xE6798604,0x00000011//dbdficnt0 freq_ratio = 01 (2:1)init_start =1 
+ 560      68159FE5 
+ 560      000081E5 
+ 561 0a7c 1100A0E3 	   MYWRITE   0xE6798644,0x00000011//dbdficnt1 freq_ratio = 01 (2:1)init_start =1 
+ 561      60159FE5 
+ 561      000081E5 
+ 562 0a88 1100A0E3 	   MYWRITE   0xE6798684,0x00000011//dbdficnt2 freq_ratio = 01 (2:1)init_start =1 
+ 562      58159FE5 
+ 562      000081E5 
+ 563 0a94 1100A0E3 	   MYWRITE   0xE67986C4,0x00000011//dbdficnt3 freq_ratio = 01 (2:1)init_start =1 
+ 563      50159FE5 
+ 563      000081E5 
+ 564              	
+ 565 0aa0 50039FE5 	   MYWRITE   0xE679861C,0x0000CF01//dll_rst_n0 -> 1
+ 565      48159FE5 
+ 565      000081E5 
+ 566 0aac 44039FE5 	   MYWRITE   0xE679865C,0x0000CF01//dll_rst_n0 -> 1
+ 566      40159FE5 
+ 566      000081E5 
+ 567 0ab8 38039FE5 	   MYWRITE   0xE679869C,0x0000CF01//dll_rst_n0 -> 1
+ 567      38159FE5 
+ 567      000081E5 
+ 568 0ac4 2C039FE5 	   MYWRITE   0xE67986DC,0x0000CF01//dll_rst_n0 -> 1
+ 568      30159FE5 
+ 568      000081E5 
+ 569              	
+ 570              	
+ 571 0ad0 0160A0E3 	   ldr   r6, =0x00000001
+ 572              	
+ 573              	wait_init_complete_DBS1:
+ 574 0ad4 28059FE5 	   ldr   r0, =0xE6798600
+ 575 0ad8 007090E5 	   ldr   r7, [r0,#0x0]
+ 576 0adc 077006E0 	   and   r7, r6, r7
+ 577 0ae0 070056E1 	   cmp   r6, r7
+ 578 0ae4 FAFFFF1A 	   bne   wait_init_complete_DBS1
+ 579              	
+ 580 0ae8 18059FE5 	   ldr   r0, =0xE6798640
+ 581 0aec 007090E5 	   ldr   r7, [r0,#0x0]
+ 582 0af0 077006E0 	   and   r7, r6, r7
+ 583 0af4 070056E1 	   cmp   r6, r7
+ 584 0af8 F5FFFF1A 	   bne   wait_init_complete_DBS1
+ 585              	
+ 586              	   //; Remove comment by mochi for H3 ;; Comment Out 2015/07/29 M.Sano
+ 587 0afc 08059FE5 	   ldr   r0, =0xE6798680
+ 588 0b00 007090E5 	   ldr   r7, [r0,#0x0]
+ 589 0b04 077006E0 	   and   r7, r6, r7
+ 590 0b08 070056E1 	   cmp   r6, r7
+ 591 0b0c F0FFFF1A 	   bne   wait_init_complete_DBS1
+ 592              	
+ 593 0b10 F8049FE5 	   ldr   r0, =0xE67986C0
+ 594 0b14 007090E5 	   ldr   r7, [r0,#0x0]
+ 595 0b18 077006E0 	   and   r7, r6, r7
+ 596 0b1c 070056E1 	   cmp   r6, r7
+ 597 0b20 EBFFFF1A 	   bne   wait_init_complete_DBS1
+ 598              	
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 19
+
+
+ 599 0b24 A4049FE5 	   ldr r0, =0xE6798000
+ 600              	
+ 601              	   //;MRR,MRW
+ 602 0b28 EC029FE5 	   MYWRITE   0xE6798208,0x08840000//	PDE ch0 rk0
+ 602      E0149FE5 
+ 602      000081E5 
+ 603 0b34 E8029FE5 	   MYWRITE   0xE6798208,0x08840001//	PDX ch0 rk0
+ 603      D4149FE5 
+ 603      000081E5 
+ 604 0b40 E0029FE5 	   MYWRITE   0xE6798208,0x01840001//	RSX ch0 rk0
+ 604      C8149FE5 
+ 604      000081E5 
+ 605 0b4c D8029FE5 	   MYWRITE   0xE6798208,0x0e840aff//	MRW ch0 rk0 0a:ff ZQCinit
+ 605      BC149FE5 
+ 605      000081E5 
+ 606              	   //; test 0427    MYWRITE   0xE6798208,0x0e8401d4;	MRW ch0 rk0 01:43 DeviceFeature1(010, 011(nWR=
+ 607 0b58 D0029FE5 	   MYWRITE   0xE6798208,0x0e840154//	MRW ch0 rk0 01:43 DeviceFeature1(010, 011(nWR=30,BL8))
+ 607      B0149FE5 
+ 607      000081E5 
+ 608 0b64 C8029FE5 	   MYWRITE   0xE6798208,0x0e84022e//	MRW ch0 rk0 02:24 DeviceFeature2(0,0,1,1010(WLSetA,RL32,WL14))
+ 608      A4149FE5 
+ 608      000081E5 
+ 609              	
+ 610 0b70 C0029FE5 	   MYWRITE   0xE6798208,0x0d84004F//     MPC chA rkA 4F (ZQCAL start)
+ 610      98149FE5 
+ 610      000081E5 
+ 611 0b7c B8029FE5 	   MYWRITE   0xE6798208,0x0d840051//     MPC chA rkA 51 (ZQCAL latch)
+ 611      8C149FE5 
+ 611      000081E5 
+ 612              	
+ 613              	   //
+ 614 0b88 B0029FE5 	   MYWRITE   0xE6798804,0x70000100//dbbus0cnf1
+ 614      84149FE5 
+ 614      000081E5 
+ 615 0b94 AC029FE5 	   MYWRITE   0xE6798800,0x18010001//dbbus0cnf
+ 615      7C149FE5 
+ 615      000081E5 
+ 616              	   //;   MYWRITE   0xE6798410,0x000000000;dbrfcnf0	refthf=0 This parameter is obsolete, no real eff
+ 617 0ba0 A8029FE5 	   MYWRITE   0xE6798414,0x00081860//dbrfcnf1	refpmax=8 refint=6240
+ 617      74149FE5 
+ 617      000081E5 
+ 618 0bac 0108A0E3 	   MYWRITE   0xE6798418,0x00010000//dbrfcnf2	refpmin=1 refints=0
+ 618      6C149FE5 
+ 618      000081E5 
+ 619 0bb8 0100A0E3 	   MYWRITE   0xE6798204,0x00000001//dbrfen
+ 619      64149FE5 
+ 619      000081E5 
+ 620              	   //; PHY reg patch 
+ 621              	   //   MYWRITE   0xE6798620,0x0000A55A;	Unlock 
+ 622              	   //      MYWRITE   0xE6798624,0x0000042A;	
+ 623              	   //      MYWRITE   0xE6798628,0x01000005;   Original = 0x00000005;	add write_path_lat_0 0 -> 1
+ 624              	   //      MYWRITE   0xE6798624,0x00000408;	
+ 625              	   //      MYWRITE   0xE6798628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ 626              	   //      MYWRITE   0xE6798624,0x00000488;	
+ 627              	   //      MYWRITE   0xE6798628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ 628              	   //      MYWRITE   0xE6798624,0x00000508;	
+ 629              	   //      MYWRITE   0xE6798628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.src 			page 20
+
+
+ 630              	   //      MYWRITE   0xE6798624,0x00000588;	
+ 631              	   //      MYWRITE   0xE6798628,0x31516100;   Original = 0x31514100;	adjust PHY_DQ_OE TIMING start 
+ 632              	   //      MYWRITE   0xE6798624,0x0000040a;	
+ 633              	   //      MYWRITE   0xE6798628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 634              	   //      MYWRITE   0xE6798624,0x0000048a;	
+ 635              	   //      MYWRITE   0xE6798628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 636              	   //      MYWRITE   0xE6798624,0x0000050a;	
+ 637              	   //      MYWRITE   0xE6798628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 638              	   //      MYWRITE   0xE6798624,0x0000058a;	
+ 639              	   //      MYWRITE   0xE6798628,0x01315061;	Original = 0x01315041;	adjust PHY_DQS_OE TIMING start =
+ 640              	
+ 641 0bc4 94029FE5 	   MYWRITE   0xE6798620,0x0000A55A//	Unlock 
+ 641      5C149FE5 
+ 641      000081E5 
+ 642 0bd0 88029FE5 	   MYWRITE   0xE6798660,0x0000A55A//	Unlock 
+ 642      54149FE5 
+ 642      000081E5 
+ 643 0bdc 7C029FE5 	   MYWRITE   0xE67986a0,0x0000A55A//	Unlock 
+ 643      4C149FE5 
+ 643      000081E5 
+ 644 0be8 70029FE5 	   MYWRITE   0xE67986e0,0x0000A55A//	Unlock 
+ 644      44149FE5 
+ 644      000081E5 
+ 645              	   //;   PHYWRITE  0x0000061f , 0x00000355;   Original = #H'00030055;	Change phy_adrY_clk_wr_slave_
+ 646              	   //;   PHYWRITE  0x00000620 , 0x00030003;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 647              	   //;   PHYWRITE  0x00000621 , 0x00030003;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 648              	   //;   PHYWRITE  0x00000622 , 0x00000003;   Original = #H'00000300;	Change phy_adrY_clk_wr_slave_
+ 649              	   //;   PHYWRITE  0x0000069d , 0x00000300;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 650              	   //;   PHYWRITE  0x0000069e , 0x00030003;   Original = #H'03000300;	Change phy_adrY_clk_wr_slave_
+ 651              	   //;   PHYWRITE  0x0000069f , 0x00000003;   Original = #H'00000300;	Change phy_adrY_clk_wr_slave_
+ 652              	
+ 653 0bf4 0100A0E3 	   MYWRITE   0xE6798200,0x00000001//dbacen
+ 653      3C149FE5 
+ 653      000081E5 
+ 654              	   //;        .pool
+ 655              	
+ 656 0c00 0100A0E3 	   MYWRITE   0xE67F0024,0x00000001// ; V3U DN2 (test mode)
+ 656      6C129FE5 
+ 656      000081E5 
+ 657              	   //   MYWRITE   0xE67F0054,0x00010000;
+ 658              	   //   MYWRITE   0xE67F0018,0x00000001;
+ 659 0c0c 0000A0E3 	   MYWRITE   0xE67F0018,0x00000000// ; V3U DN2 (test mode)
+ 659      64129FE5 
+ 659      000081E5 
+ 660              	
+ 661 0c18 080100EA 	   B SKIP_DBSCINIT
+ 662 0c1c 102E15E6 	   .pool
+ 662      000015E6 
+ 662      102D15E6 
+ 662      FF3F0000 
+ 662      34120000 
+ 663              	SKIP_DBSCINIT:
+ 664              	   //;        .pool
+ 665              	
+ 666              	   .END

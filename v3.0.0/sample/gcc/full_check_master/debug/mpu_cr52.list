@@ -1,0 +1,349 @@
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src 			page 1
+
+
+   1              	
+   2              	    .set    __arm__, 1
+   3              	
+   4              	    .ifdef	__arm__
+   5              	
+   6              	    // HPRBAR.SH
+   7              	    .equ    SH_POS          , 3
+   8              	    .equ    NON_SHAREABLE   , (0 << SH_POS)
+   9              	    .equ    OUT_SHAREABLE   , (2 << SH_POS)
+  10              	    .equ    IN_SHAREABLE    , (3 << SH_POS)
+  11              	
+  12              	    // HPRBAR.AP
+  13              	    .equ    AP_POS          , 1
+  14              	    .equ    RW_EL2          , (0 << AP_POS)
+  15              	    .equ    RW              , (1 << AP_POS)
+  16              	    .equ    RO_EL2          , (2 << AP_POS)
+  17              	    .equ    RO              , (3 << AP_POS)
+  18              	
+  19              	    // HPRBAR.XN
+  20              	    .equ    XN_POS          , 0
+  21              	    .equ    EXECUTE_NEVER   , (1 << XN_POS)
+  22              	    .equ    EXECUTABLE      , (0 << XN_POS)
+  23              	
+  24              	    // HPRLAR.AttrIndx
+  25              	    .equ    AttrIndx_POS    , 1
+  26              	    .equ    ATTR0           , (0 << AttrIndx_POS)
+  27              	    .equ    ATTR1           , (1 << AttrIndx_POS)
+  28              	    .equ    ATTR2           , (2 << AttrIndx_POS)
+  29              	    .equ    ATTR3           , (3 << AttrIndx_POS)
+  30              	    .equ    ATTR4           , (4 << AttrIndx_POS)
+  31              	    .equ    ATTR5           , (5 << AttrIndx_POS)
+  32              	    .equ    ATTR6           , (6 << AttrIndx_POS)
+  33              	    .equ    ATTR7           , (7 << AttrIndx_POS)
+  34              	    .equ    ATTR8           , (8 << AttrIndx_POS)
+  35              	    .equ    ATTR9           , (9 << AttrIndx_POS)
+  36              	    .equ    ATTR30          , (10 << AttrIndx_POS)
+  37              	    .equ    ATTR31          , (11 << AttrIndx_POS)
+  38              	    .equ    ATTR32          , (12 << AttrIndx_POS)
+  39              	    .equ    ATTR33          , (13 << AttrIndx_POS)
+  40              	    .equ    ATTR34          , (14 << AttrIndx_POS)
+  41              	    .equ    ATTR35          , (15 << AttrIndx_POS)
+  42              	
+  43              	    // HPRLAR.EN
+  44              	    .equ    EN_POS          , 0
+  45              	    .equ    REGION_ENABLE   , (1 << EN_POS)
+  46              	
+  47              	    .section    MPU_INIT
+  48              	    
+  49              	    .global  __mpu_init
+  50              	    .global  __mpu_init_el1
+  51              	
+  52              	__mpu_init:
+  53              	
+  54              	    // Define memory regions attribute
+  55              	    // Attribute 0: 0xff Normal, Outer write-back non-transient, RW allocate, Inner write-back non-
+  56              	    // Attribute 1: 0x04 Device, nGnRE
+  57              	    // Attribute 2: 0x44 Normal, Outer non-cacheable, Inner non-cacheable
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src 			page 2
+
+
+  58              	    // Attribute 3: 0x00 Device, nGnRnE
+  59 0000 FF0400E3 	    mov  r0, #0x04ff
+  60 0004 440040E3 	    movt r0, #0x0044
+  61 0008 120F8AEE 	    mcr p15, 4, r0, c10, c2, 0
+  62 000c BB0CA0E3 	    mov  r0, #0xbb00
+  63 0010 EE0D4DE3 	    movt r0, #0xddee
+  64 0014 320F8AEE 	    mcr p15, 4, r0, c10, c2, 1
+  65              	
+  66              	    // BSC
+  67 0018 0000A0E3 	    mov r0, #0
+  68 001c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+  69 0020 0200A0E3 	    mov  r0, #(((0x00000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+  70 0024 000040E3 	    movt r0, #(((0x00000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+  71 0028 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+  72 002c C10F0FE3 	    mov  r0, #(((0x07ffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+  73 0030 FF0740E3 	    movt r0, #(((0x07ffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+  74 0034 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+  75              	
+  76              	    // RPC
+  77 0038 0100A0E3 	    mov r0, #1
+  78 003c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+  79 0040 0200A0E3 	    mov  r0, #(((0x08000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+  80 0044 000840E3 	    movt r0, #(((0x08000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+  81 0048 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+  82 004c C10F0FE3 	    mov  r0, #(((0x0fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+  83 0050 FF0F40E3 	    movt r0, #(((0x0fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+  84 0054 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+  85              	
+  86              	    // BSC
+  87 0058 0200A0E3 	    mov r0, #2
+  88 005c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+  89 0060 0200A0E3 	    mov  r0, #(((0x10000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+  90 0064 000041E3 	    movt r0, #(((0x10000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+  91 0068 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+  92 006c C10F0FE3 	    mov  r0, #(((0x1fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+  93 0070 FF0F41E3 	    movt r0, #(((0x1fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+  94 0074 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+  95              	
+  96              	    // RPC
+  97 0078 0300A0E3 	    mov r0, #3
+  98 007c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+  99 0080 0200A0E3 	    mov  r0, #(((0x20000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 100 0084 000042E3 	    movt r0, #(((0x20000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 101 0088 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 102 008c C10F0FE3 	    mov  r0, #(((0x3fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+ 103 0090 FF0F43E3 	    movt r0, #(((0x3fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+ 104 0094 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 105              	
+ 106              	    // SDRAM
+ 107 0098 0400A0E3 	    mov r0, #4
+ 108 009c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 109 00a0 0200A0E3 	    mov  r0, #(((0x40000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 110 00a4 000044E3 	    movt r0, #(((0x40000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 111 00a8 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 112 00ac C10F0FE3 	    mov  r0, #(((0xbfffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+ 113 00b0 FF0F4BE3 	    movt r0, #(((0xbfffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+ 114 00b4 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src 			page 3
+
+
+ 115              	
+ 116              	    // PCIE
+ 117 00b8 0500A0E3 	    mov r0, #5
+ 118 00bc 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 119 00c0 0200A0E3 	    mov  r0, #(((0xc0000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 120 00c4 00004CE3 	    movt r0, #(((0xc0000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 121 00c8 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 122 00cc C10F0FE3 	    mov  r0, #(((0xdfffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+ 123 00d0 FF0F4DE3 	    movt r0, #(((0xdfffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+ 124 00d4 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 125              	
+ 126              	    // Peripheral
+ 127 00d8 0600A0E3 	    mov r0, #6
+ 128 00dc 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 129 00e0 0200A0E3 	    mov  r0, #(((0xe0000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 130 00e4 00004EE3 	    movt r0, #(((0xe0000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 131 00e8 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 132 00ec C70F0FE3 	    mov  r0, #(((0xe62fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) & 0x0000ffff)
+ 133 00f0 2F064EE3 	    movt r0, #(((0xe62fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) >> 16)
+ 134 00f4 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 135              	
+ 136              	    // SRAM
+ 137 00f8 0700A0E3 	    mov r0, #7
+ 138 00fc 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 139 0100 0200A0E3 	    mov  r0, #(((0xe6300000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 140 0104 30064EE3 	    movt r0, #(((0xe6300000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 141 0108 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 142 010c C10F0FE3 	    mov  r0, #(((0xe63fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+ 143 0110 3F064EE3 	    movt r0, #(((0xe63fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+ 144 0114 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 145              	
+ 146              	    // Peripheral
+ 147 0118 0800A0E3 	    mov r0, #8
+ 148 011c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 149 0120 0200A0E3 	    mov  r0, #(((0xe6400000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 150 0124 40064EE3 	    movt r0, #(((0xe6400000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 151 0128 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 152 012c C70F0FE3 	    mov  r0, #(((0xeb0fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) & 0x0000ffff)
+ 153 0130 0F0B4EE3 	    movt r0, #(((0xeb0fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) >> 16)
+ 154 0134 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 155              	
+ 156              	    // SecROM
+ 157 0138 0900A0E3 	    mov r0, #9
+ 158 013c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 159 0140 0200A0E3 	    mov  r0, #(((0xeb100000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 160 0144 100B4EE3 	    movt r0, #(((0xeb100000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 161 0148 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 162 014c C10F0FE3 	    mov  r0, #(((0xeb3fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+ 163 0150 3F0B4EE3 	    movt r0, #(((0xeb3fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+ 164 0154 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 165              	
+ 166              	    // Peripheral
+ 167 0158 0A00A0E3 	    mov r0, #10
+ 168 015c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 169 0160 0200A0E3 	    mov  r0, #(((0xeb400000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 170 0164 400B4EE3 	    movt r0, #(((0xeb400000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 171 0168 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src 			page 4
+
+
+ 172 016c C70F0FE3 	    mov  r0, #(((0xecffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) & 0x0000ffff)
+ 173 0170 FF0C4EE3 	    movt r0, #(((0xecffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) >> 16)
+ 174 0174 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 175              	
+ 176              	    // IMP RAM
+ 177 0178 0B00A0E3 	    mov r0, #11
+ 178 017c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 179 0180 0200A0E3 	    mov  r0, #(((0xed000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 180 0184 000D4EE3 	    movt r0, #(((0xed000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 181 0188 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 182 018c C10F0FE3 	    mov  r0, #(((0xedffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) & 0x0000ffff)
+ 183 0190 FF0D4EE3 	    movt r0, #(((0xedffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE) >> 16)
+ 184 0194 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 185              	
+ 186              	    // Peripheral
+ 187 0198 0C00A0E3 	    mov r0, #12
+ 188 019c 320F86EE 	    mcr p15, 4, r0, c6, c2, 1
+ 189 01a0 0200A0E3 	    mov  r0, #(((0xee000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) & 0x0000ffff)
+ 190 01a4 000E4EE3 	    movt r0, #(((0xee000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW) >> 16)
+ 191 01a8 130F86EE 	    mcr p15, 4, r0, c6, c3, 0
+ 192 01ac C70F0FE3 	    mov  r0, #(((0xffffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) & 0x0000ffff)
+ 193 01b0 FF0F4FE3 	    movt r0, #(((0xffffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE) >> 16)
+ 194 01b4 330F86EE 	    mcr p15, 4, r0, c6, c3, 1
+ 195              	
+ 196              	    // Enable EL2 MPU
+ 197 01b8 100F91EE 	    mrc p15, 4, r0, c1, c0, 0
+ 198 01bc 010080E3 	    orr r0, r0, #0x1
+ 199 01c0 4FF07FF5 	    dsb
+ 200 01c4 100F81EE 	    mcr p15, 4, r0, c1, c0, 0
+ 201 01c8 6FF07FF5 	    isb
+ 202              	
+ 203 01cc 1EFF2FE1 	    bx  lr
+ 204              	
+ 205              	__mpu_init_el1:
+ 206              	
+ 207              	//    // Define memory regions attribute
+ 208              	//    // Attribute 0: 0xff Normal, Outer write-back non-transient, RW allocate, Inner write-back no
+ 209              	//    // Attribute 1: 0x04 Device, nGnRE
+ 210              	//    // Attribute 2: 0x44 Normal, Outer non-cacheable, Inner non-cacheable
+ 211              	//    ldr r0, = 0x444404ff
+ 212              	//    mcr p15, 4, r0, c10, c2, 0
+ 213              	//    ldr r0, = 0xddeebb00
+ 214              	//    mcr p15, 4, r0, c10, c2, 1
+ 215              	//
+ 216              	//    // BSC
+ 217              	//    mov r0, #0
+ 218              	//    mcr p15, 0, r0, c6, c2, 1
+ 219              	//    ldr r0, = (0x00000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 220              	//    mcr p15, 0, r0, c6, c3, 0
+ 221              	//    ldr r0, = (0x07ffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 222              	//    mcr p15, 0, r0, c6, c3, 1
+ 223              	//
+ 224              	//    // RPC
+ 225              	//    mov r0, #1
+ 226              	//    mcr p15, 0, r0, c6, c2, 1
+ 227              	//    ldr r0, = (0x08000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 228              	//    mcr p15, 0, r0, c6, c3, 0
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src 			page 5
+
+
+ 229              	//    ldr r0, = (0x0fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 230              	//    mcr p15, 0, r0, c6, c3, 1
+ 231              	//
+ 232              	//    // BSC
+ 233              	//    mov r0, #2
+ 234              	//    mcr p15, 0, r0, c6, c2, 1
+ 235              	//    ldr r0, = (0x10000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 236              	//    mcr p15, 0, r0, c6, c3, 0
+ 237              	//    ldr r0, = (0x1fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 238              	//    mcr p15, 0, r0, c6, c3, 1
+ 239              	//
+ 240              	//    // RPC
+ 241              	//    mov r0, #3
+ 242              	//    mcr p15, 0, r0, c6, c2, 1
+ 243              	//    ldr r0, = (0x20000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 244              	//    mcr p15, 0, r0, c6, c3, 0
+ 245              	//    ldr r0, = (0x3fffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 246              	//    mcr p15, 0, r0, c6, c3, 1
+ 247              	//
+ 248              	//    // SDRAM
+ 249              	//    mov r0, #4
+ 250              	//    mcr p15, 0, r0, c6, c2, 1
+ 251              	//    ldr r0, = (0x40000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 252              	//    mcr p15, 0, r0, c6, c3, 0
+ 253              	//    ldr r0, = (0xbfffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 254              	//    mcr p15, 0, r0, c6, c3, 1
+ 255              	//
+ 256              	//    // PCIE
+ 257              	//    mov r0, #5
+ 258              	//    mcr p15, 0, r0, c6, c2, 1
+ 259              	//    ldr r0, = (0xc0000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 260              	//    mcr p15, 0, r0, c6, c3, 0
+ 261              	//    ldr r0, = (0xdfffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 262              	//    mcr p15, 0, r0, c6, c3, 1
+ 263              	//
+ 264              	//    // Peripheral
+ 265              	//    mov r0, #6
+ 266              	//    mcr p15, 0, r0, c6, c2, 1
+ 267              	//    ldr r0, = (0xe0000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 268              	//    mcr p15, 0, r0, c6, c3, 0
+ 269              	//    ldr r0, = (0xe62fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE
+ 270              	//    mcr p15, 0, r0, c6, c3, 1
+ 271              	//
+ 272              	//    // SRAM
+ 273              	//    mov r0, #7
+ 274              	//    mcr p15, 0, r0, c6, c2, 1
+ 275              	//    ldr r0, = (0xe6300000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 276              	//    mcr p15, 0, r0, c6, c3, 0
+ 277              	//    ldr r0, = (0xe63fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 278              	//    mcr p15, 0, r0, c6, c3, 1
+ 279              	//
+ 280              	//    // Peripheral
+ 281              	//    mov r0, #8
+ 282              	//    mcr p15, 0, r0, c6, c2, 1
+ 283              	//    ldr r0, = (0xe6400000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 284              	//    mcr p15, 0, r0, c6, c3, 0
+ 285              	//    ldr r0, = (0xeb0fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE
+ARM GAS  /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/mpu_cr52.src 			page 6
+
+
+ 286              	//    mcr p15, 0, r0, c6, c3, 1
+ 287              	//
+ 288              	//    // SecROM
+ 289              	//    mov r0, #9
+ 290              	//    mcr p15, 0, r0, c6, c2, 1
+ 291              	//    ldr r0, = (0xeb100000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 292              	//    mcr p15, 0, r0, c6, c3, 0
+ 293              	//    ldr r0, = (0xeb3fffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 294              	//    mcr p15, 0, r0, c6, c3, 1
+ 295              	//
+ 296              	//    // Peripheral
+ 297              	//    mov r0, #10
+ 298              	//    mcr p15, 0, r0, c6, c2, 1
+ 299              	//    ldr r0, = (0xeb400000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 300              	//    mcr p15, 0, r0, c6, c3, 0
+ 301              	//    ldr r0, = (0xecffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE
+ 302              	//    mcr p15, 0, r0, c6, c3, 1
+ 303              	//
+ 304              	//    // IMP RAM
+ 305              	//    mov r0, #11
+ 306              	//    mcr p15, 0, r0, c6, c2, 1
+ 307              	//    ldr r0, = (0xed000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 308              	//    mcr p15, 0, r0, c6, c3, 0
+ 309              	//    ldr r0, = (0xedffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR0 | REGION_ENABLE
+ 310              	//    mcr p15, 0, r0, c6, c3, 1
+ 311              	//
+ 312              	//    // Peripheral
+ 313              	//    mov r0, #12
+ 314              	//    mcr p15, 0, r0, c6, c2, 1
+ 315              	//    ldr r0, = (0xee000000 & (~(0x1 << 5))) | NON_SHAREABLE | RW
+ 316              	//    mcr p15, 0, r0, c6, c3, 0
+ 317              	//    ldr r0, = (0xffffffff & (~(0x3f) & (~(0x3 << 4)))) | ATTR3 | REGION_ENABLE
+ 318              	//    mcr p15, 0, r0, c6, c3, 1
+ 319              	//
+ 320              	//    // Enable EL2 MPU
+ 321              	//    mrc p15, 0, r0, c1, c0, 0
+ 322              	//    orr r0, r0, #0x1
+ 323              	//    dsb
+ 324              	//    mcr p15, 0, r0, c1, c0, 0
+ 325              	//    isb
+ 326              	
+ 327 01d0 1EFF2FE1 	    bx  lr
+ 328              	
+ 329              	    .endif
+ 330              	
+ 331              	    .end

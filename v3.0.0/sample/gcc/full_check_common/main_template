@@ -1,0 +1,37 @@
+
+/* Standard C libraries */
+#include <stdint.h>
+#include <stdbool.h>
+
+/* R-Car V3U drives */
+#include <global.h>
+#include <rcar_v3u/v3u.h>
+#include <rcar_v3u/drivers/sim_utils.h>
+#include <rcar_v3u/drivers/i2c.h>
+#include <rcar_v3u/drivers/pfc.h>
+#include <rcar_v3u/drivers/cpg.h>
+#include <rcar_v3u/drivers/gic.h>
+#include <rcar_v3u/drivers/dmac.h>
+#include <rcar_v3u/drivers/kcrc.h>
+
+extern uint32_t pattern_name(void);
+
+int main(void)
+{
+    I2C_configPins();
+    I2C_modelConnect(I2C0_MODEL, I2C1_MODEL);
+
+    uint32_t testResult;
+    testResult = pattern_name();
+
+    I2C_modelDisable();
+    I2C_releasePins();
+
+    Sim_Judge(testResult);
+	Sim_Stop();
+
+    while(1);
+
+    return (0);
+}
+

@@ -1,0 +1,39 @@
+#******************************************************************************
+#	Automatic generated file. Do not modify!
+#	CT Pattern Builder v3
+#	2082 - Hau Sy Le - hau.le.eb@renesas.com
+#******************************************************************************
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/debug
+LINKER = arm-none-eabi-ld
+OPTS += -T ./scatter.ld
+OPTS += -e 0x0
+OPTS += -I ../include/rcar_v3u/startup
+OPTS += -I ../include/rcar_v3u/drivers
+OPTS += -I ../include
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common
+OPTS += -I ../include/rcar_v3u
+OBJS += $(DEBUG)/startup_cr52.o
+OBJS += $(DEBUG)/vectors_cr52.o
+OBJS += $(DEBUG)/startup_ca76.o
+OBJS += $(DEBUG)/rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.o
+OBJS += $(DEBUG)/vectors_ca76.o
+OBJS += $(DEBUG)/mpu_cr52.o
+OBJS += $(DEBUG)/sim_utils.o
+OBJS += $(DEBUG)/mstp_check.o
+OBJS += $(DEBUG)/i2c_utils.o
+OBJS += $(DEBUG)/srst_check.o
+OBJS += $(DEBUG)/cpg.o
+OBJS += $(DEBUG)/reg_check.o
+OBJS += $(DEBUG)/dmac.o
+OBJS += $(DEBUG)/main.o
+OBJS += $(DEBUG)/interrupt_check.o
+OBJS += $(DEBUG)/pad_check.o
+OBJS += $(DEBUG)/gic.o
+OBJS += $(DEBUG)/i2c.o
+OBJS += $(DEBUG)/exception_handlers.o
+OBJS += $(DEBUG)/pfc.o
+.PHONY: LINK
+LINK: $(DEBUG)/image.elf
+$(DEBUG)/image.elf: $(OBJS)
+	$(LINKER) $(OPTS) $(OBJS) -o image.elf
+	mv -f *.elf $(DEBUG)

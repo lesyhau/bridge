@@ -1,0 +1,60 @@
+    
+    ******** PIN MARGIN TEST START ********
+        Tool Version     : V1.3.3
+        Date             : 2018.12.27 23:18:05
+        Wafer            : 
+        Operator         : rcarsoc
+        Device           : 18
+        Program          : R8A77980_V3H_ES1p1_Pat_Debug_Rev159_20181218_The_Rest_m.xlsm
+        Job              : FT_PAT_Debug
+        Channel Map      : ChanMap_FT2dut_2
+        Test Instance    : FUNC_MIN_D51RFA00I2CU00062A00_TG261
+        AC Context       : TS_TMG_T261,TIME_ALPHAx1,Selector0
+        DC Context       : LEVEL_FUNC1,FUNC_MIN18V33V,Selector0
+        Pattern          : D51RFA00I2CU00062A00
+    
+        Test Site        : 0
+        PinGroup Option  : N/A
+        Center Point     : Current Value
+        Log to Display   : True
+        Log to File      : False
+        Default Name     : True
+        File Access      : Append
+        Log to DataLog   : True
+    
+        Interpose          
+        Start Function   : 
+        Start Args       : 
+        Pre Pt Function  : 
+        Pre Pt Args      : 
+        Post Pt Function : 
+        Post Pt Args     : 
+        End Function     : 
+        End Args         : 
+    
+        Run Character      
+        Pass             : *
+        Fail             : -
+        Error            : E
+        NotTested        : .
+     
+     
+                 ASCII PIN MARGIN OUTPUT
+    #        Pin                              Site     QID      Test     TimeSets          ProgVal    CenterVal  LimitMode  LeftLimit    RightLimit  Steps    Res                                       Result                                   Center   LeftMargin   RightMargin  LeftFailAddr RightFailAddr
+    1        PgTMG_T261_16                    0        1        Data     tg3               0.021us    0.021us    RELATIVE   -0.009us     0.051us     60       1.000ns      EEEEEEEEE*********************[*]******************************       Pass     0.980ps      0.051us      N/A          N/A       
+    2        PgTMG_T261_16                    0        2        Open     tg3                          0.000s     RELATIVE   -0.030us     0.030us     60       1.000ns      EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE[*]******************************       Pass     0.000s       0.030us      N/A          N/A       
+    3        PgTMG_T261_17                    0        1        Data     tg3               0.028us    0.028us    RELATIVE   -1.899ns     0.058us     60       1.000ns      EE****************************[*]******************************       Pass     0.101ns      0.058us      N/A          N/A       
+    4        PgTMG_T261_17                    0        2        Open     tg3                          0.000s     RELATIVE   -0.030us     0.030us     60       1.000ns      EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE[*]******************************       Pass     0.000s       0.030us      N/A          N/A       
+    5        PgTMG_T261_18                    0        1        Data     tg3               0.015us    0.015us    RELATIVE   -0.015us     0.045us     60       1.000ns      EEEEEEEEEEEEEEE***************[*]******************************       Pass     0.000s       0.045us      N/A          N/A       
+    6        PgTMG_T261_18                    0        2        Open     tg3               0.025us    0.025us    RELATIVE   -0.005us     0.055us     60       1.000ns      EEEEE*************************[*]******************************       Pass     0.000s       0.055us      N/A          N/A       
+    7        PgTMG_T261_19                    0        1        Data     tg3               0.021us    0.021us    RELATIVE   -0.009us     0.051us     60       1.000ns      EEEEEEEEE-----------**********[*]***---------------------------       Pass     0.011us      0.024us      32886        33434     
+    8        PgTMG_T261_19                    0        2        Open     tg3               0.025us    0.025us    RELATIVE   -0.005us     0.055us     60       1.000ns      EEEEE----------***-------*****[*]******------------------------       Pass     0.020us      0.031us      32788        32790     
+    9        PgTMG_T261_20                    0        1        Data     tg3               0.021us    0.021us    RELATIVE   -0.009us     0.051us     60       1.000ns      EEEEEEEEE-----****************[*]******************************       Pass     0.005us      0.051us      35520        N/A       
+    10       PgTMG_T261_20                    0        2        Open     tg3               0.025us    0.025us    RELATIVE   -0.005us     0.055us     60       1.000ns      EEEEE*************************[*]******************************       Pass     0.020ns      0.055us      N/A          N/A       
+    11       PgTMG_T261_21                    0        1        Data     tg3               0.021us    0.021us    RELATIVE   -0.009us     0.051us     60       1.000ns      EEEEEEEEE*********************[*]******************************       Pass     0.011ns      0.051us      N/A          N/A       
+    12       PgTMG_T261_21                    0        2        Open     tg3               0.025us    0.025us    RELATIVE   -0.005us     0.055us     60       1.000ns      EEEEE*************************[*]******************************       Pass     0.010ns      0.055us      N/A          N/A       
+    13       PgTMG_T261_22                    0        1        Data     tg3               0.021us    0.021us    RELATIVE   -0.009us     0.051us     60       1.000ns      EEEEEEEEE*********************[*]******************************       Pass     0.980ps      0.051us      N/A          N/A       
+    14       PgTMG_T261_22                    0        2        Open     tg3               0.019us    0.019us    RELATIVE   -0.011us     0.049us     60       1.000ns      EEEEEEEEEEE*********------****[*]****------*********------*****       Pass     0.015us      0.023us      32788        32788     
+    
+    ******** PIN MARGIN TEST END ********
+

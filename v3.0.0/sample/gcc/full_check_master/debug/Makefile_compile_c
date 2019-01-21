@@ -1,0 +1,372 @@
+#******************************************************************************
+#	Automatic generated file. Do not modify!
+#	CT Pattern Builder v3
+#	2082 - Hau Sy Le - hau.le.eb@renesas.com
+#******************************************************************************
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/debug
+COMPILER = arm-none-eabi-gcc
+OPTS += -march=armv8-r
+OPTS += -mcpu=cortex-r52
+OPTS += -mfpu=vfpv3-fp16
+OPTS += -O1
+OPTS += -D __arm__
+OPTS += -xc
+OPTS += -c
+OPTS += -mlittle-endian
+OPTS += -I ../include
+OPTS += -I ../include/rcar_v3u/startup
+OPTS += -I ../include/rcar_v3u/drivers
+OPTS += -I ../include/rcar_v3u
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master
+OBJS += $(DEBUG)/master_rx_dma.o
+OBJS += $(DEBUG)/master_tx_50kHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_250kHz.o
+OBJS += $(DEBUG)/master_tx_rpt_master_rx.o
+OBJS += $(DEBUG)/master_tx_100kHz.o
+OBJS += $(DEBUG)/master_arbitration_lost.o
+OBJS += $(DEBUG)/master_tx_fbsc_check.o
+OBJS += $(DEBUG)/master_tx_dma_continuous.o
+OBJS += $(DEBUG)/master_send_start_byte.o
+OBJS += $(DEBUG)/master_tx_300kHz_var_duty.o
+OBJS += $(DEBUG)/master_general_call.o
+OBJS += $(DEBUG)/master_tx_50kHz.o
+OBJS += $(DEBUG)/master_tx_250kHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_400kHz.o
+OBJS += $(DEBUG)/master_tx_400kHz_var_duty.o
+OBJS += $(DEBUG)/master_rx.o
+OBJS += $(DEBUG)/exception_handlers.o
+OBJS += $(DEBUG)/i2c_utils.o
+OBJS += $(DEBUG)/i2c.o
+OBJS += $(DEBUG)/master_tx_fsb.o
+OBJS += $(DEBUG)/master_tx_200kHz.o
+OBJS += $(DEBUG)/gic.o
+OBJS += $(DEBUG)/master_rx_delay.o
+OBJS += $(DEBUG)/sim_utils.o
+OBJS += $(DEBUG)/pfc.o
+OBJS += $(DEBUG)/master_tx.o
+OBJS += $(DEBUG)/main.o
+OBJS += $(DEBUG)/master_tx_dma.o
+OBJS += $(DEBUG)/master_tx_300kHz.o
+OBJS += $(DEBUG)/master_tx_200kHz_var_duty.o
+OBJS += $(DEBUG)/dmac.o
+OBJS += $(DEBUG)/master_tx_1MHz_var_duty.o
+OBJS += $(DEBUG)/master_tx_100kHz_var_duty.o
+OBJS += $(DEBUG)/master_rx_dma_continuous.o
+OBJS += $(DEBUG)/cpg.o
+.PHONY: COMPILE
+COMPILE: $(OBJS)
+$(DEBUG)/master_rx_dma.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx_dma.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_rx_dma.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx_dma.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_50kHz_var_duty.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_50kHz_var_duty.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_50kHz_var_duty.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_50kHz_var_duty.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_250kHz.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_250kHz.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_250kHz.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_250kHz.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_rpt_master_rx.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_rpt_master_rx.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_rpt_master_rx.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_rpt_master_rx.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_100kHz.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_100kHz.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_100kHz.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_100kHz.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_arbitration_lost.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_arbitration_lost.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_arbitration_lost.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_arbitration_lost.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_fbsc_check.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_fbsc_check.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_fbsc_check.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_fbsc_check.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_dma_continuous.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_dma_continuous.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_dma_continuous.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_dma_continuous.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_send_start_byte.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_send_start_byte.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_send_start_byte.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_send_start_byte.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_300kHz_var_duty.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_300kHz_var_duty.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_300kHz_var_duty.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_300kHz_var_duty.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_general_call.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_general_call.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_general_call.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_general_call.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_50kHz.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_50kHz.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_50kHz.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_50kHz.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_250kHz_var_duty.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_250kHz_var_duty.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_250kHz_var_duty.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_250kHz_var_duty.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_400kHz.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_400kHz.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_400kHz.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_400kHz.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_400kHz_var_duty.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_400kHz_var_duty.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_400kHz_var_duty.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_400kHz_var_duty.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_rx.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_rx.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/exception_handlers.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/exception_handlers.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o exception_handlers.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/startup/exception_handlers.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/i2c_utils.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/i2c_utils.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o i2c_utils.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/i2c_utils.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/i2c.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/i2c.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o i2c.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/i2c.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_fsb.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_fsb.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_fsb.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_fsb.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_200kHz.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_200kHz.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_200kHz.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_200kHz.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/gic.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/gic.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o gic.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/gic.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_rx_delay.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx_delay.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_rx_delay.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx_delay.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/sim_utils.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/sim_utils.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o sim_utils.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/sim_utils.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/pfc.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/pfc.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o pfc.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/pfc.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/main.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/main.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o main.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/main.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_dma.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_dma.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_dma.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_dma.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_300kHz.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_300kHz.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_300kHz.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_300kHz.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_200kHz_var_duty.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_200kHz_var_duty.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_200kHz_var_duty.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_200kHz_var_duty.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/dmac.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/dmac.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o dmac.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/dmac.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_1MHz_var_duty.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_1MHz_var_duty.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_1MHz_var_duty.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_1MHz_var_duty.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_tx_100kHz_var_duty.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_100kHz_var_duty.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_tx_100kHz_var_duty.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_tx_100kHz_var_duty.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/master_rx_dma_continuous.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx_dma_continuous.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o master_rx_dma_continuous.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/master_rx_dma_continuous.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/cpg.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/cpg.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o cpg.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_master/../include/rcar_v3u/drivers/cpg.c
+	mv -f *.o $(DEBUG)

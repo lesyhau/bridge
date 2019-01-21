@@ -1,0 +1,162 @@
+#******************************************************************************
+#	Automatic generated file. Do not modify!
+#	CT Pattern Builder v3
+#	2082 - Hau Sy Le - hau.le.eb@renesas.com
+#******************************************************************************
+DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/debug
+COMPILER = arm-none-eabi-gcc
+OPTS += -march=armv8-r
+OPTS += -mcpu=cortex-r52
+OPTS += -mfpu=vfpv3-fp16
+OPTS += -O1
+OPTS += -D __arm__
+OPTS += -xc
+OPTS += -c
+OPTS += -mlittle-endian
+OPTS += -I ../include/rcar_v3u/startup
+OPTS += -I ../include/rcar_v3u/drivers
+OPTS += -I ../include
+OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common
+OPTS += -I ../include/rcar_v3u
+OBJS += $(DEBUG)/sim_utils.o
+OBJS += $(DEBUG)/mstp_check.o
+OBJS += $(DEBUG)/i2c_utils.o
+OBJS += $(DEBUG)/srst_check.o
+OBJS += $(DEBUG)/cpg.o
+OBJS += $(DEBUG)/reg_check.o
+OBJS += $(DEBUG)/dmac.o
+OBJS += $(DEBUG)/main.o
+OBJS += $(DEBUG)/interrupt_check.o
+OBJS += $(DEBUG)/pad_check.o
+OBJS += $(DEBUG)/gic.o
+OBJS += $(DEBUG)/i2c.o
+OBJS += $(DEBUG)/exception_handlers.o
+OBJS += $(DEBUG)/pfc.o
+.PHONY: COMPILE
+COMPILE: $(OBJS)
+$(DEBUG)/sim_utils.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/sim_utils.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o sim_utils.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/sim_utils.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/mstp_check.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/mstp_check.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o mstp_check.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/mstp_check.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/i2c_utils.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c_utils.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o i2c_utils.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c_utils.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/srst_check.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/srst_check.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o srst_check.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/srst_check.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/cpg.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/cpg.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o cpg.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/cpg.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/reg_check.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/reg_check.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o reg_check.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/reg_check.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/dmac.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/dmac.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o dmac.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/dmac.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/main.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/main.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o main.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/main.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/interrupt_check.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/interrupt_check.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o interrupt_check.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/interrupt_check.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/pad_check.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/pad_check.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o pad_check.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/pad_check.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/gic.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/gic.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o gic.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/gic.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/i2c.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o i2c.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/exception_handlers.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/exception_handlers.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o exception_handlers.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/exception_handlers.c
+	mv -f *.o $(DEBUG)
+$(DEBUG)/pfc.o: \
+ /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/pfc.c \
+ ../include/global.h ../include/rcar_v3u/v3u.h \
+ ../include/rcar_v3u/drivers/sim_utils.h \
+ ../include/rcar_v3u/drivers/i2c.h ../include/rcar_v3u/drivers/pfc.h \
+ ../include/rcar_v3u/drivers/cpg.h ../include/rcar_v3u/drivers/gic.h \
+ ../include/rcar_v3u/drivers/dmac.h ../include/rcar_v3u/drivers/kcrc.h
+	$(COMPILER) $(OPTS) -o pfc.o /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/pfc.c
+	mv -f *.o $(DEBUG)

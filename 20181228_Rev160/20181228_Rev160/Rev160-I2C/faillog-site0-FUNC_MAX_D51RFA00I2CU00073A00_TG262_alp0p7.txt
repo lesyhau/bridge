@@ -1,0 +1,64 @@
+ 9010        0    FAIL     FUNC_MAX_D51RFA00I2CU00073A00_TG262
+D51RFA00I2CU00073A00                    
+   PINS
+                                                     DVVVDVVDDVVVDVVVDDVVSSS
+                                                     UIIIUIIUUIIIUIIIUUIIDDC
+                                                     _011_11__111_111__11AAL
+                                                     D___D__DD___D___DD__102
+                                                     GCDDRDDGRCDDGDDDGRDD   
+                                                     3LAA7AA56LAA4AAA23AA   
+                                                      KTT TT  KTT TTT  TT   
+                                                      EAA AA   AA AAA  AA   
+                                                      N27 49   38 051  16   
+                                                      B             0       
+   CHANNELS
+                                                     99955995555519997719555
+                                                     .......................
+                                                     ccccccccccccccccccccccc
+                                                     hhhhhhhhhhhhhhhhhhhhhhh
+                                                     31136141114111514354441
+                                                     70160082200020200769872
+                                                      12  5 549 004 8      0
+
+   PHYSICAL
+
+  Cycle   LCD Cycle  Relative   R  FF   F X  Timing
+                                e  MAEPCL E
+                                p  TIXCPAXX
+                               FLTFUGFT
+64331      N/A        64330      0     00000000 tg3      LHXXLXXLLHXXLXXXLLXXHHH
+->PASS                                                 LHLLLLLLLHLLLLLLLLLLHHH
+
+64332      N/A        64331      0     00000000 tg3      HLHHHHHHHLHHHHHHHLHHLLL
+->FAIL                                                 LHLLLLLLLHLLLLLLLLLLHHH
+
+64333      N/A        64332      0     00000000 tg3      HLHHHHHHHLHHHHHHHLHHLHL
+->FAIL                                                 HLHHHHHHHLHHHHHHHLHHLLL
+
+64334      N/A        64333      0     00000000 tg3      HLHHHHHHHLHHHHHHHLHHLHL
+->PASS                                                 HLHHHHHHHLHHHHHHHLHHLHL
+
+64335      N/A        64334      0     00000000 tg3      HLHHHHHHHLHHHHHHHLHHLHL
+->PASS                                                 HLHHHHHHHLHHHHHHHLHHLHL
+
+64336      N/A        64335      0     00000000 tg3      LHXXLXXLLHXXLXXXLLXXHHH
+->FAIL                                                 HLHHHHHHHLHHHHHHHLHHLHL
+
+64337      N/A        64336      0     00000000 tg3      LHXXLXXLLHXXLXXXLLXXHHH
+->PASS                                                 LHHHLHHLLHHHLHHHLLHHHHH
+
+64338      N/A        64337      0     00000000 tg3      HLHHHHHHHLHHHHHHHHHHLLL
+->FAIL                                                 LHHHLHHLLHHHLHHHLLHHHHH
+
+64339      N/A        64338      0     00000000 tg3      HLHHHHHHHLHHHHHHHHHHLHL
+->FAIL                                                 HLHHHHHHHLHHHHHHHHHHLLL
+
+64340      N/A        64339      0     00000000 tg3      HLHHHHHHHLHHHHHHHHHHLHL
+->PASS                                                 HLHHHHHHHLHHHHHHHHHHLHL
+
+64341      N/A        64340      0     00000000 tg3      HLHHHHHHHLHHHHHHHHHHLHL
+->PASS                                                 HLHHHHHHHLHHHHHHHHHHLHL
+
+64342      N/A        64341      0     00000000 tg3      LHXXLXXLLHXXLXXXLLXXHHH
+->FAIL                                                 HLLHHLLHHLHHHLLLHHLLLHL
+
