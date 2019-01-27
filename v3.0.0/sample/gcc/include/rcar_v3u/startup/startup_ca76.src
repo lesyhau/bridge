@@ -1,13 +1,13 @@
 
     .ifdef	__aarch64__
 
-    .section    STARTUP
+    .section    startup
 	
+    .global __vectors_copy_start
+    .global _start
 	.global	__use_no_semihosting_swi
-    .global __vectors_start
-    .global __main
 	
-Reset_Handler:
+__Reset_Handler:
 
     mov w0, #0x0800
     movk w0, #0xe617, lsl #16
@@ -26,7 +26,7 @@ Reset_Handler:
     MSR SPSR_EL3,x0
 
     // Vector table
-    ldr x0, = __vectors_start
+    ldr x0, = __vectors_copy_start
     msr VBAR_EL3, x0
     
     // Architectural Feature Trap EL3
@@ -100,19 +100,101 @@ wait_TE:
     ldr w0, = 0xe6300000 + __ddr_init_start
     br  x0
 
+    b   1f
+    .ltorg
+1:
+
 __ddr_init_start:
+    
+    // Initialize DDR
     include rel_dbsc4_init_lpddr4_4266_CL40WL18_181002_ca76.h
-    // Give the control to the C library
+
+    // Call __main
     ldr w0, = __main
     br  x0
+    
+    b   1f
+    .ltorg
+1:
+
 __ddr_init_end:
 
     .else
 
-    // Give the control to the C library
-    b   __main
+    // Call __main
+    ldr w0, = __main
+    br  x0
+    
+    b   1f
+    .ltorg
+1:
 
     .endif
+
+    .section    vectors_copy
+
+    .global SYNC_Handler
+    .global SERR_Handler
+    .global IRQ_Handler
+    .global __vectors_copy_start
+
+__vectors_copy_start:
+
+    b   __SYNC_EL0_Handler
+    align   0x80
+    b   __SERR_EL0_Handler
+    align   0x80
+    b   __IRQ_EL0_Handler
+    align   0x80
+    b   __FIQ_EL0_Handler
+    align   0x80
+    b   __SYNC_ELx_Handler
+    align   0x80
+    b   __SERR_ELx_Handler
+    align   0x80
+    b   __IRQ_ELx_Handler
+    align   0x80
+    b   __FIQ_ELx_Handler
+    align   0x80
+
+__SYNC_EL0_Handler:
+    bl  SYNC_Handler
+    eret
+
+__SERR_EL0_Handler:
+    bl  SERR_Handler
+    eret
+
+__IRQ_EL0_Handler:
+    bl  IRQ_Handler
+    eret
+
+__FIQ_EL0_Handler:
+    b   __FIQ_EL0_Handler
+    eret
+
+__SYNC_ELx_Handler:
+    bl  SYNC_Handler
+    eret
+
+__SERR_ELx_Handler:
+    bl  SERR_Handler
+    eret
+
+__IRQ_ELx_Handler:
+    bl  IRQ_Handler
+    eret
+
+__FIQ_ELx_Handler:
+    b   __FIQ_ELx_Handler
+    eret
+
+    b   1f
+    .ltorg
+1:
+
+__vectors_copy_end:
+
     .endif
 
     .end

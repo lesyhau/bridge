@@ -2,8 +2,8 @@
 # getBasename(\@inputFiles, $surfix)
 sub getBasename
 {
-	my @inputFiles = @{shift(@_)};
-	my $surfix = shift(@_);
+	my @inputFiles	= @{shift(@_)};
+	my $surfix		= shift(@_);
 	my @basenames;
 
 	foreach my $file (@inputFiles)
@@ -19,18 +19,18 @@ sub getBasename
 # @outputFiles = removeDuplicateFile(\@inputFiles);
 sub removeDuplicateFile
 {
-	my @inputFiles = @{shift(@_)};
-	my %hash = map {$_, 1} @inputFiles;
-	my @outputFiles = keys %hash;
+	my @inputFiles	= @{shift(@_)};
+	my %hash		= map {$_, 1} @inputFiles;
+	my @outputFiles	= keys %hash;
 	return @outputFiles;
 }
 
 # getFiles($dir, $surfix, $rescusive);
 sub getFiles
 {
-	my $dir = shift(@_);
-	my $surfix = shift(@_);
-	my $rescusive = shift(@_);
+	my $dir			= shift(@_);
+	my $surfix		= shift(@_);
+	my $rescusive	= shift(@_);
 	my @files;
 
 	print "[Info] Retrieving *.$surfix files in $dir\n";
@@ -53,9 +53,9 @@ sub getFiles
 # gen_files_list($workingDir, \@files, $append);
 sub gen_files_list
 {
-	my $workingDir = shift(@_);
-	my @files = @{shift(@_)};
-	my $append = shift(@_);
+	my $workingDir	= shift(@_);
+	my @files		= @{shift(@_)};
+	my $append		= shift(@_);
 
 	my $files = "$workingDir/debug/files";
 	if ($append == 1) { open FILE, ">>$files"; }
@@ -68,8 +68,8 @@ sub gen_files_list
 
 sub clean
 {
-	my $workingDir = shift(@_);
-	my $status = shift(@_);
+	my $workingDir	= shift(@_);
+	my $status		= shift(@_);
 
 	`mv -f Makefile* $workingDir/debug`;
 	if ($status == 0) { print "**** Build finished successfully ****", "\n"; }

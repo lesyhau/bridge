@@ -3,12 +3,12 @@ use strict;
 use warnings;
 use File::Spec;
 
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/help.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/utils.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/gen_dependency.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/compile.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/link.plx";
-require "/media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/extract_image.plx";
+require "/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/help.plx";
+require "/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/utils.plx";
+require "/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/gen_dependency.plx";
+require "/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/compile.plx";
+require "/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/link.plx";
+require "/mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/gcc/extract_image.plx";
 
 my $gcc = 0;
 
@@ -45,49 +45,24 @@ if ($buildStatus != 0) { exit; }
 $buildStatus = readCommandLineArgs();
 if ($buildStatus != 0) { exit; }
 
-if (! -d $workingDir)
-{
-	print "[Error] No such directory $workingDir\n";
-	exit;
-}
-
+if (! -d $workingDir) { print "[Error] No such directory $workingDir\n"; exit; }
 if (! -d $debugDir)
 {
 	$buildStatus = system("mkdir $debugDir");
-	if ($buildStatus != 0)
-	{
-		print "[Error] Failed to create folder $debugDir\n";
-		exit;
-	}
+	if ($buildStatus != 0) { print "[Error] Failed to create folder $debugDir\n"; exit; }
 }
 
 push @includeDirs, $workingDir;
 push @sourceDirs, $workingDir;
-@includeDirs = removeDuplicateFile(\@includeDirs);
-@sourceDirs = removeDuplicateFile(\@sourceDirs);
+@includeDirs	= removeDuplicateFile(\@includeDirs);
+@sourceDirs		= removeDuplicateFile(\@sourceDirs);
+foreach my $dir	(@includeDirs)	{ if (! -d $dir) { print "[Error] No such directory $dir\n"; exit; } }
+foreach my $dir	(@sourceDirs)	{ if (! -d $dir) { print "[Error] No such directory $dir\n"; exit; } }
 
-foreach my $dir (@includeDirs)
-{
-	if (! -d $dir)
-	{
-		print "[Error] No such directory $dir\n";
-		exit;
-	}
-}
-
-foreach my $dir (@sourceDirs)
-{
-	if (! -d $dir)
-	{
-		print "[Error] No such directory $dir\n";
-		exit;
-	}
-}
-
-foreach my $pd (@armasmPredefinedSymbols)	{ push @armasmCompilerOptions, translateArmasmCompilerOptions("pd", $pd); }
-foreach my $pd (@gnuasmPredefinedSymbols)	{ push @gnuasmCompilerOptions, translateGnuasmCompilerOptions("pd", $pd); }
-foreach my $pd (@cPredefinedSymbols)		{ push @cCompilerOptions, translateCCompilerOptions("pd", $pd); }
-foreach my $pd (@cppPredefinedSymbols)		{ push @cppCompilerOptions, translateCppCompilerOptions("pd", $pd); }
+foreach my $pd	(@armasmPredefinedSymbols)	{ push @armasmCompilerOptions, translateCompilerOptions("pd", $pd); }
+foreach my $pd	(@gnuasmPredefinedSymbols)	{ push @gnuasmCompilerOptions, translateCompilerOptions("pd", $pd); }
+foreach my $pd	(@cPredefinedSymbols)		{ push @cCompilerOptions, translateCompilerOptions("pd", $pd); }
+foreach my $pd	(@cppPredefinedSymbols)		{ push @cppCompilerOptions, translateCompilerOptions("pd", $pd); }
 
 push @armasmCompilerOptions,
 	translateCompilerOptions("armasm", "cpu", $cpu),

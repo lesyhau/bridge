@@ -1,6 +1,4 @@
 
-    .set    __arm__, 1
-
     .ifdef	__arm__
 
     // HPRBAR.SH
@@ -44,7 +42,7 @@
     .equ    EN_POS          , 0
     .equ    REGION_ENABLE   , (1 << EN_POS)
 
-    .section    MPU_INIT
+    .section    mpu_init
     
     .global  __mpu_init
     .global  __mpu_init_el1

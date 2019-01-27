@@ -396,18 +396,18 @@ sub list_fpu
 TXT
 }
 
-sub list_optimze
+sub list_optimize
 {
 	print <<TXT;
 
 	List of supported code optimize level:
-		0		No optimized
-		1		Slightly optimized (default)
-		2		Moderate optimized
-		3		Highly optimized
-		s		Optimize for code side
+		0	No optimized
+		1	Slightly optimized (default)
+		2	Moderate optimized
+		3	Highly optimized
+		s	Optimize for code side
 		fast	Optimize for code speed
-		g		Optimize for debugging experience
+		g	Optimize for debugging experience
 
 TXT
 }

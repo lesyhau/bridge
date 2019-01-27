@@ -3,61 +3,66 @@
 
     .section    startup
 	
-    .global Reset_Handler
-    .global UndefinedInstruction_Handler
-    .global SupervisorCall_Handler
-    .global PrefetchAbort_Handler
-    .global DataAbort_Handler
+    .global __Reset_Handler
+    .global UND_Handler
+    .global SVC_Handler
+    .global PAB_Handler
+    .global DAB_Handler
     .global IRQ_Handler
-	.global __use_no_semihosting_swi
     .global __mpu_init
-    .global main
-    .global __vectors_start
-	
+    .global _start
+    .global __vectors_copy_start
+	.global __use_no_semihosting_swi
+
+__vectors_start:
+
+    b   __Reset_Handler
+    b   __UDF_Handler
+    b   __SVC_Handler
+    b   __PAB_Handler
+    b   __DAB_Handler
+    nop
+    b   __IRQ_Handler
+__FIQ_Handler:
+    b   __FIQ_Handler
     
-    b   Reset_Handler   // 0x00
-    b   UDF_EXC         // 0x04
-    b   SVC_EXC         // 0x08
-    b   PAB_EXC         // 0x0c
-    b   DAB_EXC         // 0x10
-    nop                 // 0x14
-    b   IRQ_EXC	        // 0x18
-FIQ_EXC:                // 0x1c
-    // If you want to use fast interrupt, place its service code here.
-    // Maximum code size allowed is 4kB
-    b   FIQ_EXC
-    
-UDF_EXC:
-    push    {r0-r3,r10-r12,lr}
-    bl  UndefinedInstruction_Handler
-    pop {r0-r3,r10-r12,lr}
+__UDF_Handler:
+    push    {r0-r12,lr}
+    bl      UND_Handler
+    pop     {r0-r12,lr}
     eret
 
-SVC_EXC:
-    push    {r0-r3,r10-r12,lr}
-    bl  SupervisorCall_Handler
-    pop {r0-r3,r10-r12,lr}
+__SVC_Handler:
+    push    {r0-r12,lr}
+    bl      SVC_Handler
+    pop     {r0-r12,lr}
     eret
 
-PAB_EXC:
-    push    {r0-r3,r10-r12,lr}
-    bl  PrefetchAbort_Handler
-    pop {r0-r3,r10-r12,lr}
+__PAB_Handler:
+    push    {r0-r12,lr}
+    bl      PAB_Handler
+    pop     {r0-r12,lr}
     eret
 
-DAB_EXC:
-    push    {r0-r3,r10-r12,lr}
-    bl  DataAbort_Handler
-    pop {r0-r3,r10-r12,lr}
+__DAB_Handler:
+    push    {r0-r12,lr}
+    bl      DAB_Handler
+    pop     {r0-r12,lr}
     eret
 
-IRQ_EXC:
-    push    {r0-r3,r10-r12,lr}
-    bl  IRQ_Handler
-    pop {r0-r3,r10-r12,lr}
+__IRQ_Handler:
+    push    {r0-r12,lr}
+    bl      IRQ_Handler
+    pop     {r0-r12,lr}
     eret
 
-Reset_Handler:
+    b   1f
+    .ltorg
+1:
+
+__vectors_end:
+
+__Reset_Handler:
 
     // Initialize MPU
     bl  __mpu_init
@@ -71,7 +76,7 @@ Reset_Handler:
     vmsr FPEXC, r3
 
     // Change vector base address
-    ldr r0, = __vectors_start
+    ldr r0, = __vectors_copy_start
     mcr p15, 4, r0, c12, c0, 0
     mcr p15, 0, r0, c12, c0, 0
 
@@ -129,19 +134,98 @@ wait_TE:
     ldr r0, = 0xe6300000 + __ddr_init_start
     mov pc, r0
 
+    b   1f
+    .ltorg
+1:
+
 __ddr_init_start:
+
+    // Initialize DDR
     include rel_dbsc4_init_lpddr4_4266_CL40WL18_181012_cr52.h
-    // Give the control to the C library
-    ldr r0, = main
+    
+    // Call __main
+    ldr r0, = _start
     mov pc, r0
+
+    b   1f
+    .ltorg
+1:
+
 __ddr_init_end:
 
     .else
 
-    // Give the control to the C library
-    b   main
+    // Call __main
+    ldr r0, = _start
+    mov pc, r0
+
+    b   1f
+    .ltorg
+1:
 
     .endif
+
+    .section    vectors_copy
+	
+    .global __Reset_Handler
+    .global UND_Handler
+    .global SVC_Handler
+    .global PAB_Handler
+    .global DAB_Handler
+    .global IRQ_Handler
+    .global __mpu_init
+    .global _start
+    .global __vectors_copy_start
+	.global __use_no_semihosting_swi
+
+__vectors_copy_start:
+
+    b   __Reset_Handler
+    b   __UDF_Handler_Copy
+    b   __SVC_Handler_Copy
+    b   __PAB_Handler_Copy
+    b   __DAB_Handler_Copy
+    nop
+    b   __IRQ_Handler_COpy
+__FIQ_Handler_Copy:
+    b   __FIQ_Handler_Copy
+    
+__UDF_Handler_Copy:
+    push    {r0-r12,lr}
+    bl      UND_Handler
+    pop     {r0-r12,lr}
+    eret
+
+__SVC_Handler_Copy:
+    push    {r0-r12,lr}
+    bl      SVC_Handler
+    pop     {r0-r12,lr}
+    eret
+
+__PAB_Handler_Copy:
+    push    {r0-r12,lr}
+    bl      PAB_Handler
+    pop     {r0-r12,lr}
+    eret
+
+__DAB_Handler_Copy:
+    push    {r0-r12,lr}
+    bl      DAB_Handler
+    pop     {r0-r12,lr}
+    eret
+
+__IRQ_Handler_Copy:
+    push    {r0-r12,lr}
+    bl      IRQ_Handler
+    pop     {r0-r12,lr}
+    eret
+
+    b   1f
+    .ltorg
+1:
+
+__vectors_copy_end:
+
     .endif
 
     .end

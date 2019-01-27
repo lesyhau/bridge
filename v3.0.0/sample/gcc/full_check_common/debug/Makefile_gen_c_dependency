@@ -3,55 +3,55 @@
 #	CT Pattern Builder v3
 #	2082 - Hau Sy Le - hau.le.eb@renesas.com
 #******************************************************************************
-DEBUG = /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/debug
+DEBUG = /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/debug
 COMPILER = arm-none-eabi-gcc
 OPTS += -MM
-OPTS += -I ../include/rcar_v3u/startup
-OPTS += -I ../include/rcar_v3u/drivers
 OPTS += -I ../include
-OPTS += -I /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common
+OPTS += -I /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common
+OPTS += -I ../include/rcar_v3u/drivers
 OPTS += -I ../include/rcar_v3u
-MKS += $(DEBUG)/sim_utils.mk
-MKS += $(DEBUG)/mstp_check.mk
-MKS += $(DEBUG)/i2c_utils.mk
-MKS += $(DEBUG)/srst_check.mk
-MKS += $(DEBUG)/cpg.mk
-MKS += $(DEBUG)/reg_check.mk
+OPTS += -I ../include/rcar_v3u/startup
+MKS += $(DEBUG)/i2c.mk
 MKS += $(DEBUG)/dmac.mk
 MKS += $(DEBUG)/main.mk
+MKS += $(DEBUG)/i2c_utils.mk
+MKS += $(DEBUG)/reg_check.mk
 MKS += $(DEBUG)/interrupt_check.mk
-MKS += $(DEBUG)/pad_check.mk
-MKS += $(DEBUG)/gic.mk
-MKS += $(DEBUG)/i2c.mk
-MKS += $(DEBUG)/exception_handlers.mk
 MKS += $(DEBUG)/pfc.mk
+MKS += $(DEBUG)/cpg.mk
+MKS += $(DEBUG)/mstp_check.mk
+MKS += $(DEBUG)/gic.mk
+MKS += $(DEBUG)/sim_utils.mk
+MKS += $(DEBUG)/exception_handlers.mk
+MKS += $(DEBUG)/pad_check.mk
+MKS += $(DEBUG)/srst_check.mk
 .PHONY: GENDEP
 GENDEP: $(MKS)
-$(DEBUG)/sim_utils.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/sim_utils.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/sim_utils.c -MF $(DEBUG)/sim_utils.mk
-$(DEBUG)/mstp_check.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/mstp_check.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/mstp_check.c -MF $(DEBUG)/mstp_check.mk
-$(DEBUG)/i2c_utils.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c_utils.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c_utils.c -MF $(DEBUG)/i2c_utils.mk
-$(DEBUG)/srst_check.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/srst_check.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/srst_check.c -MF $(DEBUG)/srst_check.mk
-$(DEBUG)/cpg.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/cpg.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/cpg.c -MF $(DEBUG)/cpg.mk
-$(DEBUG)/reg_check.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/reg_check.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/reg_check.c -MF $(DEBUG)/reg_check.mk
-$(DEBUG)/dmac.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/dmac.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/dmac.c -MF $(DEBUG)/dmac.mk
-$(DEBUG)/main.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/main.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/main.c -MF $(DEBUG)/main.mk
-$(DEBUG)/interrupt_check.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/interrupt_check.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/interrupt_check.c -MF $(DEBUG)/interrupt_check.mk
-$(DEBUG)/pad_check.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/pad_check.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/pad_check.c -MF $(DEBUG)/pad_check.mk
-$(DEBUG)/gic.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/gic.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/gic.c -MF $(DEBUG)/gic.mk
-$(DEBUG)/i2c.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c.c -MF $(DEBUG)/i2c.mk
-$(DEBUG)/exception_handlers.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/exception_handlers.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/exception_handlers.c -MF $(DEBUG)/exception_handlers.mk
-$(DEBUG)/pfc.mk: /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/pfc.c
-	$(COMPILER) $(OPTS) /media/electronicdog/Windows/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/pfc.c -MF $(DEBUG)/pfc.mk
+$(DEBUG)/i2c.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c.c -MF $(DEBUG)/i2c.mk
+$(DEBUG)/dmac.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/dmac.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/dmac.c -MF $(DEBUG)/dmac.mk
+$(DEBUG)/main.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/main.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/main.c -MF $(DEBUG)/main.mk
+$(DEBUG)/i2c_utils.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c_utils.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/i2c_utils.c -MF $(DEBUG)/i2c_utils.mk
+$(DEBUG)/reg_check.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/reg_check.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/reg_check.c -MF $(DEBUG)/reg_check.mk
+$(DEBUG)/interrupt_check.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/interrupt_check.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/interrupt_check.c -MF $(DEBUG)/interrupt_check.mk
+$(DEBUG)/pfc.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/pfc.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/pfc.c -MF $(DEBUG)/pfc.mk
+$(DEBUG)/cpg.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/cpg.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/cpg.c -MF $(DEBUG)/cpg.mk
+$(DEBUG)/mstp_check.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/mstp_check.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/mstp_check.c -MF $(DEBUG)/mstp_check.mk
+$(DEBUG)/gic.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/gic.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/gic.c -MF $(DEBUG)/gic.mk
+$(DEBUG)/sim_utils.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/sim_utils.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/drivers/sim_utils.c -MF $(DEBUG)/sim_utils.mk
+$(DEBUG)/exception_handlers.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/exception_handlers.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/../include/rcar_v3u/startup/exception_handlers.c -MF $(DEBUG)/exception_handlers.mk
+$(DEBUG)/pad_check.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/pad_check.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/pad_check.c -MF $(DEBUG)/pad_check.mk
+$(DEBUG)/srst_check.mk: /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/srst_check.c
+	$(COMPILER) $(OPTS) /mnt/c/Users/lesyh/OneDrive/Documents/Renesas/bridge/v3.0.0/sample/gcc/full_check_common/srst_check.c -MF $(DEBUG)/srst_check.mk
