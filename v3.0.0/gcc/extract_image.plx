@@ -9,12 +9,12 @@ my $imageExtracter2	= "arm-none-eabi-objdump";
 
 sub extract_image
 {
-	my $workingDir = shift(@_);
-	my $image = "$workingDir/debug/image.elf";
-	my $imageBinary = "$workingDir/debug/image.bin";
-	my $imageList = "$workingDir/debug/image.lst";
+	my $workingDir	= shift(@_);
+	my $image		= "$workingDir/debug/image.elf";
+	my $imageBinary	= "$workingDir/debug/image.bin";
+	my $imageList	= "$workingDir/debug/image.lst";
 
-	my @binOptions = ("--output-target=srec");
+	my @binOptions	= ("--output-target=srec");
 	my @listOptions = ("--disassemble", "--endian=little", "--reloc");
 
 	my $Makefile = "$workingDir/Makefile_extract_image";
@@ -32,8 +32,8 @@ BIN = $imageExtracter
 LIST = $imageExtracter2
 TXT
 
-	foreach my $binOpt (@binOptions) { print MAKE "BINOPTS += $binOpt\n"; }
-	foreach my $listOopt (@listOptions) { print MAKE "LISTOPTS += $listOopt\n"; }
+	foreach my $binOpt		(@binOptions)	{ print MAKE "BINOPTS += $binOpt\n"; }
+	foreach my $listOopt	(@listOptions)	{ print MAKE "LISTOPTS += $listOopt\n"; }
 
 	print MAKE <<TXT;
 .PHONY: EXTRACT

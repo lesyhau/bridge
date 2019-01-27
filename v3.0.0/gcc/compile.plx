@@ -65,10 +65,10 @@ sub compile_armasm
 # compile_gnuasm($workingDir, @includeDirs, @sourceFiles, @compilerOptions);
 sub compile_gnuasm
 {
-	my $workingDir = shift(@_);
-	my @includeDirs = @{shift(@_)};
-	my @sourceFiles = @{shift(@_)};
-	my @compilerOptions = @{shift(@_)};
+	my $workingDir		= shift(@_);
+	my @includeDirs		= @{shift(@_)};
+	my @sourceFiles		= @{shift(@_)};
+	my @compilerOptions	= @{shift(@_)};
 	push @compilerOptions, "-EL", "-L";
 
 	my @sourceFilesBase = getBasename(\@sourceFiles, ".src");
@@ -86,9 +86,9 @@ DEBUG = $workingDir/debug
 COMPILER = $gnuasmCompiler
 TXT
 
-	foreach my $opt (@compilerOptions) { print MAKE "OPTS += $opt\n"; }
-	foreach my $dir (@includeDirs) { print MAKE "OPTS += -I $dir\n"; }
-	foreach my $base (@sourceFilesBase) { print MAKE "OBJS += \$(DEBUG)/$base.o\n"; }
+	foreach my $opt		(@compilerOptions)	{ print MAKE "OPTS += $opt\n"; }
+	foreach my $dir		(@includeDirs)		{ print MAKE "OPTS += -I $dir\n"; }
+	foreach my $base	(@sourceFilesBase)	{ print MAKE "OBJS += \$(DEBUG)/$base.o\n"; }
 
 	print MAKE <<TXT;
 .PHONY: COMPILE
@@ -118,11 +118,16 @@ TXT
 # compile_c($workingDir, @includeDirs, @sourceFiles, @compilerOptions);
 sub compile_c
 {
-	my $workingDir = shift(@_);
-	my @includeDirs = @{shift(@_)};
-	my @sourceFiles = @{shift(@_)};
-	my @compilerOptions = @{shift(@_)};
-	push @compilerOptions, "-xc", "-c", "-mlittle-endian";
+	my $workingDir		= shift(@_);
+	my @includeDirs		= @{shift(@_)};
+	my @sourceFiles		= @{shift(@_)};
+	my @compilerOptions	= @{shift(@_)};
+	push @compilerOptions,
+		"-xc",
+		"-c",
+		"-mlittle-endian",
+		"-ffunction-sections",
+		"-fdata-sections";
 
 	my @sourceFilesBase = getBasename(\@sourceFiles, ".c");
 	my $Makefile = "$workingDir/Makefile_compile_c";
@@ -139,9 +144,9 @@ DEBUG = $workingDir/debug
 COMPILER = $cCompiler
 TXT
 
-	foreach my $opt (@compilerOptions) { print MAKE "OPTS += $opt\n"; }
-	foreach my $dir (@includeDirs) { print MAKE "OPTS += -I $dir\n"; }
-	foreach my $base (@sourceFilesBase) { print MAKE "OBJS += \$(DEBUG)/$base.o\n"; }
+	foreach my $opt		(@compilerOptions)	{ print MAKE "OPTS += $opt\n"; }
+	foreach my $dir		(@includeDirs)		{ print MAKE "OPTS += -I $dir\n"; }
+	foreach my $base	(@sourceFilesBase)	{ print MAKE "OBJS += \$(DEBUG)/$base.o\n"; }
 
 	print MAKE <<TXT;
 .PHONY: COMPILE
@@ -174,11 +179,17 @@ TXT
 # compile_cpp($workingDir, \@includeDirs, \@sourceFiles, \@compilerOptions);
 sub compile_cpp
 {
-	my $workingDir = shift(@_);
-	my @includeDirs = @{shift(@_)};
-	my @sourceFiles = @{shift(@_)};
-	my @compilerOptions = @{shift(@_)};
-	push @compilerOptions, "-xc++", "-c", "-mlittle-endian";
+	my $workingDir		= shift(@_);
+	my @includeDirs		= @{shift(@_)};
+	my @sourceFiles		= @{shift(@_)};
+	my @compilerOptions	= @{shift(@_)};
+	push @compilerOptions,
+		"-xc++",
+		"-c",
+		"-mlittle-endian",
+		"-ffunction-sections",
+		"-fdata-sections",
+		"-Wl,--gc-sections";
 
 	my @sourceFilesBase = getBasename(\@sourceFiles, ".cpp");
 	my $Makefile = "$workingDir/Makefile_compile_cpp";
@@ -195,9 +206,9 @@ DEBUG = $workingDir/debug
 COMPILER = $cppCompiler
 TXT
 
-	foreach my $opt (@compilerOptions) { print MAKE "OPTS += $opt\n"; }
-	foreach my $dir (@includeDirs) { print MAKE "OPTS += -I $dir\n"; }
-	foreach my $base (@sourceFilesBase) { print MAKE "OBJS += \$(DEBUG)/$base.o\n"; }
+	foreach my $opt		(@compilerOptions)	{ print MAKE "OPTS += $opt\n"; }
+	foreach my $dir		(@includeDirs)		{ print MAKE "OPTS += -I $dir\n"; }
+	foreach my $base	(@sourceFilesBase)	{ print MAKE "OBJS += \$(DEBUG)/$base.o\n"; }
 
 	print MAKE <<TXT;
 .PHONY: COMPILE
@@ -227,164 +238,208 @@ TXT
 	return $status;
 }
 
-sub translateArmasmCompilerOptions
+sub translateCompilerOptions
 {
-	my $alias = shift(@_);
-	my $rawOption = shift(@_);
+	my $language	= shift(@_);
+	my $alias		= shift(@_);
+	my $rawOption	= shift(@_);
 
-	if		($alias eq "arch")	{ return "-march=$rawOption"	; }
-	elsif	($alias eq "cpu")	{ return "-mcpu=$rawOption"		; }
-	elsif	($alias eq "fpu")	{ return "-mfpu=$rawOption"		; }
-	elsif	($alias eq "pd")	{ return "--defsym $rawOption"	; }
+	if ($language eq "armasm")
+	{
+		if		($alias eq "cpu")		{ return "-mcpu=$rawOption"		; }
+		elsif	($alias eq "fpu")		{ return "-mfpu=$rawOption"		; }
+		elsif	($alias eq "pd")		{ return "--defsym $rawOption"	; }
+	}
+
+	elsif ($language eq "gnuasm")
+	{
+		if		($alias eq "cpu")		{ return "-mcpu=$rawOption"		; }
+		elsif	($alias eq "fpu")		{ return "-mfpu=$rawOption"		; }
+		elsif	($alias eq "pd")		{ return "--defsym $rawOption"	; }
+	}
+	
+	elsif ($language eq "c")
+	{
+		if		($alias eq "cpu")		{ return "-mcpu=$rawOption"		; }
+		elsif	($alias eq "fpu")		{ return "-mfpu=$rawOption"		; }
+		elsif	($alias eq "pd")		{ return "-D $rawOption"		; }
+		elsif	($alias eq "optimize")	{ return "-O$rawOption"			; }
+	}
+	
+	elsif ($language eq "cpp")
+	{
+		if		($alias eq "cpu")		{ return "-mcpu=$rawOption"		; }
+		elsif	($alias eq "fpu")		{ return "-mfpu=$rawOption"		; }
+		elsif	($alias eq "pd")		{ return "-D $rawOption"		; }
+		elsif	($alias eq "optimize")	{ return "-O$rawOption"			; }
+	}
 }
 
-sub translateGnuasmCompilerOptions
+sub list_cpu
 {
-	my $alias = shift(@_);
-	my $rawOption = shift(@_);
+	print <<TXT;
 
-	if		($alias eq "arch")	{ return "-march=$rawOption"	; }
-	elsif	($alias eq "cpu")	{ return "-mcpu=$rawOption"		; }
-	elsif	($alias eq "fpu")	{ return "-mfpu=$rawOption"		; }
-	elsif	($alias eq "pd")	{ return "--defsym $rawOption"	; }
+	List of supported ARM CPUs:
+		arm7tdmi
+		arm7tdmi-s
+		arm710t
+		arm720t
+		arm740t
+		strongarm
+		strongarm110
+		strongarm1100
+		strongarm1110
+		arm8
+		arm810
+		arm9
+		arm9e
+		arm920
+		arm920t
+		arm922t
+		arm946e-s
+		arm966e-s
+		arm968e-s
+		arm926ej-s
+		arm940t
+		arm9tdmi
+		arm10tdmi
+		arm1020t
+		arm1026ej-s
+		arm10e
+		arm1020e
+		arm1022e
+		arm1136j-s
+		arm1136jf-s
+		mpcore
+		mpcorenovfp
+		arm1156t2-s
+		arm1156t2f-s
+		arm1176jz-s
+		arm1176jzf-s
+		generic-armv7-a
+		cortex-a5
+		cortex-a7
+		cortex-a8
+		cortex-a9
+		cortex-a12
+		cortex-a15
+		cortex-a17
+		cortex-a32
+		cortex-a35
+		cortex-a53
+		cortex-a55
+		cortex-a57
+		cortex-a72
+		cortex-a73
+		cortex-a75
+		cortex-a76
+		ares
+		cortex-r4
+		cortex-r4f
+		cortex-r5
+		cortex-r7
+		cortex-r8
+		cortex-r52
+		cortex-m0
+		cortex-m0plus
+		cortex-m1
+		cortex-m3
+		cortex-m4
+		cortex-m7
+		cortex-m23
+		cortex-m33
+		cortex-m1.small-multiply
+		cortex-m0.small-multiply
+		cortex-m0plus.small-multiply
+		exynos-m1
+		marvell-pj4
+		xscale
+		iwmmxt
+		iwmmxt2
+		ep9312
+		fa526
+		fa626
+		fa606te
+		fa626te
+		fmp626
+		fa726te
+		xgene1
+
+TXT
 }
 
-# if	($rawOption eq "armv7r"			)	{ return "-march=armv7r"		; }
-# elsif	($rawOption eq "armv8a"			)	{ return "-march=armv8a"		; }
-# elsif	($rawOption eq "armv8r"			)	{ return "-march=armv8r"		; }
-# elsif	($rawOption eq "armv4t"			)	{ return "-march=armv4t"		; }
-# elsif	($rawOption eq "armv5t"			)	{ return "-march=armv5t"		; }
-# elsif	($rawOption eq "armv5te"		)	{ return "-march=armv5te"		; }
-# elsif	($rawOption eq "armv6"			)	{ return "-march=armv6"			; }
-# elsif	($rawOption eq "armv6j"			)	{ return "-march=armv6j"		; }
-# elsif	($rawOption eq "armv6k"			)	{ return "-march=armv6k"		; }
-# elsif	($rawOption eq "armv6kz"		)	{ return "-march=armv6kz"		; }
-# elsif	($rawOption eq "armv6t2"		)	{ return "-march=armv6t2"		; }
-# elsif	($rawOption eq "armv6z"			)	{ return "-march=armv6z"		; }
-# elsif	($rawOption eq "armv6zk"		)	{ return "-march=armv6zk"		; }
-# elsif	($rawOption eq "armv7"			)	{ return "-march=armv7"			; }
-# elsif	($rawOption eq "armv7-a"		)	{ return "-march=armv7-a"		; }
-# elsif	($rawOption eq "armv7ve"		)	{ return "-march=armv7ve"		; }
-# elsif	($rawOption eq "armv8-a"		)	{ return "-march=armv8-a"		; }
-# elsif	($rawOption eq "armv8.1-a"		)	{ return "-march=armv8.1-a"		; }
-# elsif	($rawOption eq "armv8.2-a"		)	{ return "-march=armv8.2-a"		; }
-# elsif	($rawOption eq "armv8.3-a"		)	{ return "-march=armv8.3-a"		; }
-# elsif	($rawOption eq "armv8.4-a"		)	{ return "-march=armv8.4-a"		; }
-# elsif	($rawOption eq "armv8.5-a"		)	{ return "-march=armv8.5-a"		; }
-# elsif	($rawOption eq "armv7-r"		)	{ return "-march=armv7-r"		; }
-# elsif	($rawOption eq "armv8-r"		)	{ return "-march=armv8-r"		; }
-# elsif	($rawOption eq "armv6-m"		)	{ return "-march=armv6-m"		; }
-# elsif	($rawOption eq "armv6s-m"		)	{ return "-march=armv6s-m"		; }
-# elsif	($rawOption eq "armv7-m"		)	{ return "-march=armv7-m"		; }
-# elsif	($rawOption eq "armv7e-m"		)	{ return "-march=armv7e-m"		; }
-# elsif	($rawOption eq "iwmmxt"			)	{ return "-march=iwmmxt"		; }
-# elsif	($rawOption eq "iwmmxt2"		)	{ return "-march=iwmmxt2"		; }
-# elsif	($rawOption eq "armv8-m.base"	)	{ return "-march=armv8-m.base"	; }
-# elsif	($rawOption eq "armv8-m.main"	)	{ return "-march=armv8-m.main"	; }
+sub list_fpu
+{
+	print <<TXT;
 
-# if	($rawOption eq "arm7tdmi"		)	{ return "-mcpu=arm7tdmi"		; }
-# elsif	($rawOption eq "arm7tdmi-s"		)	{ return "-mcpu=arm7tdmi-s"		; }
-# elsif	($rawOption eq "arm710t"		)	{ return "-mcpu=arm710t"		; }
-# elsif	($rawOption eq "arm720t"		)	{ return "-mcpu=arm720t"		; }
-# elsif	($rawOption eq "arm740t"		)	{ return "-mcpu=arm740t"		; }
-# elsif	($rawOption eq "strongarm"		)	{ return "-mcpu=strongarm"		; }
-# elsif	($rawOption eq "strongarm110"	)	{ return "-mcpu=strongarm110"	; }
-# elsif	($rawOption eq "strongarm1100"	)	{ return "-mcpu=strongarm1100"	; }
-# elsif	($rawOption eq "strongarm1110"	)	{ return "-mcpu=strongarm1110"	; }
-# elsif	($rawOption eq "arm8"			)	{ return "-mcpu=arm8"			; }
-# elsif	($rawOption eq "arm810"			)	{ return "-mcpu=arm810"			; }
-# elsif	($rawOption eq "arm9"			)	{ return "-mcpu=arm9"			; }
-# elsif	($rawOption eq "arm9e"			)	{ return "-mcpu=arm9e"			; }
-# elsif	($rawOption eq "arm920"			)	{ return "-mcpu=arm920"			; }
-# elsif	($rawOption eq "arm920t"		)	{ return "-mcpu=arm920t"		; }
-# elsif	($rawOption eq "arm922t"		)	{ return "-mcpu=arm922t"		; }
-# elsif	($rawOption eq "arm946e-s"		)	{ return "-mcpu=arm946e-s"		; }
-# elsif	($rawOption eq "arm966e-s"		)	{ return "-mcpu=arm966e-s"		; }
-# elsif	($rawOption eq "arm968e-s"		)	{ return "-mcpu=arm968e-s"		; }
-# elsif	($rawOption eq "arm926ej-s"		)	{ return "-mcpu=arm926ej-s"		; }
-# elsif	($rawOption eq "arm940t"		)	{ return "-mcpu=arm940t"		; }
-# elsif	($rawOption eq "arm9tdmi"		)	{ return "-mcpu=arm9tdmi"		; }
-# elsif	($rawOption eq "arm10tdmi"		)	{ return "-mcpu=arm10tdmi"		; }
-# elsif	($rawOption eq "arm1020t"		)	{ return "-mcpu=arm1020t"		; }
-# elsif	($rawOption eq "arm1026ej-s"	)	{ return "-mcpu=arm1026ej-s"	; }
-# elsif	($rawOption eq "arm10e"			)	{ return "-mcpu=arm10e"			; }
-# elsif	($rawOption eq "arm1020e"		)	{ return "-mcpu=arm1020e"		; }
-# elsif	($rawOption eq "arm1022e"		)	{ return "-mcpu=arm1022e"		; }
-# elsif	($rawOption eq "arm1136j-s"		)	{ return "-mcpu=arm1136j-s"		; }
-# elsif	($rawOption eq "arm1136jf-s"	)	{ return "-mcpu=arm1136jf-s"	; }
-# elsif	($rawOption eq "mpcore"			)	{ return "-mcpu=mpcore"			; }
-# elsif	($rawOption eq "mpcorenovfp"	)	{ return "-mcpu=mpcorenovfp"	; }
-# elsif	($rawOption eq "arm1156t2-s"	)	{ return "-mcpu=arm1156t2-s"	; }
-# elsif	($rawOption eq "arm1156t2f-s"	)	{ return "-mcpu=arm1156t2f-s"	; }
-# elsif	($rawOption eq "arm1176jz-s"	)	{ return "-mcpu=arm1176jz-s"	; }
-# elsif	($rawOption eq "arm1176jzf-s"	)	{ return "-mcpu=arm1176jzf-s"	; }
-# elsif	($rawOption eq "cortex-a5"		)	{ return "-mcpu=cortex-a5"		; }
-# elsif	($rawOption eq "cortex-a7"		)	{ return "-mcpu=cortex-a7"		; }
-# elsif	($rawOption eq "cortex-a8"		)	{ return "-mcpu=cortex-a8"		; }
-# elsif	($rawOption eq "cortex-a9"		)	{ return "-mcpu=cortex-a9"		; }
-# elsif	($rawOption eq "cortex-a12"		)	{ return "-mcpu=cortex-a12"		; }
-# elsif	($rawOption eq "cortex-a15"		)	{ return "-mcpu=cortex-a15"		; }
-# elsif	($rawOption eq "cortex-a17"		)	{ return "-mcpu=cortex-a17"		; }
-# elsif	($rawOption eq "cortex-a32"		)	{ return "-mcpu=cortex-a32"		; }
-# elsif	($rawOption eq "cortex-a35"		)	{ return "-mcpu=cortex-a35"		; }
-# elsif	($rawOption eq "cortex-a53"		)	{ return "-mcpu=cortex-a53"		; }
-# elsif	($rawOption eq "cortex-a55"		)	{ return "-mcpu=cortex-a55"		; }
-# elsif	($rawOption eq "cortex-a57"		)	{ return "-mcpu=cortex-a57"		; }
-# elsif	($rawOption eq "cortex-a72"		)	{ return "-mcpu=cortex-a72"		; }
-# elsif	($rawOption eq "cortex-a73"		)	{ return "-mcpu=cortex-a73"		; }
-# elsif	($rawOption eq "cortex-a75"		)	{ return "-mcpu=cortex-a75"		; }
-# elsif	($rawOption eq "cortex-a76"		)	{ return "-mcpu=cortex-a76"		; }
-# elsif	($rawOption eq "ares"			)	{ return "-mcpu=ares"			; }
-# elsif	($rawOption eq "cortex-r4"		)	{ return "-mcpu=cortex-r4"		; }
-# elsif	($rawOption eq "cortex-r4f"		)	{ return "-mcpu=cortex-r4f"		; }
-# elsif	($rawOption eq "cortex-r5"		)	{ return "-mcpu=cortex-r5"		; }
-# elsif	($rawOption eq "cortex-r7"		)	{ return "-mcpu=cortex-r7"		; }
-# elsif	($rawOption eq "cortex-r8"		)	{ return "-mcpu=cortex-r8"		; }
-# elsif	($rawOption eq "cortex-r52"		)	{ return "-mcpu=cortex-r52"		; }
-# elsif	($rawOption eq "cortex-m0"		)	{ return "-mcpu=cortex-m0"		; }
-# elsif	($rawOption eq "cortex-m0plus"	)	{ return "-mcpu=cortex-m0plus"	; }
-# elsif	($rawOption eq "cortex-m1"		)	{ return "-mcpu=cortex-m1"		; }
-# elsif	($rawOption eq "cortex-m3"		)	{ return "-mcpu=cortex-m3"		; }
-# elsif	($rawOption eq "cortex-m4"		)	{ return "-mcpu=cortex-m4"		; }
-# elsif	($rawOption eq "cortex-m7"		)	{ return "-mcpu=cortex-m7"		; }
-# elsif	($rawOption eq "cortex-m23"		)	{ return "-mcpu=cortex-m23"		; }
-# elsif	($rawOption eq "cortex-m33"		)	{ return "-mcpu=cortex-m33"		; }
-# elsif	($rawOption eq "exynos-m1"		)	{ return "-mcpu=exynos-m1"		; }
-# elsif	($rawOption eq "marvell-pj4"	)	{ return "-mcpu=marvell-pj4"	; }
-# elsif	($rawOption eq "xscale"			)	{ return "-mcpu=xscale"			; }
-# elsif	($rawOption eq "iwmmxt"			)	{ return "-mcpu=iwmmxt"			; }
-# elsif	($rawOption eq "iwmmxt2"		)	{ return "-mcpu=iwmmxt2"		; }
-# elsif	($rawOption eq "ep9312"			)	{ return "-mcpu=ep9312"			; }
-# elsif	($rawOption eq "fa526"			)	{ return "-mcpu=fa526"			; }
-# elsif	($rawOption eq "fa626"			)	{ return "-mcpu=fa626"			; }
-# elsif	($rawOption eq "fa606te"		)	{ return "-mcpu=fa606te"		; }
-# elsif	($rawOption eq "fa626te"		)	{ return "-mcpu=fa626te"		; }
-# elsif	($rawOption eq "fmp626"			)	{ return "-mcpu=fmp626"			; }
-# elsif	($rawOption eq "fa726te"		)	{ return "-mcpu=fa726te"		; }
-# elsif	($rawOption eq "xgene1"			)	{ return "-mcpu=xgene1"			; }
-# elsif	($rawOption eq "generic-armv7-a"				)	{ return "-mcpu=generic-armv7-a"				; }
-# elsif	($rawOption eq "cortex-m1.small-multiply"		)	{ return "-mcpu=cortex-m1.small-multiply"		; }
-# elsif	($rawOption eq "cortex-m0.small-multiply"		)	{ return "-mcpu=cortex-m0.small-multiply"		; }
-# elsif	($rawOption eq "cortex-m0plus.small-multiply"	)	{ return "-mcpu=cortex-m0plus.small-multiply"	; }
+	List of supported FPUs:
+		auto
+		vfpv2
+		vfpv3
+		vfpv3-fp16
+		vfpv3-d16
+		vfpv3-d16-fp16
+		vfpv3xd
+		vfpv3xd-fp16
+		neon-vfpv3
+		neon-fp16
+		vfpv4
+		vfpv4-d16
+		fpv4-sp-d16
+		neon-vfpv4
+		fpv5-d16
+		fpv5-sp-d16
+		fp-armv8
+		neon-fp-armv8
+		crypto-neon-fp-armv8
 
-# if	($rawOption eq "auto"			)	{ return "-mfpu=auto"			; }
-# elsif	($rawOption eq "vfpv2"			)	{ return "-mfpu=vfpv2"			; }
-# elsif	($rawOption eq "vfpv3"			)	{ return "-mfpu=vfpv3"			; }
-# elsif	($rawOption eq "vfpv3-fp16"		)	{ return "-mfpu=vfpv3-fp16"		; }
-# elsif	($rawOption eq "vfpv3-d16"		)	{ return "-mfpu=vfpv3-d16"		; }
-# elsif	($rawOption eq "vfpv3-d16-fp16"	)	{ return "-mfpu=vfpv3-d16-fp16"	; }
-# elsif	($rawOption eq "vfpv3xd"		)	{ return "-mfpu=vfpv3xd"		; }
-# elsif	($rawOption eq "vfpv3xd-fp16"	)	{ return "-mfpu=vfpv3xd-fp16"	; }
-# elsif	($rawOption eq "neon-vfpv3"		)	{ return "-mfpu=neon-vfpv3"		; }
-# elsif	($rawOption eq "neon-fp16"		)	{ return "-mfpu=neon-fp16"		; }
-# elsif	($rawOption eq "vfpv4"			)	{ return "-mfpu=vfpv4"			; }
-# elsif	($rawOption eq "vfpv4-d16"		)	{ return "-mfpu=vfpv4-d16"		; }
-# elsif	($rawOption eq "fpv4-sp-d16"	)	{ return "-mfpu=fpv4-sp-d16"	; }
-# elsif	($rawOption eq "neon-vfpv4"		)	{ return "-mfpu=neon-vfpv4"		; }
-# elsif	($rawOption eq "fpv5-d16"		)	{ return "-mfpu=fpv5-d16"		; }
-# elsif	($rawOption eq "fpv5-sp-d16"	)	{ return "-mfpu=fpv5-sp-d16"	; }
-# elsif	($rawOption eq "fp-armv8"		)	{ return "-mfpu=fp-armv8"		; }
-# elsif	($rawOption eq "neon-fp-armv8"	)	{ return "-mfpu=neon-fp-armv8"	; }
-# elsif	($rawOption eq "crypto-neon-fp-armv8"	)	{ return "-mfpu=crypto-neon-fp-armv8"	; }
+TXT
+}
+
+sub list_optimze
+{
+	print <<TXT;
+
+	List of supported code optimize level:
+		0		No optimized
+		1		Slightly optimized (default)
+		2		Moderate optimized
+		3		Highly optimized
+		s		Optimize for code side
+		fast	Optimize for code speed
+		g		Optimize for debugging experience
+
+TXT
+}
+
+sub get_default_cpu
+{
+	return "cortex-r52";
+}
+
+sub get_default_fpu
+{
+	return "vfpv3-fp16";
+}
+
+sub get_default_optimize
+{
+	return 1;
+}
 
 return 1;
+
+# as has following command-line options for the Renesas (formerly Hitachi) / SuperH SH family
+# --little				Generate little endian code.
+# --big					Generate big endian code.
+# --relax 				Alter jump instructions for long displacements.
+# --small				Align sections to 4 byte boundaries, not 16.
+# --dsp 				Enable sh-dsp insns, and disable sh3e / sh4 insns.
+# --renesas				Disable optimization with section symbol for compatibility with Renesas assembler.
+# --allow-reg-prefix	Allow $ as a register name prefix.
+# --fdpic 				Generate an FDPIC object file.
+# --isa=sh4 | sh4a		Specify the sh4 or sh4a instruction set.
+# --isa=dsp				Enable sh-dsp insns, and disable sh3e / sh4 insns.
+# --isa=fp 				Enable sh2e, sh3e, sh4, and sh4a insn sets.
+# --isa=all				Enable sh1, sh2, sh2e, sh3, sh3e, sh4, sh4a, and sh-dsp insn sets.
+# -h-tick-hex			Support H00 style hex constants in addition to 0x00 style.
