@@ -170,7 +170,7 @@ Trip_t * genTrips(Customer_t *customers, uint32_t customersCount)
         }
     }
 
-    return 0;
+    return trips;
 }
 
 Vehicle_t * getVehicles(uint32_t vehiclesCount, Customer_t *customers, uint32_t customersCount)
@@ -260,12 +260,10 @@ void displayTrips(Vehicle_t *vehicle)
     uint32_t i = vehicle->TripsCount;
     while(i-- > 0)
     {
-		printf("vehicle->Trips[i].Start = %d\n", vehicle->Trips[i].Start);
-        // printf("Trip: %d-->%d, Distance: %d, Weight: %d\n",
-        //        vehicle->Trips[i].Start,
-        //        vehicle->Trips[i].End,
-        //        vehicle->Trips[i].Distance,
-        //        vehicle->Trips[i].PackageWeight);
+        printf("%d-->%d\t", vehicle->Trips[i].Start, vehicle->Trips[i].End);
+        printf("Distance = %d\t", vehicle->Trips[i].Distance);
+        printf("PackageWeight = %d\t", vehicle->Trips[i].PackageWeight);
+        printf("X = %d\n", vehicle->Trips[i].X);
     }
 }
 
@@ -282,7 +280,11 @@ int main(void)
     customers = getCustomers(customersCount);
     vehicles = getVehicles(vehiclesCount, customers, customersCount);
 
-    displayTrips(&vehicles[0]);
+	k = vehiclesCount;
+	while(k-- > 0)
+	{
+    	displayTrips(&vehicles[k]);
+	}
 
     return 0;
 }
