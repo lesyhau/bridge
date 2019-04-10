@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 typedef struct __Trip
 {
@@ -35,21 +36,15 @@ typedef struct __Customer
     uint32_t    PackageWeight;
 } Customer_t;
 
-#define N   10
-#define K   7
+#define N   4
+#define K   3
 
 uint32_t DISTANCE[N][N] =
 {
-    { 0,    19, 82, 88, 39, 51, 61, 18, 96, 97 },
-    { 91,   0,  60, 73, 30, 17, 86, 18, 92, 96 },
-    { 60,   30, 0,  85, 39, 88, 95, 57, 70, 56 },
-    { 61,   28, 63, 0,  64, 65, 41, 80, 95, 34 },
-    { 15,   35, 22, 70, 0,  53, 37, 47, 34, 10 },
-    { 29,   55, 88, 56, 40, 0,  61, 65, 12, 11 },
-    { 34,   18, 52, 81, 47, 60, 0,  81, 99, 60 },
-    { 70,   16, 99, 17, 44, 68, 19, 0,  10, 37 },
-    { 85,   32, 32, 75, 29, 87, 19, 63, 0,  12 },
-    { 58,   17, 93, 23, 44, 56, 36, 93, 59, 0 }
+    { 0,    19, 82, 88 },
+    { 91,   0,  60, 73 },
+    { 60,   30, 0,  85 },
+    { 61,   28, 63, 0 }
 };
 
 Vehicle_t VEHICLES[K] =
@@ -83,46 +78,6 @@ Vehicle_t VEHICLES[K] =
          .Trips = NULL,
          .TripsCount = 0
         }
-    },
-    {
-        .MaxDistance = 30,
-        .MaxCapacity = 56575,
-        .Price = 76,
-        .Trips =
-        {
-         .Trips = NULL,
-         .TripsCount = 0
-        }
-    },
-    {
-        .MaxDistance = 10,
-        .MaxCapacity = 2131,
-        .Price = 12,
-        .Trips =
-        {
-         .Trips = NULL,
-         .TripsCount = 0
-        }
-    },
-    {
-        .MaxDistance = 50,
-        .MaxCapacity = 867,
-        .Price = 98,
-        .Trips =
-        {
-         .Trips = NULL,
-         .TripsCount = 0
-        }
-    },
-    {
-        .MaxDistance = 200,
-        .MaxCapacity = 13123,
-        .Price = 79,
-        .Trips =
-        {
-         .Trips = NULL,
-         .TripsCount = 0
-        }
     }
 };
 
@@ -143,51 +98,50 @@ Customer_t CUSTOMERS[N] =
     {
         .RelativeDistances = DISTANCE[3],
         .PackageWeight = 612
-    },
-    {
-        .RelativeDistances = DISTANCE[4],
-        .PackageWeight = 12312
-    },
-    {
-        .RelativeDistances = DISTANCE[5],
-        .PackageWeight = 8723
-    },
-    {
-        .RelativeDistances = DISTANCE[6],
-        .PackageWeight = 97
-    },
-    {
-        .RelativeDistances = DISTANCE[7],
-        .PackageWeight = 123
-    },
-    {
-        .RelativeDistances = DISTANCE[8],
-        .PackageWeight = 35376
-    },
-    {
-        .RelativeDistances = DISTANCE[9],
-        .PackageWeight = 1237
     }
 };
 
 Trip_t * genTrips(Customer_t *customers, uint32_t customersCount);
 Vehicle_t * getVehicles(uint32_t vehiclesCount, Customer_t *customers, uint32_t customersCount);
 Customer_t * getCustomers(uint32_t customersCount);
-void vehicles_CheckCapabilityIndividualTrip(Vehicle_t *vehicles, uint32_t vehiclesCount, Customer_t *customers, uint32_t customersCount);
-Trips_t * vehicle_GetStartTrips(Vehicle_t *vehicle);
 Trips_t * vehicle_GetNextTrips(Vehicle_t *vehicle, Trip_t *trip);
 bool vehicle_CheckDistanceLimitation(Vehicle_t *vehicle);
 bool vehicle_CheckCapacityLimitation(Vehicle_t *vehicle);
+void vehicles_CheckCapabilityIndividualTrip(Vehicle_t *vehicles, uint32_t vehiclesCount, Customer_t *customers, uint32_t customersCount);
 void vehicles_CheckValidTrips(Vehicle_t *vehicles, uint32_t vehiclesCount, Customer_t *customers, uint32_t customersCount);
 void vehicles_CheckUsable(Vehicle_t *vehicles, uint32_t vehiclesCount, Customer_t *customers, uint32_t customersCount);
-void displayTrips(Vehicle_t *vehicles, uint32_t vehiclesCount);
+void vehicle_DisplayTrips(Vehicle_t *vehicle);
+void vehicles_DisplayTrips(Vehicle_t *vehicles, uint32_t vehiclesCount);
 
 Vehicle_t *vehicles;
 Customer_t *customers;
 
+bool checkGeneral(Vehicle_t *vehicle, Trip_t *trip)
+{
+    uint32_t t = vehicle->Trips.TripsCount;
+    while(t-- > 0)
+    {
+        if (vehicle->Trips.Trips[t].X == 1)
+        {
+            if ((trip->Start == 0) &&
+                (trip->End == 0))
+            { return true; }
+
+            if ((vehicle->Trips.Trips[t].Start == trip->End) &&
+                (vehicle->Trips.Trips[t].End == trip->Start))
+            {
+                printf("Fail general: %d->%d, t = %d\n", trip->Start, trip->End, t);
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 int main(void)
 {
-    uint32_t i, j, k;
+    uint32_t i, j, k, t, c;
     uint32_t customersCount = N;
     uint32_t vehiclesCount = K;
 
@@ -195,27 +149,47 @@ int main(void)
     customers = getCustomers(customersCount);
     vehicles = getVehicles(vehiclesCount, customers, customersCount);
 
-    vehicles_CheckCapabilityIndividualTrip(vehicles, vehiclesCount, customers, customersCount);
-    vehicles_CheckValidTrips(vehicles, vehiclesCount, customers, customersCount);
-    vehicles_CheckUsable(vehicles, vehiclesCount, customers, customersCount);
+    Trips_t trips = vehicles[0].Trips;
+    c = pow(2, trips.TripsCount);
 
-    Trips_t * startTrips = vehicle_GetStartTrips(&vehicles[1]);
-    i = startTrips->TripsCount;
-    while(i-- > 0)
+    while(c-- > 0)
     {
-        printf("Trip: %d->%d\t", startTrips->Trips[i].Start, startTrips->Trips[i].End);
-		
-		Trips_t * nextTrips = vehicle_GetNextTrips(&vehicles[1], &startTrips->Trips[i]);
-		j = nextTrips->TripsCount;
-		while(j-- > 0)
-		{
-			printf("%d->%d\t", nextTrips->Trips[j].Start, nextTrips->Trips[j].End);
-		}
+        t = vehicles[0].Trips.TripsCount;
+        while(t-- > 0)
+        {
+            vehicles[0].Trips.Trips[t].X = (c & (1 << t)) >> t;
+            if ((vehicles[0].Trips.Trips[t].Start != 0) &&
+                (vehicles[0].Trips.Trips[t].Start == vehicles[0].Trips.Trips[t].End))
+            { vehicles[0].Trips.Trips[t].X = 0; }
+        }
+        vehicle_DisplayTrips(&vehicles[0]);
 
-		printf("\n");
+        /* Check general (2), (10) */
+        t = vehicles[0].Trips.TripsCount;
+        while(t-- > 0)
+        {
+            if (vehicles[0].Trips.Trips[t].X == 1)
+            {
+                if (! checkGeneral(&vehicles[0], &vehicles[0].Trips.Trips[t])) { break; }
+            }
+        }
     }
 
-    // displayTrips(vehicles, vehiclesCount);
+    // vehicles_CheckCapabilityIndividualTrip(vehicles, vehiclesCount, customers, customersCount);
+    // vehicles_CheckValidTrips(vehicles, vehiclesCount, customers, customersCount);
+    // vehicles_CheckUsable(vehicles, vehiclesCount, customers, customersCount);
+
+    // Trips_t * nextTrips;
+
+    // nextTrips = vehicle_GetNextTrips(&vehicles[1], NULL);
+    // i = nextTrips->TripsCount;
+    // while(i-- > 0) { printf("%d->%d\n", nextTrips->Trips[i].Start, nextTrips->Trips[i].End); }
+
+    // nextTrips = vehicle_GetNextTrips(&vehicles[1], &nextTrips->Trips[i]);
+    // i = nextTrips->TripsCount;
+    // while(i-- > 0) { printf("%d->%d\n", nextTrips->Trips[j].Start, nextTrips->Trips[j].End); }
+
+    // vehicles_DisplayTrips(vehicles, vehiclesCount);
 
     return 0;
 }
@@ -240,44 +214,29 @@ Trips_t * vehicle_GetNextTrips(Vehicle_t *vehicle, Trip_t *trip)
     {
         if (vehicle->Trips.Trips[i].X == 1)
         {
-            if (trip->End == vehicle->Trips.Trips[i].Start)
+            if (trip == NULL)
             {
-                trips->Trips[trips->TripsCount].Start			= vehicle->Trips.Trips[i].Start;
-                trips->Trips[trips->TripsCount].End				= vehicle->Trips.Trips[i].End;
-                trips->Trips[trips->TripsCount].Distance		= vehicle->Trips.Trips[i].Distance;
-                trips->Trips[trips->TripsCount].PackageWeight	= vehicle->Trips.Trips[i].PackageWeight;
-                trips->TripsCount++;
+                /* Find start trips */
+                if ((vehicle->Trips.Trips[i].Start == 0) && (vehicle->Trips.Trips[i].End != 0))
+                {
+                    trips->Trips[trips->TripsCount].Start			= vehicle->Trips.Trips[i].Start;
+                    trips->Trips[trips->TripsCount].End				= vehicle->Trips.Trips[i].End;
+                    trips->Trips[trips->TripsCount].Distance		= vehicle->Trips.Trips[i].Distance;
+                    trips->Trips[trips->TripsCount].PackageWeight	= vehicle->Trips.Trips[i].PackageWeight;
+                    trips->TripsCount++;
+                }
             }
-        }
-    }
-
-    return trips;
-}
-
-Trips_t * vehicle_GetStartTrips(Vehicle_t *vehicle)
-{
-    Trips_t * trips = calloc(1, sizeof(Trips_t));
-    trips->Trips = calloc(vehicle->Trips.TripsCount, sizeof(Trip_t));
-    trips->TripsCount = 0;
-
-    if ((trips == NULL) || (trips->Trips == NULL))
-    {
-        printf("E: Cannot allocate memory to get start trips\n");
-        return NULL;
-    }
-
-    uint32_t i = vehicle->Trips.TripsCount;
-    while(i-- > 0)
-    {
-        if (vehicle->Trips.Trips[i].X == 1)
-        {
-            if ((vehicle->Trips.Trips[i].Start == 0) && (vehicle->Trips.Trips[i].End != 0))
+            else
             {
-                trips->Trips[trips->TripsCount].Start			= vehicle->Trips.Trips[i].Start;
-                trips->Trips[trips->TripsCount].End				= vehicle->Trips.Trips[i].End;
-                trips->Trips[trips->TripsCount].Distance		= vehicle->Trips.Trips[i].Distance;
-                trips->Trips[trips->TripsCount].PackageWeight	= vehicle->Trips.Trips[i].PackageWeight;
-                trips->TripsCount++;
+                /* Find next trips */
+                if (trip->End == vehicle->Trips.Trips[i].Start)
+                {
+                    trips->Trips[trips->TripsCount].Start			= vehicle->Trips.Trips[i].Start;
+                    trips->Trips[trips->TripsCount].End				= vehicle->Trips.Trips[i].End;
+                    trips->Trips[trips->TripsCount].Distance		= vehicle->Trips.Trips[i].Distance;
+                    trips->Trips[trips->TripsCount].PackageWeight	= vehicle->Trips.Trips[i].PackageWeight;
+                    trips->TripsCount++;
+                }
             }
         }
     }
@@ -468,21 +427,21 @@ void vehicles_CheckUsable(Vehicle_t *vehicles, uint32_t vehiclesCount, Customer_
     }
 }
 
-void displayTrips(Vehicle_t *vehicles, uint32_t vehiclesCount)
+void vehicle_DisplayTrips(Vehicle_t *vehicle)
+{
+    uint32_t i = vehicle->Trips.TripsCount;
+    while(i-- > 0)
+    {
+        if(vehicle->Trips.Trips[i].X == 1)
+        {
+            printf("%d->%d, ", vehicle->Trips.Trips[i].Start, vehicle->Trips.Trips[i].End);
+        }
+    }
+    printf("\n");
+}
+
+void vehicles_DisplayTrips(Vehicle_t *vehicles, uint32_t vehiclesCount)
 {
     uint32_t k = vehiclesCount;
-    while(k-- > 0)
-    {
-        printf("Vehicle %d,\t", k);
-
-        uint32_t i = vehicles[k].Trips.TripsCount;
-        while(i-- > 0)
-        {
-            if(vehicles[k].Trips.Trips[i].X == 1)
-            {
-                printf("[%d %d],\t", vehicles[k].Trips.Trips[i].Start, vehicles[k].Trips.Trips[i].End);
-            }
-        }
-        printf("\n");
-    }
+    while(k-- > 0) { vehicle_DisplayTrips(&vehicles[k]); }
 }
